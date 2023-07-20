@@ -11,5 +11,9 @@ class AppRouter extends $AppRouter {
 
         // Home
         AutoRoute(page: HomeRoute.page, path: '/home'),
+
+        // Resume
+        AutoRoute(page: TemplateListingRoute.page, path: '/templates'),
+        AutoRoute(page: ResumePreviewRoute.page, path: '/resume/preview'),
       ];
 }
