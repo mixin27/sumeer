@@ -1,0 +1,16 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          explicit_to_json: true # for nested json objects
+      auto_route_generator:auto_route_generator: # this for @RoutePage
+        options:
+          enable_cached_builds: true
+        generate_for:
+          - lib/features/**_page.dart
+      auto_route_generator:auto_router_generator: # this for @AutoRouterConfig
+        options:
+          enable_cached_builds: true
+        generate_for:
+          - lib/shared/config/routes/**_router.dart
