@@ -1,0 +1,40 @@
+{
+  "freezed part import": {
+    "prefix": "ptf",
+    "body": ["part '${TM_FILENAME_BASE}.freezed.dart';", ""],
+    "description": "part import for freezed generated file"
+  },
+
+  "g part import": {
+    "prefix": "ptg",
+    "body": ["part '${TM_FILENAME_BASE}.g.dart';", ""],
+    "description": "part import for g generated file"
+  },
+
+  "gr part import": {
+    "prefix": "ptgr",
+    "body": ["part '${TM_FILENAME_BASE}.gr.dart';", ""],
+    "description": "part import for gr generated file"
+  },
+
+  "freezed import": {
+    "prefix": "fimp",
+    "body": [
+      "import 'package:freezed_annotation/freezed_annotation.dart';",
+      ""
+    ],
+    "description": "import freezed library and foundation"
+  },
+
+  "classfile": {
+    "prefix": "classfile",
+    "body": ["class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {", "\t$1", "}"],
+    "description": "Create a class with base file name and pascalcase"
+  },
+
+  "toJson": {
+    "prefix": "toJson",
+    "body": ["Map<String, dynamic> toJson() => _$$1ToJson(this);", ""],
+    "description": "Snippet for toJson"
+  }
+}
