@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 
-import 'package:sumeer/shared/shared.dart';
-
 @RoutePage()
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -13,17 +11,17 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    init();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   init();
+  // }
 
-  void init() async {
-    await Future.delayed(const Duration(milliseconds: 3000));
+  // void init() async {
+  //   await Future.delayed(const Duration(milliseconds: 3000));
 
-    if (mounted) context.router.replaceAll([const HomeRoute()]);
-  }
+  //   if (mounted) context.router.replaceAll([const MainRoute()]);
+  // }
 
   @override
   Widget build(BuildContext context) {
