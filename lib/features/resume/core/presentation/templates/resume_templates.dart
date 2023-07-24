@@ -47,4 +47,28 @@ const resumeTemplates = <ResumeTemplate>[
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate2,
   ),
+  ResumeTemplate(
+    'Resume Template 1',
+    'resume_template_1.dart',
+    'assets/images/templates/resume_template_1.jpg',
+    generateTemplate1,
+  ),
+  ResumeTemplate(
+    'Resume Template 2',
+    'resume_template_2.dart',
+    'assets/images/templates/resume_template_1.jpg',
+    generateTemplate2,
+  ),
+  ResumeTemplate(
+    'Resume Template 1',
+    'resume_template_1.dart',
+    'assets/images/templates/resume_template_1.jpg',
+    generateTemplate1,
+  ),
+  ResumeTemplate(
+    'Resume Template 2',
+    'resume_template_2.dart',
+    'assets/images/templates/resume_template_1.jpg',
+    generateTemplate2,
+  ),
 ];
