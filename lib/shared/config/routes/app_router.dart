@@ -8,11 +8,13 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         // Splash
         AutoRoute(page: SplashRoute.page, path: '/'),
+        AutoRoute(page: OnboardingRoute.page),
         AutoRoute(
           page: MainRoute.page,
           path: '/main',
           children: [
             // Home
+            /// sub route should not start wiht "/"
             AutoRoute(page: HomeRoute.page, path: 'home'),
             AutoRoute(page: TemplatesRoute.page, path: 'templates'),
             AutoRoute(page: AccountRoute.page, path: 'account'),
