@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "604374980802",
+    "project_id": "sumeer-flutter",
+    "storage_bucket": "sumeer-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604374980802:android:0f03a30f20aad05cc5435b",
+        "android_client_info": {
+          "package_name": "com.systematic.sumeer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604374980802-hkusiq6ullb0o1ral3g2grbe2l4k6pt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqRccira3mYvuhfdOkJcfD5kiRYiChPI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "604374980802-hkusiq6ullb0o1ral3g2grbe2l4k6pt9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
