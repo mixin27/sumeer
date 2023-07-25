@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
+import 'package:sumeer/features/resume/core/presentation/templates/resume_template_3.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
@@ -48,10 +49,10 @@ const resumeTemplates = <ResumeTemplate>[
     generateTemplate2,
   ),
   ResumeTemplate(
-    'Resume Template 1',
-    'resume_template_1.dart',
+    'Resume Template 3',
+    'resume_template_3.dart',
     'assets/images/templates/resume_template_1.jpg',
-    generateTemplate1,
+    generateTemplate3,
   ),
   ResumeTemplate(
     'Resume Template 2',
