@@ -1,4 +1,4 @@
-name: Android Release Develop
+name: Flutter CI Android
 
 on:
   push:
@@ -21,7 +21,15 @@ jobs:
         with:
           channel: "stable"
           # flutter-version: "3.7.7"
+          cache: true
       - run: flutter pub get
+      - run: dart run build_runner build -d
       # - run: flutter test
       - run: flutter build apk
       - run: flutter build appbundle
+
+      # Upload generated apk to the artifacts.
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
