@@ -15,5 +15,12 @@ class AppRouter extends $AppRouter {
         // Resume
         AutoRoute(page: TemplateListingRoute.page, path: '/templates'),
         AutoRoute(page: ResumePreviewRoute.page, path: '/resume/preview'),
+
+        //data_input
+        AutoRoute(page: DetailRoute.page, path: '/detail_page'),
+
+        //personal_detail
+        AutoRoute(
+            page: PersonalDetailRoute.page, path: '/edit_personal_detail'),
       ];
 }
