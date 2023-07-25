@@ -53,7 +53,7 @@ class AppWidget extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Sumeer',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF407BFF)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
 
         // Input
