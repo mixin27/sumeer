@@ -1,6 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
 import 'package:sumeer/shared/shared.dart';
 
 @RoutePage()

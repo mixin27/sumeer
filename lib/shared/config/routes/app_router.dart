@@ -24,5 +24,9 @@ class AppRouter extends $AppRouter {
         // Resume
         AutoRoute(page: TemplateListingRoute.page, path: '/template_list'),
         AutoRoute(page: ResumePreviewRoute.page, path: '/resume/preview'),
+
+        // Auth
+        AutoRoute(page: SignInRoute.page, path: '/auth/sign-in'),
+        AutoRoute(page: SignUpRoute.page, path: '/auth/sign-up'),
       ];
 }

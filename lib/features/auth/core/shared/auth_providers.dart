@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:sumeer/features/auth/core/domain/user_model.dart';
 import 'package:sumeer/features/auth/core/infrastructure/auth_repository.dart';
 import 'package:sumeer/features/auth/core/infrastructure/auth_service.dart';

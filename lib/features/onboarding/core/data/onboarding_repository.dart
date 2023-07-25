@@ -1,5 +1,6 @@
-import 'package:sumeer/features/onboarding/core/data/onboarding_local_service.dart';
 import 'package:dartz/dartz.dart';
+
+import 'package:sumeer/features/onboarding/core/data/onboarding_local_service.dart';
 
 class OnboardingRepository {
   final OnboardingLocalService _localService;

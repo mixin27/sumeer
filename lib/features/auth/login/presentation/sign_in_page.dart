@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/features/auth/feat_auth.dart';
-import 'package:sumeer/shared/providers/firebase_providers.dart';
+
+import 'widgets/sign_in_form.dart';
 
 @RoutePage()
 class SignInPage extends HookConsumerWidget {
@@ -11,42 +11,31 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authProviders = ref.watch(authProvidersProvider);
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign In'),
-      ),
-      body: SignInScreen(
-        providers: authProviders,
-        footerBuilder: (context, action) => const SignInFooter(),
-      ),
-    );
-  }
-}
-
-class SignInFooter extends HookConsumerWidget {
-  const SignInFooter({super.key});
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        const SizedBox(height: 8.0),
-        const Row(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            Expanded(child: Divider()),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text('or'),
+            const SizedBox(height: 64),
+            const CircleAvatar(
+              radius: 45,
+              child: Text('Logo'),
             ),
-            Expanded(child: Divider()),
+            const SizedBox(height: 20),
+            Text(
+              'Login',
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: SignInForm(),
+            ),
           ],
         ),
-        TextButton(
-          onPressed: () => ref.read(firebaseAuthProvider).signInAnonymously(),
-          child: const Text('Sign in anonymously'),
-        ),
-      ],
+      ),
     );
   }
 }

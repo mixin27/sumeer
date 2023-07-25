@@ -1,6 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:onboarding_animation/onboarding_animation.dart';
+
 import 'package:sumeer/shared/shared.dart';
 
 @RoutePage()

@@ -24,6 +24,7 @@ dependencies:
   shared_preferences: ^2.2.0
   loading_animation_widget: ^1.2.0+4
   flutter_dotenv: ^5.1.0
+  form_field_validator: ^1.1.0
 
   pdf: ^3.10.4
   pdf_render: ^1.4.0
