@@ -11,10 +11,11 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 64),
+            const SizedBox(height: 20),
             const CircleAvatar(
               radius: 45,
               child: Text('Logo'),

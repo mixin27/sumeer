@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/features/auth/sign_up/shared/sign_up_providers.dart';
 
+import 'package:sumeer/features/auth/sign_up/shared/sign_up_providers.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
 
@@ -26,6 +26,51 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final passwordVisible = ref.watch(signUpPasswordVisibleProvider);
+
+    ref.listen(signUpNotifierProvider, (previous, next) {
+      next.maybeMap(
+        orElse: () {},
+        loading: (_) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return const AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Creating an account'),
+                    SizedBox(height: 10),
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+        success: (_) {
+          context.router.pop();
+        },
+        error: (_) {
+          context.router.pop().then((value) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Sign Up Failed'),
+                  content: Text(_.error),
+                );
+              },
+            );
+          });
+        },
+      );
+    });
 
     return Form(
       key: _formKey,
@@ -123,6 +168,10 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                 if (_formKey.currentState!.validate()) {
                   dLog('Email: ${_emailController.text.trim()}');
                   dLog('Password: ${_passwordController.text.trim()}');
+
+                  ref.read(signUpNotifierProvider.notifier).signUp(
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim());
                 }
               },
               style: FilledButton.styleFrom(

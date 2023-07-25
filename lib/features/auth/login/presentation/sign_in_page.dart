@@ -12,10 +12,11 @@ class SignInPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 64),
+            const SizedBox(height: 20),
             const CircleAvatar(
               radius: 45,
               child: Text('Logo'),

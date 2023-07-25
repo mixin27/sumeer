@@ -12,4 +12,34 @@ class AuthService {
   Future<void> signInAnonymously() {
     return _auth.signInAnonymously();
   }
+
+  Future<UserCredential> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      return userCredential;
+    } on FirebaseAuthException {
+      rethrow;
+    }
+  }
+
+  Future<UserCredential> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return userCredential;
+    } on FirebaseAuthException {
+      rethrow;
+    }
+  }
 }

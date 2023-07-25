@@ -28,6 +28,51 @@ class _SignInFormState extends ConsumerState<SignInForm> {
   Widget build(BuildContext context) {
     final passwordVisible = ref.watch(passwordVisibleProvider);
 
+    ref.listen(signInNotifierProvider, (previous, next) {
+      next.maybeMap(
+        orElse: () {},
+        loading: (_) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return const AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Logging in'),
+                    SizedBox(height: 10),
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+        success: (_) {
+          context.router.popAndPush(const MainRoute());
+        },
+        error: (_) {
+          context.router.pop().then((value) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Login Failed'),
+                  content: Text(_.error),
+                );
+              },
+            );
+          });
+        },
+      );
+    });
+
     return Form(
       key: _formKey,
       child: Column(
@@ -91,6 +136,10 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                 if (_formKey.currentState!.validate()) {
                   dLog('Email: ${_emailController.text.trim()}');
                   dLog('Password: ${_passwordController.text.trim()}');
+
+                  ref.read(signInNotifierProvider.notifier).login(
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim());
                 }
               },
               style: FilledButton.styleFrom(
