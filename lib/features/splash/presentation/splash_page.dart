@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   void init() async {
     await Future.delayed(const Duration(milliseconds: 3000));
 
-    if (mounted) context.router.replaceAll([const HomeRoute()]);
+    if (mounted) context.router.replaceAll([const SignInRoute()]);
   }
 
   @override
