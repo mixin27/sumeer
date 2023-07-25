@@ -21,6 +21,7 @@ jobs:
         with:
           channel: "stable"
           # flutter-version: "3.7.7"
+          cache: true
       - run: flutter pub get
       # - run: flutter test
       - run: flutter build apk
