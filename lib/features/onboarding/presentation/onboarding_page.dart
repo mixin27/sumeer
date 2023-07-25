@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:onboarding_animation/onboarding_animation.dart';
 
 import 'package:sumeer/shared/shared.dart';
-
 import '../onboarding_feat.dart';
 
 @RoutePage()

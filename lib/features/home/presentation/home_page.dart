@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:sumeer/shared/constants/asset_paths.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:sumeer/features/auth/feat_auth.dart';
+import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
 
 @RoutePage()
@@ -32,14 +36,56 @@ class _HomePageState extends State<HomePage> {
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
                   ),
-                  FilledButton.icon(
-                    onPressed: () {},
-                    style: FilledButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                      foregroundColor: Theme.of(context).colorScheme.primary,
-                    ),
-                    icon: const Icon(Icons.login),
-                    label: const Text('Login'),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final authStateChanges =
+                          ref.watch(authStateChangesProvider);
+
+                      return authStateChanges.when(
+                        data: (data) {
+                          if (data != null) {
+                            return FilledButton.icon(
+                              onPressed: () async {
+                                await ref
+                                    .read(authRepositoryProvider)
+                                    .signOut();
+
+                                // if (mounted) {
+                                //   context.router.push(const SignInRoute());
+                                // }
+                              },
+                              style: FilledButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                foregroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                              icon: const Icon(Icons.login),
+                              label: const Text('Sign Out'),
+                            );
+                          } else {
+                            return FilledButton.icon(
+                              onPressed: () {
+                                context.router.push(const SignInRoute());
+                              },
+                              style: FilledButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                foregroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                              icon: const Icon(Icons.login),
+                              label: const Text('Login'),
+                            );
+                          }
+                        },
+                        error: (error, stackTrace) {
+                          eLog(error.toString());
+                          return const SizedBox();
+                        },
+                        loading: () => const CircularProgressIndicator(),
+                      );
+                    },
                   ),
                 ],
               ),
