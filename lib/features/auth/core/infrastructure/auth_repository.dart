@@ -56,4 +56,6 @@ class AuthRepository {
       return left(e.message ?? e.toString());
     }
   }
+
+  Future<void> signOut() async => _authService.signOut();
 }

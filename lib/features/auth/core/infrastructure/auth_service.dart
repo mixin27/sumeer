@@ -42,4 +42,8 @@ class AuthService {
       rethrow;
     }
   }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }

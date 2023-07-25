@@ -20,35 +20,35 @@ class AppWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(initializationProvider, (previous, next) {});
-    // ref.listen<OnboardingState>(
-    //   onboardingNotifierProvider,
-    //   (previous, state) {
-    //     state.maybeWhen(
-    //       orElse: () {},
-    //       done: (toMain) {
-    //         print('toMain : $toMain');
-    //         // if (toMain != null && toMain) {
-    //         Future.delayed(Duration(seconds: toMain == true ? 2 : 0))
-    //             .then((value) {
-    //           _appRouter.pushAndPopUntil(
-    //             const MainRoute(),
-    //             predicate: (_) => false,
-    //           );
-    //         });
-    //         // }
-    //       },
-    //       notYet: () {
-    //         print('toMain : notYet state');
-    //         Future.delayed(const Duration(seconds: 3)).then(
-    //           (value) => _appRouter.pushAndPopUntil(
-    //             const OnboardingRoute(),
-    //             predicate: (_) => false,
-    //           ),
-    //         );
-    //       },
-    //     );
-    //   },
-    // );
+    ref.listen<OnboardingState>(
+      onboardingNotifierProvider,
+      (previous, state) {
+        state.maybeWhen(
+          orElse: () {},
+          done: (toMain) {
+            print('toMain : $toMain');
+            // if (toMain != null && toMain) {
+            Future.delayed(Duration(seconds: toMain == true ? 2 : 0))
+                .then((value) {
+              _appRouter.pushAndPopUntil(
+                const MainRoute(),
+                predicate: (_) => false,
+              );
+            });
+            // }
+          },
+          notYet: () {
+            print('toMain : notYet state');
+            Future.delayed(const Duration(seconds: 3)).then(
+              (value) => _appRouter.pushAndPopUntil(
+                const OnboardingRoute(),
+                predicate: (_) => false,
+              ),
+            );
+          },
+        );
+      },
+    );
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Sumeer',
