@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:flutter/material.dart';
+
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 
 class PersonalDetailCard extends StatelessWidget {

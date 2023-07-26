@@ -225,14 +225,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.0"
-  cli_util:
-    dependency: transitive
-    description:
-      name: cli_util
-      sha256: b8db3080e59b2503ca9e7922c3df2072cf13992354d5e944074ffa836fba43b7
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   circular_profile_avatar:
     dependency: "direct main"
     description:
@@ -241,6 +233,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
+  cli_util:
+    dependency: transitive
+    description:
+      name: cli_util
+      sha256: b8db3080e59b2503ca9e7922c3df2072cf13992354d5e944074ffa836fba43b7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   clock:
     dependency: transitive
     description:
@@ -933,14 +933,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  onboarding_animation:
-    dependency: "direct main"
-    description:
-      name: onboarding_animation
-      sha256: a64725a3c0d64e197c09cd53a53569bb3f3735f55325e724a5b1fa60b28c54bd
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   octo_image:
     dependency: transitive
     description:
@@ -949,6 +941,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  onboarding_animation:
+    dependency: "direct main"
+    description:
+      name: onboarding_animation
+      sha256: a64725a3c0d64e197c09cd53a53569bb3f3735f55325e724a5b1fa60b28c54bd
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   package_config:
     dependency: transitive
     description:

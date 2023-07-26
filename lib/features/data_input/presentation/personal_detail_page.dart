@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:intl/intl.dart';
+
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
-
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 
