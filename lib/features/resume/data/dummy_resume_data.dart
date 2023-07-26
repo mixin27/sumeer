@@ -25,6 +25,9 @@ Future<ResumeData> getDummyResumeData() async {
         ),
       ],
     ),
+    profile: const ProfileSection(title: "Profile", contents: [
+      'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
+    ]),
     experience: ExperienceSection(
       title: 'Work Experience',
       experiences: [

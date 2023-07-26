@@ -175,7 +175,9 @@ class _HomePageState extends State<HomePage> {
       children: [
         ///
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(const DetailRoute());
+          },
           style: FilledButton.styleFrom(
             elevation: 2,
             shape: RoundedRectangleBorder(
