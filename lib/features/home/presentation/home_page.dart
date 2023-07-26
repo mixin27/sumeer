@@ -189,7 +189,9 @@ class _HomePageState extends State<HomePage> {
           label: const Text('Create New\n CV form'),
         ),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(const PersonalDetailRoute());
+          },
           style: FilledButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20), // <-- Radius

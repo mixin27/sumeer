@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/utils.dart';
 import 'features/onboarding/onboarding_feat.dart';
 
 final initializationProvider = FutureProvider<Unit>((ref) async {
@@ -26,7 +27,7 @@ class AppWidget extends ConsumerWidget {
         state.maybeWhen(
           orElse: () {},
           done: (toMain) {
-            print('toMain : $toMain');
+            dLog('toMain : $toMain');
             // if (toMain != null && toMain) {
             Future.delayed(Duration(seconds: toMain == true ? 2 : 0))
                 .then((value) {
@@ -38,7 +39,7 @@ class AppWidget extends ConsumerWidget {
             // }
           },
           notYet: () {
-            print('toMain : notYet state');
+            dLog('toMain : notYet state');
             Future.delayed(const Duration(seconds: 3)).then(
               (value) => _appRouter.pushAndPopUntil(
                 const OnboardingRoute(),

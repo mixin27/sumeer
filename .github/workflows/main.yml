@@ -24,8 +24,8 @@ jobs:
           cache: true
       - run: flutter pub get
       - run: dart format --set-exit-if-changed .
-      - run: flutter analyze .
       - run: dart run build_runner build -d
+      - run: flutter analyze .
       # - run: flutter test
       - run: flutter build apk
       - run: flutter build appbundle
