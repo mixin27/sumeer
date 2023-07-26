@@ -10,6 +10,12 @@ class AuthRepository {
 
   AuthRepository(this._authService);
 
+  UserEntity? get currentUser => _authService.currentUser != null
+      ? UserEntity(
+          uid: _authService.currentUser!.uid,
+          email: _authService.currentUser!.email ?? '')
+      : null;
+
   Stream<UserEntity?> authStateChanges() =>
       _authService.authStateChanges().map((event) => event != null
           ? UserEntity(uid: event.uid, email: event.email ?? '')

@@ -27,6 +27,7 @@ Future<Uint8List> generateTemplate3(
   final pageTheme = await _pageTheme(format);
 
   doc.addPage(pw.Page(
+    pageTheme: pageTheme,
     build: (context) {
       return pw.Partition(
           child: pw.Row(children: [
