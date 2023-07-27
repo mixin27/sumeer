@@ -17,13 +17,24 @@ class CVModel with _$CVModel {
 
 @freezed
 class UserProfile with _$UserProfile {
-  const factory UserProfile(
-    final String name,
-    final String phone,
-    final String email,
-    final String address,
-    final String position,
-  ) = _UserProfile;
+  const factory UserProfile({
+    required String image,
+    required String name,
+    required String jobTitle,
+    required String email,
+    required String phone,
+    required String address,
+    required String dOB,
+    required String gender,
+    required String nationality,
+    required String passport,
+    required String maritalStatus,
+    required String drivingLicense,
+    required String website,
+    required String linkIn,
+    required String gitHub,
+    required String skype,
+  }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);
@@ -31,12 +42,14 @@ class UserProfile with _$UserProfile {
 
 @freezed
 class UserExperience with _$UserExperience {
-  const factory UserExperience(
-    final String position,
-    final String company,
-    final String year,
-    final String jobDescription,
-  ) = _UserExperience;
+  const factory UserExperience({
+    required String employer,
+    required String jobTitle,
+    required String city,
+    required String startDate,
+    required String endDate,
+    required String description,
+  }) = _UserExperience;
 
   factory UserExperience.fromJson(Map<String, dynamic> json) =>
       _$UserExperienceFromJson(json);
@@ -44,10 +57,13 @@ class UserExperience with _$UserExperience {
 
 @freezed
 class UserEducation with _$UserEducation {
-  const factory UserEducation(
-    final String degree,
-    final String year,
-  ) = _UserEducation;
+  const factory UserEducation({
+    required String degree,
+    required String school,
+    required String city,
+    required String startDate,
+    required String endDate,
+  }) = _UserEducation;
 
   factory UserEducation.fromJson(Map<String, dynamic> json) =>
       _$UserEducationFromJson(json);
@@ -55,10 +71,11 @@ class UserEducation with _$UserEducation {
 
 @freezed
 class UserSkill with _$UserSkill {
-  const factory UserSkill(
-    final String title,
-    final String level,
-  ) = _UserSkill;
+  const factory UserSkill({
+    required String skill,
+    required String info,
+    required String level,
+  }) = _UserSkill;
 
   factory UserSkill.fromJson(Map<String, dynamic> json) =>
       _$UserSkillFromJson(json);
