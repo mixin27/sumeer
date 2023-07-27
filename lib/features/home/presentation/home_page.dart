@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
         ),
         ElevatedButton.icon(
           onPressed: () {
-            context.router.push(const PersonalDetailRoute());
+            context.router.push(const DetailRoute());
           },
           style: FilledButton.styleFrom(
             shape: RoundedRectangleBorder(
