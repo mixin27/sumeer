@@ -261,10 +261,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                   SizedBox(width: 6),
                                   Expanded(
                                       child: Text(
-                                    "Logout",
+                                    "Sign Out",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
                                   )),
                                   Icon(Icons.arrow_forward_ios,
                                       size: 16, color: Colors.grey),
