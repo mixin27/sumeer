@@ -53,6 +53,13 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
 
   @override
   Widget build(BuildContext context) {
+    final resTemplates = resumeTemplates
+        .where((element) => element.type == DocumentType.resume)
+        .toList();
+    final cvTemplates = resumeTemplates
+        .where((element) => element.type == DocumentType.cv)
+        .toList();
+
     return DefaultTabController(
       length: 3,
       initialIndex: initialIndex ?? 0,
@@ -161,9 +168,9 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                           mainAxisSpacing: 0,
                           childAspectRatio: 13.5 / 20,
                         ),
-                        itemCount: resumeTemplates.length,
+                        itemCount: cvTemplates.length,
                         itemBuilder: (context, index) {
-                          final template = resumeTemplates[index];
+                          final template = cvTemplates[index];
 
                           return InkWell(
                             onTap: () {
@@ -201,9 +208,9 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                           mainAxisSpacing: 0,
                           childAspectRatio: 13.5 / 20,
                         ),
-                        itemCount: resumeTemplates.length,
+                        itemCount: resTemplates.length,
                         itemBuilder: (context, index) {
-                          final template = resumeTemplates[index];
+                          final template = resTemplates[index];
 
                           return InkWell(
                             onTap: () {
