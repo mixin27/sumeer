@@ -13,6 +13,8 @@ typedef LayoutCallbackWithData = Future<Uint8List> Function(
   ResumeData resumeData,
 );
 
+enum DocumentType { resume, cv }
+
 class ResumeTemplate {
   /// Template name
   final String name;
@@ -26,13 +28,16 @@ class ResumeTemplate {
 
   final bool needsData;
 
+  final DocumentType type;
+
   const ResumeTemplate(
     this.name,
     this.file,
     this.thumbnail,
-    this.builder, [
+    this.builder, {
     this.needsData = false,
-  ]);
+    this.type = DocumentType.resume,
+  });
 }
 
 const resumeTemplates = <ResumeTemplate>[
@@ -41,35 +46,41 @@ const resumeTemplates = <ResumeTemplate>[
     'resume_template_1.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate1,
+    type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 2',
     'resume_template_2.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate2,
+    type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 3',
     'resume_template_3.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate3,
+    type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 2',
     'resume_template_2.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate2,
+    type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 1',
     'resume_template_1.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate1,
+    type: DocumentType.cv,
   ),
   ResumeTemplate(
     'Resume Template 2',
     'resume_template_2.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate2,
+    type: DocumentType.resume,
   ),
 ];
