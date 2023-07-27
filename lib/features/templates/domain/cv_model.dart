@@ -4,12 +4,12 @@ part 'cv_model.freezed.dart';
 
 @freezed
 class CVModel with _$CVModel {
-  const factory CVModel(
-    final UserProfile profile,
-    final List<UserExperience> experiences,
-    final List<UserSkill> skills,
-    final List<UserEducation> educations,
-  ) = _CVModel;
+  const factory CVModel({
+    UserProfile? profile,
+    List<UserExperience>? experiences,
+    List<UserSkill>? skills,
+    List<UserEducation>? educations,
+  }) = _CVModel;
 
   factory CVModel.fromJson(Map<String, dynamic> json) =>
       _$CVModelFromJson(json);
@@ -24,16 +24,16 @@ class UserProfile with _$UserProfile {
     required String email,
     required String phone,
     required String address,
-    required String dOB,
-    required String gender,
-    required String nationality,
-    required String passport,
-    required String maritalStatus,
-    required String drivingLicense,
-    required String website,
-    required String linkIn,
-    required String gitHub,
-    required String skype,
+    String? dOB,
+    String? gender,
+    String? nationality,
+    String? passport,
+    String? maritalStatus,
+    String? drivingLicense,
+    String? website,
+    String? linkIn,
+    String? gitHub,
+    String? skype,
   }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
