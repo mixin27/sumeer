@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
+import '../../features.dart';
+
+import 'package:pdf/widgets.dart' as pw;
 
 @RoutePage()
-class PersonalDetailPage extends StatefulWidget {
+class PersonalDetailPage extends ConsumerStatefulWidget {
   const PersonalDetailPage({super.key});
 
   @override
-  State<PersonalDetailPage> createState() => _PersonalDetailPageState();
+  ConsumerState<PersonalDetailPage> createState() => _PersonalDetailPageState();
 }
 
-class _PersonalDetailPageState extends State<PersonalDetailPage> {
+class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
+  final fullNameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  final jobTitleController = TextEditingController();
+  final emailController = TextEditingController();
   final dayofDOBController = TextEditingController();
   final monthofDOBController = TextEditingController();
   final yearofDOBController = TextEditingController();
@@ -41,6 +52,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   final skypeController = TextEditingController();
   final skypeFocusNode = FocusNode();
 
+  final ImagePicker _picker = ImagePicker();
+
   String _selectedDateStr = "";
   DateTime? _selectedDate;
   bool _isAddGender = false;
@@ -52,6 +65,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   bool _isAddLinkIn = false;
   bool _isAddGithub = false;
   bool _isAddSkype = false;
+
+  Uint8List? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -70,15 +85,24 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                   alignment: Alignment.center,
                   child: Stack(
                     children: [
-                      CircularProfileAvatar(
-                        '',
-                        radius: 60,
-                        child: Icon(
-                          Icons.camera_alt,
-                          color: Colors.grey.withOpacity(0.3),
-                          size: 50,
-                        ),
-                      ),
+                      _image == null
+                          ? CircularProfileAvatar(
+                              '',
+                              radius: 60,
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Colors.grey.withOpacity(0.3),
+                                size: 50,
+                              ),
+                            )
+                          : CircularProfileAvatar(
+                              '',
+                              radius: 60,
+                              child: Image.memory(
+                                _image!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                       Positioned(
                         right: 1,
                         bottom: 2,
@@ -86,7 +110,13 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                           width: 38,
                           height: 38,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              Uint8List imageFile =
+                                  await pickImage(ImageSource.gallery);
+                              setState(() {
+                                _image = imageFile;
+                              });
+                            },
                             child: CircleAvatar(
                               backgroundColor: Theme.of(context)
                                   .colorScheme
@@ -104,20 +134,27 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                     ],
                   ),
                 ),
-                const TextInputFieldWidget(
+                TextInputFieldWidget(
                   title: "Full Name",
+                  controller: fullNameController,
                 ),
-                const TextInputFieldWidget(
+                TextInputFieldWidget(
                   title: "Job title",
+                  controller: jobTitleController,
                 ),
-                const TextInputFieldWidget(
+                TextInputFieldWidget(
                   title: "Email",
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                const TextInputFieldWidget(
+                TextInputFieldWidget(
                   title: "Phone no",
+                  controller: phoneController,
+                  keyboardType: TextInputType.phone,
                 ),
-                const TextInputFieldWidget(
+                TextInputFieldWidget(
                   title: "Address",
+                  controller: addressController,
                 ),
                 const SizedBox(
                   height: 10,
@@ -630,8 +667,71 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           ),
         ),
       ),
-      bottomSheet: const SizedBox(height: 80, child: SaveBottomSheetWidget()),
+      bottomSheet: SizedBox(
+          height: 80,
+          child: SaveBottomSheetWidget(
+            onTap: () {
+              savePersonalDetail();
+              context.router.pop();
+            },
+          )),
     );
+  }
+
+  void savePersonalDetail() async {
+    var personalDetail = PersonalDetailSection(
+      fullName: fullNameController.text,
+      jobTitle: jobTitleController.text,
+      email: emailController.text,
+      phone: phoneController.text,
+      address: addressController.text,
+      personalInfo: PersonalInformation(
+        dateOfBirth: _selectedDateStr,
+      ),
+      links: [
+        PersonalLink(
+          name: 'GitHub',
+          url: githubController.text,
+        ),
+        PersonalLink(
+          name: 'Website',
+          url: websiteController.text,
+        ),
+        PersonalLink(
+          name: 'Skype',
+          url: skypeController.text,
+        ),
+        PersonalLink(
+          name: 'LinkedIn',
+          url: linkInController.text,
+        ),
+      ],
+    );
+
+    ref.read(resumeDataProvider.notifier).state = ResumeData(
+      profileImage: _image == null
+          ? ref.watch(resumeDataProvider)?.profileImage
+          : pw.MemoryImage(_image!),
+      personalDetail: personalDetail,
+      profile: const ProfileSection(
+        title: "Profile",
+        contents: [
+          'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
+        ],
+      ),
+      education: ref.watch(resumeDataProvider)?.education,
+      project: ref.watch(resumeDataProvider)?.project,
+      experience: ref.watch(resumeDataProvider)?.experience,
+    );
+  }
+
+  /// Get from gallery
+  pickImage(ImageSource source) async {
+    XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (file != null) {
+      return await file.readAsBytes();
+    }
   }
 
   void _showDatePicker(BuildContext context) {
