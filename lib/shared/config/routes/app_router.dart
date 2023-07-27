@@ -36,5 +36,7 @@ class AppRouter extends $AppRouter {
           page: PersonalDetailRoute.page,
           path: '/edit_personal_detail',
         ),
+
+        AutoRoute(page: ProfileRoute.page, path: '/profile'),
       ];
 }
