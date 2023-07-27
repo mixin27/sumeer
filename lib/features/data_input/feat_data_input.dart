@@ -11,3 +11,5 @@ export 'presentation/widget/add_education_form.dart';
 export 'presentation/widget/add_professional_experience.dart';
 export 'presentation/widget/add_skill_form.dart';
 export 'presentation/widget/add_profile_form.dart';
+
+export 'shared/form_provider.dart';
