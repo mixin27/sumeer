@@ -37,7 +37,9 @@ class TextInputFieldWidget extends StatelessWidget {
     this.title = "",
     this.hintText = "",
     this.inputFormatters,
+    this.autovalidateMode,
   });
+  final AutovalidateMode? autovalidateMode;
   final TextEditingController? controller;
   final String? initialValue;
   final String title;
@@ -88,6 +90,7 @@ class TextInputFieldWidget extends StatelessWidget {
                 )
               : const SizedBox(),
           TextFormField(
+            autovalidateMode: autovalidateMode,
             controller: controller,
             initialValue: initialValue,
             obscureText: obscureText,

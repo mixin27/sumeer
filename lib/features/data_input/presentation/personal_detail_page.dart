@@ -1,24 +1,44 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
+import 'package:uuid/uuid.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
+import '../../features.dart';
+
+import 'package:pdf/widgets.dart' as pw;
+
+import '../../templates/domain/cv_model.dart';
+import '../infrastructure/firebase_function.dart';
 
 @RoutePage()
-class PersonalDetailPage extends StatefulWidget {
+class PersonalDetailPage extends ConsumerStatefulWidget {
   const PersonalDetailPage({super.key});
 
   @override
-  State<PersonalDetailPage> createState() => _PersonalDetailPageState();
+  ConsumerState<PersonalDetailPage> createState() => _PersonalDetailPageState();
 }
 
-class _PersonalDetailPageState extends State<PersonalDetailPage> {
+class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
+  final formKey = GlobalKey<FormState>();
+  final fullNameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  final jobTitleController = TextEditingController();
+  final emailController = TextEditingController();
   final dayofDOBController = TextEditingController();
   final monthofDOBController = TextEditingController();
   final yearofDOBController = TextEditingController();
@@ -41,6 +61,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   final skypeController = TextEditingController();
   final skypeFocusNode = FocusNode();
 
+  final ImagePicker _picker = ImagePicker();
+
   String _selectedDateStr = "";
   DateTime? _selectedDate;
   bool _isAddGender = false;
@@ -52,6 +74,33 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   bool _isAddLinkIn = false;
   bool _isAddGithub = false;
   bool _isAddSkype = false;
+  String imageId = '';
+  String? imageUrl;
+
+  Uint8List? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    setData();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      final profile = ref.watch(userProfileProvider);
+      if (profile != null) {
+        fullNameController.text = profile.name;
+        phoneController.text = profile.phone;
+        addressController.text = profile.address;
+        jobTitleController.text = profile.jobTitle;
+        emailController.text = profile.email;
+        imageUrl = profile.image ?? '';
+      } else {
+        imageId = const Uuid().v4();
+      }
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,573 +114,706 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Column(children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Stack(
-                    children: [
-                      CircularProfileAvatar(
-                        '',
-                        radius: 60,
-                        child: Icon(
-                          Icons.camera_alt,
-                          color: Colors.grey.withOpacity(0.3),
-                          size: 50,
-                        ),
-                      ),
-                      Positioned(
-                        right: 1,
-                        bottom: 2,
-                        child: SizedBox(
-                          width: 38,
-                          height: 38,
-                          child: InkWell(
-                            onTap: () {},
-                            child: CircleAvatar(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.7),
-                              child: Icon(
-                                Icons.drive_file_rename_outline,
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                size: 18,
-                              ),
+              child: Form(
+                key: formKey,
+                child: Column(children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Stack(
+                      children: [
+                        CircularProfileAvatar(
+                          '',
+                          radius: 60,
+                          child: CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            imageUrl: imageUrl ?? '',
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(
+                                        value: downloadProgress.progress),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.camera_alt,
+                              color: Colors.grey.withOpacity(0.3),
+                              size: 50,
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                const TextInputFieldWidget(
-                  title: "Full Name",
-                ),
-                const TextInputFieldWidget(
-                  title: "Job title",
-                ),
-                const TextInputFieldWidget(
-                  title: "Email",
-                ),
-                const TextInputFieldWidget(
-                  title: "Phone no",
-                ),
-                const TextInputFieldWidget(
-                  title: "Address",
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Personal Information",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Visibility(
-                  visible: _selectedDateStr.isEmpty ? false : true,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Date of Birth",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: TextInputFieldWidget(
-                              title: "",
-                              controller: dayofDOBController,
-                              onTap: () => _showDatePicker(context),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: TextInputFieldWidget(
-                                title: "",
-                                controller: monthofDOBController,
-                                onTap: () => _showDatePicker(context),
+                        Positioned(
+                          right: 1,
+                          bottom: 2,
+                          child: SizedBox(
+                            width: 38,
+                            height: 38,
+                            child: InkWell(
+                              onTap: () async {
+                                // Uint8List imageFile =
+                                //     await pickImage(ImageSource.gallery);
+                                // setState(() {
+                                //   _image = imageFile;
+                                // });
+                                File? file =
+                                    await pickImageFromGallery(context);
+                                if (file != null) {
+                                  imageUrl = await storeFileToFirebase(
+                                      "sumeer/$imageId", file, ref);
+                                  setState(() {});
+                                  print("ImageUrl : $imageUrl");
+                                }
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0.7),
+                                child: Icon(
+                                  Icons.drive_file_rename_outline,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  size: 18,
+                                ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Full Name",
+                    controller: fullNameController,
+                    validator: (v) =>
+                        requiredValidator(v, "Type your full name"),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Job Title",
+                    controller: jobTitleController,
+                    validator: (v) =>
+                        requiredValidator(v, "Type your job title"),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Email",
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (v) => requiredValidator(v, "Type your email"),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Phone no",
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    validator: (v) => requiredValidator(v, "Type your phone"),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Address",
+                    controller: addressController,
+                    validator: (v) => requiredValidator(v, "Type your address"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Personal Information",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Visibility(
+                    visible: _selectedDateStr.isEmpty ? false : true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Date of Birth",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 3,
                               child: TextInputFieldWidget(
                                 title: "",
-                                controller: yearofDOBController,
+                                controller: dayofDOBController,
                                 onTap: () => _showDatePicker(context),
                               ),
                             ),
+                            Expanded(
+                              flex: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: TextInputFieldWidget(
+                                  title: "",
+                                  controller: monthofDOBController,
+                                  onTap: () => _showDatePicker(context),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: TextInputFieldWidget(
+                                  title: "",
+                                  controller: yearofDOBController,
+                                  onTap: () => _showDatePicker(context),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedDate = null;
+                                    _selectedDateStr = "";
+                                    dayofDOBController.text = "";
+                                    monthofDOBController.text = "";
+                                    yearofDOBController.text = "";
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Theme.of(context).colorScheme.error,
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddGender,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Gender",
+                            controller: genderController,
+                            focusNode: genderFocusNode,
                           ),
-                          IconButton(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  _selectedDate = null;
-                                  _selectedDateStr = "";
-                                  dayofDOBController.text = "";
-                                  monthofDOBController.text = "";
-                                  yearofDOBController.text = "";
+                                  _isAddGender = false;
                                 });
                               },
                               icon: Icon(
                                 Icons.delete,
                                 color: Theme.of(context).colorScheme.error,
-                              ))
-                        ],
-                      )
-                    ],
+                              )),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: _isAddGender,
-                  child: Row(
+                  Visibility(
+                    visible: _isAddNationality,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Nationality",
+                            controller: nationalityController,
+                            focusNode: nationalityFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddNationality = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddPassport,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Passport or ID",
+                            controller: passportController,
+                            focusNode: passportFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddPassport = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddMarital,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Marital Status",
+                            controller: maritalController,
+                            focusNode: maritalFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddMarital = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddDriving,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Driving License",
+                            controller: drivingController,
+                            focusNode: drivingFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddDriving = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
                     children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Gender",
-                          controller: genderController,
-                          focusNode: genderFocusNode,
+                      Visibility(
+                        visible: _selectedDate != null ? false : true,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Date of Birth",
+                            onTap: () => _showDatePicker(context),
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                      Visibility(
+                        visible: !_isAddGender,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Gender",
+                            onTap: () {
                               setState(() {
-                                _isAddGender = false;
+                                _isAddGender = true;
+                                genderFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddNationality,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Nationality",
-                          controller: nationalityController,
-                          focusNode: nationalityFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Visibility(
+                        visible: !_isAddNationality,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Nationality",
+                            onTap: () {
                               setState(() {
-                                _isAddNationality = false;
+                                _isAddNationality = true;
+                                nationalityFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddPassport,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Passport or ID",
-                          controller: passportController,
-                          focusNode: passportFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                      Visibility(
+                        visible: !_isAddPassport,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Passport or ID",
+                            onTap: () {
                               setState(() {
-                                _isAddPassport = false;
+                                _isAddPassport = true;
+                                passportFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddMarital,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Marital Status",
-                          controller: maritalController,
-                          focusNode: maritalFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Visibility(
+                        visible: !_isAddMarital,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Marital Status",
+                            onTap: () {
                               setState(() {
-                                _isAddMarital = false;
+                                _isAddMarital = true;
+                                maritalFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddDriving,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Driving License",
-                          controller: drivingController,
-                          focusNode: drivingFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                      Visibility(
+                        visible: !_isAddDriving,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Driving License",
+                            onTap: () {
                               setState(() {
-                                _isAddDriving = false;
+                                _isAddDriving = true;
+                                drivingFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                Row(
-                  children: [
-                    Visibility(
-                      visible: _selectedDate != null ? false : true,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Date of Birth",
-                          onTap: () => _showDatePicker(context),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !_isAddGender,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Gender",
-                          onTap: () {
-                            setState(() {
-                              _isAddGender = true;
-                              genderFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Visibility(
-                      visible: !_isAddNationality,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Nationality",
-                          onTap: () {
-                            setState(() {
-                              _isAddNationality = true;
-                              nationalityFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !_isAddPassport,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Passport or ID",
-                          onTap: () {
-                            setState(() {
-                              _isAddPassport = true;
-                              passportFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Visibility(
-                      visible: !_isAddMarital,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Marital Status",
-                          onTap: () {
-                            setState(() {
-                              _isAddMarital = true;
-                              maritalFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !_isAddDriving,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Driving License",
-                          onTap: () {
-                            setState(() {
-                              _isAddDriving = true;
-                              drivingFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Links",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Visibility(
-                  visible: _isAddWebsite,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Website",
-                          controller: websiteController,
-                          focusNode: websiteFocusNode,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Links",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Visibility(
+                    visible: _isAddWebsite,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Website",
+                            controller: websiteController,
+                            focusNode: websiteFocusNode,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddWebsite = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddLinkIn,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "LinkedIn",
+                            controller: linkInController,
+                            focusNode: linkInFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddLinkIn = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddGithub,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Github",
+                            controller: githubController,
+                            focusNode: githubFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddGithub = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isAddSkype,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputFieldWidget(
+                            title: "Skype",
+                            controller: skypeController,
+                            focusNode: skypeFocusNode,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAddSkype = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Visibility(
+                        visible: !_isAddWebsite,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Websites",
+                            onTap: () {
                               setState(() {
-                                _isAddWebsite = false;
+                                _isAddWebsite = true;
+                                websiteFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddLinkIn,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "LinkedIn",
-                          controller: linkInController,
-                          focusNode: linkInFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                      Visibility(
+                        visible: !_isAddLinkIn,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "LinkIn",
+                            onTap: () {
                               setState(() {
-                                _isAddLinkIn = false;
+                                _isAddLinkIn = true;
+                                linkInFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddGithub,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Github",
-                          controller: githubController,
-                          focusNode: githubFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Visibility(
+                        visible: !_isAddGithub,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "GitHub",
+                            onTap: () {
                               setState(() {
-                                _isAddGithub = false;
+                                _isAddGithub = true;
+                                githubFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _isAddSkype,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputFieldWidget(
-                          title: "Skype",
-                          controller: skypeController,
-                          focusNode: skypeFocusNode,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: IconButton(
-                            onPressed: () {
+                      Visibility(
+                        visible: !_isAddSkype,
+                        child: Expanded(
+                          child: AddPersonalDetailButton(
+                            text: "Skype",
+                            onTap: () {
                               setState(() {
-                                _isAddSkype = false;
+                                _isAddSkype = true;
+                                skypeFocusNode.requestFocus();
                               });
                             },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                      )
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Visibility(
-                      visible: !_isAddWebsite,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Websites",
-                          onTap: () {
-                            setState(() {
-                              _isAddWebsite = true;
-                              websiteFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !_isAddLinkIn,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "LinkIn",
-                          onTap: () {
-                            setState(() {
-                              _isAddLinkIn = true;
-                              linkInFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Visibility(
-                      visible: !_isAddGithub,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "GitHub",
-                          onTap: () {
-                            setState(() {
-                              _isAddGithub = true;
-                              githubFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !_isAddSkype,
-                      child: Expanded(
-                        child: AddPersonalDetailButton(
-                          text: "Skype",
-                          onTap: () {
-                            setState(() {
-                              _isAddSkype = true;
-                              skypeFocusNode.requestFocus();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 80,
-                )
-              ]),
+                  const SizedBox(
+                    height: 80,
+                  )
+                ]),
+              ),
             ),
           ),
         ),
       ),
-      bottomSheet: const SizedBox(height: 80, child: SaveBottomSheetWidget()),
+      bottomSheet: SizedBox(
+          height: 80,
+          child: SaveBottomSheetWidget(
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                savePerson();
+                AutoRouter.of(context).pop();
+              }
+              // savePersonalDetail();
+              // context.router.pop();
+            },
+          )),
     );
+  }
+
+  String? requiredValidator(value, String text) {
+    if (value == null || value.isEmpty) {
+      return text;
+    }
+    return null;
+  }
+
+  void savePerson() async {
+    UserProfile? profile = UserProfile(
+      image: imageUrl,
+      name: fullNameController.text,
+      jobTitle: jobTitleController.text,
+      email: emailController.text,
+      phone: phoneController.text,
+      address: addressController.text,
+    );
+    ref.read(userProfileProvider.notifier).update((state) => profile);
+    log(profile.toString());
+    log(ref.watch(userProfileProvider).toString());
+  }
+
+  void savePersonalDetail() async {
+    var personalDetail = PersonalDetailSection(
+      fullName: fullNameController.text,
+      jobTitle: jobTitleController.text,
+      email: emailController.text,
+      phone: phoneController.text,
+      address: addressController.text,
+      personalInfo: PersonalInformation(
+        dateOfBirth: _selectedDateStr,
+      ),
+      links: [
+        PersonalLink(
+          name: 'GitHub',
+          url: githubController.text,
+        ),
+        PersonalLink(
+          name: 'Website',
+          url: websiteController.text,
+        ),
+        PersonalLink(
+          name: 'Skype',
+          url: skypeController.text,
+        ),
+        PersonalLink(
+          name: 'LinkedIn',
+          url: linkInController.text,
+        ),
+      ],
+    );
+
+    ref.read(resumeDataProvider.notifier).state = ResumeData(
+      profileImage: _image == null
+          ? ref.watch(resumeDataProvider)?.profileImage
+          : pw.MemoryImage(_image!),
+      personalDetail: personalDetail,
+      profile: const ProfileSection(
+        title: "Profile",
+        contents: [
+          'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
+        ],
+      ),
+      education: ref.watch(resumeDataProvider)?.education,
+      project: ref.watch(resumeDataProvider)?.project,
+      experience: ref.watch(resumeDataProvider)?.experience,
+    );
+  }
+
+  /// Get from gallery
+  pickImage(ImageSource source) async {
+    XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (file != null) {
+      return await file.readAsBytes();
+    }
   }
 
   void _showDatePicker(BuildContext context) {

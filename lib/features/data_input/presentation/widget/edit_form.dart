@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../feat_data_input.dart';
 
-class EditFormWidget extends StatelessWidget {
+class EditFormWidget extends ConsumerStatefulWidget {
   const EditFormWidget({super.key});
 
+  @override
+  ConsumerState<EditFormWidget> createState() => _EditFormWidgetState();
+}
+
+class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -25,6 +31,7 @@ class EditFormWidget extends StatelessWidget {
               text: "Skill",
               onTap: () => showAddSkillForm(context),
             ),
+            skillList(),
             const SizedBox(
               height: 30,
             ),
@@ -85,6 +92,44 @@ class EditFormWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Column skillList() {
+    return Column(
+      children: List.generate(
+          ref.watch(userSkillListProvider).length,
+          (index) => Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (cxt) {
+                            return const AddSkillForm();
+                          });
+                    },
+                    title: Text(ref.watch(userSkillListProvider)[index].skill),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(ref.watch(userSkillListProvider)[index].level),
+                        Text(ref.watch(userSkillListProvider)[index].info)
+                      ],
+                    ),
+                    trailing: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            ref.watch(userSkillListProvider).removeAt(index);
+                          });
+                        },
+                        icon: const Icon(Icons.delete)),
+                  ),
+                ),
+              )),
     );
   }
 

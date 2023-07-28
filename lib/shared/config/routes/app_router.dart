@@ -28,15 +28,12 @@ class AppRouter extends $AppRouter {
         // Auth
         AutoRoute(page: SignInRoute.page, path: '/auth/sign-in'),
         AutoRoute(page: SignUpRoute.page, path: '/auth/sign-up'),
+
         //data_input
         AutoRoute(page: DetailRoute.page, path: '/detail_page'),
 
         //personal_detail
         AutoRoute(
-          page: PersonalDetailRoute.page,
-          path: '/edit_personal_detail',
-        ),
-
-        AutoRoute(page: ProfileRoute.page, path: '/profile'),
+            page: PersonalDetailRoute.page, path: '/edit_personal_detail'),
       ];
 }

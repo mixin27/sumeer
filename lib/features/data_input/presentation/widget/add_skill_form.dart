@@ -1,10 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
+import 'package:sumeer/features/templates/domain/cv_model.dart';
 
-class AddSkillForm extends StatelessWidget {
+class AddSkillForm extends ConsumerStatefulWidget {
   const AddSkillForm({super.key});
+
+  @override
+  ConsumerState<AddSkillForm> createState() => _AddSkillFormState();
+}
+
+class _AddSkillFormState extends ConsumerState<AddSkillForm> {
+  final skillController = TextEditingController();
+  final infoController = TextEditingController();
+  final levelController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    setData();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      final skill = ref.watch(userSkillProvider);
+      if (skill != null) {
+        skillController.text = skill.skill;
+        infoController.text = skill.info;
+        levelController.text = skill.level;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +63,32 @@ class AddSkillForm extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: ListView(
                   shrinkWrap: true,
-                  children: const [
+                  children: [
                     TextInputFieldWidget(
+                      controller: skillController,
                       title: "Skill",
                     ),
                     TextInputFieldWidget(
+                      controller: infoController,
                       title: "Information/ Sub-skills",
                     ),
                     TextInputFieldWidget(
+                      controller: levelController,
                       title: "Select skill level",
                     ),
-                    SaveBottomSheetWidget()
+                    SaveBottomSheetWidget(
+                      onTap: () {
+                        UserSkill skill = UserSkill(
+                          skill: skillController.text,
+                          info: infoController.text,
+                          level: levelController.text,
+                        );
+                        ref
+                            .read(userSkillListProvider.notifier)
+                            .update((state) => [...state, skill]);
+                        Navigator.pop(context);
+                      },
+                    )
                   ],
                 ),
               ),

@@ -13,6 +13,8 @@ class ResumeData with _$ResumeData {
     ProjectSection? project,
     ExperienceSection? experience,
     SkillSection? skill,
+    CertificateSection? certificate,
+    LanguageSection? languages,
   }) = _ResumeData;
 }
 
@@ -167,4 +169,44 @@ class Project with _$Project {
     @Default(false) bool isPresent,
     String? description,
   }) = _Project;
+}
+
+@freezed
+class CertificateSection with _$CertificateSection {
+  const factory CertificateSection({
+    @Default('Certificate') String title,
+    @Default([]) List<Certificate> certificates,
+  }) = _CertificateSection;
+}
+
+@freezed
+class Certificate with _$Certificate {
+  const factory Certificate({
+    /// Degree / Field of Study / Exchange Semester
+    String? title,
+
+    /// School / University
+    String? school,
+    DateTime? startDate,
+    DateTime? endDate,
+    @Default(false) bool isPresent,
+    String? description,
+  }) = _Certificate;
+}
+
+@freezed
+class LanguageSection with _$LanguageSection {
+  const factory LanguageSection({
+    @Default('Language') String title,
+    @Default([]) List<Language> languages,
+  }) = _LanguageSection;
+}
+
+@freezed
+class Language with _$Language {
+  const factory Language({
+    /// Degree / Field of Study / Exchange Semester
+    String? title,
+    String? description,
+  }) = _Language;
 }
