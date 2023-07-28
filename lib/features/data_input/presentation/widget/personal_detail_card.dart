@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/features/data_input/feat_data_input.dart';
 
+import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 
 class PersonalDetailCard extends ConsumerWidget {

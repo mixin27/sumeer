@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-
-import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/widgets/button1.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:sumeer/features/data_input/feat_data_input.dart';
+import 'package:sumeer/utils/utils.dart';
+import 'package:sumeer/widgets/button1.dart';
 import '../../auth/feat_auth.dart';
 import '../../features.dart';
-import '../../resume/core/presentation/templates/resume1.dart';
 import '../../templates/shared/provider.dart';
 
 @RoutePage()
@@ -39,7 +38,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           Button1(
             text: "Preview",
             onPressed: () async {
-              print(ref.watch(cvMOdelProvider));
+              dLog(ref.watch(cvMOdelProvider));
               var uid =
                   ref.watch(authRepositoryProvider).currentUser?.uid.toString();
               await ref
