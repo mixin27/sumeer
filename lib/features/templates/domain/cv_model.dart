@@ -18,7 +18,7 @@ class CVModel with _$CVModel {
 @freezed
 class UserProfile with _$UserProfile {
   const factory UserProfile({
-    required String image,
+    String? image,
     required String name,
     required String jobTitle,
     required String email,

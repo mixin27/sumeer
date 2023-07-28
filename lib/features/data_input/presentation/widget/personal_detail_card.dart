@@ -1,15 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sumeer/features/data_input/feat_data_input.dart';
 
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 
-class PersonalDetailCard extends StatelessWidget {
+class PersonalDetailCard extends ConsumerWidget {
   const PersonalDetailCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(userProfileProvider);
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(
@@ -44,10 +48,18 @@ class PersonalDetailCard extends StatelessWidget {
                     '',
                     backgroundColor: Colors.grey.withOpacity(0.3),
                     radius: 50,
-                    child: Icon(
-                      Icons.camera_alt,
-                      size: 40,
-                      color: Colors.grey.shade50,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.fill,
+                      imageUrl: profile?.image ?? '',
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey.withOpacity(0.3),
+                        size: 50,
+                      ),
                     ),
                   ),
                 ),
@@ -55,33 +67,40 @@ class PersonalDetailCard extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Your Name",
+                  // "Your Name",
+                  profile?.name ?? "Your Name",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  "Mobile Developer",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                Visibility(
+                  visible: profile != null,
+                  child: Text(
+                    profile?.jobTitle ?? "Mobile Developer",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.email_outlined,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "testing2123@gmail.com",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+                Visibility(
+                  visible: profile != null,
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.email_outlined,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        profile?.email ?? "testing2123@gmail.com",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [

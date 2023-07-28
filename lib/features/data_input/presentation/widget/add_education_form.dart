@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
+import 'package:sumeer/features/templates/domain/cv_model.dart';
 
-class AddEducationForm extends StatelessWidget {
+class AddEducationForm extends ConsumerStatefulWidget {
   const AddEducationForm({super.key});
 
+  @override
+  ConsumerState<AddEducationForm> createState() => _AddEducationFormState();
+}
+
+class _AddEducationFormState extends ConsumerState<AddEducationForm> {
+  final degreeController = TextEditingController();
+  final schoolController = TextEditingController();
+  final cityController = TextEditingController();
+  final startDateController = TextEditingController();
+  final endDateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -39,23 +51,40 @@ class AddEducationForm extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ListView(
                       shrinkWrap: true,
-                      children: const [
+                      children: [
                         TextInputFieldWidget(
+                          controller: degreeController,
                           title: "Degree",
                         ),
                         TextInputFieldWidget(
+                          controller: schoolController,
                           title: "School",
                         ),
                         TextInputFieldWidget(
+                          controller: cityController,
                           title: "City",
                         ),
                         TextInputFieldWidget(
+                          controller: startDateController,
                           title: "Start Date",
                         ),
                         TextInputFieldWidget(
+                          controller: endDateController,
                           title: "End Date",
                         ),
-                        SaveBottomSheetWidget()
+                        SaveBottomSheetWidget(
+                          onTap: () {
+                            UserEducation education = UserEducation(
+                                degree: degreeController.text,
+                                school: schoolController.text,
+                                city: cityController.text,
+                                startDate: startDateController.text,
+                                endDate: endDateController.text);
+                            ref
+                                .read(userEducationListProvider.notifier)
+                                .update((state) => [...state, education]);
+                          },
+                        )
                       ],
                     ),
                   ),
