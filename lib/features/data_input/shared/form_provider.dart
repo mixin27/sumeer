@@ -28,6 +28,8 @@ final userSkillListProvider = StateProvider<List<UserSkill>>((ref) {
   return [];
 });
 
+final userSkillProvider = StateProvider<UserSkill?>((ref) => null);
+
 final userEducationListProvider = StateProvider<List<UserEducation>>((ref) {
   return [];
 });

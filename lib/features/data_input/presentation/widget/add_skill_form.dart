@@ -17,6 +17,23 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
   final infoController = TextEditingController();
   final levelController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    setData();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      final skill = ref.watch(userSkillProvider);
+      if (skill != null) {
+        skillController.text = skill.skill;
+        infoController.text = skill.info;
+        levelController.text = skill.level;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -69,6 +86,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         ref
                             .read(userSkillListProvider.notifier)
                             .update((state) => [...state, skill]);
+                        Navigator.pop(context);
                       },
                     )
                   ],
