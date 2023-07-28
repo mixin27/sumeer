@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -644,7 +644,7 @@ Future<Uint8List> generateResume1(
           pw.Expanded(
             flex: 1,
             child: pw.Container(
-              color: PdfColor.fromInt(0xFF074566),
+              color: const PdfColor.fromInt(0xFF074566),
             ),
           ),
           pw.Expanded(
