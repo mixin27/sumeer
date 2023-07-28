@@ -1,19 +1,19 @@
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
+import 'package:pdf/widgets.dart' as pw;
 
+import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 import '../../features.dart';
-
-import 'package:pdf/widgets.dart' as pw;
 
 @RoutePage()
 class PersonalDetailPage extends ConsumerStatefulWidget {
@@ -68,6 +68,32 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   Uint8List? _image;
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => loadRecord());
+  }
+
+  loadRecord() async {
+    var data = ref.watch(resumeDataProvider);
+    if (data != null) {
+      fullNameController.text = data.personalDetail?.fullName ?? "";
+      jobTitleController.text = data.personalDetail?.jobTitle ?? "";
+      phoneController.text = data.personalDetail?.phone ?? "";
+      emailController.text = data.personalDetail?.email ?? "";
+      addressController.text = data.personalDetail?.address ?? "";
+      if (data.personalDetail?.personalInfo != null) {
+        _selectedDateStr = data.personalDetail?.personalInfo?.dateOfBirth ?? "";
+        if (_selectedDateStr.isNotEmpty) {
+          dayofDOBController.text = _selectedDateStr.split("-")[0];
+        }
+
+        addressController.text = data.personalDetail?.address ?? "";
+        addressController.text = data.personalDetail?.address ?? "";
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -84,24 +110,43 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                   alignment: Alignment.center,
                   child: Stack(
                     children: [
-                      _image == null
-                          ? CircularProfileAvatar(
-                              '',
-                              radius: 60,
-                              child: Icon(
-                                Icons.camera_alt,
-                                color: Colors.grey.withOpacity(0.3),
-                                size: 50,
-                              ),
-                            )
-                          : CircularProfileAvatar(
-                              '',
-                              radius: 60,
-                              child: Image.memory(
-                                _image!,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                      if (_image != null) ...[
+                        CircularProfileAvatar(
+                          '',
+                          radius: 60,
+                          child: Image.memory(
+                            _image!,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ] else if (ref.watch(resumeDataProvider) != null &&
+                          ref
+                                  .watch(resumeDataProvider)
+                                  ?.personalDetail
+                                  ?.imageData !=
+                              null) ...[
+                        CircularProfileAvatar(
+                          '',
+                          radius: 60,
+                          child: Image.memory(
+                            dataFromBase64String(ref
+                                .watch(resumeDataProvider)!
+                                .personalDetail!
+                                .imageData!),
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ] else ...[
+                        CircularProfileAvatar(
+                          '',
+                          radius: 60,
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey.withOpacity(0.3),
+                            size: 50,
+                          ),
+                        )
+                      ],
                       Positioned(
                         right: 1,
                         bottom: 2,
@@ -684,6 +729,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       email: emailController.text,
       phone: phoneController.text,
       address: addressController.text,
+      imageData: _image != null
+          ? base64String(_image!)
+          : ref.watch(resumeDataProvider)?.personalDetail?.imageData,
       personalInfo: PersonalInformation(
         dateOfBirth: _selectedDateStr,
       ),

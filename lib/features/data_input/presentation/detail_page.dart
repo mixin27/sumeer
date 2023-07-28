@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/widgets/button1.dart';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:sumeer/widgets/button1.dart';
 import '../../features.dart';
-import '../../resume/core/presentation/templates/resume1.dart';
 
 @RoutePage()
 class DetailPage extends HookConsumerWidget {

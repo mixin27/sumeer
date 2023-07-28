@@ -1,10 +1,19 @@
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:flutter/material.dart';
+
+import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
+import '../../../../utils/utils.dart';
 
 class PersonalDetailCard extends StatelessWidget {
-  const PersonalDetailCard({super.key});
+  const PersonalDetailCard({
+    Key? key,
+    this.personalDetail,
+  }) : super(key: key);
+
+  final PersonalDetailSection? personalDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -38,29 +47,39 @@ class PersonalDetailCard extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: CircularProfileAvatar(
-                    '',
-                    backgroundColor: Colors.grey.withOpacity(0.3),
-                    radius: 50,
-                    child: Icon(
-                      Icons.camera_alt,
-                      size: 40,
-                      color: Colors.grey.shade50,
-                    ),
-                  ),
+                  child: (personalDetail != null &&
+                          personalDetail?.imageData != null)
+                      ? CircularProfileAvatar(
+                          '',
+                          radius: 50,
+                          child: Image.memory(
+                            dataFromBase64String(personalDetail!.imageData!),
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : CircularProfileAvatar(
+                          '',
+                          backgroundColor: Colors.grey.withOpacity(0.3),
+                          radius: 50,
+                          child: Icon(
+                            Icons.camera_alt,
+                            size: 40,
+                            color: Colors.grey.shade50,
+                          ),
+                        ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "Your Name",
+                  personalDetail?.fullName ?? "Your Name",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Mobile Developer",
+                  personalDetail?.jobTitle ?? "Mobile Developer",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(
@@ -76,7 +95,7 @@ class PersonalDetailCard extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "testing2123@gmail.com",
+                      personalDetail?.email ?? "testing2123@gmail.com",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -91,7 +110,7 @@ class PersonalDetailCard extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "09-xxxx-xxx-xxx",
+                      personalDetail?.phone ?? "09-xxxx-xxx-xxx",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

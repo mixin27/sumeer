@@ -31,6 +31,7 @@ class PersonalDetailSection with _$PersonalDetailSection {
 
     /// City, Country
     required String address,
+    String? imageData,
     PersonalInformation? personalInfo,
     @Default([]) List<PersonalLink> links,
   }) = _PersonalDetailSection;

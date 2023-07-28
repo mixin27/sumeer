@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../feat_data_input.dart';
 
-class EditFormWidget extends StatelessWidget {
+class EditFormWidget extends HookConsumerWidget {
   const EditFormWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            const PersonalDetailCard(),
+            PersonalDetailCard(
+                personalDetail: ref.watch(resumeDataProvider)?.personalDetail),
             AddDataCard(
               text: "Education",
               onTap: () => showAddEducationForm(context),
