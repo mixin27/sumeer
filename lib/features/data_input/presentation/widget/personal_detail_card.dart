@@ -199,25 +199,26 @@ class PersonalDetailCard extends ConsumerWidget {
                   context,
                   "assets/images/resume/icons8-www-50.png",
                   profile?.website ?? '',
-                  profile?.website.toString() != "",
+                  profile != null && profile.website.toString() != "",
                 ),
+
                 profileItem(
                   context,
                   Icons.badge,
                   profile?.linkIn ?? '',
-                  profile?.linkIn.toString() != "",
+                  profile != null && profile.linkIn.toString() != "",
                 ),
                 profileItem(
                   context,
                   Icons.badge,
                   profile?.gitHub ?? '',
-                  profile?.gitHub.toString() != "",
+                  profile != null && profile.gitHub.toString() != "",
                 ),
                 profileItem(
                   context,
                   Icons.abc,
                   profile?.skype ?? '',
-                  profile?.skype.toString() != "",
+                  profile != null && profile.skype.toString() != "",
                 ),
                 // Visibility(
                 //   visible: profile?.gender.toString() != "",

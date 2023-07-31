@@ -227,28 +227,24 @@ class _HomePageState extends State<HomePage> {
             height: 80,
             child: ElevatedButton.icon(
               onPressed: () {
-                context.router.push(const DetailRoute());
+                context.router.push(const MyFileRoute());
               },
               style: FilledButton.styleFrom(
                 elevation: 0.5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15), // <-- Radius
                 ),
-                // backgroundColor: const Color.fromARGB(255, 237, 245, 252),
                 backgroundColor: const Color.fromARGB(255, 237, 245, 252),
-                // backgroundColor: Theme.of(context).colorScheme.outlineVariant,
                 foregroundColor: Theme.of(context).colorScheme.primary,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               ),
-              // icon: Image.asset(AssetPaths.cv),
               icon: const Icon(
                 Icons.file_copy,
-                // size: 53,
               ),
               label: const Text(
                 textAlign: TextAlign.start,
-                'Create New\nCV form +',
+                'My files',
               ),
             ),
           ),

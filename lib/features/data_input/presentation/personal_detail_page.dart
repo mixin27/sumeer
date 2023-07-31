@@ -83,6 +83,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   Future<void> setData() async {
+    wLog('setData', 'Called');
     Future.microtask(() {
       final profile = ref.watch(userProfileProvider);
       if (profile != null) {
