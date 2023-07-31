@@ -22,8 +22,8 @@ class PersonalDetailCard extends ConsumerWidget {
       child: Stack(
         children: [
           Positioned(
-            right: 5,
-            top: 5,
+            right: 0,
+            top: 0,
             child: InkWell(
               onTap: () {
                 context.router.push(const PersonalDetailRoute());
@@ -42,85 +42,280 @@ class PersonalDetailCard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: CircularProfileAvatar(
-                    '',
-                    backgroundColor: Colors.grey.withOpacity(0.3),
-                    radius: 50,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.fill,
-                      imageUrl: profile?.image ?? '',
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
-                      errorWidget: (context, url, error) => Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey.withOpacity(0.3),
-                        size: 50,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  // "Your Name",
-                  profile?.name ?? "Your Name",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Visibility(
-                  visible: profile != null,
-                  child: Text(
-                    profile?.jobTitle ?? "Mobile Developer",
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Visibility(
-                  visible: profile != null,
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.email_outlined,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        profile?.email ?? "testing2123@gmail.com",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                ),
                 Row(
                   children: [
-                    const Icon(
-                      Icons.phone,
-                      color: Colors.grey,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: CircularProfileAvatar(
+                        '',
+                        backgroundColor: Colors.grey.withOpacity(0.3),
+                        radius: 50,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.fill,
+                          imageUrl: profile?.image ?? '',
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey.withOpacity(0.3),
+                            size: 50,
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(
-                      width: 5,
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            // "Your Name Your Name Your Name Your Name Your Name",
+                            profile?.name ?? "Your Name",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Visibility(
+                            visible: profile != null,
+                            child: Text(
+                              profile?.jobTitle ?? "Mobile Developer",
+                              // "Mobile Developer Mobile Developer",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          // const SizedBox(height: 2),
+                          Visibility(
+                            visible: profile != null,
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.email_outlined,
+                                  color: Colors.grey,
+                                  size: 14,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  profile?.email ?? "testing2123@gmail.com",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.phone,
+                                color: Colors.grey,
+                                size: 14,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                profile?.phone ?? "09-xxx-xxx-xxx",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                          Visibility(
+                            visible: profile != null,
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.location_city,
+                                  color: Colors.grey,
+                                  size: 14,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  profile?.address ?? "",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Wrap(
+                  // alignment: WrapAlignment.spaceEvenly,
+                  // crossAxisAlignment: WrapCrossAlignment.center,
+                  // spacing: 4,
+                  children: [
+                    profileItem(
+                      context,
+                      Icons.cake,
+                      profile?.dOB ?? '',
+                      profile != null && profile.dOB.toString() != "",
                     ),
-                    Text(
-                      "09-xxxx-xxx-xxx",
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    profileItem(
+                      context,
+                      Icons.man,
+                      profile?.gender ?? '',
+                      profile != null && profile.gender.toString() != "",
+                    ),
+                    profileItem(
+                      context,
+                      Icons.language,
+                      profile?.nationality ?? '',
+                      profile != null && profile.nationality.toString() != "",
+                    ),
+                    profileItem(
+                      context,
+                      Icons.bed,
+                      profile?.maritalStatus ?? '',
+                      profile != null && profile.maritalStatus.toString() != "",
+                    ),
+                    profileItem(
+                      context,
+                      Icons.car_crash,
+                      profile?.drivingLicense ?? '',
+                      profile != null &&
+                          profile.drivingLicense.toString() != "",
+                    ),
+                    profileItem(
+                      context,
+                      Icons.badge,
+                      profile?.passport ?? '',
+                      profile != null && profile.passport.toString() != "",
                     ),
                   ],
                 ),
+                profileItemWithImage(
+                  context,
+                  "assets/images/resume/icons8-www-50.png",
+                  profile?.website ?? '',
+                  profile?.website.toString() != "",
+                ),
+                profileItem(
+                  context,
+                  Icons.badge,
+                  profile?.linkIn ?? '',
+                  profile?.linkIn.toString() != "",
+                ),
+                profileItem(
+                  context,
+                  Icons.badge,
+                  profile?.gitHub ?? '',
+                  profile?.gitHub.toString() != "",
+                ),
+                profileItem(
+                  context,
+                  Icons.abc,
+                  profile?.skype ?? '',
+                  profile?.skype.toString() != "",
+                ),
+                // Visibility(
+                //   visible: profile?.gender.toString() != "",
+                //   child: Row(
+                //     children: [
+                //       const Icon(
+                //         Icons.man,
+                //         color: Colors.grey,
+                //         size: 14,
+                //       ),
+                //       const SizedBox(width: 5),
+                //       Text(
+                //         profile?.gender ?? "",
+                //         style: Theme.of(context).textTheme.bodyMedium,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // Row(
+                //   children: [
+                //     const Icon(
+                //       Icons.phone,
+                //       color: Colors.grey,
+                //     ),
+                //     const SizedBox(
+                //       width: 5,
+                //     ),
+                //     Text(
+                //       profile?.phone ?? "09-xxx-xxx-xxx",
+                //       style: Theme.of(context).textTheme.bodyMedium,
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Visibility profileItem(
+      BuildContext context, IconData? icon, String text, bool visible) {
+    return Visibility(
+      // visible: profile?.dOB.toString() != "",
+      visible: visible,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 2.6,
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Colors.grey,
+              size: 14,
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Text(
+                text,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Visibility profileItemWithImage(
+      BuildContext context, String image, String text, bool visible) {
+    return Visibility(
+      // visible: profile?.dOB.toString() != "",
+      visible: visible,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 2.6,
+        child: Row(
+          children: [
+            Image.asset(
+              image,
+              height: 16,
+              width: 16,
+            ),
+            // Icon(
+            //   icon,
+            //   color: Colors.grey,
+            //   size: 14,
+            // ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Text(
+                text,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
