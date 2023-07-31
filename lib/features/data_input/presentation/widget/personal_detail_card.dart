@@ -6,7 +6,6 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
-import 'package:sumeer/features/templates/domain/cv_model.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 
 class PersonalDetailCard extends ConsumerWidget {
