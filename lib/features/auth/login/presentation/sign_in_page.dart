@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/shared/shared.dart';
 import 'widgets/sign_in_form.dart';
 
 @RoutePage()
@@ -17,9 +18,9 @@ class SignInPage extends HookConsumerWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 45,
-              child: Text('Logo'),
+              child: Image.asset(AssetPaths.logo),
             ),
             const SizedBox(height: 20),
             Text(

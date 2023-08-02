@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:pdf/pdf.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
@@ -39,7 +40,10 @@ class _ResumePreviewPageState extends State<ResumePreviewPage> {
       ),
       body: _dummyResumeData != null
           ? PdfPreview(
-              // canChangePageFormat: false,
+              pageFormats: const <String, pw.PdfPageFormat>{
+                'A4': pw.PdfPageFormat.a4,
+              },
+              canChangePageFormat: false,
               // useActions: false,
               scrollViewDecoration: const BoxDecoration(
                 color: Color(0xFFF1F2FD),

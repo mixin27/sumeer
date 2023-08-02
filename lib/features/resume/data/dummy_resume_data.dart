@@ -57,6 +57,7 @@ Future<ResumeData> getDummyResumeData() async {
       ],
     ),
     languages: language,
+    interest: interest,
     certificate: certificate,
   );
 
@@ -79,7 +80,7 @@ final experienceData = ExperienceSection(
       endDate: DateTime.now(),
       isPresent: true,
       description:
-          'I am a motivated IT graduate looking forward to expanding my knowledge and career in the IT sector. Along with that, I want to experience working with professionals in the field so that I am able to stay up-to-date and learn the best practices that should be used while working in the IT sector. As for me, some of my greatest strengths are communicating and working alongside my peers.',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     ),
     Experience(
       employer: const Employer(name: "eTrade Myanmar"),
@@ -155,5 +156,13 @@ final certificate = CertificateSection(
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     ),
+  ],
+);
+
+const interest = InterestSection(
+  title: 'Interests',
+  interests: [
+    Interest(title: 'Travelling'),
+    Interest(title: 'Playing Guitar'),
   ],
 );
