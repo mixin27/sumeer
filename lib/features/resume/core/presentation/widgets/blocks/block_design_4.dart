@@ -9,6 +9,7 @@ class BlockDesign4 extends pw.StatelessWidget {
     this.startDate,
     this.endDate,
     this.isPresent = false,
+    this.isSplit = false,
     this.description,
     this.icon,
     this.school,
@@ -22,6 +23,7 @@ class BlockDesign4 extends pw.StatelessWidget {
   final DateTime? startDate;
   final DateTime? endDate;
   final bool isPresent;
+  final bool isSplit;
   final String? description;
   final pw.IconData? icon;
   final String? school;
@@ -31,6 +33,7 @@ class BlockDesign4 extends pw.StatelessWidget {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
+        pw.SizedBox(height: 10),
         if (startDate != null && endDate != null && !isPresent) ...[
           pw.Row(
             mainAxisAlignment: pw.MainAxisAlignment.end,
@@ -42,7 +45,7 @@ class BlockDesign4 extends pw.StatelessWidget {
                     ),
               ),
               pw.SizedBox(width: 5),
-              pw.Text('-'),
+              pw.Text('to'),
               pw.SizedBox(width: 5),
               pw.Text(
                 DateFormat("MM/yyyy").format(endDate!).toUpperCase(),
@@ -64,7 +67,7 @@ class BlockDesign4 extends pw.StatelessWidget {
                     .copyWith(fontWeight: pw.FontWeight.bold),
               ),
               pw.SizedBox(width: 5),
-              pw.Text('-'),
+              pw.Text('to'),
               pw.SizedBox(width: 5),
               pw.Text(
                 'Present',
@@ -75,21 +78,32 @@ class BlockDesign4 extends pw.StatelessWidget {
             ],
           ),
         ],
-        pw.Text(
-          "$title - $employeer, $city",
-          style: pw.Theme.of(context)
-              .defaultTextStyle
-              .copyWith(fontWeight: pw.FontWeight.bold),
-        ),
+        isSplit
+            ? pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                    pw.Text(
+                      title,
+                      style: pw.Theme.of(context)
+                          .defaultTextStyle
+                          .copyWith(fontWeight: pw.FontWeight.bold),
+                    ),
+                    pw.Text(
+                      "$employeer, $city",
+                      style: pw.Theme.of(context)
+                          .defaultTextStyle
+                          .copyWith(fontWeight: pw.FontWeight.bold),
+                    ),
+                  ])
+            : pw.Text(
+                "$title - $employeer, $city",
+                style: pw.Theme.of(context)
+                    .defaultTextStyle
+                    .copyWith(fontWeight: pw.FontWeight.bold),
+              ),
         pw.Text(
           description!,
         ),
-        // pw.Padding(
-        //   padding: const pw.EdgeInsets.only(left: 20),
-        //   child: pw.Text(
-        //     description!,
-        //   ),
-        // ),
       ],
     );
   }
