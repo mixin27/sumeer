@@ -3,9 +3,6 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
-
-import 'resume_template_3.dart';
-
 export 'resume_template_1.dart';
 
 typedef LayoutCallbackWithData = Future<Uint8List> Function(
