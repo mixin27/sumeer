@@ -252,7 +252,7 @@ Future<Uint8List> generateTemplate6(
                       pw.Row(
                         children: [
                           pw.Icon(
-                            const pw.IconData(0xe7c8),
+                            const pw.IconData(0xea28),
                             color: PdfColors.white,
                           ),
                           pw.SizedBox(width: 10),
