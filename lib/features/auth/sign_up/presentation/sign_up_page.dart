@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 
+import 'package:sumeer/shared/shared.dart';
 import 'widgets/sign_up_form.dart';
 
 @RoutePage()
@@ -16,9 +17,9 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 45,
-              child: Text('Logo'),
+              child: Image.asset(AssetPaths.logo),
             ),
             const SizedBox(height: 20),
             Text(

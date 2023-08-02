@@ -15,6 +15,7 @@ class ResumeData with _$ResumeData {
     SkillSection? skill,
     CertificateSection? certificate,
     LanguageSection? languages,
+    InterestSection? interest,
   }) = _ResumeData;
 }
 
@@ -31,6 +32,7 @@ class PersonalDetailSection with _$PersonalDetailSection {
 
     /// City, Country
     required String address,
+    String? imageData,
     PersonalInformation? personalInfo,
     @Default([]) List<PersonalLink> links,
   }) = _PersonalDetailSection;
@@ -208,5 +210,29 @@ class Language with _$Language {
     /// Degree / Field of Study / Exchange Semester
     String? title,
     String? description,
+    LanguageLevel? level,
   }) = _Language;
+}
+
+@freezed
+class InterestSection with _$InterestSection {
+  const factory InterestSection({
+    @Default('Interests') String title,
+    @Default([]) List<Interest> interests,
+  }) = _InterestSection;
+}
+
+@freezed
+class Interest with _$Interest {
+  const factory Interest({
+    String? title,
+  }) = _Interest;
+}
+
+enum LanguageLevel {
+  beginner,
+  elementary,
+  limitedWorking,
+  highlyProficient,
+  native,
 }
