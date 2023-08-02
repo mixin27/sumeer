@@ -92,6 +92,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         addressController.text = profile.address;
         jobTitleController.text = profile.jobTitle;
         emailController.text = profile.email;
+
         imageUrl = profile.image ?? '';
       } else {
         imageId = const Uuid().v4();
@@ -762,6 +763,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       linkIn: linkInController.text,
       gitHub: githubController.text,
       skype: skypeController.text,
+      createdOn:
+          DateFormat('yyyy/MM/dd hh:mm:ss').format(DateTime.now()).toString(),
     );
     ref.read(userProfileProvider.notifier).update((state) => profile);
     log(profile.toString());

@@ -53,6 +53,7 @@ class PersonalDetailCard extends ConsumerWidget {
                         child: CachedNetworkImage(
                           fit: BoxFit.fill,
                           imageUrl: profile?.image ?? '',
+                          // imageUrl: '',
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
                                   CircularProgressIndicator(
@@ -73,6 +74,7 @@ class PersonalDetailCard extends ConsumerWidget {
                           Text(
                             // "Your Name Your Name Your Name Your Name Your Name",
                             profile?.name ?? "Your Name",
+                            // "Your Name",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)

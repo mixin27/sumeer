@@ -38,7 +38,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           Button1(
             text: "Preview",
             onPressed: () async {
-              dLog(ref.watch(cvMOdelProvider));
+              dLog(ref.watch(resumeDataProvider));
               var uid =
                   ref.watch(authRepositoryProvider).currentUser?.uid.toString();
               await ref
@@ -47,7 +47,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   .doc(uid)
                   .collection("user")
                   .doc(invId)
-                  .set(ref.watch(cvMOdelProvider)?.toJson() ?? {});
+                  .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
               // await ref
               //     .read(cloudFirestoreProvider)
               //     .collection("summer")

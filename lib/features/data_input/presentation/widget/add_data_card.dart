@@ -58,48 +58,54 @@ class _AddDataCardState extends ConsumerState<AddDataCard> {
                   ),
                 ),
               ),
-              Column(
-                children: List.generate(
-                    ref.watch(userSkillListProvider).length,
-                    (index) => Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: ListTile(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (cxt) {
-                                    return const AddSkillForm();
-                                  });
-                            },
-                            title: Text(
-                                ref.watch(userSkillListProvider)[index].skill),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(ref
-                                    .watch(userSkillListProvider)[index]
-                                    .level),
-                                Text(ref
-                                    .watch(userSkillListProvider)[index]
-                                    .info)
-                              ],
-                            ),
-                            trailing: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    ref
-                                        .watch(userSkillListProvider)
-                                        .removeAt(index);
-                                  });
-                                },
-                                icon: const Icon(Icons.delete)),
-                          ),
-                        )),
-              )
+              if (widget.text.contains('Education'))
+                expanableWidget(context,
+                    list: ref.watch(userEducationListProvider)),
+              if (widget.text.contains('Professional'))
+                expanableWidget(context,
+                    list: ref.watch(userExperienceListProvider)),
+              if (widget.text.contains('Skill'))
+                expanableWidget(context,
+                    list: ref.watch(userSkillListProvider)),
             ],
           )),
+    );
+  }
+
+  Widget expanableWidget(BuildContext context, {required List<Object> list}) {
+    return Column(
+      children: List.generate(
+        list.length,
+        (index) => Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: ListTile(
+            onTap: () {
+              showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (cxt) {
+                    return const AddSkillForm();
+                  });
+            },
+            title: Text(ref.watch(userSkillListProvider)[index].skill),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(ref.watch(userSkillListProvider)[index].level),
+                Text(ref.watch(userSkillListProvider)[index].info)
+              ],
+            ),
+            trailing: IconButton(
+                onPressed: () {
+                  setState(() {
+                    ref.watch(userSkillListProvider).removeAt(index);
+                  });
+                },
+                icon: const Icon(Icons.delete)),
+          ),
+        ),
+      ),
     );
   }
 }

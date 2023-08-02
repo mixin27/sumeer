@@ -9,13 +9,15 @@ class ResumeData with _$ResumeData {
     pw.MemoryImage? profileImage,
     PersonalDetailSection? personalDetail,
     ProfileSection? profile,
-    EducationSection? education,
-    ProjectSection? project,
-    ExperienceSection? experience,
-    SkillSection? skill,
-    CertificateSection? certificate,
-    LanguageSection? languages,
+    List<EducationSection>? education,
+    List<ProjectSection>? project,
+    List<ExperienceSection>? experience,
+    List<SkillSection>? skill,
+    List<CertificateSection>? certificate,
+    List<LanguageSection>? languages,
   }) = _ResumeData;
+  factory ResumeData.fromJson(Map<String, dynamic> json) =>
+      _$ResumeDataFromJson(json);
 }
 
 @freezed

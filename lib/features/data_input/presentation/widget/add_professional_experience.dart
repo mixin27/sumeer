@@ -22,6 +22,26 @@ class _AddProfessionalExperienceFormState
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   final descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      final exp = ref.watch(userExpProvider);
+      if (exp != null) {
+        employerController.text = exp.employer;
+        jobTitleController.text = exp.jobTitle;
+        cityController.text = exp.city;
+        startDateController.text = exp.startDate;
+        endDateController.text = exp.endDate;
+        descriptionController.text = exp.description;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(

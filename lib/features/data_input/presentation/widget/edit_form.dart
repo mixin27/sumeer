@@ -33,7 +33,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
               text: "Skill",
               onTap: () => showAddSkillForm(context),
             ),
-            skillList(),
+            // skillList(),
             const SizedBox(
               height: 30,
             ),
@@ -129,6 +129,50 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
                           });
                         },
                         icon: const Icon(Icons.delete)),
+                  ),
+                ),
+              )),
+    );
+  }
+
+  Widget experienceList() {
+    return Column(
+      children: List.generate(
+          ref.watch(userExperienceListProvider).length,
+          (index) => Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (cxt) {
+                            return const AddProfessionalExperienceForm();
+                          });
+                    },
+                    title: Text(
+                        ref.watch(userExperienceListProvider)[index].jobTitle),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(ref
+                            .watch(userExperienceListProvider)[index]
+                            .description),
+                        Text(ref
+                            .watch(userExperienceListProvider)[index]
+                            .employer)
+                      ],
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          ref.watch(userSkillListProvider).removeAt(index);
+                        });
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
                   ),
                 ),
               )),
