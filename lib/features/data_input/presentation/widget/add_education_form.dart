@@ -7,7 +7,8 @@ import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/domain/cv_model.dart';
 
 class AddEducationForm extends ConsumerStatefulWidget {
-  const AddEducationForm({super.key});
+  final Education? education;
+  const AddEducationForm(this.education, {super.key});
 
   @override
   ConsumerState<AddEducationForm> createState() => _AddEducationFormState();
@@ -19,6 +20,26 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
   final cityController = TextEditingController();
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setData();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      // final skill = ref.watch(userSkillProvider);
+      if (widget.education != null) {
+        degreeController.text = widget.education?.degree ?? '';
+        schoolController.text = widget.education?.school ?? '';
+        cityController.text = widget.education?.city.toString() ?? '';
+        startDateController.text = widget.education?.startDate.toString() ?? '';
+        endDateController.text = widget.education?.endDate.toString() ?? '';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -75,15 +96,27 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
-                            UserEducation education = UserEducation(
-                                degree: degreeController.text,
-                                school: schoolController.text,
-                                city: cityController.text,
-                                startDate: startDateController.text,
-                                endDate: endDateController.text);
+                            final oldEduSection =
+                                ref.watch(educationSectionProvider);
+                            Education education = Education(
+                              degree: degreeController.text,
+                              school: schoolController.text,
+                              city: cityController.text,
+                              startDate: DateTime.now(),
+                              endDate: DateTime.now(),
+                            );
+
+                            List<Education> eduList = oldEduSection == null
+                                ? [education]
+                                : [...oldEduSection.educations, education];
+                            EducationSection eduScetion = EducationSection(
+                              title: '',
+                              educations: eduList,
+                            );
                             ref
-                                .read(userEducationListProvider.notifier)
-                                .update((state) => [...state, education]);
+                                .read(educationSectionProvider.notifier)
+                                .update((state) => eduScetion);
+                            Navigator.pop(context);
                           },
                         )
                       ],

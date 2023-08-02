@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 
+import 'package:sumeer/shared/shared.dart';
+
 @RoutePage()
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -27,9 +29,12 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('SPLASH PAGE'),
+        child: Image.asset(
+          AssetPaths.logo,
+          width: 100,
+        ),
       ),
     );
   }

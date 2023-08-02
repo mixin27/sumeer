@@ -7,12 +7,12 @@ final resumeDataProvider = StateProvider<ResumeData?>((ref) {
   return ResumeData(
     profile: ref.watch(profileProvider),
     personalDetail: ref.watch(personalDetailSectionProvider),
-    education: ref.watch(educationSectionListProvider),
-    project: ref.watch(projectSectionListProvider),
-    experience: ref.watch(experienceSectionListProvider),
-    certificate: ref.watch(certificateSectionListProvider),
-    skill: ref.watch(skillSectionListProvider),
-    languages: ref.watch(languageSectionListProvider),
+    education: ref.watch(educationSectionProvider),
+    project: ref.watch(projectSectionProvider),
+    experience: ref.watch(experienceSectionProvider),
+    certificate: ref.watch(certificateSectionProvider),
+    skill: ref.watch(skillSectionProvider),
+    languages: ref.watch(languageSectionProvider),
   );
 });
 

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
@@ -778,6 +777,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       email: emailController.text,
       phone: phoneController.text,
       address: addressController.text,
+      imageData: _image != null
+          ? base64String(_image!)
+          : ref.watch(resumeDataProvider)?.personalDetail?.imageData,
       personalInfo: PersonalInformation(
         dateOfBirth: _selectedDateStr,
       ),
@@ -802,9 +804,11 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     );
 
     ref.read(resumeDataProvider.notifier).state = ResumeData(
-      profileImage: _image == null
-          ? ref.watch(resumeDataProvider)?.profileImage
-          : pw.MemoryImage(_image!),
+      // profileImage: _image == null
+      //     ? ref.watch(resumeDataProvider)?.profileImage
+      //     : pw.MemoryImage(_image!),
+      // TODO: profileimage
+      profileImage: "",
       personalDetail: personalDetail,
       profile: const ProfileSection(
         title: "Profile",

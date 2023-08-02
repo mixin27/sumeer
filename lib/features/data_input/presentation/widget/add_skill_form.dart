@@ -7,7 +7,8 @@ import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/domain/cv_model.dart';
 
 class AddSkillForm extends ConsumerStatefulWidget {
-  const AddSkillForm({super.key});
+  final Skill? skill;
+  const AddSkillForm(this.skill, {super.key});
 
   @override
   ConsumerState<AddSkillForm> createState() => _AddSkillFormState();
@@ -25,11 +26,11 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
 
   Future<void> setData() async {
     Future.microtask(() {
-      final skill = ref.watch(userSkillProvider);
-      if (skill != null) {
-        skillController.text = skill.skill;
-        infoController.text = skill.info;
-        levelController.text = skill.level;
+      // final skill = ref.watch(userSkillProvider);
+      if (widget.skill != null) {
+        skillController.text = widget.skill?.skill ?? '';
+        infoController.text = widget.skill?.information ?? '';
+        levelController.text = widget.skill?.level.toString() ?? '';
       }
     });
   }
@@ -79,14 +80,22 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
-                        UserSkill skill = UserSkill(
+                        final oldSkillSection = ref.watch(skillSectionProvider);
+
+                        Skill skill = Skill(
                           skill: skillController.text,
-                          info: infoController.text,
-                          level: levelController.text,
+                          information: infoController.text,
+                          level: SkillLevel.expert,
                         );
+                        List<Skill> skillList = oldSkillSection == null
+                            ? [skill]
+                            : [...oldSkillSection.skills, skill];
+                        // List<Skill> skillList = [skill];
+                        SkillSection skillSection =
+                            SkillSection(title: '', skills: skillList);
                         ref
-                            .read(userSkillListProvider.notifier)
-                            .update((state) => [...state, skill]);
+                            .read(skillSectionProvider.notifier)
+                            .update((state) => skillSection);
                         Navigator.pop(context);
                       },
                     )

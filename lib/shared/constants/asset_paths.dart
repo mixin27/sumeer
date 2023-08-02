@@ -1,4 +1,6 @@
 class AssetPaths {
+  static const String logo = 'assets/logo.png';
+
   static const String resumeTemplate1 =
       "assets/images/templates/resume_template_1.jpg";
 
