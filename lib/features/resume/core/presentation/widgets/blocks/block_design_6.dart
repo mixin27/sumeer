@@ -3,8 +3,8 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
-class BlockDesign3 extends pw.StatelessWidget {
-  BlockDesign3({
+class BlockDesign6 extends pw.StatelessWidget {
+  BlockDesign6({
     required this.title,
     this.city,
     this.country,
@@ -45,21 +45,19 @@ class BlockDesign3 extends pw.StatelessWidget {
                 shape: pw.BoxShape.circle,
               ),
             ),
+            pw.Text(
+              title,
+              style: pw.Theme.of(context)
+                  .defaultTextStyle
+                  .copyWith(fontWeight: pw.FontWeight.bold),
+            ),
+            pw.Text("-", style: pw.Theme.of(context).defaultTextStyle),
             pw.Flexible(
               child: pw.Text(
-                "$title - ${school ?? ""}",
-                style: pw.Theme.of(context)
-                    .defaultTextStyle
-                    .copyWith(fontWeight: pw.FontWeight.bold),
+                school ?? "",
+                style: pw.Theme.of(context).defaultTextStyle,
               ),
             ),
-            // pw.Text("-", style: pw.Theme.of(context).defaultTextStyle),
-            // pw.Flexible(
-            //   child: pw.Text(
-            //     school ?? "",
-            //     style: pw.Theme.of(context).defaultTextStyle,
-            //   ),
-            // ),
             // pw.Spacer(),
             // if (icon != null) pw.Icon(icon!, color: lightGreen, size: 18),
           ],

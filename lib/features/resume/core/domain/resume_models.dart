@@ -32,6 +32,7 @@ class PersonalDetailSection with _$PersonalDetailSection {
 
     /// City, Country
     required String address,
+    String? imageData,
     PersonalInformation? personalInfo,
     @Default([]) List<PersonalLink> links,
   }) = _PersonalDetailSection;
@@ -209,6 +210,7 @@ class Language with _$Language {
     /// Degree / Field of Study / Exchange Semester
     String? title,
     String? description,
+    LanguageLevel? level,
   }) = _Language;
 }
 
@@ -225,4 +227,12 @@ class Interest with _$Interest {
   const factory Interest({
     String? title,
   }) = _Interest;
+}
+
+enum LanguageLevel {
+  beginner,
+  elementary,
+  limitedWorking,
+  highlyProficient,
+  native,
 }

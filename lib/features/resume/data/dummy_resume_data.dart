@@ -38,11 +38,27 @@ Future<ResumeData> getDummyResumeData() async {
           information: 'Java, Kotlin',
         ),
         Skill(skill: 'Flutter', percentage: 0.8, level: SkillLevel.experienced),
-        Skill(skill: 'NodeJS', percentage: 0.5, level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Strategic thinking and problem-solving',
+            percentage: 0.5,
+            level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Relationship building and networking',
+            percentage: 0.5,
+            level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Effective communication and negotiatior',
+            percentage: 0.5,
+            level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Creative and innovative thinking',
+            percentage: 0.5,
+            level: SkillLevel.skillfull),
       ],
     ),
     languages: language,
     interest: interest,
+    certificate: certificate,
   );
 
   return dummyResumeData;
@@ -110,8 +126,14 @@ final educationData = EducationSection(
 const language = LanguageSection(
   title: 'Languages',
   languages: [
-    Language(title: "English", description: "Level1"),
-    Language(title: "Chinese", description: "A1"),
+    Language(
+        title: "English",
+        description: "Level1",
+        level: LanguageLevel.elementary),
+    Language(
+        title: "Chinese",
+        description: "A1",
+        level: LanguageLevel.limitedWorking),
   ],
 );
 final certificate = CertificateSection(

@@ -46,12 +46,6 @@ class BlockDesign2 extends pw.StatelessWidget {
                 shape: pw.BoxShape.circle,
               ),
             ),
-            // pw.Text(
-            //   "$title - $employeer, $city",
-            //   style: pw.Theme.of(context)
-            //       .defaultTextStyle
-            //       .copyWith(fontWeight: pw.FontWeight.bold),
-            // ),
             pw.Flexible(
               child: pw.Text(
                 "$title - $employeer, $city",
