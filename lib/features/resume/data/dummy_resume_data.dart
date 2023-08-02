@@ -22,6 +22,7 @@ Future<ResumeData> getDummyResumeData() async {
         PersonalLink(
           name: 'GitHub',
           url: 'https://www.github.com/mixin27',
+          codePoint: 0xe157,
         ),
       ],
     ),

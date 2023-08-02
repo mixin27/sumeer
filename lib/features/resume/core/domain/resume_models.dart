@@ -59,6 +59,7 @@ class PersonalLink with _$PersonalLink {
   const factory PersonalLink({
     required String name,
     required String url,
+    int? codePoint,
   }) = _PersonalLink;
 }
 
