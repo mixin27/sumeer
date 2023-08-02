@@ -750,6 +750,16 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       email: emailController.text,
       phone: phoneController.text,
       address: addressController.text,
+      dOB: _selectedDateStr,
+      gender: genderController.text,
+      nationality: nationalityController.text,
+      passport: passportController.text,
+      maritalStatus: maritalController.text,
+      drivingLicense: drivingController.text,
+      website: websiteController.text,
+      linkIn: linkInController.text,
+      gitHub: githubController.text,
+      skype: skypeController.text,
     );
     ref.read(userProfileProvider.notifier).update((state) => profile);
     log(profile.toString());
