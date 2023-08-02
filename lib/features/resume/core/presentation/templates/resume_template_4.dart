@@ -34,159 +34,162 @@ Future<Uint8List> generateTemplate4(
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
-                    pw.Container(
-                      // padding: const pw.EdgeInsets.only(left: 30, bottom: 20),
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    // name
+                    if (resumeData.personalDetail?.fullName != null)
+                      pw.Text(
+                        resumeData.personalDetail?.fullName ?? '',
+                        textScaleFactor: 1.5,
+                        style: pw.Theme.of(context)
+                            .defaultTextStyle
+                            .copyWith(fontWeight: pw.FontWeight.bold),
+                      ),
+                    // job
+                    if (resumeData.personalDetail?.jobTitle != null) ...[
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.only(top: 8),
+                      ),
+                      pw.Text(
+                        resumeData.personalDetail?.jobTitle ?? '',
+                        textScaleFactor: 1.2,
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                      ),
+                    ],
+
+                    // address
+                    if (resumeData.personalDetail?.address != null) ...[
+                      pw.Padding(
+                        padding: const pw.EdgeInsets.only(top: 8),
+                      ),
+                      pw.Text(
+                        resumeData.personalDetail?.address ?? '',
+                        textScaleFactor: 1.2,
+                        style: pw.Theme.of(context).defaultTextStyle,
+                      ),
+                    ],
+                    pw.SizedBox(height: 8),
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
-                          // name
-                          if (resumeData.personalDetail?.fullName != null)
+                          if (resumeData.personalDetail?.phone != null)
                             pw.Text(
-                              resumeData.personalDetail?.fullName ?? '',
+                              resumeData.personalDetail?.phone ?? '',
                               textScaleFactor: 2,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
-                                  .copyWith(fontWeight: pw.FontWeight.bold),
+                                  .copyWith(fontSize: 8),
                             ),
-                          // job
-                          if (resumeData.personalDetail?.jobTitle != null) ...[
-                            pw.Padding(
-                              padding: const pw.EdgeInsets.only(top: 8),
-                            ),
+                          if (resumeData.personalDetail?.email != null)
                             pw.Text(
-                              resumeData.personalDetail?.jobTitle ?? '',
-                              textScaleFactor: 1.2,
+                              resumeData.personalDetail?.email ?? '',
+                              textScaleFactor: 2,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
-                                  .copyWith(
-                                    fontWeight: pw.FontWeight.bold,
-                                  ),
+                                  .copyWith(fontSize: 8),
                             ),
-                          ],
+                        ]),
+                    pw.SizedBox(height: 8),
+                    pw.Divider(height: 2, thickness: 1),
 
-                          // address
-                          if (resumeData.personalDetail?.address != null) ...[
-                            pw.Padding(
-                              padding: const pw.EdgeInsets.only(top: 8),
+                    if (resumeData.personalDetail != null) ...[
+                      SectionDesign4(title: 'Personal Detail'),
+                      if (resumeData.profile!.contents.isNotEmpty)
+                        personalDetail(resumeData, context)
+                    ],
+
+                    pw.SizedBox(height: 8),
+                    pw.Divider(height: 2, thickness: 1),
+
+                    // Profile
+                    if (resumeData.profile != null) ...[
+                      if (resumeData.profile?.title != null)
+                        SectionDesign4(title: resumeData.profile?.title ?? ''),
+                      if (resumeData.profile!.contents.isNotEmpty)
+                        pw.Column(
+                          children: List.generate(
+                            resumeData.profile!.contents.length,
+                            (index) => pw.Padding(
+                              padding: const pw.EdgeInsets.only(top: 4),
+                              child: pw.Text(
+                                resumeData.profile?.contents[index] ?? '',
+                                textScaleFactor: 2,
+                                textAlign: pw.TextAlign.justify,
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(fontSize: 6),
+                              ),
                             ),
-                            pw.Text(
-                              resumeData.personalDetail?.address ?? '',
-                              textScaleFactor: 1.2,
-                              style: pw.Theme.of(context).defaultTextStyle,
-                            ),
-                          ],
-                          pw.SizedBox(height: 8),
-                          pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
-                              children: [
-                                if (resumeData.personalDetail?.phone != null)
-                                  pw.Text(
-                                    resumeData.personalDetail?.phone ?? '',
-                                    textScaleFactor: 2,
-                                    style: pw.Theme.of(context)
-                                        .defaultTextStyle
-                                        .copyWith(fontSize: 8),
-                                  ),
-                                if (resumeData.personalDetail?.email != null)
-                                  pw.Text(
-                                    resumeData.personalDetail?.email ?? '',
-                                    textScaleFactor: 2,
-                                    style: pw.Theme.of(context)
-                                        .defaultTextStyle
-                                        .copyWith(fontSize: 8),
-                                  ),
-                              ]),
-                          pw.SizedBox(height: 8),
-                          pw.Divider(height: 2, thickness: 1),
+                          ),
+                        )
+                    ],
+                    pw.SizedBox(height: 8),
+                    pw.Divider(height: 2, thickness: 1),
 
-                          // Profile
-                          if (resumeData.profile != null) ...[
-                            if (resumeData.profile?.title != null)
-                              SectionDesign4(
-                                  title: resumeData.profile?.title ?? ''),
-                            if (resumeData.profile!.contents.isNotEmpty)
-                              pw.Column(
-                                children: List.generate(
-                                  resumeData.profile!.contents.length,
-                                  (index) => pw.Padding(
-                                    padding: const pw.EdgeInsets.only(top: 4),
-                                    child: pw.Text(
-                                      resumeData.profile?.contents[index] ?? '',
-                                      textScaleFactor: 2,
-                                      textAlign: pw.TextAlign.justify,
-                                      style: pw.Theme.of(context)
-                                          .defaultTextStyle
-                                          .copyWith(fontSize: 6),
-                                    ),
-                                  ),
-                                ),
-                              )
-                          ],
-                          pw.SizedBox(height: 8),
-                          pw.Divider(height: 2, thickness: 1),
+                    // Experience
+                    if (resumeData.experience != null) ...[
+                      if (resumeData.experience?.title != null)
+                        SectionDesign4(
+                            title: resumeData.experience?.title ?? ''),
+                      if (resumeData.experience!.experiences.isNotEmpty)
+                        experienceList(resumeData, context),
+                    ],
 
-                          // Experience
-                          if (resumeData.experience != null) ...[
-                            if (resumeData.experience?.title != null)
-                              SectionDesign4(
-                                  title: resumeData.experience?.title ?? ''),
-                            if (resumeData.experience!.experiences.isNotEmpty)
-                              experienceList(resumeData, context),
-                          ],
+                    pw.SizedBox(height: 8),
+                    pw.Divider(height: 2, thickness: 1),
+                    // Education
+                    if (resumeData.education != null) ...[
+                      if (resumeData.education?.title != null)
+                        SectionDesign4(
+                            title: resumeData.education?.title ?? ''),
+                      if (resumeData.education!.educations.isNotEmpty)
+                        eduationList(resumeData, context),
+                    ],
 
-                          pw.SizedBox(height: 8),
-                          pw.Divider(height: 2, thickness: 1),
-                          // Education
-                          if (resumeData.education != null) ...[
-                            if (resumeData.education?.title != null)
-                              SectionDesign4(
-                                  title: resumeData.education?.title ?? ''),
-                            if (resumeData.education!.educations.isNotEmpty)
-                              eduationList(resumeData, context),
-                          ],
+                    pw.SizedBox(height: 8),
+                    pw.Divider(height: 2, thickness: 1),
 
-                          pw.SizedBox(height: 8),
-                          pw.Divider(height: 2, thickness: 1),
+                    // Skill
+                    if (resumeData.education != null) ...[
+                      if (resumeData.education?.title != null)
+                        SectionDesign4(
+                            title: resumeData.education?.title ?? ''),
+                      if (resumeData.education!.educations.isNotEmpty)
+                        eduationList(resumeData, context),
+                    ],
 
-                          if (resumeData.personalDetail?.address != null) ...[
-                            pw.Padding(
-                                padding: const pw.EdgeInsets.only(top: 20)),
-                            pw.Row(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
-                              children: [
-                                pw.Column(
-                                  crossAxisAlignment:
-                                      pw.CrossAxisAlignment.start,
-                                  children: [
-                                    pw.Text('Mingaladon, Yangon'),
-                                    pw.Text('Myanmar'),
-                                  ],
-                                ),
-                                pw.Column(
-                                  crossAxisAlignment:
-                                      pw.CrossAxisAlignment.start,
-                                  children: [
-                                    pw.Text(
-                                      resumeData.personalDetail?.phone ?? '',
-                                    ),
-                                    LinkDesign1(
-                                      text: resumeData.personalDetail?.email ??
-                                          '',
-                                      url: resumeData.personalDetail?.email ??
-                                          '',
-                                    ),
-                                  ],
-                                ),
-                                pw.Padding(padding: pw.EdgeInsets.zero),
-                              ],
-                            ),
-                          ],
+                    pw.SizedBox(height: 8),
+                    pw.Divider(height: 2, thickness: 1),
+
+                    if (resumeData.personalDetail?.address != null) ...[
+                      pw.Padding(padding: const pw.EdgeInsets.only(top: 20)),
+                      pw.Row(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              pw.Text('Mingaladon, Yangon'),
+                              pw.Text('Myanmar'),
+                            ],
+                          ),
+                          pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              pw.Text(
+                                resumeData.personalDetail?.phone ?? '',
+                              ),
+                              LinkDesign1(
+                                text: resumeData.personalDetail?.email ?? '',
+                                url: resumeData.personalDetail?.email ?? '',
+                              ),
+                            ],
+                          ),
+                          pw.Padding(padding: pw.EdgeInsets.zero),
                         ],
                       ),
-                    ),
+                    ],
 
                     // Experience
                     if (resumeData.experience != null) ...[
@@ -197,7 +200,6 @@ Future<Uint8List> generateTemplate4(
                           (index) {
                             final experience =
                                 resumeData.experience!.experiences[index];
-
                             return BlockDesign1(
                               title: experience.jobTitle,
                               city: experience.city,
@@ -221,7 +223,6 @@ Future<Uint8List> generateTemplate4(
                           (index) {
                             final education =
                                 resumeData.education!.educations[index];
-
                             return BlockDesign1(
                               title: education.degree ?? '',
                               city: education.city,
@@ -299,6 +300,194 @@ Future<Uint8List> generateTemplate4(
   return doc.save();
 }
 
+pw.Wrap personalDetail(ResumeData resumeData, pw.Context context) {
+  PersonalInformation? info = resumeData.personalDetail!.personalInfo;
+  return pw.Wrap(
+    // crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [
+      if (info?.dateOfBirth != null)
+        pw.SizedBox(
+            width: 150,
+            child: pw.Row(
+              children: [
+                pw.SizedBox(
+                  width: 100,
+                  child: pw.Text(
+                    'Date Of Birth',
+                    textScaleFactor: 2,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6),
+                  ),
+                ),
+                pw.Text(
+                  " : ${info?.dateOfBirth ?? ''}",
+                  textScaleFactor: 2,
+                  textAlign: pw.TextAlign.justify,
+                  style: pw.Theme.of(context)
+                      .defaultTextStyle
+                      .copyWith(fontSize: 6),
+                ),
+              ],
+            )),
+      if (info?.drivingLicense != null)
+        pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 100,
+              child: pw.Text(
+                'Driving License',
+                textScaleFactor: 2,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ),
+            pw.Text(
+              " : ${info?.drivingLicense ?? ''}",
+              textScaleFactor: 2,
+              textAlign: pw.TextAlign.justify,
+              style:
+                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+            ),
+          ],
+        ),
+      if (info?.gender != null)
+        pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 100,
+              child: pw.Text(
+                'Gender',
+                textScaleFactor: 2,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ),
+            pw.Text(
+              " : ${info?.gender ?? ''}",
+              textScaleFactor: 2,
+              textAlign: pw.TextAlign.justify,
+              style:
+                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+            ),
+          ],
+        ),
+      if (info?.identityNo != null)
+        pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 100,
+              child: pw.Text(
+                'Identity No.',
+                textScaleFactor: 2,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ),
+            pw.Text(
+              " : ${info?.identityNo ?? ''}",
+              textScaleFactor: 2,
+              textAlign: pw.TextAlign.justify,
+              style:
+                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+            ),
+          ],
+        ),
+      if (info?.martialStatus != null)
+        pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 100,
+              child: pw.Text(
+                'Martial Status',
+                textScaleFactor: 2,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ),
+            pw.Text(
+              " : ${info?.martialStatus ?? ''}",
+              // " : ${info?.martialStatus ?? ''}",
+              textScaleFactor: 2,
+              textAlign: pw.TextAlign.justify,
+              style:
+                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+            ),
+          ],
+        ),
+      if (info?.nationality != null)
+        pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 100,
+              child: pw.Text(
+                'Nationality',
+                textScaleFactor: 2,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ),
+            pw.Text(
+              " : ${info?.nationality ?? ''}",
+              // " : ${info?.martialStatus ?? ''}",
+              textScaleFactor: 2,
+              textAlign: pw.TextAlign.justify,
+              style:
+                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+            ),
+          ],
+        ),
+      if (info?.militaryService != null)
+        pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 100,
+              child: pw.Text(
+                'Military Service',
+                textScaleFactor: 2,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ),
+            pw.Text(
+              " : ${info?.militaryService ?? ''}",
+              // " : ${info?.martialStatus ?? ''}",
+              textScaleFactor: 2,
+              textAlign: pw.TextAlign.justify,
+              style:
+                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+            ),
+          ],
+        ),
+      if (resumeData.personalDetail!.links.isNotEmpty)
+        ...List.generate(
+          resumeData.personalDetail!.links.length,
+          (index) => pw.Row(
+            children: [
+              pw.SizedBox(
+                width: 100,
+                child: pw.Text(
+                  resumeData.personalDetail!.links[index].name,
+                  textScaleFactor: 2,
+                  style: pw.Theme.of(context)
+                      .defaultTextStyle
+                      .copyWith(fontSize: 6),
+                ),
+              ),
+              pw.Text(
+                " : ${resumeData.personalDetail!.links[index].url}",
+                textScaleFactor: 2,
+                textAlign: pw.TextAlign.justify,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
+            ],
+          ),
+        )
+    ],
+  );
+}
+
 pw.Column experienceList(ResumeData resumeData, pw.Context context) {
   return pw.Column(
     children: List.generate(
@@ -332,8 +521,8 @@ pw.Column experienceList(ResumeData resumeData, pw.Context context) {
                         .defaultTextStyle
                         .copyWith(fontSize: 6),
                   ),
-                if (resumeData.experience!.experiences[index].endDate !=
-                    null) ...[
+                if (resumeData.experience!.experiences[index].endDate != null ||
+                    resumeData.experience!.experiences[index].isPresent) ...[
                   pw.Text(
                     " -- ",
                     textScaleFactor: 2,
@@ -343,9 +532,11 @@ pw.Column experienceList(ResumeData resumeData, pw.Context context) {
                         .copyWith(fontSize: 6),
                   ),
                   pw.Text(
-                    resumeData.experience!.experiences[index].endDate
-                        .toString()
-                        .substring(0, 10),
+                    resumeData.experience!.experiences[index].isPresent
+                        ? "Present"
+                        : resumeData.experience!.experiences[index].endDate
+                            .toString()
+                            .substring(0, 10),
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -449,8 +640,8 @@ pw.Column eduationList(ResumeData resumeData, pw.Context context) {
                         .defaultTextStyle
                         .copyWith(fontSize: 6),
                   ),
-                if (resumeData.education!.educations[index].endDate !=
-                    null) ...[
+                if (resumeData.education!.educations[index].endDate != null ||
+                    resumeData.education!.educations[index].isPresent) ...[
                   pw.Text(
                     " -- ",
                     textScaleFactor: 2,
@@ -460,9 +651,11 @@ pw.Column eduationList(ResumeData resumeData, pw.Context context) {
                         .copyWith(fontSize: 6),
                   ),
                   pw.Text(
-                    resumeData.education!.educations[index].endDate
-                        .toString()
-                        .substring(0, 10),
+                    resumeData.education!.educations[index].isPresent
+                        ? "Present"
+                        : resumeData.education!.educations[index].endDate
+                            .toString()
+                            .substring(0, 10),
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -472,51 +665,50 @@ pw.Column eduationList(ResumeData resumeData, pw.Context context) {
                 ]
               ],
             ),
-            // Company
-            // pw.Row(
-            //   // mainAxisAlignment:
-            //   //     pw.MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     if (resumeData.experience!.experiences[index].employer != null)
-            //       pw.Expanded(
-            //           child: pw.Text(
-            //         resumeData.experience!.experiences[index].employer?.name ??
-            //             '',
-            //         textScaleFactor: 2,
-            //         textAlign: pw.TextAlign.justify,
-            //         style: pw.Theme.of(context)
-            //             .defaultTextStyle
-            //             .copyWith(fontSize: 6),
-            //       )),
-            //     if (resumeData.experience!.experiences[index].country != null)
-            //       pw.Text(
-            //         resumeData.experience!.experiences[index].country ?? '',
-            //         textScaleFactor: 2,
-            //         textAlign: pw.TextAlign.justify,
-            //         style: pw.Theme.of(context)
-            //             .defaultTextStyle
-            //             .copyWith(fontSize: 6),
-            //       ),
-            //     if (resumeData.experience!.experiences[index].city != null) ...[
-            //       pw.Text(
-            //         ", ",
-            //         textScaleFactor: 2,
-            //         textAlign: pw.TextAlign.justify,
-            //         style: pw.Theme.of(context)
-            //             .defaultTextStyle
-            //             .copyWith(fontSize: 6),
-            //       ),
-            //       pw.Text(
-            //         resumeData.experience!.experiences[index].city ?? '',
-            //         textScaleFactor: 2,
-            //         textAlign: pw.TextAlign.justify,
-            //         style: pw.Theme.of(context)
-            //             .defaultTextStyle
-            //             .copyWith(fontSize: 6),
-            //       ),
-            //     ]
-            //   ],
-            // ),
+            // School
+            pw.Row(
+              // mainAxisAlignment:
+              //     pw.MainAxisAlignment.spaceBetween,
+              children: [
+                if (resumeData.education!.educations[index].school != null)
+                  pw.Expanded(
+                      child: pw.Text(
+                    resumeData.education!.educations[index].school ?? '',
+                    textScaleFactor: 2,
+                    textAlign: pw.TextAlign.justify,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6),
+                  )),
+                if (resumeData.education!.educations[index].country != null)
+                  pw.Text(
+                    resumeData.education!.educations[index].country ?? '',
+                    textScaleFactor: 2,
+                    textAlign: pw.TextAlign.justify,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6),
+                  ),
+                if (resumeData.education!.educations[index].city != null) ...[
+                  pw.Text(
+                    ", ",
+                    textScaleFactor: 2,
+                    textAlign: pw.TextAlign.justify,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6),
+                  ),
+                  pw.Text(
+                    resumeData.education!.educations[index].city ?? '',
+                    textScaleFactor: 2,
+                    textAlign: pw.TextAlign.justify,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6),
+                  ),
+                ]
+              ],
+            ),
             if (resumeData.education!.educations[index].description != null)
               pw.Text(
                 resumeData.education!.educations[index].description ?? '',
