@@ -22,6 +22,7 @@ class AddDataCard extends ConsumerStatefulWidget {
 }
 
 class _AddDataCardState extends ConsumerState<AddDataCard> {
+  bool isShowSkill = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,7 +64,22 @@ class _AddDataCardState extends ConsumerState<AddDataCard> {
             if (widget.text.contains('Skill'))
               ref.watch(skillSectionProvider) == null
                   ? const SizedBox()
-                  : const SkillWdiget(),
+                  : Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  isShowSkill = !isShowSkill;
+                                  setState(() {});
+                                },
+                                icon: const Icon(Icons.arrow_back_ios)),
+                          ],
+                        ),
+                        isShowSkill ? const SkillWdiget() : const SizedBox(),
+                      ],
+                    ),
             if (widget.text.contains('Professional')) const ExperienceWidget(),
             if (widget.text.contains('Education')) const EducationWidget(),
           ],
