@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
+import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
@@ -124,18 +125,24 @@ class _HomePageState extends State<HomePage> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       SizedBox(
-                        height: 380,
+                        height: 300,
                         width: double.infinity,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: 5,
+                          itemCount: resumeTemplates.length > 4
+                              ? 4
+                              : resumeTemplates.length,
                           itemBuilder: (context, index) {
+                            final template = resumeTemplates[index];
+
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 10),
+                                horizontal: 8,
+                                vertical: 10,
+                              ),
                               child: Image.asset(
-                                'assets/images/home/template1.png',
-                                height: 350,
+                                template.thumbnail,
+                                // height: 350,
                                 fit: BoxFit.contain,
                               ),
                             );
@@ -162,7 +169,9 @@ class _HomePageState extends State<HomePage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            context.router.navigate(const TemplatesRoute());
+          },
           child: const Text('View all -->'),
         ),
       ],
@@ -191,7 +200,9 @@ class _HomePageState extends State<HomePage> {
           label: const Text('Create New\n CV form'),
         ),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(const DetailRoute());
+          },
           style: FilledButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20), // <-- Radius

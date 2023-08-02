@@ -14,6 +14,7 @@ class BlockDesign5 extends pw.StatelessWidget {
     this.icon,
     this.school,
     this.iconColor,
+    this.textColor,
   });
 
   final String title;
@@ -26,6 +27,7 @@ class BlockDesign5 extends pw.StatelessWidget {
   final pw.IconData? icon;
   final String? school;
   final PdfColor? iconColor;
+  final PdfColor? textColor;
 
   @override
   pw.Widget build(pw.Context context) {

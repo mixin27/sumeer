@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
+import 'package:sumeer/features/templates/domain/cv_model.dart';
 
-class AddProfessionalExperienceForm extends StatelessWidget {
+class AddProfessionalExperienceForm extends ConsumerStatefulWidget {
   const AddProfessionalExperienceForm({super.key});
 
+  @override
+  ConsumerState<AddProfessionalExperienceForm> createState() =>
+      _AddProfessionalExperienceFormState();
+}
+
+class _AddProfessionalExperienceFormState
+    extends ConsumerState<AddProfessionalExperienceForm> {
+  final employerController = TextEditingController();
+  final jobTitleController = TextEditingController();
+  final cityController = TextEditingController();
+  final startDateController = TextEditingController();
+  final endDateController = TextEditingController();
+  final descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -39,28 +55,48 @@ class AddProfessionalExperienceForm extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ListView(
                       shrinkWrap: true,
-                      children: const [
+                      children: [
                         TextInputFieldWidget(
+                          controller: employerController,
                           title: "Employer",
                         ),
                         TextInputFieldWidget(
+                          controller: jobTitleController,
                           title: "Job Title",
                         ),
                         TextInputFieldWidget(
+                          controller: cityController,
                           title: "City",
                         ),
                         TextInputFieldWidget(
+                          controller: startDateController,
                           title: "Start Date",
                         ),
                         TextInputFieldWidget(
+                          controller: endDateController,
                           title: "End Date",
                         ),
                         TextInputFieldWidget(
+                          controller: descriptionController,
                           title: "Description",
                           hintText: "Describe ypur role & achievements",
                           maxLines: 3,
                         ),
-                        SaveBottomSheetWidget()
+                        SaveBottomSheetWidget(
+                          onTap: () {
+                            UserExperience experience = UserExperience(
+                              employer: employerController.text,
+                              jobTitle: jobTitleController.text,
+                              city: cityController.text,
+                              startDate: startDateController.text,
+                              endDate: endDateController.text,
+                              description: descriptionController.text,
+                            );
+                            ref
+                                .read(userExperienceListProvider.notifier)
+                                .update((state) => [...state, experience]);
+                          },
+                        )
                       ],
                     ),
                   ),

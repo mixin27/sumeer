@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
-import '../../../../utils/utils.dart';
 
-class PersonalDetailCard extends StatelessWidget {
-  const PersonalDetailCard({
-    Key? key,
-    this.personalDetail,
-  }) : super(key: key);
-
-  final PersonalDetailSection? personalDetail;
+class PersonalDetailCard extends ConsumerWidget {
+  const PersonalDetailCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(userProfileProvider);
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(
@@ -47,58 +44,63 @@ class PersonalDetailCard extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: (personalDetail != null &&
-                          personalDetail?.imageData != null)
-                      ? CircularProfileAvatar(
-                          '',
-                          radius: 50,
-                          child: Image.memory(
-                            dataFromBase64String(personalDetail!.imageData!),
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : CircularProfileAvatar(
-                          '',
-                          backgroundColor: Colors.grey.withOpacity(0.3),
-                          radius: 50,
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 40,
-                            color: Colors.grey.shade50,
-                          ),
-                        ),
+                  child: CircularProfileAvatar(
+                    '',
+                    backgroundColor: Colors.grey.withOpacity(0.3),
+                    radius: 50,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.fill,
+                      imageUrl: profile?.image ?? '',
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey.withOpacity(0.3),
+                        size: 50,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  personalDetail?.fullName ?? "Your Name",
+                  // "Your Name",
+                  profile?.name ?? "Your Name",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  personalDetail?.jobTitle ?? "Mobile Developer",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                Visibility(
+                  visible: profile != null,
+                  child: Text(
+                    profile?.jobTitle ?? "Mobile Developer",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.email_outlined,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      personalDetail?.email ?? "testing2123@gmail.com",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+                Visibility(
+                  visible: profile != null,
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.email_outlined,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        profile?.email ?? "testing2123@gmail.com",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [
@@ -110,7 +112,7 @@ class PersonalDetailCard extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      personalDetail?.phone ?? "09-xxxx-xxx-xxx",
+                      profile?.phone ?? "09-xxxx-xxx-xxx",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

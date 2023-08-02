@@ -739,7 +739,7 @@ Future<Uint8List> generateResume1(
                       right: pw.BorderSide(width: 1),
                     ),
                   ),
-                  padding: pw.EdgeInsets.all(20),
+                  padding: const pw.EdgeInsets.all(20),
                   child: pw.Column(
                     children: [
                       if (resumeData.experience != null) ...[
@@ -1052,7 +1052,7 @@ Future<Uint8List> generateResume1(
                       right: pw.BorderSide(width: 1),
                     ),
                   ),
-                  padding: pw.EdgeInsets.all(20),
+                  padding: const pw.EdgeInsets.all(20),
                   child: pw.Column(
                     children: [
                       if (resumeData.experience != null) ...[
@@ -1265,7 +1265,11 @@ Future<Uint8List> generateResume1(
   return doc.save();
 }
 
-pw.Widget buildContact(pw.Context context, String title, String value) {
+pw.Widget buildContact(
+  pw.Context context,
+  String title,
+  String value,
+) {
   return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
     pw.Text(
       title,

@@ -209,5 +209,14 @@ class Language with _$Language {
     /// Degree / Field of Study / Exchange Semester
     String? title,
     String? description,
+    LanguageLevel? level,
   }) = _Language;
+}
+
+enum LanguageLevel {
+  beginner,
+  elementary,
+  limitedWorking,
+  highlyProficient,
+  native,
 }

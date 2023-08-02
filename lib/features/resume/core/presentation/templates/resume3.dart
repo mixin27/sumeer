@@ -128,7 +128,7 @@ Future<Uint8List> generatResume3(
                       right: pw.BorderSide(width: 1),
                     ),
                   ),
-                  padding: pw.EdgeInsets.all(20),
+                  padding: const pw.EdgeInsets.all(20),
                   child: pw.Column(
                     children: [
                       if (resumeData.experience != null) ...[

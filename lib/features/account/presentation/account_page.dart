@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/features/auth/core/shared/auth_providers.dart';
+import 'package:sumeer/shared/shared.dart';
+
 @RoutePage()
 class AccountPage extends ConsumerStatefulWidget {
   const AccountPage({super.key});
@@ -22,31 +25,86 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
         child: ListView(
           children: [
+            // Divider(height: 1, color: Colors.grey[300]),
+            const SizedBox(height: 10),
+            // const Text(
+            //   "Profile",
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // const SizedBox(height: 14),
+            Consumer(
+              builder: (context, ref, child) {
+                final authStateChanges = ref.watch(authStateChangesProvider);
+
+                return authStateChanges.when(
+                  data: (data) {
+                    if (data == null) {
+                      return Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton(
+                          onPressed: () {
+                            context.router.push(const SignInRoute());
+                          },
+                          style: TextButton.styleFrom(
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          child: const Text('Sign In'),
+                        ),
+                      );
+                    } else {
+                      return InkWell(
+                        // onTap: () {
+                        //   context.router.push(const ProfileRoute());
+                        // },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.person_2_outlined,
+                                color: Colors.blueAccent,
+                              ),
+                              const SizedBox(width: 6),
+                              const Expanded(
+                                child: Text(
+                                  "My Account",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              Text(data.email),
+                              const SizedBox(width: 4),
+                              const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  error: (error, stack) => Text(error.toString()),
+                  loading: () => const SizedBox(),
+                );
+              },
+            ),
+            const SizedBox(height: 10),
             Divider(height: 1, color: Colors.grey[300]),
-            const SizedBox(height: 18),
+            const SizedBox(height: 20),
             const Text(
-              "Profile",
+              "Settings",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            const SizedBox(height: 14),
-            const Row(
-              children: [
-                Icon(
-                  Icons.person_2_outlined,
-                  color: Colors.blueAccent,
-                ),
-                SizedBox(width: 6),
-                Expanded(
-                    child: Text(
-                  "My Account",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                )),
-                Text("theintmyatnoe@gmail.com"),
-                SizedBox(width: 4),
-                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-              ],
             ),
             const SizedBox(height: 20),
             const Row(
@@ -76,7 +134,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 const SizedBox(width: 6),
                 const Expanded(
                     child: Text(
-                  "My Account",
+                  "Dark Theme",
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                 )),
                 Switch(value: false, onChanged: (val) {}),
@@ -177,6 +235,54 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ],
             ),
             const SizedBox(height: 14),
+            Consumer(
+              builder: (context, ref, child) {
+                final authState = ref.watch(authStateChangesProvider);
+
+                return authState.when(
+                  data: (data) {
+                    if (data == null) {
+                      return const SizedBox();
+                    } else {
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              ref.read(authRepositoryProvider).signOut();
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.logout,
+                                    color: Colors.redAccent,
+                                  ),
+                                  SizedBox(width: 6),
+                                  Expanded(
+                                      child: Text(
+                                    "Sign Out",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  )),
+                                  Icon(Icons.arrow_forward_ios,
+                                      size: 16, color: Colors.grey),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                        ],
+                      );
+                    }
+                  },
+                  error: (error, stack) => Text(error.toString()),
+                  loading: () => const SizedBox(),
+                );
+              },
+            )
           ],
         ),
       ),
