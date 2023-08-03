@@ -72,6 +72,7 @@ class PersonalLink with _$PersonalLink {
   const factory PersonalLink({
     required String name,
     required String url,
+    int? codePoint,
   }) = _PersonalLink;
   factory PersonalLink.fromJson(Map<String, dynamic> json) =>
       _$PersonalLinkFromJson(json);
@@ -265,6 +266,7 @@ class Language with _$Language {
     String? title,
     String? description,
     LanguageLevel? level,
+    double? percentage,
   }) = _Language;
   factory Language.fromJson(Map<String, dynamic> json) =>
       _$LanguageFromJson(json);
