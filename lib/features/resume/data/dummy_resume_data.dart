@@ -22,6 +22,7 @@ Future<ResumeData> getDummyResumeData() async {
         PersonalLink(
           name: 'GitHub',
           url: 'https://www.github.com/mixin27',
+          codePoint: 0xe157,
         ),
       ],
     ),
@@ -128,13 +129,17 @@ const language = LanguageSection(
   title: 'Languages',
   languages: [
     Language(
-        title: "English",
-        description: "Level1",
-        level: LanguageLevel.elementary),
+      title: "English",
+      description: "Level1",
+      level: LanguageLevel.elementary,
+      percentage: 20,
+    ),
     Language(
-        title: "Chinese",
-        description: "A1",
-        level: LanguageLevel.limitedWorking),
+      title: "Chinese",
+      description: "A1",
+      level: LanguageLevel.limitedWorking,
+      percentage: 50.5,
+    ),
   ],
 );
 final certificate = CertificateSection(
