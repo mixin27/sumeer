@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
+import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
@@ -218,68 +219,115 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget createCVorResume(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ///
-        Expanded(
-          child: SizedBox(
-            height: 80,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                context.router.push(const MyFileRoute());
-              },
-              style: FilledButton.styleFrom(
-                elevation: 0.5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // <-- Radius
-                ),
-                backgroundColor: const Color.fromARGB(255, 237, 245, 252),
-                foregroundColor: Theme.of(context).colorScheme.primary,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              ),
-              icon: const Icon(
-                Icons.file_copy,
-              ),
-              label: const Text(
-                textAlign: TextAlign.start,
-                'My files',
-              ),
-            ),
-          ),
-        ),
-        horSpace(20),
-        Expanded(
-          child: SizedBox(
-            height: 80,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                context.router.push(const DetailRoute());
-              },
-              style: FilledButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // <-- Radius
-                ),
-                elevation: 0.5,
-                backgroundColor: const Color.fromARGB(255, 237, 245, 252),
-                foregroundColor: Theme.of(context).colorScheme.primary,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              ),
-              // icon: Image.asset(AssetPaths.resume),
-              icon: const Icon(
-                Icons.file_download,
-                // size: 53,
-              ),
-              label: const Text(
-                  textAlign: TextAlign.start, 'Create New\nResume +'),
-            ),
-          ),
-        ),
+    return Consumer(
+      builder: ((context, ref, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ///
+            // Expanded(
+            // child: SizedBox(
+            //   height: 80,
+            //   child: ElevatedButton.icon(
+            //     onPressed: () {
+            //       context.router.push(const MyFileRoute());
+            //     },
+            //     style: FilledButton.styleFrom(
+            //       elevation: 0.5,
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(15), // <-- Radius
+            //       ),
+            //       backgroundColor: const Color.fromARGB(255, 237, 245, 252),
+            //       foregroundColor: Theme.of(context).colorScheme.primary,
+            //       padding:
+            //           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            //     ),
+            //     icon: const Icon(
+            //       Icons.file_copy,
+            //     ),
+            //     label: const Text(
+            //       textAlign: TextAlign.start,
+            //       'My files',
+            //     ),
+            //   ),
+            // ),
 
-        ///
-      ],
+            // ),
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  context.router.push(const MyFileRoute());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 237, 245, 252),
+                      // color: Theme.of(context).primaryCo,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.file_copy_outlined,
+                          size: 30,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        verSpace(4),
+                        Text(
+                          textAlign: TextAlign.start,
+                          'My Files',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            horSpace(20),
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  ref.read(resumeDataProvider.notifier).state = null;
+                  context.router.push(const DetailRoute());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 237, 245, 252),
+                      // color: Theme.of(context).primaryCo,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [
+                        Image.asset(AssetPaths.resume),
+                        verSpace(4),
+                        Text(
+                          textAlign: TextAlign.start,
+                          'Create resume +',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            ///
+          ],
+        );
+      }),
     );
   }
 
@@ -287,13 +335,31 @@ class _HomePageState extends State<HomePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          // textAlign: TextAlign.center,
-          'Create a job winning\nResume in a Minutes!',
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.w500),
+        // Text(
+        //   // textAlign: TextAlign.center,
+        //   'Create a job winning\nresume',
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .titleLarge!
+        //       .copyWith(fontWeight: FontWeight.w500),
+        // ),
+        RichText(
+          text: TextSpan(
+            text: 'Create a job winning\nresume ',
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.w500, letterSpacing: 1, wordSpacing: 2),
+            children: <TextSpan>[
+              TextSpan(
+                text: 'in a minute!',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.primary,
+                      letterSpacing: 1.4,
+                      wordSpacing: 2,
+                    ),
+              ),
+            ],
+          ),
         ),
         Image.asset(
           AssetPaths.file,

@@ -14,6 +14,7 @@ class ResumeData with _$ResumeData {
     ProfileSection? profile,
     EducationSection? education,
     ProjectSection? project,
+    PersonalInformation? personalInformation,
     ExperienceSection? experience,
     SkillSection? skill,
     CertificateSection? certificate,

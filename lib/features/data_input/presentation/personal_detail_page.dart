@@ -84,15 +84,15 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   Future<void> setData() async {
     wLog('setData', 'Called');
     Future.microtask(() {
-      final profile = ref.watch(userProfileProvider);
-      if (profile != null) {
-        fullNameController.text = profile.name;
-        phoneController.text = profile.phone;
-        addressController.text = profile.address;
-        jobTitleController.text = profile.jobTitle;
-        emailController.text = profile.email;
+      final personalDetailSection = ref.watch(personalDetailSectionProvider);
+      if (personalDetailSection != null) {
+        fullNameController.text = personalDetailSection.fullName;
+        phoneController.text = personalDetailSection.phone;
+        addressController.text = personalDetailSection.address;
+        jobTitleController.text = personalDetailSection.jobTitle;
+        emailController.text = personalDetailSection.email;
 
-        imageUrl = profile.image ?? '';
+        imageUrl = personalDetailSection.imageData ?? '';
       } else {
         imageId = const Uuid().v4();
       }
@@ -728,9 +728,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
             onTap: () {
               if (formKey.currentState!.validate()) {
                 savePerson();
+                savePersonalDetail();
                 AutoRouter.of(context).pop();
               }
-              // savePersonalDetail();
               // context.router.pop();
             },
           )),
@@ -745,32 +745,43 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   void savePerson() async {
-    UserProfile? profile = UserProfile(
-      image: imageUrl,
-      name: fullNameController.text,
-      jobTitle: jobTitleController.text,
-      email: emailController.text,
-      phone: phoneController.text,
-      address: addressController.text,
-      dOB: _selectedDateStr,
-      gender: genderController.text,
-      nationality: nationalityController.text,
-      passport: passportController.text,
-      maritalStatus: maritalController.text,
-      drivingLicense: drivingController.text,
-      website: websiteController.text,
-      linkIn: linkInController.text,
-      gitHub: githubController.text,
-      skype: skypeController.text,
-      createdOn:
-          DateFormat('yyyy/MM/dd hh:mm:ss').format(DateTime.now()).toString(),
-    );
-    ref.read(userProfileProvider.notifier).update((state) => profile);
-    log(profile.toString());
-    log(ref.watch(userProfileProvider).toString());
+    // UserProfile? profile = UserProfile(
+    //   image: imageUrl,
+    //   name: fullNameController.text,
+    //   jobTitle: jobTitleController.text,
+    //   email: emailController.text,
+    //   phone: phoneController.text,
+    //   address: addressController.text,
+    //   dOB: _selectedDateStr,
+    //   gender: genderController.text,
+    //   nationality: nationalityController.text,
+    //   passport: passportController.text,
+    //   maritalStatus: maritalController.text,
+    //   drivingLicense: drivingController.text,
+    //   website: websiteController.text,
+    //   linkIn: linkInController.text,
+    //   gitHub: githubController.text,
+    //   skype: skypeController.text,
+    //   createdOn:
+    //       DateFormat('yyyy/MM/dd hh:mm:ss').format(DateTime.now()).toString(),
+    // );
   }
 
   void savePersonalDetail() async {
+    PersonalInformation personalInfo = PersonalInformation(
+      dateOfBirth: _selectedDateStr,
+      nationality: nationalityController.text,
+      identityNo: '',
+      martialStatus: maritalController.text,
+      militaryService: '',
+      drivingLicense: drivingController.text,
+      gender: genderController.text,
+    );
+    ref
+        .read(personalInformationProvider.notifier)
+        .update((state) => personalInfo);
+    log(personalInfo.toString());
+    log(ref.watch(personalInformationProvider).toString());
     var personalDetail = PersonalDetailSection(
       fullName: fullNameController.text,
       jobTitle: jobTitleController.text,
@@ -803,7 +814,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       ],
     );
 
-    ref.read(resumeDataProvider.notifier).state = ResumeData(
+    ResumeData resumeData = ResumeData(
       // profileImage: _image == null
       //     ? ref.watch(resumeDataProvider)?.profileImage
       //     : pw.MemoryImage(_image!),
@@ -819,7 +830,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,
+      personalInformation: personalInfo,
     );
+    ref.read(resumeDataProvider.notifier).update((state) => resumeData);
   }
 
   /// Get from gallery

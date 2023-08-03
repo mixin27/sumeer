@@ -37,6 +37,9 @@ final userProfileProvider = StateProvider<UserProfile?>((ref) {
   return null;
 });
 
+// personal information
+// final personalInformation = StateProvider<Perso
+
 final userExperienceListProvider = StateProvider<List<UserExperience>>((ref) {
   return [];
 });
@@ -56,8 +59,12 @@ final userEducationListProvider = StateProvider<List<UserEducation>>((ref) {
 // resumeData
 final personalDetailSectionProvider =
     StateProvider<PersonalDetailSection?>((ref) => null);
+
 final personalDetailSectionListProvider =
     StateProvider<List<PersonalDetailSection>?>((ref) => []);
+final personalInformationProvider = StateProvider<PersonalInformation?>((ref) {
+  return null;
+});
 // profile
 final profileProvider = StateProvider<ProfileSection?>((ref) => null);
 // educaton
