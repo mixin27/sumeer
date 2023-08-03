@@ -23,6 +23,8 @@ Future<Uint8List> generateTemplate6(
 
   final pageTheme = await _pageTheme(format);
 
+  final font = await PdfGoogleFonts.bungeeShadeRegular();
+
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -31,7 +33,224 @@ Future<Uint8List> generateTemplate6(
           pw.Partitions(
             children: [
               pw.Partition(
-                child: pw.Container(),
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    if (resumeData.personalDetail != null) ...[
+                      pw.Text(
+                        resumeData.personalDetail?.fullName ?? '',
+                        style: pw.TextStyle(
+                          font: font,
+                          fontSize: 40,
+                        ),
+                      ),
+                      pw.SizedBox(height: 5),
+                      pw.Text(
+                        resumeData.personalDetail?.jobTitle ?? '',
+                        style: pw.TextStyle(
+                          fontSize: 20,
+                          color: PdfColor.fromHex('54448D'),
+                        ),
+                      ),
+                      pw.SizedBox(height: 5),
+                      pw.Row(
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xe158),
+                            color: PdfColor.fromHex('54448D'),
+                            size: 20,
+                          ),
+                          pw.SizedBox(width: 5),
+                          pw.Text(
+                            resumeData.personalDetail?.email ?? '',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.SizedBox(height: 5),
+                      pw.Row(
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xe0b0),
+                            color: PdfColor.fromHex('54448D'),
+                            size: 20,
+                          ),
+                          pw.SizedBox(width: 5),
+                          pw.Text(
+                            resumeData.personalDetail?.phone ?? '',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.SizedBox(height: 5),
+                      pw.Row(
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xe0c8),
+                            color: PdfColor.fromHex('54448D'),
+                            size: 20,
+                          ),
+                          pw.SizedBox(width: 5),
+                          pw.Text(
+                            resumeData.personalDetail?.address ?? '',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (resumeData.personalDetail!.links.isNotEmpty)
+                        pw.Column(
+                          children: List.generate(
+                            resumeData.personalDetail!.links.length,
+                            (index) {
+                              final link =
+                                  resumeData.personalDetail!.links[index];
+
+                              return pw.Column(
+                                children: [
+                                  pw.SizedBox(height: 5),
+                                  pw.Row(
+                                    children: [
+                                      pw.Icon(
+                                        pw.IconData(link.codePoint ?? 0xe157),
+                                        color: PdfColor.fromHex('54448D'),
+                                        size: 20,
+                                      ),
+                                      pw.SizedBox(width: 5),
+                                      pw.Text(
+                                        link.url,
+                                        style: pw.TextStyle(
+                                          color: PdfColor.fromHex('54448D'),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                    ],
+                    pw.SizedBox(height: 20),
+                    if (resumeData.skill != null) ...[
+                      pw.Row(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xea4a),
+                            color: PdfColor.fromHex('54448D'),
+                          ),
+                          pw.SizedBox(width: 10),
+                          pw.Text(
+                            resumeData.skill!.title.isNotEmpty
+                                ? resumeData.skill!.title
+                                : 'Skills',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 18,
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: List.generate(
+                          resumeData.skill!.skills.length,
+                          (index) {
+                            final skill = resumeData.skill!.skills[index];
+
+                            return pw.Container(
+                              width: 200,
+                              padding:
+                                  const pw.EdgeInsets.symmetric(vertical: 5),
+                              child: pw.Row(
+                                mainAxisAlignment:
+                                    pw.MainAxisAlignment.spaceBetween,
+                                children: [
+                                  pw.Expanded(
+                                    child: pw.Text(skill.skill),
+                                  ),
+                                  pw.SizedBox(width: 10),
+                                  pw.Expanded(
+                                    child: ProgressDesignLinear(
+                                      value: skill.percentage ?? 0.0,
+                                    ),
+                                  ),
+                                  pw.SizedBox(width: 20),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                    pw.SizedBox(height: 20),
+                    if (resumeData.languages != null) ...[
+                      pw.Row(
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xe894),
+                            color: PdfColor.fromHex('54448D'),
+                          ),
+                          pw.SizedBox(width: 10),
+                          pw.Text(
+                            resumeData.languages!.title.isNotEmpty
+                                ? resumeData.languages!.title
+                                : 'Languages',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 18,
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Column(
+                        children: List.generate(
+                          resumeData.languages!.languages.length,
+                          (index) {
+                            final language =
+                                resumeData.languages!.languages[index];
+
+                            return pw.Container(
+                              width: 200,
+                              padding:
+                                  const pw.EdgeInsets.symmetric(vertical: 5),
+                              child: pw.Row(
+                                mainAxisAlignment:
+                                    pw.MainAxisAlignment.spaceBetween,
+                                children: [
+                                  pw.Expanded(
+                                    child: pw.Text(language.title ?? ''),
+                                  ),
+                                  pw.SizedBox(width: 10),
+                                  pw.Expanded(
+                                    child: ProgressDesignLinear(
+                                      value: language.percentage ?? 0.0,
+                                    ),
+                                  ),
+                                  pw.SizedBox(width: 20),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
               ),
               pw.Partition(
                 child: pw.Column(
@@ -329,8 +548,8 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
   return pw.PageTheme(
     pageFormat: format,
     theme: pw.ThemeData.withFont(
-      base: await PdfGoogleFonts.openSansRegular(),
-      bold: await PdfGoogleFonts.openSansBold(),
+      base: await PdfGoogleFonts.sourceSansProRegular(),
+      bold: await PdfGoogleFonts.sourceSansProBold(),
       icons: await PdfGoogleFonts.materialIcons(),
     ),
     buildBackground: (pw.Context context) {
