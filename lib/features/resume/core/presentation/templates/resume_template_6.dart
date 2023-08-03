@@ -183,13 +183,8 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: pw.Container(
-                                      width: 100,
-                                      child: pw.LinearProgressIndicator(
-                                        value: skill.percentage ?? 0.0,
-                                        minHeight: 3,
-                                        valueColor: PdfColor.fromHex('54448D'),
-                                      ),
+                                    child: ProgressDesignLinear(
+                                      value: skill.percentage ?? 0.0,
                                     ),
                                   ),
                                   pw.SizedBox(width: 20),
@@ -242,13 +237,8 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: pw.Container(
-                                      width: 100,
-                                      child: pw.LinearProgressIndicator(
-                                        value: language.percentage ?? 0.0,
-                                        minHeight: 3,
-                                        valueColor: PdfColor.fromHex('54448D'),
-                                      ),
+                                    child: ProgressDesignLinear(
+                                      value: language.percentage ?? 0.0,
                                     ),
                                   ),
                                   pw.SizedBox(width: 20),
