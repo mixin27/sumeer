@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
@@ -10,14 +11,12 @@ import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 import '../../features.dart';
-import '../../templates/domain/cv_model.dart';
 import '../infrastructure/firebase_function.dart';
 
 @RoutePage()

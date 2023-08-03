@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/annotations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
-
 import '../../auth/feat_auth.dart';
 import '../../templates/domain/cv_model.dart';
 

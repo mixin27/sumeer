@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 part 'resume_models.freezed.dart';
 part 'resume_models.g.dart';

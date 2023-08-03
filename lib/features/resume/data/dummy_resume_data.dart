@@ -1,14 +1,9 @@
-import 'package:flutter/services.dart' show rootBundle;
-
-import 'package:pdf/widgets.dart' as pw;
-
 import 'package:sumeer/features/resume/feat_resume.dart';
-import 'package:sumeer/shared/shared.dart';
 
 Future<ResumeData> getDummyResumeData() async {
-  final profileImage = pw.MemoryImage(
-    (await rootBundle.load(AssetPaths.resumeProfile)).buffer.asUint8List(),
-  );
+  // final profileImage = pw.MemoryImage(
+  //   (await rootBundle.load(AssetPaths.resumeProfile)).buffer.asUint8List(),
+  // );
 
   final dummyResumeData = ResumeData(
     // TODO: profile image

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+
 export 'resume_template_1.dart';
 export 'resume_template_6.dart';
 
