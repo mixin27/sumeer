@@ -19,6 +19,7 @@ class ResumeData with _$ResumeData {
     CertificateSection? certificate,
     LanguageSection? languages,
     InterestSection? interest,
+    AwardSection? award,
   }) = _ResumeData;
   factory ResumeData.fromJson(Map<String, dynamic> json) =>
       _$ResumeDataFromJson(json);
@@ -291,6 +292,29 @@ class Interest with _$Interest {
   }) = _Interest;
   factory Interest.fromJson(Map<String, dynamic> json) =>
       _$InterestFromJson(json);
+}
+
+@freezed
+class AwardSection with _$AwardSection {
+  const AwardSection._();
+  const factory AwardSection({
+    @Default('Awards') String title,
+    @Default([]) List<Award> awards,
+  }) = _AwardSection;
+  factory AwardSection.fromJson(Map<String, dynamic> json) =>
+      _$AwardSectionFromJson(json);
+}
+
+@freezed
+class Award with _$Award {
+  const Award._();
+  const factory Award({
+    String? award,
+    String? issuer,
+    DateTime? awardDate,
+    String? description,
+  }) = _Award;
+  factory Award.fromJson(Map<String, dynamic> json) => _$AwardFromJson(json);
 }
 
 enum LanguageLevel {

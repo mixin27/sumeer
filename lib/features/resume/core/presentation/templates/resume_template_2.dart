@@ -345,6 +345,34 @@ Future<Uint8List> generateTemplate2(
                       ),
                       pw.SizedBox(height: 20),
                     ],
+                    if (resumeData.award != null) ...[
+                      buildTitleWidget("AWARDS", const pw.IconData(0xea23),
+                          font, PdfColor.fromHex('293F4E'), PdfColors.white),
+                      pw.SizedBox(height: 10),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: List.generate(
+                          resumeData.award!.awards.length,
+                          (index) {
+                            final award = resumeData.award!.awards[index];
+
+                            return pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text("${award.award} ",
+                                    style: pw.TextStyle(
+                                        font: font, color: PdfColors.white)),
+                                pw.Text("${award.issuer}",
+                                    style: pw.TextStyle(
+                                        font: fontRegular,
+                                        color: PdfColors.white)),
+                                pw.SizedBox(height: 20)
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
                     if (resumeData.certificate != null) ...[
                       buildTitleWidget(
                           "CERTIFICATES",

@@ -31,16 +31,15 @@ class _HomePageState extends State<HomePage> {
           children: [
             ///
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 20, left: 16, right: 12, bottom: 8),
+              padding: const EdgeInsets.only(top: 8, left: 12, right: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Sumeer',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold),
                   ),
                   Consumer(
                     builder: (context, ref, child) {
@@ -50,25 +49,7 @@ class _HomePageState extends State<HomePage> {
                       return authStateChanges.when(
                         data: (data) {
                           if (data != null) {
-                            return FilledButton.icon(
-                              onPressed: () async {
-                                await ref
-                                    .read(authRepositoryProvider)
-                                    .signOut();
-
-                                // if (mounted) {
-                                //   context.router.push(const SignInRoute());
-                                // }
-                              },
-                              style: FilledButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.onPrimary,
-                                foregroundColor:
-                                    Theme.of(context).colorScheme.primary,
-                              ),
-                              icon: const Icon(Icons.login),
-                              label: const Text('Sign Out'),
-                            );
+                            return const SizedBox();
                           } else {
                             return FilledButton.icon(
                               onPressed: () {
@@ -101,40 +82,138 @@ class _HomePageState extends State<HomePage> {
 
             ///
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
+              child: SingleChildScrollView(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       // create job winnign
-                      winningJob(context),
-                      verSpace(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Create a job winning\nResume in a Minutes!',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Image.asset(
+                            AssetPaths.file,
+                            height: 100,
+                          )
+                        ],
+                      ),
+
+                      verSpace(10),
                       // create cv/resume
-                      createCVorResume(context),
-                      verSpace(20),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () => context.router
+                                    .push(const PersonalDetailRoute()),
+                                child: Container(
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .error
+                                        .withOpacity(0.5),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  margin: const EdgeInsets.only(right: 5),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        const Icon(
+                                          Icons.description_outlined,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                        Text("New Resume/CVs",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  color: Colors.white,
+                                                )),
+                                      ]),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () =>
+                                    context.router.push(const MyFileRoute()),
+                                child: Container(
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withOpacity(0.5),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  margin: const EdgeInsets.only(left: 5),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        const Icon(
+                                          Icons.description_outlined,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          "My Files",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                color: Colors.white,
+                                              ),
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                            )
+                          ]),
+                      verSpace(30),
                       // build your cv/ resume free
-                      viewAll(context, title: 'CV'),
-                      // verSpace(5),
+                      viewAll(context),
                       Text(
                         'Pick one of our free resume templates, fill it out, and land that dream job!',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.grey.shade500),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(0.5)),
                       ),
-                      verSpace(10),
+                      verSpace(30),
                       SizedBox(
-                        height: 300,
+                        height: 500,
                         width: double.infinity,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -144,42 +223,19 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             final template = resumeTemplates[index];
 
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 10,
-                              ),
-                              child: Image.asset(
-                                template.thumbnail,
-                                // height: 350,
-                                fit: BoxFit.contain,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-
-                      viewAll(context, title: 'Resume'),
-                      SizedBox(
-                        height: 300,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: resumeTemplates.length > 4
-                              ? 4
-                              : resumeTemplates.length,
-                          itemBuilder: (context, index) {
-                            final template = resumeTemplates[index];
-
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 10,
-                              ),
-                              child: Image.asset(
-                                template.thumbnail,
-                                // height: 350,
-                                fit: BoxFit.contain,
+                            return Container(
+                              child: Card(
+                                clipBehavior: Clip.hardEdge,
+                                elevation: 5,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(0)),
+                                ),
+                                child: Image.asset(
+                                  template.thumbnail,
+                                  // height: 350,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             );
                           },
@@ -196,12 +252,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget viewAll(BuildContext context, {required String title}) {
+  Widget viewAll(
+    BuildContext context,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Build your $title free',
+          'Build your CV/Resume free',
           style: Theme.of(context)
               .textTheme
               .bodyLarge!

@@ -56,6 +56,7 @@ Future<ResumeData> getDummyResumeData() async {
     languages: language,
     interest: interest,
     certificate: certificate,
+    award: award,
   );
 
   return dummyResumeData;
@@ -165,5 +166,21 @@ const interest = InterestSection(
   interests: [
     Interest(title: 'Travelling'),
     Interest(title: 'Playing Guitar'),
+  ],
+);
+
+final award = AwardSection(
+  title: 'Awards',
+  awards: [
+    Award(
+      award: 'Outattanding Business Student Award',
+      issuer: "University of Southern Calfomia",
+      awardDate: DateTime.parse("2014-03-04"),
+    ),
+    Award(
+      award: 'Dan\'s List',
+      issuer: "University of Calfomia",
+      awardDate: DateTime.now(),
+    ),
   ],
 );

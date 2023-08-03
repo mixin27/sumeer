@@ -301,6 +301,62 @@ Future<Uint8List> generateTemplate3(
                     ),
                     pw.SizedBox(height: 10),
                   ],
+                  if (resumeData.interest != null) ...[
+                    _buildTitleWidget("INTERESTS", context),
+                    pw.SizedBox(height: 10),
+                    pw.Wrap(
+                      children: List.generate(
+                        resumeData.interest!.interests.length,
+                        (index) {
+                          final interest =
+                              resumeData.interest!.interests[index];
+                          return pw.Wrap(children: [
+                            pw.Text(interest.title ?? ""),
+                            if (resumeData.interest!.interests.last !=
+                                interest) ...[
+                              pw.Container(
+                                width: 6,
+                                height: 6,
+                                margin: const pw.EdgeInsets.only(
+                                    top: 5.5, left: 5, right: 5),
+                                decoration: const pw.BoxDecoration(
+                                    shape: pw.BoxShape.circle,
+                                    color: PdfColors.black),
+                              ),
+                            ],
+                            pw.SizedBox(width: 10)
+                          ]);
+                        },
+                      ),
+                    ),
+                    pw.SizedBox(height: 20),
+                  ],
+                  if (resumeData.award != null) ...[
+                    _buildTitleWidget("AWARDS", context),
+                    pw.SizedBox(height: 10),
+                    pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: List.generate(
+                        resumeData.award!.awards.length,
+                        (index) {
+                          final award = resumeData.award!.awards[index];
+                          return pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text(
+                                  award.award ?? "",
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Text(award.issuer ?? ""),
+                                pw.SizedBox(height: 10)
+                              ]);
+                        },
+                      ),
+                    ),
+                    pw.SizedBox(height: 20),
+                  ],
                   if (resumeData.certificate != null) ...[
                     _buildTitleWidget("CERTIFICATE", context),
                     pw.SizedBox(height: 10),
