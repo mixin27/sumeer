@@ -187,7 +187,8 @@ Future<Uint8List> generateTemplate6(
                                       width: 100,
                                       child: pw.LinearProgressIndicator(
                                         value: skill.percentage ?? 0.0,
-                                        minHeight: 2,
+                                        minHeight: 3,
+                                        valueColor: PdfColor.fromHex('54448D'),
                                       ),
                                     ),
                                   ),
@@ -245,7 +246,8 @@ Future<Uint8List> generateTemplate6(
                                       width: 100,
                                       child: pw.LinearProgressIndicator(
                                         value: language.percentage ?? 0.0,
-                                        minHeight: 2,
+                                        minHeight: 3,
+                                        valueColor: PdfColor.fromHex('54448D'),
                                       ),
                                     ),
                                   ),
