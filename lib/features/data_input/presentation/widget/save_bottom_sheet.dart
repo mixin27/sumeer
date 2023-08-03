@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 class SaveBottomSheetWidget extends StatelessWidget {
+  final bool routeTo;
+  final Function()? cancelOnTap;
   const SaveBottomSheetWidget({
     Key? key,
     this.onTap,
+    this.routeTo = false,
+    this.cancelOnTap,
   }) : super(key: key);
 
   final GestureTapCallback? onTap;
@@ -16,7 +20,7 @@ class SaveBottomSheetWidget extends StatelessWidget {
       children: [
         Expanded(
           child: InkWell(
-            onTap: () => context.router.pop(),
+            onTap: routeTo ? cancelOnTap : () => context.router.pop(),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               margin: const EdgeInsets.all(10),

@@ -81,7 +81,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     SaveBottomSheetWidget(
                       onTap: () {
                         final oldSkillSection = ref.watch(skillSectionProvider);
-
+                        final oldResumeData = ref.watch(resumeDataProvider);
                         Skill skill = Skill(
                           skill: skillController.text,
                           information: infoController.text,
@@ -96,6 +96,12 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         ref
                             .read(skillSectionProvider.notifier)
                             .update((state) => skillSection);
+
+                        final newResumeData = oldResumeData?.copyWith(
+                            skill: ref.watch(skillSectionProvider));
+                        ref
+                            .read(resumeDataProvider.notifier)
+                            .update((state) => newResumeData);
                         Navigator.pop(context);
                       },
                     )

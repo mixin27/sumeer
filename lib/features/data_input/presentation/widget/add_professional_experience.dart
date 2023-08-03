@@ -109,6 +109,7 @@ class _AddProfessionalExperienceFormState
                           onTap: () {
                             final oldExpScetion =
                                 ref.watch(experienceSectionProvider);
+                            final oldResumeData = ref.watch(resumeDataProvider);
                             vLog('date time', DateTime.now());
                             Experience experience = Experience(
                               employer: null,
@@ -131,6 +132,13 @@ class _AddProfessionalExperienceFormState
                             ref
                                 .read(experienceSectionProvider.notifier)
                                 .update((state) => experienceSection);
+
+                            final newResumeData = oldResumeData?.copyWith(
+                                experience:
+                                    ref.watch(experienceSectionProvider));
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
                             Navigator.pop(context);
                           },
                         ),

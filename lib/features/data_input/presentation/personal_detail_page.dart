@@ -11,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:sumeer/shared/shared.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
@@ -84,15 +85,32 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   Future<void> setData() async {
     wLog('setData', 'Called');
     Future.microtask(() {
-      final personalDetailSection = ref.watch(personalDetailSectionProvider);
-      if (personalDetailSection != null) {
-        fullNameController.text = personalDetailSection.fullName;
-        phoneController.text = personalDetailSection.phone;
-        addressController.text = personalDetailSection.address;
-        jobTitleController.text = personalDetailSection.jobTitle;
-        emailController.text = personalDetailSection.email;
+      final resumeData = ref.watch(resumeDataProvider);
+      if (resumeData != null) {
+        fullNameController.text = resumeData.personalDetail?.fullName ?? '';
+        phoneController.text = resumeData.personalDetail?.phone ?? '';
+        addressController.text = resumeData.personalDetail?.address ?? '';
+        jobTitleController.text = resumeData.personalDetail?.jobTitle ?? '';
+        emailController.text = resumeData.personalDetail?.email ?? '';
+        //gender
+        genderController.text = resumeData.personalInformation?.gender ?? '';
+        _isAddGender = genderController.text.isEmptyOrNull ? false : true;
+        // martial
+        maritalController.text =
+            resumeData.personalInformation?.martialStatus ?? '';
+        _isAddMarital = maritalController.text.isEmptyOrNull ? false : true;
+        // nationality
+        nationalityController.text =
+            resumeData.personalInformation?.nationality ?? '';
+        _isAddNationality =
+            nationalityController.text.isEmptyOrNull ? false : true;
+        // driving licence
+        drivingController.text =
+            resumeData.personalInformation?.drivingLicense ?? '';
+        _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
+        //
 
-        imageUrl = personalDetailSection.imageData ?? '';
+        imageUrl = resumeData.personalDetail?.imageData ?? '';
       } else {
         imageId = const Uuid().v4();
       }
@@ -723,17 +741,25 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ),
       bottomSheet: SizedBox(
-          height: 80,
-          child: SaveBottomSheetWidget(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                savePerson();
-                savePersonalDetail();
-                AutoRouter.of(context).pop();
-              }
-              // context.router.pop();
-            },
-          )),
+        height: 80,
+        child: SaveBottomSheetWidget(
+          routeTo: true,
+          cancelOnTap: () {
+            context.router.replaceAll([
+              const DetailRoute(),
+            ]);
+          },
+          onTap: () {
+            if (formKey.currentState!.validate()) {
+              savePerson();
+              savePersonalDetail();
+              // AutoRouter.of(context).pop();
+              AutoRouter.of(context).push(const DetailRoute());
+            }
+            // context.router.pop();
+          },
+        ),
+      ),
     );
   }
 
@@ -819,7 +845,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       //     ? ref.watch(resumeDataProvider)?.profileImage
       //     : pw.MemoryImage(_image!),
       // TODO: profileimage
-      profileImage: "",
+      // profileImage: _image == null ? ref.watch(resumeDataProvider)?.profileImage :imageUrl,
+      profileImage: '',
       personalDetail: personalDetail,
       profile: const ProfileSection(
         title: "Profile",

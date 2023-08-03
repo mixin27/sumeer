@@ -98,6 +98,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                           onTap: () {
                             final oldEduSection =
                                 ref.watch(educationSectionProvider);
+                            final oldResumeData = ref.watch(resumeDataProvider);
                             Education education = Education(
                               degree: degreeController.text,
                               school: schoolController.text,
@@ -116,6 +117,16 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                             ref
                                 .read(educationSectionProvider.notifier)
                                 .update((state) => eduScetion);
+                            // ResumeData resumeData = ResumeData(
+                            //     education: ref.watch(educationSectionProvider));
+                            final newResumeData = oldResumeData?.copyWith(
+                                education: ref.watch(educationSectionProvider));
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                            // ref
+                            //     .read(resumeDataProvider.notifier)
+                            //     .update((state) => state);
                             Navigator.pop(context);
                           },
                         )
