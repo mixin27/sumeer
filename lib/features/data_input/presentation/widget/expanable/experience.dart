@@ -32,11 +32,14 @@ class _ExperienceState extends ConsumerState<ExperienceWidget> {
                     return AddProfessionalExperienceForm(expList[index]);
                   });
             },
-            title: Text(expList[index].jobTitle),
+            title: Text(
+              expList[index].jobTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(expList[index].jobTitle),
+                Text(expList[index].endDate.toString()),
                 Text(expList[index].description ?? ''),
               ],
             ),

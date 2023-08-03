@@ -32,12 +32,15 @@ class _ExperienceState extends ConsumerState<EducationWidget> {
                     return AddEducationForm(eduList[index]);
                   });
             },
-            title: Text(eduList[index].school ?? ''),
+            title: Text(
+              eduList[index].school ?? '',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(eduList[index].degree ?? ''),
-                Text(eduList[index].description ?? ''),
+                Text(eduList[index].city ?? ''),
               ],
             ),
             trailing: IconButton(

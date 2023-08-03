@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/education_card.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/experience_card.dart';
 
 import '../../feat_data_input.dart';
 
@@ -21,19 +23,16 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
           children: [
             // personnal detail card
             const PersonalDetailCard(),
-            AddDataCard(
-              text: "Education",
+            EducationCard(
               onTap: () => showAddEducationForm(context),
             ),
-            AddDataCard(
-              text: "Professional Experience",
+
+            ExperienceCard(
               onTap: () => showAddExperienceForm(context),
             ),
-            AddDataCard(
-              text: "Skill",
+            SkillCard(
               onTap: () => showAddSkillForm(context),
             ),
-            // skillList(),
             const SizedBox(
               height: 30,
             ),

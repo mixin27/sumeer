@@ -2,26 +2,22 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/education.dart';
-import 'package:sumeer/features/data_input/presentation/widget/expanable/experience.dart';
-import 'package:sumeer/features/data_input/presentation/widget/expanable/skill.dart';
 
-import '../../../features.dart';
+import '../../../../features.dart';
 
-class AddDataCard extends ConsumerStatefulWidget {
-  const AddDataCard({
+class EducationCard extends ConsumerStatefulWidget {
+  const EducationCard({
     Key? key,
-    required this.text,
     this.onTap,
   }) : super(key: key);
 
-  final String text;
   final GestureTapCallback? onTap;
 
   @override
-  ConsumerState<AddDataCard> createState() => _AddDataCardState();
+  ConsumerState<EducationCard> createState() => _EducationCardState();
 }
 
-class _AddDataCardState extends ConsumerState<AddDataCard> {
+class _EducationCardState extends ConsumerState<EducationCard> {
   bool isShowSkill = false;
   @override
   Widget build(BuildContext context) {
@@ -43,12 +39,13 @@ class _AddDataCardState extends ConsumerState<AddDataCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.text,
+                      'Education',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
                           ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
+                    const Spacer(),
                     IconButton(
                       onPressed: widget.onTap,
                       icon: const Icon(
@@ -57,31 +54,34 @@ class _AddDataCardState extends ConsumerState<AddDataCard> {
                         color: Color(0xFF407BFF),
                       ),
                     ),
+                    ref.watch(educationSectionProvider) == null
+                        ? const SizedBox()
+                        : IconButton(
+                            onPressed: () {
+                              isShowSkill = !isShowSkill;
+                              setState(() {});
+                            },
+                            icon: Icon(
+                              isShowSkill
+                                  ? Icons.arrow_drop_up
+                                  : Icons.arrow_drop_down,
+                              size: 40,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          )
                   ],
                 ),
               ),
             ),
-            if (widget.text.contains('Skill'))
-              ref.watch(skillSectionProvider) == null
-                  ? const SizedBox()
-                  : Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  isShowSkill = !isShowSkill;
-                                  setState(() {});
-                                },
-                                icon: const Icon(Icons.arrow_back_ios)),
-                          ],
-                        ),
-                        isShowSkill ? const SkillWdiget() : const SizedBox(),
-                      ],
-                    ),
-            if (widget.text.contains('Professional')) const ExperienceWidget(),
-            if (widget.text.contains('Education')) const EducationWidget(),
+            ref.watch(educationSectionProvider) == null
+                ? const SizedBox()
+                : Column(
+                    children: [
+                      isShowSkill ? const EducationWidget() : const SizedBox(),
+                    ],
+                  ),
+            // if (widget.text.contains('Professional')) const ExperienceWidget(),
+            // if (widget.text.contains('Education')) const EducationWidget(),
           ],
         ),
       ),
