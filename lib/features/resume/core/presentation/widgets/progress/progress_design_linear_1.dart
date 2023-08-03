@@ -3,8 +3,8 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
-class ProgressDesignCircular2 extends pw.StatelessWidget {
-  ProgressDesignCircular2({
+class ProgressDesignLinear1 extends pw.StatelessWidget {
+  ProgressDesignLinear1({
     required this.size,
     required this.value,
     required this.title,
