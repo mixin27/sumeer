@@ -212,6 +212,7 @@ class Language with _$Language {
     String? title,
     String? description,
     LanguageLevel? level,
+    double? percentage,
   }) = _Language;
 }
 

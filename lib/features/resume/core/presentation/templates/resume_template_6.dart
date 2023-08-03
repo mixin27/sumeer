@@ -140,6 +140,123 @@ Future<Uint8List> generateTemplate6(
                           ),
                         ),
                     ],
+                    pw.SizedBox(height: 20),
+                    if (resumeData.skill != null) ...[
+                      pw.Row(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xea4a),
+                            color: PdfColor.fromHex('54448D'),
+                          ),
+                          pw.SizedBox(width: 10),
+                          pw.Text(
+                            resumeData.skill!.title.isNotEmpty
+                                ? resumeData.skill!.title
+                                : 'Skills',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 18,
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: List.generate(
+                          resumeData.skill!.skills.length,
+                          (index) {
+                            final skill = resumeData.skill!.skills[index];
+
+                            return pw.Container(
+                              width: 200,
+                              padding:
+                                  const pw.EdgeInsets.symmetric(vertical: 5),
+                              child: pw.Row(
+                                mainAxisAlignment:
+                                    pw.MainAxisAlignment.spaceBetween,
+                                children: [
+                                  pw.Expanded(
+                                    child: pw.Text(skill.skill),
+                                  ),
+                                  pw.SizedBox(width: 10),
+                                  pw.Expanded(
+                                    child: pw.Container(
+                                      width: 100,
+                                      child: pw.LinearProgressIndicator(
+                                        value: skill.percentage ?? 0.0,
+                                        minHeight: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  pw.SizedBox(width: 20),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                    pw.SizedBox(height: 20),
+                    if (resumeData.languages != null) ...[
+                      pw.Row(
+                        children: [
+                          pw.Icon(
+                            const pw.IconData(0xe894),
+                            color: PdfColor.fromHex('54448D'),
+                          ),
+                          pw.SizedBox(width: 10),
+                          pw.Text(
+                            resumeData.languages!.title.isNotEmpty
+                                ? resumeData.languages!.title
+                                : 'Languages',
+                            style: pw.TextStyle(
+                              color: PdfColor.fromHex('54448D'),
+                              fontSize: 18,
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Column(
+                        children: List.generate(
+                          resumeData.languages!.languages.length,
+                          (index) {
+                            final language =
+                                resumeData.languages!.languages[index];
+
+                            return pw.Container(
+                              width: 200,
+                              padding:
+                                  const pw.EdgeInsets.symmetric(vertical: 5),
+                              child: pw.Row(
+                                mainAxisAlignment:
+                                    pw.MainAxisAlignment.spaceBetween,
+                                children: [
+                                  pw.Expanded(
+                                    child: pw.Text(language.title ?? ''),
+                                  ),
+                                  pw.SizedBox(width: 10),
+                                  pw.Expanded(
+                                    child: pw.Container(
+                                      width: 100,
+                                      child: pw.LinearProgressIndicator(
+                                        value: language.percentage ?? 0.0,
+                                        minHeight: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  pw.SizedBox(width: 20),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
