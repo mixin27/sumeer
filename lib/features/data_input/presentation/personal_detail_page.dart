@@ -18,7 +18,6 @@ import 'package:sumeer/features/data_input/presentation/widget/text_input_field_
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 import '../../features.dart';
-import '../../templates/domain/cv_model.dart';
 import '../infrastructure/firebase_function.dart';
 
 @RoutePage()

@@ -29,7 +29,7 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
                   isScrollControlled: true,
                   context: context,
                   builder: (cxt) {
-                    return AddSkillForm(skillList[index]);
+                    return AddSkillForm(skillList[index], index);
                   });
             },
             title: Text(skillList[index].skill),

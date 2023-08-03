@@ -29,7 +29,7 @@ class _ExperienceState extends ConsumerState<EducationWidget> {
                   isScrollControlled: true,
                   context: context,
                   builder: (cxt) {
-                    return AddEducationForm(eduList[index]);
+                    return AddEducationForm(eduList[index], index);
                   });
             },
             title: Text(
