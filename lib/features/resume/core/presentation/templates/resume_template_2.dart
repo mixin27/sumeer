@@ -1,8 +1,10 @@
 import 'dart:typed_data';
+
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 Future<Uint8List> generateTemplate2(
@@ -51,8 +53,11 @@ Future<Uint8List> generateTemplate2(
                       width: 130,
                       height: 130,
                       child: pw.ClipOval(
-                        child: pw.Image(resumeData.profileImage!,
-                            width: 130, height: 130, fit: pw.BoxFit.cover),
+                        // child:
+                        // pw.Image(resumeData.profileImage!,
+                        //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                        // TODO: profileImage
+                        child: pw.SizedBox(),
                       ),
                     ),
                     pw.SizedBox(height: 20),

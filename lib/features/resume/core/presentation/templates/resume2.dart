@@ -70,8 +70,10 @@ Future<Uint8List> generatResume2(
                 child: pw.Container(
                   alignment: pw.Alignment.center,
                   color: PdfColors.white,
-                  child: pw.Image(resumeData.profileImage!,
-                      height: 170, width: 210, fit: pw.BoxFit.cover),
+                  // child: pw.Image(resumeData.profileImage!,
+                  //     height: 170, width: 210, fit: pw.BoxFit.cover),
+                  // TODO: profileImage
+                  child: pw.SizedBox(),
                 ),
               ),
               pw.Expanded(

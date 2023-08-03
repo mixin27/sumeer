@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
@@ -10,14 +11,12 @@ import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 import '../../features.dart';
-import '../../templates/domain/cv_model.dart';
 import '../infrastructure/firebase_function.dart';
 
 @RoutePage()
@@ -82,15 +81,17 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   Future<void> setData() async {
+    wLog('setData', 'Called');
     Future.microtask(() {
-      final profile = ref.watch(userProfileProvider);
-      if (profile != null) {
-        fullNameController.text = profile.name;
-        phoneController.text = profile.phone;
-        addressController.text = profile.address;
-        jobTitleController.text = profile.jobTitle;
-        emailController.text = profile.email;
-        imageUrl = profile.image ?? '';
+      final personalDetailSection = ref.watch(personalDetailSectionProvider);
+      if (personalDetailSection != null) {
+        fullNameController.text = personalDetailSection.fullName;
+        phoneController.text = personalDetailSection.phone;
+        addressController.text = personalDetailSection.address;
+        jobTitleController.text = personalDetailSection.jobTitle;
+        emailController.text = personalDetailSection.email;
+
+        imageUrl = personalDetailSection.imageData ?? '';
       } else {
         imageId = const Uuid().v4();
       }
@@ -726,9 +727,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
             onTap: () {
               if (formKey.currentState!.validate()) {
                 savePerson();
+                savePersonalDetail();
                 AutoRouter.of(context).pop();
               }
-              // savePersonalDetail();
               // context.router.pop();
             },
           )),
@@ -743,30 +744,43 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   void savePerson() async {
-    UserProfile? profile = UserProfile(
-      image: imageUrl,
-      name: fullNameController.text,
-      jobTitle: jobTitleController.text,
-      email: emailController.text,
-      phone: phoneController.text,
-      address: addressController.text,
-      dOB: _selectedDateStr,
-      gender: genderController.text,
-      nationality: nationalityController.text,
-      passport: passportController.text,
-      maritalStatus: maritalController.text,
-      drivingLicense: drivingController.text,
-      website: websiteController.text,
-      linkIn: linkInController.text,
-      gitHub: githubController.text,
-      skype: skypeController.text,
-    );
-    ref.read(userProfileProvider.notifier).update((state) => profile);
-    log(profile.toString());
-    log(ref.watch(userProfileProvider).toString());
+    // UserProfile? profile = UserProfile(
+    //   image: imageUrl,
+    //   name: fullNameController.text,
+    //   jobTitle: jobTitleController.text,
+    //   email: emailController.text,
+    //   phone: phoneController.text,
+    //   address: addressController.text,
+    //   dOB: _selectedDateStr,
+    //   gender: genderController.text,
+    //   nationality: nationalityController.text,
+    //   passport: passportController.text,
+    //   maritalStatus: maritalController.text,
+    //   drivingLicense: drivingController.text,
+    //   website: websiteController.text,
+    //   linkIn: linkInController.text,
+    //   gitHub: githubController.text,
+    //   skype: skypeController.text,
+    //   createdOn:
+    //       DateFormat('yyyy/MM/dd hh:mm:ss').format(DateTime.now()).toString(),
+    // );
   }
 
   void savePersonalDetail() async {
+    PersonalInformation personalInfo = PersonalInformation(
+      dateOfBirth: _selectedDateStr,
+      nationality: nationalityController.text,
+      identityNo: '',
+      martialStatus: maritalController.text,
+      militaryService: '',
+      drivingLicense: drivingController.text,
+      gender: genderController.text,
+    );
+    ref
+        .read(personalInformationProvider.notifier)
+        .update((state) => personalInfo);
+    log(personalInfo.toString());
+    log(ref.watch(personalInformationProvider).toString());
     var personalDetail = PersonalDetailSection(
       fullName: fullNameController.text,
       jobTitle: jobTitleController.text,
@@ -799,10 +813,12 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       ],
     );
 
-    ref.read(resumeDataProvider.notifier).state = ResumeData(
-      profileImage: _image == null
-          ? ref.watch(resumeDataProvider)?.profileImage
-          : pw.MemoryImage(_image!),
+    ResumeData resumeData = ResumeData(
+      // profileImage: _image == null
+      //     ? ref.watch(resumeDataProvider)?.profileImage
+      //     : pw.MemoryImage(_image!),
+      // TODO: profileimage
+      profileImage: "",
       personalDetail: personalDetail,
       profile: const ProfileSection(
         title: "Profile",
@@ -813,7 +829,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,
+      personalInformation: personalInfo,
     );
+    ref.read(resumeDataProvider.notifier).update((state) => resumeData);
   }
 
   /// Get from gallery

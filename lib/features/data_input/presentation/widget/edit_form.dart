@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/features/data_input/presentation/widget/expanable/education_card.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/experience_card.dart';
 import '../../feat_data_input.dart';
 
 class EditFormWidget extends ConsumerStatefulWidget {
@@ -19,20 +21,18 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         margin: const EdgeInsets.all(10.0),
         child: Column(
           children: [
+            // personnal detail card
             const PersonalDetailCard(),
-            AddDataCard(
-              text: "Education",
+            EducationCard(
               onTap: () => showAddEducationForm(context),
             ),
-            AddDataCard(
-              text: "Professional Experience",
+
+            ExperienceCard(
               onTap: () => showAddExperienceForm(context),
             ),
-            AddDataCard(
-              text: "Skill",
+            SkillCard(
               onTap: () => showAddSkillForm(context),
             ),
-            skillList(),
             const SizedBox(
               height: 30,
             ),
@@ -96,43 +96,87 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
     );
   }
 
-  Column skillList() {
-    return Column(
-      children: List.generate(
-          ref.watch(userSkillListProvider).length,
-          (index) => Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Card(
-                  child: ListTile(
-                    onTap: () {
-                      showModalBottomSheet(
-                          backgroundColor: Colors.transparent,
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (cxt) {
-                            return const AddSkillForm();
-                          });
-                    },
-                    title: Text(ref.watch(userSkillListProvider)[index].skill),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(ref.watch(userSkillListProvider)[index].level),
-                        Text(ref.watch(userSkillListProvider)[index].info)
-                      ],
-                    ),
-                    trailing: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            ref.watch(userSkillListProvider).removeAt(index);
-                          });
-                        },
-                        icon: const Icon(Icons.delete)),
-                  ),
-                ),
-              )),
-    );
-  }
+  // Column skillList() {
+  //   return Column(
+  //     children: List.generate(
+  //         ref.watch(userSkillListProvider).length,
+  //         (index) => Padding(
+  //               padding: const EdgeInsets.only(left: 8),
+  //               child: Card(
+  //                 child: ListTile(
+  //                   onTap: () {
+  //                     showModalBottomSheet(
+  //                         backgroundColor: Colors.transparent,
+  //                         isScrollControlled: true,
+  //                         context: context,
+  //                         builder: (cxt) {
+  //                           return const AddSkillForm();
+  //                         });
+  //                   },
+  //                   title: Text(ref.watch(userSkillListProvider)[index].skill),
+  //                   subtitle: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(ref.watch(userSkillListProvider)[index].level),
+  //                       Text(ref.watch(userSkillListProvider)[index].info)
+  //                     ],
+  //                   ),
+  //                   trailing: IconButton(
+  //                       onPressed: () {
+  //                         setState(() {
+  //                           ref.watch(userSkillListProvider).removeAt(index);
+  //                         });
+  //                       },
+  //                       icon: const Icon(Icons.delete)),
+  //                 ),
+  //               ),
+  //             )),
+  //   );
+  // }
+
+  // Widget experienceList() {
+  //   return Column(
+  //     children: List.generate(
+  //         ref.watch(userExperienceListProvider).length,
+  //         (index) => Padding(
+  //               padding: const EdgeInsets.only(left: 8),
+  //               child: Card(
+  //                 child: ListTile(
+  //                   onTap: () {
+  //                     showModalBottomSheet(
+  //                         backgroundColor: Colors.transparent,
+  //                         isScrollControlled: true,
+  //                         context: context,
+  //                         builder: (cxt) {
+  //                           return const AddProfessionalExperienceForm(null);
+  //                         });
+  //                   },
+  //                   title: Text(
+  //                       ref.watch(userExperienceListProvider)[index].jobTitle),
+  //                   subtitle: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(ref
+  //                           .watch(userExperienceListProvider)[index]
+  //                           .description),
+  //                       Text(ref
+  //                           .watch(userExperienceListProvider)[index]
+  //                           .employer)
+  //                     ],
+  //                   ),
+  //                   trailing: IconButton(
+  //                     onPressed: () {
+  //                       setState(() {
+  //                         ref.watch(userSkillListProvider).removeAt(index);
+  //                       });
+  //                     },
+  //                     icon: const Icon(Icons.delete),
+  //                   ),
+  //                 ),
+  //               ),
+  //             )),
+  //   );
+  // }
 
   showAddContent(BuildContext context) {
     showModalBottomSheet(
@@ -150,7 +194,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddEducationForm();
+          return const AddEducationForm(null);
         });
   }
 
@@ -160,7 +204,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddProfessionalExperienceForm();
+          return const AddProfessionalExperienceForm(null);
         });
   }
 
@@ -170,7 +214,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddSkillForm();
+          return const AddSkillForm(null);
         });
   }
 }

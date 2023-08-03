@@ -1,6 +1,6 @@
 import 'dart:typed_data';
-import 'package:intl/intl.dart';
 
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -97,8 +97,10 @@ Future<Uint8List> generateTemplate3(
                         height: 130,
                         alignment: pw.Alignment.topRight,
                         child: pw.ClipOval(
-                          child: pw.Image(resumeData.profileImage!,
-                              width: 130, height: 130, fit: pw.BoxFit.cover),
+                          // child: pw.Image(resumeData.profileImage!,
+                          //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                          // TODO: profileImage
+                          child: pw.SizedBox(),
                         ),
                       ),
                     ),

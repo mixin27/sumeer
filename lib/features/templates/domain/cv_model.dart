@@ -35,6 +35,7 @@ class UserProfile with _$UserProfile {
     String? linkIn,
     String? gitHub,
     String? skype,
+    String? createdOn,
   }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>

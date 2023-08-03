@@ -13,7 +13,7 @@ class PersonalDetailCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profile = ref.watch(userProfileProvider);
+    final resumeData = ref.watch(resumeDataProvider);
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(
@@ -52,7 +52,8 @@ class PersonalDetailCard extends ConsumerWidget {
                         radius: 50,
                         child: CachedNetworkImage(
                           fit: BoxFit.fill,
-                          imageUrl: profile?.image ?? '',
+                          imageUrl: resumeData?.profileImage ?? '',
+                          // imageUrl: '',
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
                                   CircularProgressIndicator(
@@ -72,7 +73,8 @@ class PersonalDetailCard extends ConsumerWidget {
                         children: [
                           Text(
                             // "Your Name Your Name Your Name Your Name Your Name",
-                            profile?.name ?? "Your Name",
+                            resumeData?.personalDetail?.fullName ?? '',
+                            // "Your Name",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
@@ -81,9 +83,10 @@ class PersonalDetailCard extends ConsumerWidget {
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           Visibility(
-                            visible: profile != null,
+                            visible: resumeData != null,
                             child: Text(
-                              profile?.jobTitle ?? "Mobile Developer",
+                              resumeData?.personalDetail?.jobTitle ??
+                                  "Mobile Developer",
                               // "Mobile Developer Mobile Developer",
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
@@ -92,7 +95,7 @@ class PersonalDetailCard extends ConsumerWidget {
                           ),
                           // const SizedBox(height: 2),
                           Visibility(
-                            visible: profile != null,
+                            visible: resumeData != null,
                             child: Row(
                               children: [
                                 const Icon(
@@ -104,7 +107,8 @@ class PersonalDetailCard extends ConsumerWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  profile?.email ?? "testing2123@gmail.com",
+                                  resumeData?.personalDetail?.email ??
+                                      "testing2123@gmail.com",
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],
@@ -121,13 +125,14 @@ class PersonalDetailCard extends ConsumerWidget {
                                 width: 5,
                               ),
                               Text(
-                                profile?.phone ?? "09-xxx-xxx-xxx",
+                                resumeData?.personalDetail?.phone ??
+                                    "09-xxx-xxx-xxx",
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ],
                           ),
                           Visibility(
-                            visible: profile != null,
+                            visible: resumeData != null,
                             child: Row(
                               children: [
                                 const Icon(
@@ -139,7 +144,7 @@ class PersonalDetailCard extends ConsumerWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  profile?.address ?? "",
+                                  resumeData?.personalDetail?.address ?? "",
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],
@@ -159,66 +164,81 @@ class PersonalDetailCard extends ConsumerWidget {
                     profileItem(
                       context,
                       Icons.cake,
-                      profile?.dOB ?? '',
-                      profile != null && profile.dOB.toString() != "",
+                      resumeData?.personalInformation?.dateOfBirth ?? '',
+                      resumeData != null &&
+                          resumeData.personalInformation?.dateOfBirth
+                                  .toString() !=
+                              "",
                     ),
                     profileItem(
                       context,
                       Icons.man,
-                      profile?.gender ?? '',
-                      profile != null && profile.gender.toString() != "",
+                      resumeData?.personalInformation?.gender ?? '',
+                      resumeData != null &&
+                          resumeData.personalInformation?.gender.toString() !=
+                              "",
                     ),
                     profileItem(
                       context,
                       Icons.language,
-                      profile?.nationality ?? '',
-                      profile != null && profile.nationality.toString() != "",
+                      resumeData?.personalInformation?.nationality ?? '',
+                      resumeData != null &&
+                          resumeData.personalInformation?.nationality
+                                  .toString() !=
+                              "",
                     ),
                     profileItem(
                       context,
                       Icons.bed,
-                      profile?.maritalStatus ?? '',
-                      profile != null && profile.maritalStatus.toString() != "",
+                      resumeData?.personalInformation?.martialStatus ?? '',
+                      resumeData != null &&
+                          resumeData.personalInformation?.martialStatus
+                                  .toString() !=
+                              "",
                     ),
                     profileItem(
                       context,
                       Icons.car_crash,
-                      profile?.drivingLicense ?? '',
-                      profile != null &&
-                          profile.drivingLicense.toString() != "",
+                      resumeData?.personalInformation?.drivingLicense ?? '',
+                      resumeData != null &&
+                          resumeData.personalInformation?.drivingLicense
+                                  .toString() !=
+                              "",
                     ),
-                    profileItem(
-                      context,
-                      Icons.badge,
-                      profile?.passport ?? '',
-                      profile != null && profile.passport.toString() != "",
-                    ),
+                    // profileItem(
+                    //   context,
+                    //   Icons.badge,
+                    //   resumeData?.passport ?? '',
+                    //   resumeData != null &&
+                    //       resumeData.passport.toString() != "",
+                    // ),
                   ],
                 ),
-                profileItemWithImage(
-                  context,
-                  "assets/images/resume/icons8-www-50.png",
-                  profile?.website ?? '',
-                  profile?.website.toString() != "",
-                ),
-                profileItem(
-                  context,
-                  Icons.badge,
-                  profile?.linkIn ?? '',
-                  profile?.linkIn.toString() != "",
-                ),
-                profileItem(
-                  context,
-                  Icons.badge,
-                  profile?.gitHub ?? '',
-                  profile?.gitHub.toString() != "",
-                ),
-                profileItem(
-                  context,
-                  Icons.abc,
-                  profile?.skype ?? '',
-                  profile?.skype.toString() != "",
-                ),
+                // profileItemWithImage(
+                //   context,
+                //   "assets/images/resume/icons8-www-50.png",
+                //   resumeData?.website ?? '',
+                //   resumeData != null && resumeData.website.toString() != "",
+                // ),
+
+                // profileItem(
+                //   context,
+                //   Icons.badge,
+                //   resumeData?.personalDetail?.links. ?? '',
+                //   resumeData != null && resumeData.linkIn.toString() != "",
+                // ),
+                // profileItem(
+                //   context,
+                //   Icons.badge,
+                //   resumeData?.gitHub ?? '',
+                //   resumeData != null && resumeData.gitHub.toString() != "",
+                // ),
+                // profileItem(
+                //   context,
+                //   Icons.abc,
+                //   resumeData?.skype ?? '',
+                //   resumeData != null && resumeData.skype.toString() != "",
+                // ),
                 // Visibility(
                 //   visible: profile?.gender.toString() != "",
                 //   child: Row(
