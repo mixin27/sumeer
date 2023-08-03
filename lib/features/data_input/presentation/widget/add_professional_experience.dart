@@ -4,10 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-import 'package:sumeer/features/templates/domain/cv_model.dart';
+import 'package:sumeer/utils/logger/logger.dart';
 
 class AddProfessionalExperienceForm extends ConsumerStatefulWidget {
-  const AddProfessionalExperienceForm({super.key});
+  final Experience? experience;
+  const AddProfessionalExperienceForm(this.experience, {super.key});
 
   @override
   ConsumerState<AddProfessionalExperienceForm> createState() =>
@@ -22,6 +23,27 @@ class _AddProfessionalExperienceFormState
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   final descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      // final exp = ref.watch(userExpProvider);
+      if (widget.experience != null) {
+        employerController.text = '';
+        jobTitleController.text = widget.experience?.jobTitle ?? '';
+        cityController.text = widget.experience?.city ?? '';
+        startDateController.text =
+            widget.experience?.startDate.toString() ?? '';
+        endDateController.text = widget.experience?.endDate.toString() ?? '';
+        descriptionController.text = widget.experience?.description ?? '';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -84,19 +106,33 @@ class _AddProfessionalExperienceFormState
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
-                            UserExperience experience = UserExperience(
-                              employer: employerController.text,
+                            final oldExpScetion =
+                                ref.watch(experienceSectionProvider);
+                            vLog('date time', DateTime.now());
+                            Experience experience = Experience(
+                              employer: null,
                               jobTitle: jobTitleController.text,
                               city: cityController.text,
-                              startDate: startDateController.text,
-                              endDate: endDateController.text,
+                              // startDate: startDate,
+                              startDate: DateTime.now(),
+                              endDate: DateTime.now(),
                               description: descriptionController.text,
                             );
+                            List<Experience> experienceList = oldExpScetion ==
+                                    null
+                                ? [experience]
+                                : [...oldExpScetion.experiences, experience];
+                            ExperienceSection experienceSection =
+                                ExperienceSection(
+                              title: '',
+                              experiences: experienceList,
+                            );
                             ref
-                                .read(userExperienceListProvider.notifier)
-                                .update((state) => [...state, experience]);
+                                .read(experienceSectionProvider.notifier)
+                                .update((state) => experienceSection);
+                            Navigator.pop(context);
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),

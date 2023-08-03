@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'package:sumeer/shared/shared.dart';
 
@@ -20,12 +17,11 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       routes: const [
-        SecondHomeRoute(),
+        HomeRoute(),
         TemplatesRoute(),
         AccountRoute(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
-        int currentIndex = tabsRouter.activeIndex;
         return Container(
           decoration: BoxDecoration(
               color: Colors.white,

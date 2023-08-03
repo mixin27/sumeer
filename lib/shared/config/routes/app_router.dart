@@ -15,8 +15,6 @@ class AppRouter extends $AppRouter {
             // Home
             /// sub route should not start wiht "/"
             AutoRoute(page: HomeRoute.page, path: 'home'),
-            //second_home
-            AutoRoute(page: SecondHomeRoute.page, path: 'second_home'),
             AutoRoute(page: TemplatesRoute.page, path: 'templates'),
             AutoRoute(page: AccountRoute.page, path: 'account'),
           ],
@@ -36,5 +34,6 @@ class AppRouter extends $AppRouter {
         //personal_detail
         AutoRoute(
             page: PersonalDetailRoute.page, path: '/edit_personal_detail'),
+        AutoRoute(page: MyFileRoute.page, path: '/my_file'),
       ];
 }

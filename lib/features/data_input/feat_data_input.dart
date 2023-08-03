@@ -2,7 +2,7 @@ export 'presentation/detail_page.dart';
 export 'presentation/personal_detail_page.dart';
 export 'presentation/widget/edit_form.dart';
 export 'presentation/widget/personal_detail_card.dart';
-export 'presentation/widget/add_data_card.dart';
+export 'presentation/widget/expanable/skill_card.dart';
 export 'presentation/widget/more_content_form.dart';
 export 'presentation/widget/content_item.dart';
 export 'presentation/widget/add_personal_detail_button.dart';

@@ -58,8 +58,10 @@ Future<Uint8List> generateResume1(
                       width: 150,
                       height: 150,
                       child: pw.ClipOval(
-                        child: pw.Image(resumeData.profileImage!,
-                            fit: pw.BoxFit.cover),
+                        // child: pw.Image(resumeData.profileImage!,
+                        //     fit: pw.BoxFit.cover),
+                        // TODO: profileImage
+                        child: pw.SizedBox(),
                       ),
                     ),
                     pw.SizedBox(height: 25),
@@ -364,8 +366,10 @@ Future<Uint8List> generateResume1(
                 child: pw.Container(
                   alignment: pw.Alignment.center,
                   color: PdfColors.white,
-                  child: pw.Image(resumeData.profileImage!,
-                      height: 170, width: 210, fit: pw.BoxFit.cover),
+                  // child: pw.Image(resumeData.profileImage!,
+                  //     height: 170, width: 210, fit: pw.BoxFit.cover),
+                  // TODO: profileImage
+                  child: pw.SizedBox(),
                 ),
               ),
               pw.Expanded(
@@ -665,12 +669,14 @@ Future<Uint8List> generateResume1(
                 alignment: pw.Alignment.centerRight,
                 padding: const pw.EdgeInsets.only(top: 20),
                 child: pw.ClipOval(
-                  child: pw.Image(
-                    resumeData.profileImage!,
-                    fit: pw.BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                  ),
+                  // child: pw.Image(
+                  //   resumeData.profileImage!,
+                  //   fit: pw.BoxFit.cover,
+                  //   width: 100,
+                  //   height: 100,
+                  // ),
+                  // TODO: profileImage
+                  child: pw.SizedBox(),
                 ),
               ),
             ),
@@ -978,12 +984,14 @@ Future<Uint8List> generateResume1(
                 alignment: pw.Alignment.centerRight,
                 padding: const pw.EdgeInsets.only(top: 20),
                 child: pw.ClipOval(
-                  child: pw.Image(
-                    resumeData.profileImage!,
-                    fit: pw.BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                  ),
+                  // child: pw.Image(
+                  //   resumeData.profileImage!,
+                  //   fit: pw.BoxFit.cover,
+                  //   width: 100,
+                  //   height: 100,
+                  // ),
+                  // TODO: profileImage
+                  child: pw.SizedBox(),
                 ),
               ),
             ),

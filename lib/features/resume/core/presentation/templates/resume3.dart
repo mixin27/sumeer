@@ -54,12 +54,14 @@ Future<Uint8List> generatResume3(
                 alignment: pw.Alignment.centerRight,
                 padding: const pw.EdgeInsets.only(top: 20),
                 child: pw.ClipOval(
-                  child: pw.Image(
-                    resumeData.profileImage!,
-                    fit: pw.BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                  ),
+                  // child: pw.Image(
+                  //   resumeData.profileImage!,
+                  //   fit: pw.BoxFit.cover,
+                  //   width: 100,
+                  //   height: 100,
+                  // ),
+                  // TODO: profileImage
+                  child: pw.SizedBox(),
                 ),
               ),
             ),
