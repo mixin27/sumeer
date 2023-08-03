@@ -16,6 +16,7 @@ class ResumeData with _$ResumeData {
     CertificateSection? certificate,
     LanguageSection? languages,
     InterestSection? interest,
+    AwardSection? award,
   }) = _ResumeData;
 }
 
@@ -227,6 +228,24 @@ class Interest with _$Interest {
   const factory Interest({
     String? title,
   }) = _Interest;
+}
+
+@freezed
+class AwardSection with _$AwardSection {
+  const factory AwardSection({
+    @Default('Awards') String title,
+    @Default([]) List<Award> awards,
+  }) = _AwardSection;
+}
+
+@freezed
+class Award with _$Award {
+  const factory Award({
+    String? award,
+    String? issuer,
+    DateTime? awardDate,
+    String? description,
+  }) = _Award;
 }
 
 enum LanguageLevel {
