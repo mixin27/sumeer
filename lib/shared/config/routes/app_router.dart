@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
@@ -16,6 +15,8 @@ class AppRouter extends $AppRouter {
             // Home
             /// sub route should not start wiht "/"
             AutoRoute(page: HomeRoute.page, path: 'home'),
+            //second_home
+            AutoRoute(page: SecondHomeRoute.page, path: 'second_home'),
             AutoRoute(page: TemplatesRoute.page, path: 'templates'),
             AutoRoute(page: AccountRoute.page, path: 'account'),
           ],

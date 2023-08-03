@@ -3,6 +3,10 @@ class AssetPaths {
 
   static const String resumeTemplate1 =
       "assets/images/templates/resume_template_1.jpg";
+  static const String resumeTemplate2 =
+      "assets/images/templates/resume_template_2.webp";
+  static const String resumeTemplate3 =
+      "assets/images/templates/resume_template_3.webp";
 
   static const String resumeProfile = 'assets/images/resume/profile.jpg';
 

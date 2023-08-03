@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/shared/constants/asset_paths.dart';
 export 'resume_template_1.dart';
 export 'resume_template_6.dart';
 
@@ -43,21 +44,21 @@ const resumeTemplates = <ResumeTemplate>[
   ResumeTemplate(
     'Resume Template 1',
     'resume_template_1.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate1,
     generateTemplate1,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 2',
     'resume_template_2.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate2,
     generateTemplate2,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 3',
     'resume_template_3.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate3,
     generateTemplate3,
     type: DocumentType.resume,
   ),
