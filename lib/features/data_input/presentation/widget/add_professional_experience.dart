@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
@@ -124,57 +123,59 @@ class _AddProfessionalExperienceFormState
                               description: descriptionController.text,
                             );
 
-                            if (widget.index != null) {
-                              List<Experience> list1 = [];
-                              List<Experience> list =
-                                  oldExpScetion?.experiences ?? [];
-                              // list.toUnmodified();
-                              // list.removeAt(widget.index ?? 0);
-                              // wLog('updated list remove', list);
-                              // list.insert(widget.index ?? 0, skill);
-                              // wLog('updated list', list);
-                              for (var element in list) {
-                                list1.add(element);
-                              }
-                              list1.removeAt(widget.index ?? 0);
-                              wLog('updated list remove', list1);
-
-                              list1.insert(widget.index ?? 0, experience);
-                              wLog('updated list', list1);
-                              ExperienceSection skillSection =
-                                  ExperienceSection(
-                                      title: '', experiences: list1);
-
-                              ref
-                                  .read(experienceSectionProvider.notifier)
-                                  .update((state) => skillSection);
-
-                              final newResumeData = oldResumeData?.copyWith(
-                                  experience:
-                                      ref.watch(experienceSectionProvider));
-                              ref
-                                  .read(resumeDataProvider.notifier)
-                                  .update((state) => newResumeData);
+                            if (jobTitleController.text.isEmpty) {
+                              return Navigator.of(context).pop();
                             } else {
-                              List<Experience> experienceList = oldExpScetion ==
-                                      null
-                                  ? [experience]
-                                  : [...oldExpScetion.experiences, experience];
-                              ExperienceSection experienceSection =
-                                  ExperienceSection(
-                                title: '',
-                                experiences: experienceList,
-                              );
-                              ref
-                                  .read(experienceSectionProvider.notifier)
-                                  .update((state) => experienceSection);
+                              if (widget.index != null) {
+                                List<Experience> list1 = [];
+                                List<Experience> list =
+                                    oldExpScetion?.experiences ?? [];
+                                for (var element in list) {
+                                  list1.add(element);
+                                }
+                                list1.removeAt(widget.index ?? 0);
+                                wLog('updated list remove', list1);
 
-                              final newResumeData = oldResumeData?.copyWith(
-                                  experience:
-                                      ref.watch(experienceSectionProvider));
-                              ref
-                                  .read(resumeDataProvider.notifier)
-                                  .update((state) => newResumeData);
+                                list1.insert(widget.index ?? 0, experience);
+                                wLog('updated list', list1);
+                                ExperienceSection skillSection =
+                                    ExperienceSection(
+                                        title: '', experiences: list1);
+
+                                ref
+                                    .read(experienceSectionProvider.notifier)
+                                    .update((state) => skillSection);
+
+                                final newResumeData = oldResumeData?.copyWith(
+                                    experience:
+                                        ref.watch(experienceSectionProvider));
+                                ref
+                                    .read(resumeDataProvider.notifier)
+                                    .update((state) => newResumeData);
+                              } else {
+                                List<Experience> experienceList =
+                                    oldExpScetion == null
+                                        ? [experience]
+                                        : [
+                                            ...oldExpScetion.experiences,
+                                            experience
+                                          ];
+                                ExperienceSection experienceSection =
+                                    ExperienceSection(
+                                  title: '',
+                                  experiences: experienceList,
+                                );
+                                ref
+                                    .read(experienceSectionProvider.notifier)
+                                    .update((state) => experienceSection);
+
+                                final newResumeData = oldResumeData?.copyWith(
+                                    experience:
+                                        ref.watch(experienceSectionProvider));
+                                ref
+                                    .read(resumeDataProvider.notifier)
+                                    .update((state) => newResumeData);
+                              }
                             }
 
                             Navigator.pop(context);

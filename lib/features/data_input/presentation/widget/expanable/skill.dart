@@ -42,8 +42,27 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
             ),
             trailing: IconButton(
               onPressed: () {
+                final oldResumeDataProvider = ref.watch(resumeDataProvider);
+
+                List<Skill> newSkillList = [];
+
+                for (var element in skillList) {
+                  newSkillList.add(element);
+                }
+                newSkillList.removeAt(index);
+
+                SkillSection skillSection = SkillSection(
+                  title: '',
+                  skills: newSkillList,
+                );
+                final newResumeData = oldResumeDataProvider?.copyWith(
+                  skill: skillSection,
+                );
+                wtfLog('edu list', skillSection);
                 setState(() {
-                  ref.watch(userSkillListProvider).removeAt(index);
+                  ref
+                      .read(resumeDataProvider.notifier)
+                      .update((state) => newResumeData);
                 });
               },
               icon: const Icon(Icons.delete),

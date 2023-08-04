@@ -91,57 +91,51 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                           information: infoController.text,
                           level: SkillLevel.expert,
                         );
-                        if (widget.index != null) {
-                          List<Skill> list1 = [];
-                          List<Skill> list = oldSkillSection?.skills ?? [];
-                          list.toUnmodified();
-                          // list.removeAt(widget.index ?? 0);
-                          // wLog('updated list remove', list);
-                          // list.insert(widget.index ?? 0, skill);
-                          // wLog('updated list', list);
-                          for (var element in list) {
-                            list1.add(element);
-                          }
-                          list1.removeAt(widget.index ?? 0);
-                          wLog('updated list remove', list1);
-
-                          list1.insert(widget.index ?? 0, skill);
-                          wLog('updated list', list1);
-                          SkillSection skillSection =
-                              SkillSection(title: '', skills: list1);
-
-                          ref
-                              .read(skillSectionProvider.notifier)
-                              .update((state) => skillSection);
-
-                          final newResumeData = oldResumeData?.copyWith(
-                              skill: ref.watch(skillSectionProvider));
-                          ref
-                              .read(resumeDataProvider.notifier)
-                              .update((state) => newResumeData);
-                          vLog('resume data asdfasasddfasd',
-                              ref.watch(resumeDataProvider).toString());
+                        if (skillController.text.isEmpty) {
+                          return Navigator.of(context).pop();
                         } else {
-                          List<Skill> skillList = oldSkillSection == null
-                              ? [skill]
-                              : [...oldSkillSection.skills, skill];
+                          if (widget.index != null) {
+                            List<Skill> list1 = [];
+                            List<Skill> list = oldSkillSection?.skills ?? [];
+                            for (var element in list) {
+                              list1.add(element);
+                            }
+                            list1.removeAt(widget.index ?? 0);
+                            wLog('updated list remove', list1);
 
-                          SkillSection skillSection =
-                              SkillSection(title: '', skills: skillList);
+                            list1.insert(widget.index ?? 0, skill);
+                            wLog('updated list', list1);
+                            SkillSection skillSection =
+                                SkillSection(title: '', skills: list1);
 
-                          ref
-                              .read(skillSectionProvider.notifier)
-                              .update((state) => skillSection);
+                            ref
+                                .read(skillSectionProvider.notifier)
+                                .update((state) => skillSection);
 
-                          final newResumeData = oldResumeData?.copyWith(
-                            skill: ref.watch(skillSectionProvider),
-                          );
-                          ref
-                              .read(resumeDataProvider.notifier)
-                              .update((state) => newResumeData);
+                            final newResumeData = oldResumeData?.copyWith(
+                                skill: ref.watch(skillSectionProvider));
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                          } else {
+                            List<Skill> skillList = oldSkillSection == null
+                                ? [skill]
+                                : [...oldSkillSection.skills, skill];
 
-                          iLog('resume data sadf',
-                              ref.watch(resumeDataProvider).toString());
+                            SkillSection skillSection =
+                                SkillSection(title: '', skills: skillList);
+
+                            ref
+                                .read(skillSectionProvider.notifier)
+                                .update((state) => skillSection);
+
+                            final newResumeData = oldResumeData?.copyWith(
+                              skill: ref.watch(skillSectionProvider),
+                            );
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                          }
                         }
 
                         Navigator.pop(context);

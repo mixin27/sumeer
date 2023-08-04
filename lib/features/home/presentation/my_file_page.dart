@@ -21,6 +21,7 @@ class MyFilePage extends HookConsumerWidget {
     List<ResumeData> resumeModeList = [];
     var uid = ref.watch(authRepositoryProvider).currentUser?.uid.toString();
     dLog('userId build', uid);
+
     Future<List<ResumeData>> getData() async {
       dLog('userId', uid);
       await ref
@@ -31,8 +32,6 @@ class MyFilePage extends HookConsumerWidget {
           .get()
           .then(
         (documentSnapshot) {
-          wtfLog('documentSnapshot.docs id',
-              documentSnapshot.docs.first.toString());
           if (documentSnapshot.docs.isNotEmpty) {
             vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
             var list = documentSnapshot.docs

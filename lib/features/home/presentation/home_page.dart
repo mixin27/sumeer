@@ -294,6 +294,7 @@ class _HomePageState extends State<HomePage> {
               child: InkWell(
                 onTap: () {
                   ref.read(resumeDataProvider.notifier).state = null;
+                  ref.read(resumeModelIdProvider.notifier).state = '';
                   context.router.push(const PersonalDetailRoute());
                 },
                 child: Container(

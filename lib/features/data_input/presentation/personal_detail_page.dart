@@ -119,6 +119,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    wtfLog('personal detail page', ref.watch(resumeModelIdProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Personal Detail"),
@@ -840,11 +841,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     );
     wtfLog('resume data on save up resumedata', imageUrl);
     ResumeData resumeData = ResumeData(
-      // profileImage: _image == null
-      //     ? ref.watch(resumeDataProvider)?.profileImage
-      //     : pw.MemoryImage(_image!),
+      resumeId: ref.watch(resumeModelIdProvider),
       // TODO: profileimage
-      // profileImage: _image == null ? ref.watch(resumeDataProvider)?.profileImage :imageUrl,
       profileImage: imageUrl,
       personalDetail: personalDetail,
       profile: const ProfileSection(

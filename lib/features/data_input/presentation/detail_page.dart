@@ -26,12 +26,19 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   void initState() {
     super.initState();
     setState(() {
-      invId = const Uuid().v4();
+      Future.microtask(() {
+        invId = const Uuid().v4();
+        ref.read(resumeModelIdProvider.notifier).state =
+            ref.watch(resumeModelIdProvider).isEmptyOrNull
+                ? invId
+                : ref.watch(resumeModelIdProvider);
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    wtfLog('detail page', ref.watch(resumeModelIdProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Resume"),
@@ -47,7 +54,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   .collection("summer")
                   .doc(uid)
                   .collection("user")
-                  .doc(invId)
+                  .doc(
+                    ref.watch(resumeDataProvider)?.resumeId ?? '',
+                  )
                   .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
               // await ref
               //     .read(cloudFirestoreProvider)
@@ -86,7 +95,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           ),
         ],
       ),
-      body: const EditFormWidget(null),
+      body: const EditFormWidget(),
     );
   }
 }

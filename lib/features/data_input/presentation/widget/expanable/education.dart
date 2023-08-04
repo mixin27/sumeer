@@ -45,8 +45,27 @@ class _ExperienceState extends ConsumerState<EducationWidget> {
             ),
             trailing: IconButton(
               onPressed: () {
+                final oldResumeDataProvider = ref.watch(resumeDataProvider);
+
+                List<Education> newEduList = [];
+
+                for (var element in eduList) {
+                  newEduList.add(element);
+                }
+                newEduList.removeAt(index);
+
+                EducationSection educationSection = EducationSection(
+                  title: '',
+                  educations: newEduList,
+                );
+                final newResumeData = oldResumeDataProvider?.copyWith(
+                  education: educationSection,
+                );
+                wtfLog('edu list', educationSection);
                 setState(() {
-                  // ref.watch(userSkillListProvider).removeAt(index);
+                  ref
+                      .read(resumeDataProvider.notifier)
+                      .update((state) => newResumeData);
                 });
               },
               icon: const Icon(Icons.delete),

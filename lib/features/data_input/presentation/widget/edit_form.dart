@@ -7,8 +7,7 @@ import 'package:sumeer/features/data_input/presentation/widget/expanable/experie
 import '../../feat_data_input.dart';
 
 class EditFormWidget extends ConsumerStatefulWidget {
-  final String? docId;
-  const EditFormWidget(this.docId, {super.key});
+  const EditFormWidget({super.key});
 
   @override
   ConsumerState<EditFormWidget> createState() => _EditFormWidgetState();
