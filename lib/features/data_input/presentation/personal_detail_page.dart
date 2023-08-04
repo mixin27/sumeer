@@ -819,7 +819,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       // profileImage: _image == null
       //     ? ref.watch(resumeDataProvider)?.profileImage
       //     : pw.MemoryImage(_image!),
-      // TODO: profileimage
+      // profileimage
       profileImage: "",
       personalDetail: personalDetail,
       profile: const ProfileSection(

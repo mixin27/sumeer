@@ -56,7 +56,7 @@ Future<Uint8List> generateTemplate2(
                         // child:
                         // pw.Image(resumeData.profileImage!,
                         //     width: 130, height: 130, fit: pw.BoxFit.cover),
-                        // TODO: profileImage
+                        // profileImage
                         child: pw.SizedBox(),
                       ),
                     ),

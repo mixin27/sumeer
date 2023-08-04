@@ -65,7 +65,12 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
       initialIndex: initialIndex ?? 0,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Templates'),
+          title: Text(
+            'Templates',
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                // color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+                fontWeight: FontWeight.bold),
+          ),
           // bottom: TabBar(
           //   controller: _tabController,
           //   labelColor: Colors.white,
@@ -101,32 +106,46 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
           child: DefaultTabController(
             length: 3,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ButtonsTabBar(
-                  radius: 17,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                  backgroundColor: Colors.blueAccent,
-                  unselectedBackgroundColor: Colors.grey[300],
-                  unselectedLabelStyle: const TextStyle(color: Colors.black),
-                  labelStyle: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                  tabs: [
-                    templateTab("All"),
-                    templateTab("CV"),
-                    templateTab("Resume"),
-                  ],
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                Center(
+                  child: ButtonsTabBar(
+                    radius: 17,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 45),
+                    backgroundColor: Colors.blueAccent,
+                    unselectedBackgroundColor: Colors.white,
+                    unselectedLabelStyle: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                    borderColor: Colors.blueAccent,
+                    unselectedBorderColor: Colors.grey.shade300,
+                    borderWidth: 1,
+                    labelStyle: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    tabs: [
+                      templateTab("All"),
+                      templateTab("CVs"),
+                      templateTab("Resumes"),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Expanded(
                   child: TabBarView(
                     children: <Widget>[
                       GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 10,
+                          crossAxisSpacing: 6,
                           mainAxisSpacing: 0,
-                          childAspectRatio: 13.5 / 20,
+                          childAspectRatio: 13.8 / 20,
                         ),
                         itemCount: resumeTemplates.length,
                         itemBuilder: (context, index) {
@@ -145,13 +164,13 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                               key: ValueKey(index),
                               child: Column(
                                 children: [
-                                  Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(14)),
+                                  Card(
+                                      clipBehavior: Clip.hardEdge,
+                                      elevation: 5,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(0)),
+                                      ),
                                       child: Image.asset(template.thumbnail)),
                                 ],
                               ),
@@ -160,13 +179,13 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                         },
                       ),
                       GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 10,
+                          crossAxisSpacing: 6,
                           mainAxisSpacing: 0,
-                          childAspectRatio: 13.5 / 20,
+                          childAspectRatio: 13.8 / 20,
                         ),
                         itemCount: cvTemplates.length,
                         itemBuilder: (context, index) {
@@ -185,13 +204,13 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                               key: ValueKey(index),
                               child: Column(
                                 children: [
-                                  Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.green[200],
-                                          borderRadius:
-                                              BorderRadius.circular(14)),
+                                  Card(
+                                      clipBehavior: Clip.hardEdge,
+                                      elevation: 5,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(0)),
+                                      ),
                                       child: Image.asset(template.thumbnail)),
                                 ],
                               ),
@@ -200,13 +219,13 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                         },
                       ),
                       GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 10,
+                          crossAxisSpacing: 6,
                           mainAxisSpacing: 0,
-                          childAspectRatio: 13.5 / 20,
+                          childAspectRatio: 13.8 / 20,
                         ),
                         itemCount: resTemplates.length,
                         itemBuilder: (context, index) {
@@ -225,13 +244,13 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                               key: ValueKey(index),
                               child: Column(
                                 children: [
-                                  Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.blueGrey,
-                                          borderRadius:
-                                              BorderRadius.circular(14)),
+                                  Card(
+                                      clipBehavior: Clip.hardEdge,
+                                      elevation: 5,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(0)),
+                                      ),
                                       child: Image.asset(template.thumbnail)),
                                 ],
                               ),

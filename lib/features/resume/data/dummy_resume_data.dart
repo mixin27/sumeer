@@ -6,7 +6,7 @@ Future<ResumeData> getDummyResumeData() async {
   // );
 
   final dummyResumeData = ResumeData(
-    // TODO: profile image
+    // profile image
     profileImage: "",
     personalDetail: const PersonalDetailSection(
       firstName: "Kyaw",
