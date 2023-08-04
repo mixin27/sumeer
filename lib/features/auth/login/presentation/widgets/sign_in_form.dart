@@ -75,63 +75,65 @@ class _SignInFormState extends ConsumerState<SignInForm> {
 
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const FormLabel(label: 'Email'),
-          const SizedBox(height: 5),
-          TextFormField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const FormLabel(label: 'Email'),
+            const SizedBox(height: 5),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 10,
+                ),
               ),
+              validator: MultiValidator([
+                RequiredValidator(errorText: 'Please provide email address'),
+                EmailValidator(
+                    errorText: 'Please provide a valid email address')
+              ]),
             ),
-            validator: MultiValidator([
-              RequiredValidator(errorText: 'Please provide email address'),
-              EmailValidator(errorText: 'Please provide a valid email address')
-            ]),
-          ),
-          const SizedBox(height: 10),
-          const FormLabel(label: 'Password'),
-          const SizedBox(height: 5),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: !passwordVisible,
-            keyboardType: TextInputType.visiblePassword,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 10,
+            const SizedBox(height: 10),
+            const FormLabel(label: 'Password'),
+            const SizedBox(height: 5),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: !passwordVisible,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 10,
+                ),
+                suffixIcon: InkWell(
+                  onTap: () {
+                    ref
+                        .read(passwordVisibleProvider.notifier)
+                        .update((state) => !state);
+                  },
+                  child: passwordVisible
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
+                ),
               ),
-              suffixIcon: InkWell(
-                onTap: () {
-                  ref
-                      .read(passwordVisibleProvider.notifier)
-                      .update((state) => !state);
-                },
-                child: passwordVisible
-                    ? const Icon(Icons.visibility)
-                    : const Icon(Icons.visibility_off),
-              ),
+              validator: MultiValidator([
+                RequiredValidator(errorText: 'password is required'),
+                MinLengthValidator(
+                  8,
+                  errorText: 'password must be at least 8 digits long',
+                ),
+                // PatternValidator(
+                //   r'(?=.*?[#?!@$%^&*-])',
+                //   errorText: 'passwords must have at least one special character',
+                // ),
+              ]),
             ),
-            validator: MultiValidator([
-              RequiredValidator(errorText: 'password is required'),
-              MinLengthValidator(
-                8,
-                errorText: 'password must be at least 8 digits long',
-              ),
-              // PatternValidator(
-              //   r'(?=.*?[#?!@$%^&*-])',
-              //   errorText: 'passwords must have at least one special character',
-              // ),
-            ]),
-          ),
-          const SizedBox(height: 20),
-          Center(
-            child: FilledButton(
+            const SizedBox(height: 20),
+            FilledButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   dLog('Email: ${_emailController.text.trim()}');
@@ -148,17 +150,23 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                   vertical: 15,
                 ),
               ),
-              child: const Text('Login'),
+              child: Text(
+                'Login',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          TextButton(
-            onPressed: () {
-              context.router.push(const SignUpRoute());
-            },
-            child: const Text('Create account'),
-          ),
-        ],
+            const SizedBox(height: 20),
+            TextButton(
+              onPressed: () {
+                context.router.push(const SignUpRoute());
+              },
+              child: const Text('Create account'),
+            ),
+          ],
+        ),
       ),
     );
   }

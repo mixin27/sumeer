@@ -169,7 +169,7 @@ Future<Uint8List> generateTemplate1(
                                   height: 100,
                                   color: lightGreen,
                                   // child: pw.Image(resumeData.profileImage!),
-                                  // TODO: profileImage
+                                  // profileImage
                                   child: pw.SizedBox()),
                             ),
                           if (resumeData.skill != null)

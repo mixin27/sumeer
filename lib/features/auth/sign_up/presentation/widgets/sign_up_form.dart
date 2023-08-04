@@ -162,25 +162,29 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                     .validateMatch(val ?? '', _passwordController.text.trim()),
           ),
           const SizedBox(height: 20),
-          Center(
-            child: FilledButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  dLog('Email: ${_emailController.text.trim()}');
-                  dLog('Password: ${_passwordController.text.trim()}');
+          FilledButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                dLog('Email: ${_emailController.text.trim()}');
+                dLog('Password: ${_passwordController.text.trim()}');
 
-                  ref.read(signUpNotifierProvider.notifier).signUp(
-                      email: _emailController.text.trim(),
-                      password: _passwordController.text.trim());
-                }
-              },
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 75,
-                  vertical: 15,
-                ),
+                ref.read(signUpNotifierProvider.notifier).signUp(
+                    email: _emailController.text.trim(),
+                    password: _passwordController.text.trim());
+              }
+            },
+            style: FilledButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 75,
+                vertical: 15,
               ),
-              child: const Text('Create'),
+            ),
+            child: Text(
+              'Create',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(color: Colors.white),
             ),
           ),
           const SizedBox(height: 20),

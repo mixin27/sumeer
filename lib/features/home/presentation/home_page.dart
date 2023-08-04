@@ -211,19 +211,18 @@ class _HomePageState extends State<HomePage> {
                                 .onBackground
                                 .withOpacity(0.5)),
                       ),
-                      verSpace(30),
+                      verSpace(20),
                       SizedBox(
-                        height: 500,
+                        height: 450,
                         width: double.infinity,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: resumeTemplates.length > 4
-                              ? 4
-                              : resumeTemplates.length,
+                          itemCount: resumeTemplates.length,
                           itemBuilder: (context, index) {
                             final template = resumeTemplates[index];
 
                             return Container(
+                              margin: const EdgeInsets.only(right: 8),
                               child: Card(
                                 clipBehavior: Clip.hardEdge,
                                 elevation: 5,
@@ -275,131 +274,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget createCVorResume(BuildContext context) {
-    return Consumer(
-      builder: ((context, ref, child) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ///
-            // Expanded(
-            // child: SizedBox(
-            //   height: 80,
-            //   child: ElevatedButton.icon(
-            //     onPressed: () {
-            //       context.router.push(const MyFileRoute());
-            //     },
-            //     style: FilledButton.styleFrom(
-            //       elevation: 0.5,
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(15), // <-- Radius
-            //       ),
-            //       backgroundColor: const Color.fromARGB(255, 237, 245, 252),
-            //       foregroundColor: Theme.of(context).colorScheme.primary,
-            //       padding:
-            //           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            //     ),
-            //     icon: const Icon(
-            //       Icons.file_copy,
-            //     ),
-            //     label: const Text(
-            //       textAlign: TextAlign.start,
-            //       'My files',
-            //     ),
-            //   ),
-            // ),
-
-            // ),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  context.router.push(const MyFileRoute());
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 237, 245, 252),
-                      // color: Theme.of(context).primaryCo,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.file_copy_outlined,
-                          size: 30,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        verSpace(4),
-                        Text(
-                          textAlign: TextAlign.start,
-                          'My Files',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            horSpace(20),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  ref.read(resumeDataProvider.notifier).state = null;
-                  context.router.push(const DetailRoute());
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 237, 245, 252),
-                      // color: Theme.of(context).primaryCo,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(AssetPaths.resume),
-                        verSpace(4),
-                        Text(
-                          textAlign: TextAlign.start,
-                          'Create resume +',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            ///
-          ],
-        );
-      }),
-    );
-  }
-
   Widget winningJob(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Text(
-        //   // textAlign: TextAlign.center,
-        //   'Create a job winning\nresume',
-        //   style: Theme.of(context)
-        //       .textTheme
-        //       .titleLarge!
-        //       .copyWith(fontWeight: FontWeight.w500),
-        // ),
         RichText(
           text: TextSpan(
             text: 'Create a job winning\nresume ',
