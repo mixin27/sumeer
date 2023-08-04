@@ -43,7 +43,7 @@ Future<Uint8List> generateTemplate7(
                           child: pw.Container(
                             height: 70,
                             width: 70,
-                            decoration: pw.BoxDecoration(
+                            decoration: const pw.BoxDecoration(
                               color: PdfColors.blue300,
                             ),
                           ),

@@ -4,6 +4,7 @@ import 'package:pdf/pdf.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/constants/asset_paths.dart';
+
 export 'resume_template_1.dart';
 export 'resume_template_6.dart';
 export 'resume_template_7.dart';
