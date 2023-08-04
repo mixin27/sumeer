@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/utils/utils.dart';
-
 import 'package:sumeer/widgets/button1.dart';
 import '../../auth/feat_auth.dart';
 import '../../features.dart';
@@ -21,24 +20,23 @@ class DetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<DetailPage> {
-  String invId = '';
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      Future.microtask(() {
-        invId = const Uuid().v4();
-        ref.read(resumeModelIdProvider.notifier).state =
-            ref.watch(resumeModelIdProvider).isEmptyOrNull
-                ? invId
-                : ref.watch(resumeModelIdProvider);
-      });
-    });
-  }
+  // String invId = '';
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   setState(() {
+  //     Future.microtask(() {
+  //       invId = const Uuid().v4();
+  //       ref.read(resumeModelIdProvider.notifier).state =
+  //           ref.watch(resumeModelIdProvider).isEmptyOrNull
+  //               ? invId
+  //               : ref.watch(resumeModelIdProvider);
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    wtfLog('detail page', ref.watch(resumeModelIdProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Resume"),
@@ -46,7 +44,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           Button1(
             text: "Save",
             onPressed: () async {
-              dLog(ref.watch(resumeDataProvider)?.toJson() ?? []);
+              dLog(ref.watch(resumeModelIdProvider));
               var uid =
                   ref.watch(authRepositoryProvider).currentUser?.uid.toString();
               await ref
@@ -54,9 +52,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   .collection("summer")
                   .doc(uid)
                   .collection("user")
-                  .doc(
-                    ref.watch(resumeDataProvider)?.resumeId ?? '',
-                  )
+                  .doc(ref.watch(resumeModelIdProvider))
                   .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
               // await ref
               //     .read(cloudFirestoreProvider)

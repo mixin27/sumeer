@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter/widgets.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -170,7 +169,7 @@ Future<Uint8List> generateTemplate1(
                                   height: 100,
                                   color: lightGreen,
                                   // child: pw.Image(resumeData.profileImage!),
-                                  // TODO: profileImage
+                                  // profileImage
                                   child: pw.SizedBox()),
                             ),
                           if (resumeData.skill != null)

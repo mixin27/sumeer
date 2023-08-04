@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
@@ -842,7 +843,6 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     wtfLog('resume data on save up resumedata', imageUrl);
     ResumeData resumeData = ResumeData(
       resumeId: ref.watch(resumeModelIdProvider),
-      // TODO: profileimage
       profileImage: imageUrl,
       personalDetail: personalDetail,
       profile: const ProfileSection(

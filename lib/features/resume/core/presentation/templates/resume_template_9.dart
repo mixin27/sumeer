@@ -6,7 +6,7 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
-Future<Uint8List> generatResume2(
+Future<Uint8List> generateTemplate9(
   PdfPageFormat format,
   GenerateDocParams params,
   ResumeData resumeData,
@@ -72,7 +72,7 @@ Future<Uint8List> generatResume2(
                   color: PdfColors.white,
                   // child: pw.Image(resumeData.profileImage!,
                   //     height: 170, width: 210, fit: pw.BoxFit.cover),
-                  // TODO: profileImage
+                  // profileImage
                   child: pw.SizedBox(),
                 ),
               ),
@@ -152,24 +152,31 @@ Future<Uint8List> generatResume2(
                                   resumeData.skill!.skills.length, (index) {
                                 final skill = resumeData.skill!.skills[index];
 
-                                return pw.Row(children: [
-                                  pw.ClipOval(
-                                      child: pw.Container(
-                                          width: 5,
-                                          height: 5,
-                                          color: PdfColors.black)),
-                                  pw.Padding(
-                                    padding: const pw.EdgeInsets.only(left: 5),
-                                    child: pw.Text(
-                                      skill.skill,
-                                      style: pw.Theme.of(context)
-                                          .defaultTextStyle
-                                          .copyWith(
-                                            fontWeight: pw.FontWeight.bold,
+                                return pw.Padding(
+                                    padding:
+                                        const pw.EdgeInsets.only(bottom: 4),
+                                    child: pw.Row(children: [
+                                      pw.ClipOval(
+                                          child: pw.Container(
+                                              width: 5,
+                                              height: 5,
+                                              color: PdfColors.black)),
+                                      pw.Flexible(
+                                        child: pw.Padding(
+                                          padding:
+                                              const pw.EdgeInsets.only(left: 5),
+                                          child: pw.Text(
+                                            skill.skill,
+                                            style: pw.Theme.of(context)
+                                                .defaultTextStyle
+                                                .copyWith(
+                                                  fontWeight:
+                                                      pw.FontWeight.bold,
+                                                ),
                                           ),
-                                    ),
-                                  ),
-                                ]);
+                                        ),
+                                      ),
+                                    ]));
                               }),
                             ),
                           if (resumeData.languages != null) ...[

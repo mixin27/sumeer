@@ -1,17 +1,12 @@
-import 'package:flutter/services.dart' show rootBundle;
-
-import 'package:pdf/widgets.dart' as pw;
-
 import 'package:sumeer/features/resume/feat_resume.dart';
-import 'package:sumeer/shared/shared.dart';
 
 Future<ResumeData> getDummyResumeData() async {
-  final profileImage = pw.MemoryImage(
-    (await rootBundle.load(AssetPaths.resumeProfile)).buffer.asUint8List(),
-  );
+  // final profileImage = pw.MemoryImage(
+  //   (await rootBundle.load(AssetPaths.resumeProfile)).buffer.asUint8List(),
+  // );
 
   final dummyResumeData = ResumeData(
-    // TODO: profile image
+    // profile image
     profileImage: "",
     personalDetail: const PersonalDetailSection(
       fullName: "KYAW ZAYAR TUN",
@@ -61,6 +56,7 @@ Future<ResumeData> getDummyResumeData() async {
     languages: language,
     interest: interest,
     certificate: certificate,
+    award: award,
   );
 
   return dummyResumeData;
@@ -170,5 +166,21 @@ const interest = InterestSection(
   interests: [
     Interest(title: 'Travelling'),
     Interest(title: 'Playing Guitar'),
+  ],
+);
+
+final award = AwardSection(
+  title: 'Awards',
+  awards: [
+    Award(
+      award: 'Outattanding Business Student Award',
+      issuer: "University of Southern Calfomia",
+      awardDate: DateTime.parse("2014-03-04"),
+    ),
+    Award(
+      award: 'Dan\'s List',
+      issuer: "University of Calfomia",
+      awardDate: DateTime.now(),
+    ),
   ],
 );
