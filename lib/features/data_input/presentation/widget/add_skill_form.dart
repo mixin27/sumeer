@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-import 'package:sumeer/features/templates/domain/cv_model.dart';
 import 'package:sumeer/utils/utils.dart';
 
 class AddSkillForm extends ConsumerStatefulWidget {
