@@ -15,7 +15,7 @@ class EducationWidget extends StatefulHookConsumerWidget {
 class _ExperienceState extends ConsumerState<EducationWidget> {
   @override
   Widget build(BuildContext context) {
-    final eduSection = ref.watch(educationSectionProvider);
+    final eduSection = ref.watch(resumeDataProvider)!.education;
     final eduList = eduSection?.educations ?? [];
     wLog('skill list', eduList.length);
     return Column(
@@ -30,7 +30,7 @@ class _ExperienceState extends ConsumerState<EducationWidget> {
                   isScrollControlled: true,
                   context: context,
                   builder: (cxt) {
-                    return AddEducationForm(eduList[index]);
+                    return AddEducationForm(eduList[index], index);
                   });
             },
             title: Text(
@@ -46,8 +46,27 @@ class _ExperienceState extends ConsumerState<EducationWidget> {
             ),
             trailing: IconButton(
               onPressed: () {
+                final oldResumeDataProvider = ref.watch(resumeDataProvider);
+
+                List<Education> newEduList = [];
+
+                for (var element in eduList) {
+                  newEduList.add(element);
+                }
+                newEduList.removeAt(index);
+
+                EducationSection educationSection = EducationSection(
+                  title: '',
+                  educations: newEduList,
+                );
+                final newResumeData = oldResumeDataProvider?.copyWith(
+                  education: educationSection,
+                );
+                wtfLog('edu list', educationSection);
                 setState(() {
-                  // ref.watch(userSkillListProvider).removeAt(index);
+                  ref
+                      .read(resumeDataProvider.notifier)
+                      .update((state) => newResumeData);
                 });
               },
               icon: const Icon(Icons.delete),

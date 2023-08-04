@@ -8,6 +8,7 @@ class ResumeData with _$ResumeData {
   const ResumeData._();
   const factory ResumeData({
     // pw.MemoryImage? profileImage,
+    String? resumeId,
     String? profileImage,
     PersonalDetailSection? personalDetail,
     ProfileSection? profile,
@@ -32,6 +33,8 @@ class PersonalDetailSection with _$PersonalDetailSection {
     @Default('Personal Details') String title,
 
     /// Your title, first and last name
+    required String firstName,
+    required String lastName,
     required String fullName,
     required String jobTitle,
     required String email,

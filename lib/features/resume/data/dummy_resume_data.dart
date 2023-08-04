@@ -9,16 +9,31 @@ Future<ResumeData> getDummyResumeData() async {
     // profile image
     profileImage: "",
     personalDetail: const PersonalDetailSection(
+      firstName: "Kyaw",
+      lastName: "Zayar Tun",
       fullName: "KYAW ZAYAR TUN",
       jobTitle: "Mobile Developer",
       email: "kyawzayartun.sbs@gmail.com",
       phone: "+959 985 753 791",
       address: "Yangon, Myanmar",
+      personalInfo: PersonalInformation(
+        dateOfBirth: "14-02-2000",
+        drivingLicense: "Plane-AC0012",
+        gender: "Male",
+        identityNo: "YGN099122",
+        martialStatus: "Single",
+        nationality: "Myanmar",
+        militaryService: "Head",
+      ),
       links: [
         PersonalLink(
           name: 'GitHub',
           url: 'https://www.github.com/mixin27',
           codePoint: 0xe157,
+        ),
+        PersonalLink(
+          name: 'Facebook',
+          url: 'https://www.facebook.com/mixin27',
         ),
       ],
     ),
