@@ -746,9 +746,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         child: SaveBottomSheetWidget(
           routeTo: true,
           cancelOnTap: () {
-            context.router.replaceAll([
-              const DetailRoute(),
-            ]);
+            context.router.pop();
           },
           onTap: () {
             if (formKey.currentState!.validate()) {

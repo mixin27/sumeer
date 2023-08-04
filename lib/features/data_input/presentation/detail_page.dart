@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sumeer/shared/shared.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
@@ -40,6 +41,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Resume"),
+        leading: const AutoLeadingButton(),
         actions: [
           Button1(
             text: "Save",
@@ -54,44 +56,16 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   .collection("user")
                   .doc(ref.watch(resumeModelIdProvider))
                   .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
-              // await ref
-              //     .read(cloudFirestoreProvider)
-              //     .collection("summer")
-              //     .doc(uid)
-              //     .collection("user")
-              //     .get()
-              //     .then((documentSnapshot) {
-              //   if (documentSnapshot.docs.i sNotEmpty) {
-              //     // var docData = documentSnapshot.docs[0].data();
-              //     // var chat = CVModel.fromJson(docData);
-              //     var list = documentSnapshot.docs
-              //         .map(
-              //           (e) => CVModel.fromJson(e.data()),
-              //         )
-              //         .toList();
-              //     log(list.toString());
-              //     log(list.length.toString());
-              //     // return chat;
-              //   } else {
-              //     return null;
-              //   }
-              // });
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (ctx) => const ResumePreviewPage(
-              //         resume: ResumeTemplate(
-              //       'Preview',
-              //       'resume_template_tmn.dart',
-              //       'assets/images/templates/resume_template_1.jpg',
-              //       generateResume1,
-              //     )),
-              //   ),
-              // );
             },
           ),
         ],
       ),
-      body: const EditFormWidget(),
+      body: WillPopScope(
+          onWillPop: () async {
+            context.router.replaceAll([const HomeRoute()]);
+            return true;
+          },
+          child: const EditFormWidget()),
     );
   }
 }
