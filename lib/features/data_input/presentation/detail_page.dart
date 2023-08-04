@@ -37,18 +37,18 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         title: const Text("Resume"),
         actions: [
           Button1(
-            text: "Preview",
+            text: "Save",
             onPressed: () async {
               dLog(ref.watch(resumeDataProvider)?.toJson() ?? []);
-              // var uid =
-              //     ref.watch(authRepositoryProvider).currentUser?.uid.toString();
-              // await ref
-              //     .read(cloudFirestoreProvider)
-              //     .collection("summer")
-              //     .doc(uid)
-              //     .collection("user")
-              //     .doc(invId)
-              //     .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
+              var uid =
+                  ref.watch(authRepositoryProvider).currentUser?.uid.toString();
+              await ref
+                  .read(cloudFirestoreProvider)
+                  .collection("summer")
+                  .doc(uid)
+                  .collection("user")
+                  .doc(invId)
+                  .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
               // await ref
               //     .read(cloudFirestoreProvider)
               //     .collection("summer")
@@ -56,7 +56,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               //     .collection("user")
               //     .get()
               //     .then((documentSnapshot) {
-              //   if (documentSnapshot.docs.isNotEmpty) {
+              //   if (documentSnapshot.docs.i sNotEmpty) {
               //     // var docData = documentSnapshot.docs[0].data();
               //     // var chat = CVModel.fromJson(docData);
               //     var list = documentSnapshot.docs

@@ -1,15 +1,16 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
 
+import '../../../shared/shared.dart';
 import '../../auth/feat_auth.dart';
-import '../../templates/domain/cv_model.dart';
 
 @RoutePage()
 class MyFilePage extends HookConsumerWidget {
@@ -17,10 +18,10 @@ class MyFilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<CVModel> cvModel = [];
+    List<ResumeData> resumeModeList = [];
     var uid = ref.watch(authRepositoryProvider).currentUser?.uid.toString();
     dLog('userId build', uid);
-    Future<List<CVModel>> getData() async {
+    Future<List<ResumeData>> getData() async {
       dLog('userId', uid);
       await ref
           .read(cloudFirestoreProvider)
@@ -33,15 +34,15 @@ class MyFilePage extends HookConsumerWidget {
           vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
           var list = documentSnapshot.docs
               .map(
-                (e) => CVModel.fromJson(e.data()),
+                (e) => ResumeData.fromJson(e.data()),
               )
               .toList();
-          cvModel = list;
-          wLog('cv list', cvModel);
+          resumeModeList = list;
+          wLog('resume list', resumeModeList);
           return list;
         }
       });
-      return cvModel;
+      return resumeModeList;
     }
 
     useEffect(() {
@@ -57,9 +58,9 @@ class MyFilePage extends HookConsumerWidget {
         future: getData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var cvModel = snapshot.data;
+            var resumeModel = snapshot.data;
             return ListView.builder(
-                itemCount: cvModel!.length,
+                itemCount: resumeModel!.length,
                 itemBuilder: (cxt, idx) {
                   return Card(
                     color: Theme.of(context).colorScheme.background,
@@ -82,7 +83,7 @@ class MyFilePage extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(8.0),
                               child: CachedNetworkImage(
                                 fit: BoxFit.fill,
-                                imageUrl: cvModel[idx].profile!.image ?? '',
+                                imageUrl: resumeModel[idx].profileImage ?? '',
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) =>
                                         CircularProgressIndicator(
@@ -97,9 +98,14 @@ class MyFilePage extends HookConsumerWidget {
                           ),
                           Column(
                             children: [
-                              Text(cvModel[idx].profile!.name),
+                              Text(resumeModel[idx].personalDetail?.fullName ??
+                                  ''),
                               Text(
-                                cvModel[idx].profile!.createdOn.toString(),
+                                resumeModel[idx]
+                                        .personalDetail
+                                        ?.email
+                                        .toString() ??
+                                    '',
                               ),
                               Row(
                                 children: [
@@ -121,7 +127,13 @@ class MyFilePage extends HookConsumerWidget {
                                       ),
                                     ),
 
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      ref
+                                          .read(resumeDataProvider.notifier)
+                                          .state = resumeModel[idx];
+                                      AutoRouter.of(context)
+                                          .push(const DetailRoute());
+                                    },
                                     label: const Text('Edit'),
                                   ),
                                   horSpace(8),

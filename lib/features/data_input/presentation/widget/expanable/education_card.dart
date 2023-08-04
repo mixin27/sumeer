@@ -68,7 +68,7 @@ class _EducationCardState extends ConsumerState<EducationCard> {
                               size: 40,
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                          )
+                          ),
                   ],
                 ),
               ),

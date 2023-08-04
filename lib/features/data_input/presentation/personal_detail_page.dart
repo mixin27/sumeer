@@ -109,7 +109,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
         //
 
-        imageUrl = resumeData.personalDetail?.imageData ?? '';
+        imageUrl = resumeData.profileImage ?? '';
       } else {
         imageId = const Uuid().v4();
       }
@@ -838,14 +838,14 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ],
     );
-
+    wtfLog('resume data on save up resumedata', imageUrl);
     ResumeData resumeData = ResumeData(
       // profileImage: _image == null
       //     ? ref.watch(resumeDataProvider)?.profileImage
       //     : pw.MemoryImage(_image!),
       // TODO: profileimage
       // profileImage: _image == null ? ref.watch(resumeDataProvider)?.profileImage :imageUrl,
-      profileImage: '',
+      profileImage: imageUrl,
       personalDetail: personalDetail,
       profile: const ProfileSection(
         title: "Profile",
@@ -859,6 +859,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       personalInformation: personalInfo,
     );
     ref.read(resumeDataProvider.notifier).update((state) => resumeData);
+    wtfLog('resume data on save',
+        ref.watch(resumeDataProvider)?.profileImage ?? '5454');
+    wtfLog('resume data on save imageUrl', imageUrl);
   }
 
   /// Get from gallery

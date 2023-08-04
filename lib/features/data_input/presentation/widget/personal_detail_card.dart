@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
+import 'package:sumeer/utils/logger/logger.dart';
 
 class PersonalDetailCard extends ConsumerWidget {
   const PersonalDetailCard({super.key});
@@ -14,6 +15,7 @@ class PersonalDetailCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final resumeData = ref.watch(resumeDataProvider);
+    wLog('personal detail card', resumeData?.personalDetail?.imageData ?? '');
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(
