@@ -46,7 +46,7 @@ Future<Uint8List> generateTemplate4(
                     // job
                     if (resumeData.personalDetail?.jobTitle != null) ...[
                       pw.Padding(
-                        padding: const pw.EdgeInsets.only(top: 8),
+                        padding: const pw.EdgeInsets.only(top: 4),
                       ),
                       pw.Text(
                         resumeData.personalDetail?.jobTitle ?? '',
@@ -60,7 +60,7 @@ Future<Uint8List> generateTemplate4(
                     // address
                     if (resumeData.personalDetail?.address != null) ...[
                       pw.Padding(
-                        padding: const pw.EdgeInsets.only(top: 8),
+                        padding: const pw.EdgeInsets.only(top: 4),
                       ),
                       pw.Text(
                         resumeData.personalDetail?.address ?? '',
@@ -68,14 +68,14 @@ Future<Uint8List> generateTemplate4(
                         style: pw.Theme.of(context).defaultTextStyle,
                       ),
                     ],
-                    pw.SizedBox(height: 8),
+                    pw.SizedBox(height: 4),
                     pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           if (resumeData.personalDetail?.phone != null)
                             pw.Text(
                               resumeData.personalDetail?.phone ?? '',
-                              textScaleFactor: 2,
+                              textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
                                   .copyWith(fontSize: 8),
@@ -83,7 +83,7 @@ Future<Uint8List> generateTemplate4(
                           if (resumeData.personalDetail?.email != null)
                             pw.Text(
                               resumeData.personalDetail?.email ?? '',
-                              textScaleFactor: 2,
+                              textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
                                   .copyWith(fontSize: 8),
@@ -345,14 +345,25 @@ pw.Column experienceList(ResumeData resumeData, pw.Context context) {
               //     pw.MainAxisAlignment.spaceBetween,
               children: [
                 pw.Expanded(
-                    child: pw.Text(
-                  resumeData.experience!.experiences[index].jobTitle,
-                  textScaleFactor: 2,
-                  textAlign: pw.TextAlign.justify,
-                  style: pw.Theme.of(context)
-                      .defaultTextStyle
-                      .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
-                )),
+                  child: pw.Row(children: [
+                    pw.Transform.rotate(
+                      angle: 65,
+                      child: pw.Icon(
+                        const pw.IconData(0xe9b0),
+                        color: PdfColor.fromHex('000000'),
+                        size: 12,
+                      ),
+                    ),
+                    pw.SizedBox(width: 4),
+                    pw.Text(
+                      resumeData.experience!.experiences[index].jobTitle,
+                      textScaleFactor: 2,
+                      textAlign: pw.TextAlign.justify,
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                          fontSize: 6, fontWeight: pw.FontWeight.bold),
+                    ),
+                  ]),
+                ),
                 if (resumeData.experience!.experiences[index].startDate != null)
                   pw.Text(
                     resumeData.experience!.experiences[index].startDate
@@ -464,14 +475,25 @@ pw.Column eduationList(ResumeData resumeData, pw.Context context) {
               children: [
                 if (resumeData.education!.educations[index].degree != null)
                   pw.Expanded(
-                      child: pw.Text(
-                    resumeData.education!.educations[index].degree ?? '',
-                    textScaleFactor: 2,
-                    textAlign: pw.TextAlign.justify,
-                    style: pw.Theme.of(context)
-                        .defaultTextStyle
-                        .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
-                  )),
+                    child: pw.Row(children: [
+                      pw.Transform.rotate(
+                        angle: 65,
+                        child: pw.Icon(
+                          const pw.IconData(0xe9b0),
+                          color: PdfColor.fromHex('000000'),
+                          size: 12,
+                        ),
+                      ),
+                      pw.SizedBox(width: 4),
+                      pw.Text(
+                        resumeData.education!.educations[index].degree ?? '',
+                        textScaleFactor: 2,
+                        textAlign: pw.TextAlign.justify,
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                            fontSize: 6, fontWeight: pw.FontWeight.bold),
+                      ),
+                    ]),
+                  ),
                 if (resumeData.education!.educations[index].startDate != null)
                   pw.Text(
                     resumeData.education!.educations[index].startDate
@@ -581,35 +603,46 @@ pw.Column skillList(ResumeData resumeData, pw.Context context) {
               // mainAxisAlignment:
               //     pw.MainAxisAlignment.spaceBetween,
               children: [
-                pw.Expanded(
-                  child: pw.Text(
-                    resumeData.skill!.skills[index].skill,
+                pw.Transform.rotate(
+                  angle: 65,
+                  child: pw.Icon(
+                    const pw.IconData(0xe9b0),
+                    color: PdfColor.fromHex('000000'),
+                    size: 12,
+                  ),
+                ),
+                pw.SizedBox(width: 4),
+                pw.Text(
+                  resumeData.skill!.skills[index].skill,
+                  textScaleFactor: 2,
+                  textAlign: pw.TextAlign.justify,
+                  style: pw.Theme.of(context)
+                      .defaultTextStyle
+                      .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
+                ),
+              ],
+            ),
+            pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Level : ${resumeData.skill!.skills[index].level.toString().split(".")[1].toUpperCase()}",
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
                         .defaultTextStyle
-                        .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
-                  ),
-                ),
-                if (resumeData.skill!.skills[index].percentage != null)
-                  pw.Text(
-                    "${(resumeData.skill!.skills[index].percentage! * 100).toStringAsFixed(0)} %",
-                    textScaleFactor: 2,
-                    textAlign: pw.TextAlign.left,
-                    style: pw.Theme.of(context)
-                        .defaultTextStyle
                         .copyWith(fontSize: 6),
                   ),
-              ],
-            ),
-
-            pw.Text(
-              "Level : ${resumeData.skill!.skills[index].level.toString().split(".")[1].toUpperCase()}",
-              textScaleFactor: 2,
-              textAlign: pw.TextAlign.justify,
-              style:
-                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
-            ),
+                  if (resumeData.skill!.skills[index].percentage != null)
+                    pw.Text(
+                      "${(resumeData.skill!.skills[index].percentage! * 100).toStringAsFixed(0)} %",
+                      textScaleFactor: 2,
+                      textAlign: pw.TextAlign.left,
+                      style: pw.Theme.of(context)
+                          .defaultTextStyle
+                          .copyWith(fontSize: 6),
+                    ),
+                ]),
             if (resumeData.skill!.skills[index].information != null)
               pw.Text(
                 "Information : ${resumeData.skill!.skills[index].information!}",
@@ -636,38 +669,50 @@ pw.Column languageList(ResumeData resumeData, pw.Context context) {
           children: [
             // degree
             pw.Row(
-              // mainAxisAlignment:
-              //     pw.MainAxisAlignment.spaceBetween,
               children: [
-                if (resumeData.languages!.languages[index].title != null)
-                  pw.Expanded(
-                    child: pw.Text(
-                      resumeData.languages!.languages[index].title ?? '',
-                      textScaleFactor: 2,
-                      textAlign: pw.TextAlign.justify,
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          fontSize: 6, fontWeight: pw.FontWeight.bold),
+                if (resumeData.languages!.languages[index].title != null) ...[
+                  pw.Transform.rotate(
+                    angle: 65,
+                    child: pw.Icon(
+                      const pw.IconData(0xe9b0),
+                      color: PdfColor.fromHex('000000'),
+                      size: 12,
                     ),
                   ),
-                if (resumeData.languages!.languages[index].percentage != null)
+                  pw.SizedBox(width: 4),
                   pw.Text(
-                    "${resumeData.languages!.languages[index].percentage!.toStringAsFixed(0)} %",
+                    resumeData.languages!.languages[index].title ?? '',
                     textScaleFactor: 2,
-                    textAlign: pw.TextAlign.left,
+                    textAlign: pw.TextAlign.justify,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
+                  ),
+                ],
+              ],
+            ),
+
+            pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Level : ${resumeData.languages!.languages[index].level.toString().split(".")[1].toUpperCase()}",
+                    textScaleFactor: 2,
+                    textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
                         .defaultTextStyle
                         .copyWith(fontSize: 6),
                   ),
-              ],
-            ),
-
-            pw.Text(
-              "Level : ${resumeData.languages!.languages[index].level.toString().split(".")[1].toUpperCase()}",
-              textScaleFactor: 2,
-              textAlign: pw.TextAlign.justify,
-              style:
-                  pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
-            ),
+                  if (resumeData.languages!.languages[index].percentage != null)
+                    pw.Text(
+                      "${resumeData.languages!.languages[index].percentage!.toStringAsFixed(0)} %",
+                      textScaleFactor: 2,
+                      textAlign: pw.TextAlign.left,
+                      style: pw.Theme.of(context)
+                          .defaultTextStyle
+                          .copyWith(fontSize: 6),
+                    ),
+                ]),
             if (resumeData.languages!.languages[index].description != null)
               pw.Text(
                 "Description : ${resumeData.languages!.languages[index].description!}",
@@ -695,16 +740,26 @@ pw.Column certificateList(ResumeData resumeData, pw.Context context) {
             // degree
             pw.Row(
               children: [
-                if (resumeData.certificate!.certificates[index].title != null)
-                  pw.Expanded(
-                    child: pw.Text(
-                      resumeData.certificate!.certificates[index].title ?? '',
-                      textScaleFactor: 2,
-                      textAlign: pw.TextAlign.justify,
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          fontSize: 6, fontWeight: pw.FontWeight.bold),
+                if (resumeData.certificate!.certificates[index].title !=
+                    null) ...[
+                  pw.Transform.rotate(
+                    angle: 65,
+                    child: pw.Icon(
+                      const pw.IconData(0xe9b0),
+                      color: PdfColor.fromHex('000000'),
+                      size: 12,
                     ),
                   ),
+                  pw.SizedBox(width: 4),
+                  pw.Text(
+                    resumeData.certificate!.certificates[index].title ?? '',
+                    textScaleFactor: 2,
+                    textAlign: pw.TextAlign.justify,
+                    style: pw.Theme.of(context)
+                        .defaultTextStyle
+                        .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
+                  ),
+                ]
               ],
             ),
             // School
@@ -791,21 +846,25 @@ pw.Column interestList(ResumeData resumeData, pw.Context context) {
         padding: const pw.EdgeInsets.only(top: 6),
         child: pw.Row(children: [
           if (resumeData.interest!.interests[index].title != null)
-            // pw.Row(children: [
-            //   pw.Icon(
-            //     const pw.IconData(0xe885),
-            //     color: PdfColor.fromHex('404040'),
-            //     size: 20,
-            //   ),
-            // ]),
-            pw.Text(
-              resumeData.interest!.interests[index].title ?? '',
-              textScaleFactor: 2,
-              textAlign: pw.TextAlign.left,
-              style: pw.Theme.of(context)
-                  .defaultTextStyle
-                  .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
-            )
+            pw.Row(children: [
+              pw.Transform.rotate(
+                angle: 65,
+                child: pw.Icon(
+                  const pw.IconData(0xe9b0),
+                  color: PdfColor.fromHex('000000'),
+                  size: 12,
+                ),
+              ),
+              pw.SizedBox(width: 4),
+              pw.Text(
+                resumeData.interest!.interests[index].title ?? '',
+                textScaleFactor: 2,
+                textAlign: pw.TextAlign.left,
+                style: pw.Theme.of(context)
+                    .defaultTextStyle
+                    .copyWith(fontSize: 6, fontWeight: pw.FontWeight.bold),
+              )
+            ]),
         ]),
       ),
     ),
@@ -814,21 +873,18 @@ pw.Column interestList(ResumeData resumeData, pw.Context context) {
 
 Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
   format = format.applyMargin(
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    // left: 2.0 * PdfPageFormat.cm,
-    // top: 4.0 * PdfPageFormat.cm,
-    // right: 2.0 * PdfPageFormat.cm,
-    // bottom: 2.0 * PdfPageFormat.cm,
+    left: 2.0 * PdfPageFormat.cm,
+    top: 2.0 * PdfPageFormat.cm,
+    right: 2.0 * PdfPageFormat.cm,
+    bottom: 2.0 * PdfPageFormat.cm,
   );
 
   return pw.PageTheme(
     pageFormat: format,
     theme: pw.ThemeData.withFont(
-      base: await PdfGoogleFonts.openSansRegular(),
-      bold: await PdfGoogleFonts.openSansBold(),
+      base: await PdfGoogleFonts.loraRegular(),
+      bold: await PdfGoogleFonts.loraBold(),
+      italic: await PdfGoogleFonts.loraItalic(),
       icons: await PdfGoogleFonts.materialIcons(),
     ),
   );
