@@ -271,7 +271,8 @@ pw.Row personalInfo(ResumeData resumeData, pw.Context context, pw.Font font) {
                 width: 150,
                 height: 150,
                 color: lightGreen,
-                child: pw.Image(resumeData.profileImage!),
+                child: pw.SizedBox(),
+                // child: pw.Image(resumeData.profileImage!),
               ),
             ),
           )

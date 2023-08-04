@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
@@ -35,5 +34,6 @@ class AppRouter extends $AppRouter {
         //personal_detail
         AutoRoute(
             page: PersonalDetailRoute.page, path: '/edit_personal_detail'),
+        AutoRoute(page: MyFileRoute.page, path: '/my_file'),
       ];
 }

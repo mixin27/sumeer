@@ -6,6 +6,7 @@ import 'package:sumeer/features/resume/core/presentation/templates/resume_templa
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 import 'resume_template_4.dart';
+import 'package:sumeer/shared/constants/asset_paths.dart';
 export 'resume_template_1.dart';
 export 'resume_template_6.dart';
 
@@ -46,43 +47,64 @@ const resumeTemplates = <ResumeTemplate>[
   ResumeTemplate(
     'Resume Template 1',
     'resume_template_1.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate1,
     generateTemplate1,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 2',
     'resume_template_2.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate2,
     generateTemplate2,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 3',
     'resume_template_3.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate3,
     generateTemplate3,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 4',
     'resume_template_4.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate4,
     generateTemplate4,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 5',
     'resume_template_5.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate5,
     generateTemplate5,
     type: DocumentType.cv,
   ),
   ResumeTemplate(
     'Resume Template 6',
     'resume_template_6.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate6,
     generateTemplate6,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 7',
+    'resume_template_7.dart',
+    AssetPaths.resumeTemplate7,
+    generateTemplate6,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 8',
+    'resume_template_8.dart',
+    AssetPaths.resumeTemplate8,
+    generateTemplate8,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 9',
+    'resume_template_8.dart',
+    AssetPaths.resumeTemplate9,
+    generateTemplate9,
     type: DocumentType.resume,
   ),
 ];

@@ -6,7 +6,7 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
-Future<Uint8List> generatResume3(
+Future<Uint8List> generateTemplate8(
   PdfPageFormat format,
   GenerateDocParams params,
   ResumeData resumeData,
@@ -54,12 +54,14 @@ Future<Uint8List> generatResume3(
                 alignment: pw.Alignment.centerRight,
                 padding: const pw.EdgeInsets.only(top: 20),
                 child: pw.ClipOval(
-                  child: pw.Image(
-                    resumeData.profileImage!,
-                    fit: pw.BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                  ),
+                  // child: pw.Image(
+                  //   resumeData.profileImage!,
+                  //   fit: pw.BoxFit.cover,
+                  //   width: 100,
+                  //   height: 100,
+                  // ),
+                  // profileImage
+                  child: pw.SizedBox(),
                 ),
               ),
             ),
@@ -201,15 +203,17 @@ Future<Uint8List> generatResume3(
                                         width: 5,
                                         height: 5,
                                         color: PdfColors.black)),
-                                pw.Padding(
-                                  padding: const pw.EdgeInsets.only(left: 5),
-                                  child: pw.Text(
-                                    skill.skill,
-                                    style: pw.Theme.of(context)
-                                        .defaultTextStyle
-                                        .copyWith(
-                                          fontWeight: pw.FontWeight.bold,
-                                        ),
+                                pw.Flexible(
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(left: 5),
+                                    child: pw.Text(
+                                      skill.skill,
+                                      style: pw.Theme.of(context)
+                                          .defaultTextStyle
+                                          .copyWith(
+                                            fontWeight: pw.FontWeight.bold,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ]);

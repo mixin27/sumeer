@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/utils/utils.dart';
-
 import 'package:sumeer/widgets/button1.dart';
 import '../../auth/feat_auth.dart';
 import '../../features.dart';
@@ -39,7 +38,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           Button1(
             text: "Preview",
             onPressed: () async {
-              dLog(ref.watch(cvMOdelProvider));
+              dLog(ref.watch(resumeDataProvider));
               var uid =
                   ref.watch(authRepositoryProvider).currentUser?.uid.toString();
               await ref
@@ -48,7 +47,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   .doc(uid)
                   .collection("user")
                   .doc(invId)
-                  .set(ref.watch(cvMOdelProvider)?.toJson() ?? {});
+                  .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
               // await ref
               //     .read(cloudFirestoreProvider)
               //     .collection("summer")

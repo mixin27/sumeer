@@ -19,7 +19,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text(
+          "Settings",
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              // color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),

@@ -1,8 +1,10 @@
 import 'dart:typed_data';
+
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 Future<Uint8List> generateTemplate2(
@@ -51,8 +53,11 @@ Future<Uint8List> generateTemplate2(
                       width: 130,
                       height: 130,
                       child: pw.ClipOval(
-                        child: pw.Image(resumeData.profileImage!,
-                            width: 130, height: 130, fit: pw.BoxFit.cover),
+                        // child:
+                        // pw.Image(resumeData.profileImage!,
+                        //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                        // profileImage
+                        child: pw.SizedBox(),
                       ),
                     ),
                     pw.SizedBox(height: 20),
@@ -339,6 +344,34 @@ Future<Uint8List> generateTemplate2(
                         }),
                       ),
                       pw.SizedBox(height: 20),
+                    ],
+                    if (resumeData.award != null) ...[
+                      buildTitleWidget("AWARDS", const pw.IconData(0xea23),
+                          font, PdfColor.fromHex('293F4E'), PdfColors.white),
+                      pw.SizedBox(height: 10),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: List.generate(
+                          resumeData.award!.awards.length,
+                          (index) {
+                            final award = resumeData.award!.awards[index];
+
+                            return pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text("${award.award} ",
+                                    style: pw.TextStyle(
+                                        font: font, color: PdfColors.white)),
+                                pw.Text("${award.issuer}",
+                                    style: pw.TextStyle(
+                                        font: fontRegular,
+                                        color: PdfColors.white)),
+                                pw.SizedBox(height: 20)
+                              ],
+                            );
+                          },
+                        ),
+                      )
                     ],
                     if (resumeData.certificate != null) ...[
                       buildTitleWidget(
