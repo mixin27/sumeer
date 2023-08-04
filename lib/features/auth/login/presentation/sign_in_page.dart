@@ -17,20 +17,25 @@ class SignInPage extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            CircleAvatar(
-              radius: 45,
-              child: Image.asset(AssetPaths.logo),
+            Image.asset(
+              AssetPaths.logo,
+              width: 200,
+              height: 200,
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Login',
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-            ),
-            const SizedBox(height: 20),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(left: 16.0),
+            //     child: Text(
+            //       'Login',
+            //       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            //             fontWeight: FontWeight.bold,
+            //             fontSize: 20,
+            //           ),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: SignInForm(),

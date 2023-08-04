@@ -16,22 +16,23 @@ class SignUpPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            CircleAvatar(
-              radius: 45,
-              child: Image.asset(AssetPaths.logo),
+            // const SizedBox(height: 20),
+            Image.asset(
+              AssetPaths.logo,
+              width: 200,
+              height: 200,
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Create account',
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-            ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
+            // Text(
+            //   'Create account',
+            //   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            //         fontWeight: FontWeight.w500,
+            //         fontSize: 20,
+            //       ),
+            // ),
+            // const SizedBox(height: 20),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: SignUpForm(),
             ),
           ],

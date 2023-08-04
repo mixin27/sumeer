@@ -213,19 +213,17 @@ class _SecondHomePageState extends State<SecondHomePage> {
                           itemBuilder: (context, index) {
                             final template = resumeTemplates[index];
 
-                            return Container(
-                              child: Card(
-                                clipBehavior: Clip.hardEdge,
-                                elevation: 5,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(0)),
-                                ),
-                                child: Image.asset(
-                                  template.thumbnail,
-                                  // height: 350,
-                                  fit: BoxFit.cover,
-                                ),
+                            return Card(
+                              clipBehavior: Clip.hardEdge,
+                              elevation: 5,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(0)),
+                              ),
+                              child: Image.asset(
+                                template.thumbnail,
+                                // height: 350,
+                                fit: BoxFit.cover,
                               ),
                             );
                           },
