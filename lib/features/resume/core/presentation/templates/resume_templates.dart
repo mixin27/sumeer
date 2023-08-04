@@ -6,6 +6,7 @@ import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/constants/asset_paths.dart';
 export 'resume_template_1.dart';
 export 'resume_template_6.dart';
+export 'resume_template_7.dart';
 
 typedef LayoutCallbackWithData = Future<Uint8List> Function(
   PdfPageFormat pageFormat,
@@ -81,6 +82,13 @@ const resumeTemplates = <ResumeTemplate>[
     'resume_template_6.dart',
     'assets/images/templates/resume_template_1.jpg',
     generateTemplate6,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 7',
+    'resume_template_7.dart',
+    'assets/images/templates/resume_template_1.jpg',
+    generateTemplate7,
     type: DocumentType.resume,
   ),
 ];

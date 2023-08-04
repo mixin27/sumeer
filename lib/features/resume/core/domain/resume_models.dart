@@ -32,6 +32,8 @@ class PersonalDetailSection with _$PersonalDetailSection {
     @Default('Personal Details') String title,
 
     /// Your title, first and last name
+    required String firstName,
+    required String lastName,
     required String fullName,
     required String jobTitle,
     required String email,

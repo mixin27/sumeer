@@ -9,6 +9,8 @@ Future<ResumeData> getDummyResumeData() async {
     // TODO: profile image
     profileImage: "",
     personalDetail: const PersonalDetailSection(
+      firstName: "Kyaw",
+      lastName: "Zayar Tun",
       fullName: "KYAW ZAYAR TUN",
       jobTitle: "Mobile Developer",
       email: "kyawzayartun.sbs@gmail.com",
