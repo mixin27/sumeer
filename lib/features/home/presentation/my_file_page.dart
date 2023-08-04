@@ -29,19 +29,23 @@ class MyFilePage extends HookConsumerWidget {
           .doc(uid)
           .collection("user")
           .get()
-          .then((documentSnapshot) {
-        if (documentSnapshot.docs.isNotEmpty) {
-          vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
-          var list = documentSnapshot.docs
-              .map(
-                (e) => ResumeData.fromJson(e.data()),
-              )
-              .toList();
-          resumeModeList = list;
-          wLog('resume list', resumeModeList);
-          return list;
-        }
-      });
+          .then(
+        (documentSnapshot) {
+          wtfLog('documentSnapshot.docs id',
+              documentSnapshot.docs.first.toString());
+          if (documentSnapshot.docs.isNotEmpty) {
+            vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
+            var list = documentSnapshot.docs
+                .map(
+                  (e) => ResumeData.fromJson(e.data()),
+                )
+                .toList();
+            resumeModeList = list;
+            wLog('resume list', resumeModeList);
+            return list;
+          }
+        },
+      );
       return resumeModeList;
     }
 

@@ -14,7 +14,7 @@ class EducationWidget extends StatefulHookConsumerWidget {
 class _ExperienceState extends ConsumerState<EducationWidget> {
   @override
   Widget build(BuildContext context) {
-    final eduSection = ref.watch(educationSectionProvider);
+    final eduSection = ref.watch(resumeDataProvider)!.education;
     final eduList = eduSection?.educations ?? [];
     wLog('skill list', eduList.length);
     return Column(

@@ -14,7 +14,7 @@ class SkillWdiget extends StatefulHookConsumerWidget {
 class _SkillWdigetState extends ConsumerState<SkillWdiget> {
   @override
   Widget build(BuildContext context) {
-    final skill = ref.watch(skillSectionProvider);
+    final skill = ref.watch(resumeDataProvider)?.skill;
     final skillList = skill?.skills ?? [];
     wLog('skill list', skillList.length);
     return Column(

@@ -86,7 +86,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           ),
         ],
       ),
-      body: const EditFormWidget(),
+      body: const EditFormWidget(null),
     );
   }
 }

@@ -54,7 +54,7 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                         color: Color(0xFF407BFF),
                       ),
                     ),
-                    ref.watch(skillSectionProvider) == null
+                    ref.watch(resumeDataProvider)?.skill == null
                         ? const SizedBox()
                         : IconButton(
                             onPressed: () {
@@ -73,7 +73,7 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                 ),
               ),
             ),
-            ref.watch(skillSectionProvider) == null
+            ref.watch(resumeDataProvider)?.skill == null
                 ? const SizedBox()
                 : Column(
                     children: [

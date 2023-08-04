@@ -61,7 +61,7 @@ class _ExperienceCardState extends ConsumerState<ExperienceCard> {
                     //   'assets/images/resume/down_arrow.png',
                     //   height: 20,
                     // ),
-                    ref.watch(experienceSectionProvider) == null
+                    ref.watch(resumeDataProvider)?.experience == null
                         ? const SizedBox()
                         : IconButton(
                             onPressed: () {
@@ -80,7 +80,7 @@ class _ExperienceCardState extends ConsumerState<ExperienceCard> {
                 ),
               ),
             ),
-            ref.watch(experienceSectionProvider) == null
+            ref.watch(resumeDataProvider)?.experience == null
                 ? const SizedBox()
                 : Column(
                     children: [
