@@ -8,6 +8,7 @@ class ResumeData with _$ResumeData {
   const ResumeData._();
   const factory ResumeData({
     // pw.MemoryImage? profileImage,
+    String? resumeId,
     String? profileImage,
     PersonalDetailSection? personalDetail,
     ProfileSection? profile,

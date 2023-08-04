@@ -8,16 +8,17 @@ import 'package:sumeer/features/features.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
+import 'package:uuid/uuid.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,8 +120,23 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Expanded(
                               child: InkWell(
-                                onTap: () => context.router
-                                    .push(const PersonalDetailRoute()),
+                                onTap: () {
+                                  ref.read(resumeDataProvider.notifier).state =
+                                      null;
+                                  ref
+                                      .read(resumeModelIdProvider.notifier)
+                                      .state = '';
+
+                                  ref
+                                      .read(resumeModelIdProvider.notifier)
+                                      .state = ref
+                                          .watch(resumeModelIdProvider)
+                                          .isEmptyOrNull
+                                      ? const Uuid().v4()
+                                      : ref.watch(resumeModelIdProvider);
+                                  context.router
+                                      .push(const PersonalDetailRoute());
+                                },
                                 child: Container(
                                   height: 100,
                                   decoration: BoxDecoration(

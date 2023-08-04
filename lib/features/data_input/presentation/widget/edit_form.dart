@@ -194,7 +194,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddEducationForm(null);
+          return const AddEducationForm(null, null);
         });
   }
 
@@ -204,7 +204,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddProfessionalExperienceForm(null);
+          return const AddProfessionalExperienceForm(null, null);
         });
   }
 
@@ -214,7 +214,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddSkillForm(null);
+          return const AddSkillForm(null, null);
         });
   }
 }

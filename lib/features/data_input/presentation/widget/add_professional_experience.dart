@@ -7,8 +7,9 @@ import 'package:sumeer/features/features.dart';
 import 'package:sumeer/utils/logger/logger.dart';
 
 class AddProfessionalExperienceForm extends ConsumerStatefulWidget {
+  final int? index;
   final Experience? experience;
-  const AddProfessionalExperienceForm(this.experience, {super.key});
+  const AddProfessionalExperienceForm(this.experience, this.index, {super.key});
 
   @override
   ConsumerState<AddProfessionalExperienceForm> createState() =>
@@ -27,6 +28,7 @@ class _AddProfessionalExperienceFormState
   @override
   void initState() {
     super.initState();
+    setData();
   }
 
   Future<void> setData() async {
@@ -46,6 +48,7 @@ class _AddProfessionalExperienceFormState
 
   @override
   Widget build(BuildContext context) {
+    wtfLog('widget experience', widget.experience);
     return DraggableScrollableSheet(
         initialChildSize: 0.95,
         minChildSize: 0.5,
@@ -108,6 +111,7 @@ class _AddProfessionalExperienceFormState
                           onTap: () {
                             final oldExpScetion =
                                 ref.watch(experienceSectionProvider);
+                            final oldResumeData = ref.watch(resumeDataProvider);
                             vLog('date time', DateTime.now());
                             Experience experience = Experience(
                               employer: null,
@@ -118,18 +122,62 @@ class _AddProfessionalExperienceFormState
                               endDate: DateTime.now(),
                               description: descriptionController.text,
                             );
-                            List<Experience> experienceList = oldExpScetion ==
-                                    null
-                                ? [experience]
-                                : [...oldExpScetion.experiences, experience];
-                            ExperienceSection experienceSection =
-                                ExperienceSection(
-                              title: '',
-                              experiences: experienceList,
-                            );
-                            ref
-                                .read(experienceSectionProvider.notifier)
-                                .update((state) => experienceSection);
+
+                            if (jobTitleController.text.isEmpty) {
+                              return Navigator.of(context).pop();
+                            } else {
+                              if (widget.index != null) {
+                                List<Experience> list1 = [];
+                                List<Experience> list =
+                                    oldExpScetion?.experiences ?? [];
+                                for (var element in list) {
+                                  list1.add(element);
+                                }
+                                list1.removeAt(widget.index ?? 0);
+                                wLog('updated list remove', list1);
+
+                                list1.insert(widget.index ?? 0, experience);
+                                wLog('updated list', list1);
+                                ExperienceSection skillSection =
+                                    ExperienceSection(
+                                        title: '', experiences: list1);
+
+                                ref
+                                    .read(experienceSectionProvider.notifier)
+                                    .update((state) => skillSection);
+
+                                final newResumeData = oldResumeData?.copyWith(
+                                    experience:
+                                        ref.watch(experienceSectionProvider));
+                                ref
+                                    .read(resumeDataProvider.notifier)
+                                    .update((state) => newResumeData);
+                              } else {
+                                List<Experience> experienceList =
+                                    oldExpScetion == null
+                                        ? [experience]
+                                        : [
+                                            ...oldExpScetion.experiences,
+                                            experience
+                                          ];
+                                ExperienceSection experienceSection =
+                                    ExperienceSection(
+                                  title: '',
+                                  experiences: experienceList,
+                                );
+                                ref
+                                    .read(experienceSectionProvider.notifier)
+                                    .update((state) => experienceSection);
+
+                                final newResumeData = oldResumeData?.copyWith(
+                                    experience:
+                                        ref.watch(experienceSectionProvider));
+                                ref
+                                    .read(resumeDataProvider.notifier)
+                                    .update((state) => newResumeData);
+                              }
+                            }
+
                             Navigator.pop(context);
                           },
                         ),

@@ -186,7 +186,7 @@ class MoreContentBottomSheet extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddEducationForm(null);
+          return const AddEducationForm(null, null);
         });
   }
 
@@ -196,7 +196,7 @@ class MoreContentBottomSheet extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddProfessionalExperienceForm(null);
+          return const AddProfessionalExperienceForm(null, null);
         });
   }
 
@@ -206,7 +206,7 @@ class MoreContentBottomSheet extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddSkillForm(null);
+          return const AddSkillForm(null, null);
         });
   }
 }

@@ -94,3 +94,5 @@ final certificateSectionListProvider =
 final languageSectionProvider = StateProvider<LanguageSection?>((ref) => null);
 final languageSectionListProvider =
     StateProvider<List<LanguageSection>>((ref) => []);
+// resumeModelId
+final resumeModelIdProvider = StateProvider<String>((ref) => '');
