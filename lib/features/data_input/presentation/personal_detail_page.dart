@@ -782,6 +782,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     log(personalInfo.toString());
     log(ref.watch(personalInformationProvider).toString());
     var personalDetail = PersonalDetailSection(
+      firstName: "",
+      lastName: "",
       fullName: fullNameController.text,
       jobTitle: jobTitleController.text,
       email: emailController.text,
