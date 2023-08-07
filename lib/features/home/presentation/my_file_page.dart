@@ -166,7 +166,7 @@ class MyFilePage extends HookConsumerWidget {
                                     onPressed: () {
                                       context.router.push(
                                         ResumePreviewRoute(
-                                          resume: resumeTemplates[0],
+                                          resume: resumeTemplates[3],
                                           resumeData: resumeModel[idx],
                                         ),
                                       );
