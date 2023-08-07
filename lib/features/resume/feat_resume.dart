@@ -9,7 +9,11 @@ export 'core/shared/constants/pdf_constants.dart';
 
 export 'core/presentation/templates/resume_template_1.dart';
 export 'core/presentation/templates/resume_template_2.dart';
+export 'core/presentation/templates/resume_template_3.dart';
 export 'core/presentation/templates/resume_templates.dart';
+export 'core/presentation/templates/resume_template_10.dart';
+export 'core/presentation/templates/resume_template_9.dart';
+export 'core/presentation/templates/resume_template_8.dart';
 
 export 'preview/presentation/resume_preview_page.dart';
 

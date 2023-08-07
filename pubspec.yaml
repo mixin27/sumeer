@@ -52,6 +52,7 @@ dependencies:
   json_annotation: ^4.8.1
   image_picker: ^1.0.1
   cached_network_image: ^3.2.3
+  searchfield: ^0.8.3
 
 dev_dependencies:
   flutter_test:
@@ -70,10 +71,12 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/logo.png
     - assets/images/resume/
     - assets/images/onboarding/
     - assets/images/templates/
     - assets/images/home/
+    - assets/fonts/
 
   # fonts:
   #   - family: Schyler

@@ -11,14 +11,13 @@ import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
+import 'package:sumeer/shared/shared.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 import '../../features.dart';
-import '../../templates/domain/cv_model.dart';
 import '../infrastructure/firebase_function.dart';
 
 @RoutePage()
@@ -31,7 +30,8 @@ class PersonalDetailPage extends ConsumerStatefulWidget {
 
 class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   final formKey = GlobalKey<FormState>();
-  final fullNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final jobTitleController = TextEditingController();
@@ -83,15 +83,38 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   Future<void> setData() async {
+    wLog('setData', 'Called');
     Future.microtask(() {
-      final profile = ref.watch(userProfileProvider);
-      if (profile != null) {
-        fullNameController.text = profile.name;
-        phoneController.text = profile.phone;
-        addressController.text = profile.address;
-        jobTitleController.text = profile.jobTitle;
-        emailController.text = profile.email;
-        imageUrl = profile.image ?? '';
+      final resumeData = ref.watch(resumeDataProvider);
+      if (resumeData != null) {
+        firstNameController.text = resumeData.personalDetail?.firstName ?? '';
+        lastNameController.text = resumeData.personalDetail?.lastName ?? '';
+        phoneController.text = resumeData.personalDetail?.phone ?? '';
+        addressController.text = resumeData.personalDetail?.address ?? '';
+        jobTitleController.text = resumeData.personalDetail?.jobTitle ?? '';
+        emailController.text = resumeData.personalDetail?.email ?? '';
+        _selectedDateStr =
+            resumeData.personalDetail?.personalInfo?.dateOfBirth ?? '';
+        //gender
+        genderController.text =
+            resumeData.personalDetail?.personalInfo?.gender ?? '';
+        _isAddGender = genderController.text.isEmptyOrNull ? false : true;
+        // martial
+        maritalController.text =
+            resumeData.personalDetail?.personalInfo?.martialStatus ?? '';
+        _isAddMarital = maritalController.text.isEmptyOrNull ? false : true;
+        // nationality
+        nationalityController.text =
+            resumeData.personalDetail?.personalInfo?.nationality ?? '';
+        _isAddNationality =
+            nationalityController.text.isEmptyOrNull ? false : true;
+        // driving licence
+        drivingController.text =
+            resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
+        _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
+        //
+
+        imageUrl = resumeData.profileImage ?? '';
       } else {
         imageId = const Uuid().v4();
       }
@@ -101,6 +124,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    wtfLog('personal detail page', ref.watch(resumeModelIdProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Personal Detail"),
@@ -177,10 +201,17 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Full Name",
-                    controller: fullNameController,
+                    title: "First Name",
+                    controller: firstNameController,
                     validator: (v) =>
-                        requiredValidator(v, "Type your full name"),
+                        requiredValidator(v, "Type your first name"),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Last Name",
+                    controller: lastNameController,
+                    validator: (v) =>
+                        requiredValidator(v, "Type your last name"),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -722,17 +753,23 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ),
       bottomSheet: SizedBox(
-          height: 80,
-          child: SaveBottomSheetWidget(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                savePerson();
-                AutoRouter.of(context).pop();
-              }
-              // savePersonalDetail();
-              // context.router.pop();
-            },
-          )),
+        height: 80,
+        child: SaveBottomSheetWidget(
+          routeTo: true,
+          cancelOnTap: () {
+            context.router.pop();
+          },
+          onTap: () {
+            if (formKey.currentState!.validate()) {
+              savePerson();
+              savePersonalDetail();
+              // AutoRouter.of(context).pop();
+              AutoRouter.of(context).push(const DetailRoute());
+            }
+            // context.router.pop();
+          },
+        ),
+      ),
     );
   }
 
@@ -744,29 +781,58 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   void savePerson() async {
-    UserProfile? profile = UserProfile(
-      image: imageUrl,
-      name: fullNameController.text,
-      jobTitle: jobTitleController.text,
-      email: emailController.text,
-      phone: phoneController.text,
-      address: addressController.text,
-    );
-    ref.read(userProfileProvider.notifier).update((state) => profile);
-    log(profile.toString());
-    log(ref.watch(userProfileProvider).toString());
+    // UserProfile? profile = UserProfile(
+    //   image: imageUrl,
+    //   name: fullNameController.text,
+    //   jobTitle: jobTitleController.text,
+    //   email: emailController.text,
+    //   phone: phoneController.text,
+    //   address: addressController.text,
+    //   dOB: _selectedDateStr,
+    //   gender: genderController.text,
+    //   nationality: nationalityController.text,
+    //   passport: passportController.text,
+    //   maritalStatus: maritalController.text,
+    //   drivingLicense: drivingController.text,
+    //   website: websiteController.text,
+    //   linkIn: linkInController.text,
+    //   gitHub: githubController.text,
+    //   skype: skypeController.text,
+    //   createdOn:
+    //       DateFormat('yyyy/MM/dd hh:mm:ss').format(DateTime.now()).toString(),
+    // );
   }
 
   void savePersonalDetail() async {
+    PersonalInformation personalInfo = PersonalInformation(
+      dateOfBirth: _selectedDateStr,
+      nationality: nationalityController.text,
+      identityNo: '',
+      martialStatus: maritalController.text,
+      militaryService: '',
+      drivingLicense: drivingController.text,
+      gender: genderController.text,
+    );
+    ref
+        .read(personalInformationProvider.notifier)
+        .update((state) => personalInfo);
+    log(personalInfo.toString());
+    log(ref.watch(personalInformationProvider).toString());
     var personalDetail = PersonalDetailSection(
-      fullName: fullNameController.text,
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      fullName: "${firstNameController.text} ${lastNameController.text}",
       jobTitle: jobTitleController.text,
       email: emailController.text,
       phone: phoneController.text,
       address: addressController.text,
-      personalInfo: PersonalInformation(
-        dateOfBirth: _selectedDateStr,
-      ),
+      imageData: _image != null
+          ? base64String(_image!)
+          : ref.watch(resumeDataProvider)?.personalDetail?.imageData,
+      // personalInfo: PersonalInformation(
+      //   dateOfBirth: _selectedDateStr,
+      // ),
+      personalInfo: personalInfo,
       links: [
         PersonalLink(
           name: 'GitHub',
@@ -786,11 +852,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ],
     );
-
-    ref.read(resumeDataProvider.notifier).state = ResumeData(
-      profileImage: _image == null
-          ? ref.watch(resumeDataProvider)?.profileImage
-          : pw.MemoryImage(_image!),
+    wtfLog('resume data on save up resumedata', imageUrl);
+    ResumeData resumeData = ResumeData(
+      resumeId: ref.watch(resumeModelIdProvider),
+      profileImage: imageUrl,
       personalDetail: personalDetail,
       profile: const ProfileSection(
         title: "Profile",
@@ -801,7 +866,12 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,
+      // personalInformation: personalInfo,
     );
+    ref.read(resumeDataProvider.notifier).update((state) => resumeData);
+    wtfLog('resume data on save',
+        ref.watch(resumeDataProvider)?.profileImage ?? '5454');
+    wtfLog('resume data on save imageUrl', imageUrl);
   }
 
   /// Get from gallery

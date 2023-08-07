@@ -1,6 +1,24 @@
 class AssetPaths {
+  static const String logo = 'assets/logo.png';
+
   static const String resumeTemplate1 =
       "assets/images/templates/resume_template_1.jpg";
+  static const String resumeTemplate2 =
+      "assets/images/templates/resume_template_2.webp";
+  static const String resumeTemplate3 =
+      "assets/images/templates/resume_template_3.webp";
+  static const String resumeTemplate4 =
+      "assets/images/templates/resume_template_4.webp";
+  static const String resumeTemplate5 =
+      "assets/images/templates/resume_template_5.webp";
+  static const String resumeTemplate6 =
+      "assets/images/templates/resume_template_6.png";
+  static const String resumeTemplate7 =
+      "assets/images/templates/resume_template_7.png";
+  static const String resumeTemplate8 =
+      "assets/images/templates/resume_template_8.jpeg";
+  static const String resumeTemplate9 =
+      "assets/images/templates/resume_template_9.jpeg";
 
   static const String resumeProfile = 'assets/images/resume/profile.jpg';
 

@@ -1,27 +1,39 @@
-import 'package:flutter/services.dart' show rootBundle;
-
-import 'package:pdf/widgets.dart' as pw;
-
 import 'package:sumeer/features/resume/feat_resume.dart';
-import 'package:sumeer/shared/shared.dart';
 
 Future<ResumeData> getDummyResumeData() async {
-  final profileImage = pw.MemoryImage(
-    (await rootBundle.load(AssetPaths.resumeProfile)).buffer.asUint8List(),
-  );
+  // final profileImage = pw.MemoryImage(
+  //   (await rootBundle.load(AssetPaths.resumeProfile)).buffer.asUint8List(),
+  // );
 
   final dummyResumeData = ResumeData(
-    profileImage: profileImage,
+    // profile image
+    profileImage: "https://www.nfet.net/nfet.jpg",
     personalDetail: const PersonalDetailSection(
+      firstName: "Kyaw",
+      lastName: "Zayar Tun",
       fullName: "KYAW ZAYAR TUN",
       jobTitle: "Mobile Developer",
       email: "kyawzayartun.sbs@gmail.com",
       phone: "+959 985 753 791",
       address: "Yangon, Myanmar",
+      personalInfo: PersonalInformation(
+        dateOfBirth: "14-02-2000",
+        drivingLicense: "Plane-AC0012",
+        gender: "Male",
+        identityNo: "YGN099122",
+        martialStatus: "Single",
+        nationality: "Myanmar",
+        militaryService: "Head",
+      ),
       links: [
         PersonalLink(
           name: 'GitHub',
           url: 'https://www.github.com/mixin27',
+          codePoint: 0xe157,
+        ),
+        PersonalLink(
+          name: 'Facebook',
+          url: 'https://www.facebook.com/mixin27',
         ),
       ],
     ),
@@ -33,15 +45,33 @@ Future<ResumeData> getDummyResumeData() async {
       skills: [
         Skill(
           skill: 'Android',
-          percentage: 0.7,
+          percentage: 60,
           level: SkillLevel.experienced,
           information: 'Java, Kotlin',
         ),
-        Skill(skill: 'Flutter', percentage: 0.8, level: SkillLevel.experienced),
-        Skill(skill: 'NodeJS', percentage: 0.5, level: SkillLevel.skillfull),
+        Skill(skill: 'Flutter', percentage: 60, level: SkillLevel.experienced),
+        Skill(
+            skill: 'Strategic thinking and problem-solving',
+            percentage: 50,
+            level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Relationship building and networking',
+            percentage: 40,
+            level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Effective communication and negotiatior',
+            percentage: 60,
+            level: SkillLevel.skillfull),
+        Skill(
+            skill: 'Creative and innovative thinking',
+            percentage: 90,
+            level: SkillLevel.skillfull),
       ],
     ),
     languages: language,
+    interest: interest,
+    certificate: certificate,
+    award: award,
   );
 
   return dummyResumeData;
@@ -63,7 +93,7 @@ final experienceData = ExperienceSection(
       endDate: DateTime.now(),
       isPresent: true,
       description:
-          'I am a motivated IT graduate looking forward to expanding my knowledge and career in the IT sector. Along with that, I want to experience working with professionals in the field so that I am able to stay up-to-date and learn the best practices that should be used while working in the IT sector. As for me, some of my greatest strengths are communicating and working alongside my peers.',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     ),
     Experience(
       employer: const Employer(name: "eTrade Myanmar"),
@@ -109,8 +139,18 @@ final educationData = EducationSection(
 const language = LanguageSection(
   title: 'Languages',
   languages: [
-    Language(title: "English", description: "Level1"),
-    Language(title: "Chinese", description: "A1"),
+    Language(
+      title: "English",
+      description: "Level1",
+      level: LanguageLevel.elementary,
+      percentage: 80,
+    ),
+    Language(
+      title: "Chinese",
+      description: "A1",
+      level: LanguageLevel.limitedWorking,
+      percentage: 50.5,
+    ),
   ],
 );
 final certificate = CertificateSection(
@@ -132,6 +172,30 @@ final certificate = CertificateSection(
       endDate: DateTime.now(),
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    ),
+  ],
+);
+
+const interest = InterestSection(
+  title: 'Interests',
+  interests: [
+    Interest(title: 'Travelling'),
+    Interest(title: 'Playing Guitar'),
+  ],
+);
+
+final award = AwardSection(
+  title: 'Awards',
+  awards: [
+    Award(
+      award: 'Outattanding Business Student Award',
+      issuer: "University of Southern Calfomia",
+      awardDate: DateTime.parse("2014-03-04"),
+    ),
+    Award(
+      award: 'Dan\'s List',
+      issuer: "University of Calfomia",
+      awardDate: DateTime.now(),
     ),
   ],
 );

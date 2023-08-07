@@ -35,5 +35,6 @@ class AppRouter extends $AppRouter {
         //personal_detail
         AutoRoute(
             page: PersonalDetailRoute.page, path: '/edit_personal_detail'),
+        AutoRoute(page: MyFileRoute.page, path: '/my_file'),
       ];
 }

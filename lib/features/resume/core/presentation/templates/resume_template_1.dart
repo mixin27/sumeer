@@ -165,11 +165,12 @@ Future<Uint8List> generateTemplate1(
                           if (resumeData.profileImage != null)
                             pw.ClipOval(
                               child: pw.Container(
-                                width: 100,
-                                height: 100,
-                                color: lightGreen,
-                                child: pw.Image(resumeData.profileImage!),
-                              ),
+                                  width: 100,
+                                  height: 100,
+                                  color: lightGreen,
+                                  // child: pw.Image(resumeData.profileImage!),
+                                  // profileImage
+                                  child: pw.SizedBox()),
                             ),
                           if (resumeData.skill != null)
                             pw.Column(

@@ -2,10 +2,15 @@ import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
 
-import 'package:sumeer/features/resume/core/presentation/templates/resume_template_3.dart';
+import 'package:sumeer/features/resume/core/presentation/templates/resume_template_5.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/shared/constants/asset_paths.dart';
+import 'resume_template_11.dart';
+import 'resume_template_4.dart';
 
 export 'resume_template_1.dart';
+export 'resume_template_6.dart';
+export 'resume_template_7.dart';
 
 typedef LayoutCallbackWithData = Future<Uint8List> Function(
   PdfPageFormat pageFormat,
@@ -44,43 +49,71 @@ const resumeTemplates = <ResumeTemplate>[
   ResumeTemplate(
     'Resume Template 1',
     'resume_template_1.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate1,
     generateTemplate1,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 2',
     'resume_template_2.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate2,
     generateTemplate2,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
     'Resume Template 3',
     'resume_template_3.dart',
-    'assets/images/templates/resume_template_1.jpg',
+    AssetPaths.resumeTemplate3,
     generateTemplate3,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
-    'Resume Template 2',
-    'resume_template_2.dart',
-    'assets/images/templates/resume_template_1.jpg',
-    generateTemplate2,
+    'Resume Template 4',
+    'resume_template_4.dart',
+    AssetPaths.resumeTemplate4,
+    generateTemplate4,
     type: DocumentType.resume,
   ),
   ResumeTemplate(
-    'Resume Template 1',
-    'resume_template_1.dart',
-    'assets/images/templates/resume_template_1.jpg',
-    generateTemplate1,
+    'Resume Template 5',
+    'resume_template_5.dart',
+    AssetPaths.resumeTemplate5,
+    generateTemplate5,
     type: DocumentType.cv,
   ),
   ResumeTemplate(
-    'Resume Template 2',
-    'resume_template_2.dart',
-    'assets/images/templates/resume_template_1.jpg',
-    generateTemplate2,
+    'Resume Template 6',
+    'resume_template_6.dart',
+    AssetPaths.resumeTemplate6,
+    generateTemplate6,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 7',
+    'resume_template_7.dart',
+    AssetPaths.resumeTemplate7,
+    generateTemplate7,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 8',
+    'resume_template_8.dart',
+    AssetPaths.resumeTemplate8,
+    generateTemplate8,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 9',
+    'resume_template_8.dart',
+    AssetPaths.resumeTemplate9,
+    generateTemplate9,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 11',
+    'resume_template_11.dart',
+    AssetPaths.resumeTemplate5,
+    generateTemplate11,
     type: DocumentType.resume,
   ),
 ];

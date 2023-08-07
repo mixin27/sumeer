@@ -45,19 +45,21 @@ class BlockDesign3 extends pw.StatelessWidget {
                 shape: pw.BoxShape.circle,
               ),
             ),
-            pw.Text(
-              title,
-              style: pw.Theme.of(context)
-                  .defaultTextStyle
-                  .copyWith(fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Text("-", style: pw.Theme.of(context).defaultTextStyle),
             pw.Flexible(
               child: pw.Text(
-                school ?? "",
-                style: pw.Theme.of(context).defaultTextStyle,
+                "$title - ${school ?? ""}",
+                style: pw.Theme.of(context)
+                    .defaultTextStyle
+                    .copyWith(fontWeight: pw.FontWeight.bold),
               ),
             ),
+            // pw.Text("-", style: pw.Theme.of(context).defaultTextStyle),
+            // pw.Flexible(
+            //   child: pw.Text(
+            //     school ?? "",
+            //     style: pw.Theme.of(context).defaultTextStyle,
+            //   ),
+            // ),
             // pw.Spacer(),
             // if (icon != null) pw.Icon(icon!, color: lightGreen, size: 18),
           ],
