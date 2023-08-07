@@ -163,7 +163,14 @@ class MyFilePage extends HookConsumerWidget {
                                       ),
                                     ),
 
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      context.router.push(
+                                        ResumePreviewRoute(
+                                          resume: resumeTemplates[0],
+                                          resumeData: resumeModel[idx],
+                                        ),
+                                      );
+                                    },
                                     label: const Text('View'),
                                   ),
                                   horSpace(8),

@@ -30,7 +30,10 @@ class TemplateListingPage extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (ctx) => ResumePreviewPage(resume: template),
+                  builder: (ctx) => ResumePreviewPage(
+                    resume: template,
+                    resumeData: null,
+                  ),
                 ),
               );
             },
