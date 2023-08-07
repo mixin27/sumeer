@@ -92,20 +92,21 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         jobTitleController.text = resumeData.personalDetail?.jobTitle ?? '';
         emailController.text = resumeData.personalDetail?.email ?? '';
         //gender
-        genderController.text = resumeData.personalInformation?.gender ?? '';
+        genderController.text =
+            resumeData.personalDetail?.personalInfo?.gender ?? '';
         _isAddGender = genderController.text.isEmptyOrNull ? false : true;
         // martial
         maritalController.text =
-            resumeData.personalInformation?.martialStatus ?? '';
+            resumeData.personalDetail?.personalInfo?.martialStatus ?? '';
         _isAddMarital = maritalController.text.isEmptyOrNull ? false : true;
         // nationality
         nationalityController.text =
-            resumeData.personalInformation?.nationality ?? '';
+            resumeData.personalDetail?.personalInfo?.nationality ?? '';
         _isAddNationality =
             nationalityController.text.isEmptyOrNull ? false : true;
         // driving licence
         drivingController.text =
-            resumeData.personalInformation?.drivingLicense ?? '';
+            resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
         _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
         //
 
@@ -853,7 +854,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,
-      personalInformation: personalInfo,
+      // personalInformation: personalInfo,
     );
     ref.read(resumeDataProvider.notifier).update((state) => resumeData);
     wtfLog('resume data on save',

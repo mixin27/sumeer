@@ -91,7 +91,7 @@ const resumeTemplates = <ResumeTemplate>[
     'Resume Template 7',
     'resume_template_7.dart',
     AssetPaths.resumeTemplate7,
-    generateTemplate6,
+    generateTemplate7,
     type: DocumentType.resume,
   ),
   ResumeTemplate(

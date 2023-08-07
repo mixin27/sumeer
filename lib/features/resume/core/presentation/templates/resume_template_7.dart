@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -11,6 +12,11 @@ Future<Uint8List> generateTemplate7(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  // get network image
+  final profileImage = resumeData.profileImage != null
+      ? await networkImage(resumeData.profileImage!)
+      : null;
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -34,110 +40,130 @@ Future<Uint8List> generateTemplate7(
             children: [
               pw.Partitions(
                 children: [
-                  pw.Partition(
-                    child: pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        // image
-                        pw.ClipOval(
-                          child: pw.Container(
-                            height: 70,
-                            width: 70,
-                            decoration: const pw.BoxDecoration(
-                              color: PdfColors.blue300,
+                  if (resumeData.personalDetail != null) ...[
+                    pw.Partition(
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          // image
+                          if (profileImage != null)
+                            pw.ClipOval(
+                              child: pw.Container(
+                                height: 70,
+                                width: 70,
+                                decoration: const pw.BoxDecoration(
+                                  color: PdfColors.blue300,
+                                ),
+                                child: pw.Image(
+                                  profileImage,
+                                  fit: pw.BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          pw.SizedBox(height: 10),
+                          pw.Text(
+                            resumeData.personalDetail?.jobTitle ?? '',
+                            style: pw.TextStyle(
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
-                        ),
-                        pw.SizedBox(height: 10),
-                        pw.Text(
-                          "Mobile Developer",
-                          style: pw.TextStyle(
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize: 18,
+                          pw.Text(
+                            resumeData.personalDetail?.email ?? '',
+                            // style: pw.TextStyle(
+                            //   fontWeight: pw.FontWeight.bold,
+                            //   fontSize: 16,
+                            // ),
                           ),
-                        ),
-                        pw.Text(
-                          "kyawzayartun.sbs@gmail.com",
-                          // style: pw.TextStyle(
-                          //   fontWeight: pw.FontWeight.bold,
-                          //   fontSize: 16,
-                          // ),
-                        ),
-                        pw.Text(
-                          "Yangon, Myanmar",
-                          // style: pw.TextStyle(
-                          //   fontWeight: pw.FontWeight.bold,
-                          //   fontSize: 16,
-                          // ),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          "Date of Birth",
-                          style: pw.TextStyle(
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize: 16,
+                          pw.Text(
+                            "${resumeData.personalDetail?.address}",
+                            // style: pw.TextStyle(
+                            //   fontWeight: pw.FontWeight.bold,
+                            //   fontSize: 16,
+                            // ),
                           ),
-                        ),
-                        pw.Text(
-                          "27/07/1998",
-                          style: pw.TextStyle(
-                            font: sourceCodeFontRegular,
+                          pw.SizedBox(height: 20),
+                          pw.Text(
+                            "Date of Birth",
+                            style: pw.TextStyle(
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                      ],
+                          pw.Text(
+                            resumeData.personalDetail?.personalInfo
+                                    ?.dateOfBirth ??
+                                '',
+                            style: pw.TextStyle(
+                              font: sourceCodeFontRegular,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                   pw.Partition(
                     flex: 2,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
-                          "Kyaw",
+                          resumeData.personalDetail?.firstName ?? '',
                           style: pw.TextStyle(
                             fontSize: 40,
                             fontWeight: pw.FontWeight.bold,
                           ),
                         ),
                         pw.Text(
-                          "Zayar Tun",
+                          resumeData.personalDetail?.lastName ?? '',
                           style: pw.TextStyle(
                             fontSize: 40,
                             fontWeight: pw.FontWeight.bold,
                           ),
                         ),
                         pw.SizedBox(height: 10),
-                        pw.Container(
-                          padding: const pw.EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 20,
-                          ),
-                          decoration: const pw.BoxDecoration(
-                            color: PdfColors.grey300,
-                            borderRadius: pw.BorderRadius.all(
-                              pw.Radius.circular(20),
+                        if (resumeData.profile != null)
+                          pw.Container(
+                            padding: const pw.EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 20,
+                            ),
+                            decoration: const pw.BoxDecoration(
+                              color: PdfColors.grey300,
+                              borderRadius: pw.BorderRadius.all(
+                                pw.Radius.circular(20),
+                              ),
+                            ),
+                            child: pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.stretch,
+                              children: [
+                                pw.Text(
+                                  resumeData.profile?.title ?? "Profile",
+                                  style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                pw.SizedBox(height: 10),
+                                pw.Column(
+                                  children: List.generate(
+                                    resumeData.profile!.contents.length,
+                                    (index) {
+                                      final content =
+                                          resumeData.profile!.contents[index];
+                                      return pw.Text(
+                                        content,
+                                        // "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                        // style: pw.TextStyle(
+                                        //   fontSize: 14,
+                                        // ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.stretch,
-                            children: [
-                              pw.Text(
-                                "Profile",
-                                style: pw.TextStyle(
-                                  fontWeight: pw.FontWeight.bold,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              pw.SizedBox(height: 10),
-                              pw.Text(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                                // style: pw.TextStyle(
-                                //   fontSize: 14,
-                                // ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),

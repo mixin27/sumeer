@@ -164,44 +164,51 @@ class PersonalDetailCard extends ConsumerWidget {
                     profileItem(
                       context,
                       Icons.cake,
-                      resumeData?.personalInformation?.dateOfBirth ?? '',
+                      resumeData?.personalDetail?.personalInfo?.dateOfBirth ??
+                          '',
                       resumeData != null &&
-                          resumeData.personalInformation?.dateOfBirth
+                          resumeData.personalDetail?.personalInfo?.dateOfBirth
                                   .toString() !=
                               "",
                     ),
                     profileItem(
                       context,
                       Icons.man,
-                      resumeData?.personalInformation?.gender ?? '',
+                      resumeData?.personalDetail?.personalInfo?.gender ?? '',
                       resumeData != null &&
-                          resumeData.personalInformation?.gender.toString() !=
+                          resumeData.personalDetail?.personalInfo?.gender
+                                  .toString() !=
                               "",
                     ),
                     profileItem(
                       context,
                       Icons.language,
-                      resumeData?.personalInformation?.nationality ?? '',
+                      resumeData?.personalDetail?.personalInfo?.nationality ??
+                          '',
                       resumeData != null &&
-                          resumeData.personalInformation?.nationality
+                          resumeData.personalDetail?.personalInfo?.nationality
                                   .toString() !=
                               "",
                     ),
                     profileItem(
                       context,
                       Icons.bed,
-                      resumeData?.personalInformation?.martialStatus ?? '',
+                      resumeData?.personalDetail?.personalInfo?.martialStatus ??
+                          '',
                       resumeData != null &&
-                          resumeData.personalInformation?.martialStatus
+                          resumeData.personalDetail?.personalInfo?.martialStatus
                                   .toString() !=
                               "",
                     ),
                     profileItem(
                       context,
                       Icons.car_crash,
-                      resumeData?.personalInformation?.drivingLicense ?? '',
+                      resumeData
+                              ?.personalDetail?.personalInfo?.drivingLicense ??
+                          '',
                       resumeData != null &&
-                          resumeData.personalInformation?.drivingLicense
+                          resumeData
+                                  .personalDetail?.personalInfo?.drivingLicense
                                   .toString() !=
                               "",
                     ),
