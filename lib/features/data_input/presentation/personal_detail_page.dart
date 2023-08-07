@@ -30,7 +30,8 @@ class PersonalDetailPage extends ConsumerStatefulWidget {
 
 class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   final formKey = GlobalKey<FormState>();
-  final fullNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final jobTitleController = TextEditingController();
@@ -86,11 +87,14 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     Future.microtask(() {
       final resumeData = ref.watch(resumeDataProvider);
       if (resumeData != null) {
-        fullNameController.text = resumeData.personalDetail?.fullName ?? '';
+        firstNameController.text = resumeData.personalDetail?.firstName ?? '';
+        lastNameController.text = resumeData.personalDetail?.lastName ?? '';
         phoneController.text = resumeData.personalDetail?.phone ?? '';
         addressController.text = resumeData.personalDetail?.address ?? '';
         jobTitleController.text = resumeData.personalDetail?.jobTitle ?? '';
         emailController.text = resumeData.personalDetail?.email ?? '';
+        _selectedDateStr =
+            resumeData.personalDetail?.personalInfo?.dateOfBirth ?? '';
         //gender
         genderController.text =
             resumeData.personalDetail?.personalInfo?.gender ?? '';
@@ -197,10 +201,17 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Full Name",
-                    controller: fullNameController,
+                    title: "First Name",
+                    controller: firstNameController,
                     validator: (v) =>
-                        requiredValidator(v, "Type your full name"),
+                        requiredValidator(v, "Type your first name"),
+                  ),
+                  TextInputFieldWidget(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    title: "Last Name",
+                    controller: lastNameController,
+                    validator: (v) =>
+                        requiredValidator(v, "Type your last name"),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -808,9 +819,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     log(personalInfo.toString());
     log(ref.watch(personalInformationProvider).toString());
     var personalDetail = PersonalDetailSection(
-      firstName: "",
-      lastName: "",
-      fullName: fullNameController.text,
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      fullName: "${firstNameController.text} ${lastNameController.text}",
       jobTitle: jobTitleController.text,
       email: emailController.text,
       phone: phoneController.text,
@@ -818,9 +829,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       imageData: _image != null
           ? base64String(_image!)
           : ref.watch(resumeDataProvider)?.personalDetail?.imageData,
-      personalInfo: PersonalInformation(
-        dateOfBirth: _selectedDateStr,
-      ),
+      // personalInfo: PersonalInformation(
+      //   dateOfBirth: _selectedDateStr,
+      // ),
+      personalInfo: personalInfo,
       links: [
         PersonalLink(
           name: 'GitHub',
