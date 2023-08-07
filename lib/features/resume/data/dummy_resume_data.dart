@@ -45,7 +45,7 @@ Future<ResumeData> getDummyResumeData() async {
       skills: [
         Skill(
           skill: 'Android',
-          percentage: 0.7,
+          percentage: 60,
           level: SkillLevel.experienced,
           information: 'Java, Kotlin',
         ),
