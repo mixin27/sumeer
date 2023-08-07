@@ -115,6 +115,7 @@ class TextInputFieldWidget extends StatelessWidget {
             maxLength: maxLength,
             decoration: InputDecoration(
               isDense: true,
+              suffixIcon: suffixIcon,
               hintText: hintText,
               filled: true,
               suffixIcon: suffixIcon,

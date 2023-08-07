@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:searchfield/searchfield.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/utils/utils.dart';
+
+final skillLevelProvider = StateProvider<SkillLevel?>((ref) {
+  return null;
+});
 
 class AddSkillForm extends ConsumerStatefulWidget {
   final int? index;
@@ -19,6 +24,20 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
   final skillController = TextEditingController();
   final infoController = TextEditingController();
   final levelController = TextEditingController();
+  List<SkillLevel> skillList = [
+    SkillLevel.novice,
+    SkillLevel.beginner,
+    SkillLevel.skillfull,
+    SkillLevel.experienced,
+    SkillLevel.expert,
+  ];
+  // List<String> skillList = [
+  //   'Novice',
+  //   'Beginner',
+  //   'SkillFull',
+  //   'Experienced',
+  //   'Expert'
+  // ];
   @override
   void initState() {
     super.initState();
@@ -31,7 +50,9 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
       if (widget.skill != null) {
         skillController.text = widget.skill?.skill ?? '';
         infoController.text = widget.skill?.information ?? '';
-        levelController.text = widget.skill?.level.toString() ?? '';
+        levelController.text = getSkillLevel(
+          widget.skill!.level ?? SkillLevel.novice,
+        );
       }
     });
   }
@@ -78,8 +99,36 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                       title: "Information/ Sub-skills",
                     ),
                     TextInputFieldWidget(
+                      readOnly: true,
                       controller: levelController,
                       title: "Select skill level",
+                      suffixIcon: DropdownButton(
+                        underline: const SizedBox(),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+
+                        // Array list of items
+                        items: skillList.map((SkillLevel items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              getSkillLevel(items),
+                            ),
+                          );
+                        }).toList(),
+                        // After selecting the desired option,it will
+                        // change button value to selected value
+                        onChanged: (val) {
+                          if (val != null) {
+                            ref
+                                .read(skillLevelProvider.notifier)
+                                .update((state) => val);
+                            levelController.text = getSkillLevel(val);
+                          }
+                          wtfLog('skill level onchange', val);
+                          wtfLog('skill level providere',
+                              ref.watch(skillLevelProvider));
+                        },
+                      ),
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
@@ -88,8 +137,9 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         Skill skill = Skill(
                           skill: skillController.text,
                           information: infoController.text,
-                          level: SkillLevel.expert,
+                          level: ref.watch(skillLevelProvider),
                         );
+
                         if (skillController.text.isEmpty) {
                           return Navigator.of(context).pop();
                         } else {

@@ -336,3 +336,13 @@ String getLanguageLevel(LanguageLevel level) {
     LanguageLevel.native => "Native"
   };
 }
+
+String getSkillLevel(SkillLevel level) {
+  return switch (level) {
+    SkillLevel.novice => "Novice",
+    SkillLevel.beginner => "Beginner",
+    SkillLevel.skillfull => "Skill Full",
+    SkillLevel.experienced => "Experienced",
+    SkillLevel.expert => "Expert"
+  };
+}

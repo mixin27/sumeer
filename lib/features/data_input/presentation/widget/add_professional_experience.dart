@@ -45,7 +45,7 @@ class _AddProfessionalExperienceFormState
     Future.microtask(() {
       // final exp = ref.watch(userExpProvider);
       if (widget.experience != null) {
-        employerController.text = widget.experience?.employer?.name ?? "";
+        employerController.text = widget.experience?.employer?.name ?? '';
         jobTitleController.text = widget.experience?.jobTitle ?? '';
         cityController.text = widget.experience?.city ?? '';
         isPresent = widget.experience?.isPresent ?? false;
