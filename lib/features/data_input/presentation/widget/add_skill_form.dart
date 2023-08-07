@@ -4,10 +4,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
+import 'package:sumeer/utils/utils.dart';
 
 class AddSkillForm extends ConsumerStatefulWidget {
+  final int? index;
   final Skill? skill;
-  const AddSkillForm(this.skill, {super.key});
+  const AddSkillForm(this.skill, this.index, {super.key});
 
   @override
   ConsumerState<AddSkillForm> createState() => _AddSkillFormState();
@@ -36,12 +38,14 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
 
   @override
   Widget build(BuildContext context) {
+    wtfLog('widget index', widget.index);
     return SingleChildScrollView(
       child: Container(
         padding: MediaQuery.of(context).viewInsets,
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-            color: Theme.of(context).colorScheme.background),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+          color: Theme.of(context).colorScheme.background,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: [
@@ -80,21 +84,59 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     SaveBottomSheetWidget(
                       onTap: () {
                         final oldSkillSection = ref.watch(skillSectionProvider);
-
+                        final oldResumeData = ref.watch(resumeDataProvider);
                         Skill skill = Skill(
                           skill: skillController.text,
                           information: infoController.text,
                           level: SkillLevel.expert,
                         );
-                        List<Skill> skillList = oldSkillSection == null
-                            ? [skill]
-                            : [...oldSkillSection.skills, skill];
-                        // List<Skill> skillList = [skill];
-                        SkillSection skillSection =
-                            SkillSection(title: '', skills: skillList);
-                        ref
-                            .read(skillSectionProvider.notifier)
-                            .update((state) => skillSection);
+                        if (skillController.text.isEmpty) {
+                          return Navigator.of(context).pop();
+                        } else {
+                          if (widget.index != null) {
+                            List<Skill> list1 = [];
+                            List<Skill> list = oldSkillSection?.skills ?? [];
+                            for (var element in list) {
+                              list1.add(element);
+                            }
+                            list1.removeAt(widget.index ?? 0);
+                            wLog('updated list remove', list1);
+
+                            list1.insert(widget.index ?? 0, skill);
+                            wLog('updated list', list1);
+                            SkillSection skillSection =
+                                SkillSection(title: '', skills: list1);
+
+                            ref
+                                .read(skillSectionProvider.notifier)
+                                .update((state) => skillSection);
+
+                            final newResumeData = oldResumeData?.copyWith(
+                                skill: ref.watch(skillSectionProvider));
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                          } else {
+                            List<Skill> skillList = oldSkillSection == null
+                                ? [skill]
+                                : [...oldSkillSection.skills, skill];
+
+                            SkillSection skillSection =
+                                SkillSection(title: '', skills: skillList);
+
+                            ref
+                                .read(skillSectionProvider.notifier)
+                                .update((state) => skillSection);
+
+                            final newResumeData = oldResumeData?.copyWith(
+                              skill: ref.watch(skillSectionProvider),
+                            );
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                          }
+                        }
+
                         Navigator.pop(context);
                       },
                     )

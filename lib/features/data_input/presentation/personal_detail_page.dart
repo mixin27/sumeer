@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
+import 'package:sumeer/shared/shared.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/app_dialog_box.dart';
 import '../../features.dart';
@@ -83,15 +84,33 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   Future<void> setData() async {
     wLog('setData', 'Called');
     Future.microtask(() {
-      final personalDetailSection = ref.watch(personalDetailSectionProvider);
-      if (personalDetailSection != null) {
-        fullNameController.text = personalDetailSection.fullName;
-        phoneController.text = personalDetailSection.phone;
-        addressController.text = personalDetailSection.address;
-        jobTitleController.text = personalDetailSection.jobTitle;
-        emailController.text = personalDetailSection.email;
+      final resumeData = ref.watch(resumeDataProvider);
+      if (resumeData != null) {
+        fullNameController.text = resumeData.personalDetail?.fullName ?? '';
+        phoneController.text = resumeData.personalDetail?.phone ?? '';
+        addressController.text = resumeData.personalDetail?.address ?? '';
+        jobTitleController.text = resumeData.personalDetail?.jobTitle ?? '';
+        emailController.text = resumeData.personalDetail?.email ?? '';
+        //gender
+        genderController.text =
+            resumeData.personalDetail?.personalInfo?.gender ?? '';
+        _isAddGender = genderController.text.isEmptyOrNull ? false : true;
+        // martial
+        maritalController.text =
+            resumeData.personalDetail?.personalInfo?.martialStatus ?? '';
+        _isAddMarital = maritalController.text.isEmptyOrNull ? false : true;
+        // nationality
+        nationalityController.text =
+            resumeData.personalDetail?.personalInfo?.nationality ?? '';
+        _isAddNationality =
+            nationalityController.text.isEmptyOrNull ? false : true;
+        // driving licence
+        drivingController.text =
+            resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
+        _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
+        //
 
-        imageUrl = personalDetailSection.imageData ?? '';
+        imageUrl = resumeData.profileImage ?? '';
       } else {
         imageId = const Uuid().v4();
       }
@@ -101,6 +120,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    wtfLog('personal detail page', ref.watch(resumeModelIdProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Personal Detail"),
@@ -722,17 +742,23 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ),
       bottomSheet: SizedBox(
-          height: 80,
-          child: SaveBottomSheetWidget(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                savePerson();
-                savePersonalDetail();
-                AutoRouter.of(context).pop();
-              }
-              // context.router.pop();
-            },
-          )),
+        height: 80,
+        child: SaveBottomSheetWidget(
+          routeTo: true,
+          cancelOnTap: () {
+            context.router.pop();
+          },
+          onTap: () {
+            if (formKey.currentState!.validate()) {
+              savePerson();
+              savePersonalDetail();
+              // AutoRouter.of(context).pop();
+              AutoRouter.of(context).push(const DetailRoute());
+            }
+            // context.router.pop();
+          },
+        ),
+      ),
     );
   }
 
@@ -782,6 +808,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     log(personalInfo.toString());
     log(ref.watch(personalInformationProvider).toString());
     var personalDetail = PersonalDetailSection(
+      firstName: "",
+      lastName: "",
       fullName: fullNameController.text,
       jobTitle: jobTitleController.text,
       email: emailController.text,
@@ -812,13 +840,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ],
     );
-
+    wtfLog('resume data on save up resumedata', imageUrl);
     ResumeData resumeData = ResumeData(
-      // profileImage: _image == null
-      //     ? ref.watch(resumeDataProvider)?.profileImage
-      //     : pw.MemoryImage(_image!),
-      // profileimage
-      profileImage: "",
+      resumeId: ref.watch(resumeModelIdProvider),
+      profileImage: imageUrl,
       personalDetail: personalDetail,
       profile: const ProfileSection(
         title: "Profile",
@@ -829,9 +854,12 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,
-      personalInformation: personalInfo,
+      // personalInformation: personalInfo,
     );
     ref.read(resumeDataProvider.notifier).update((state) => resumeData);
+    wtfLog('resume data on save',
+        ref.watch(resumeDataProvider)?.profileImage ?? '5454');
+    wtfLog('resume data on save imageUrl', imageUrl);
   }
 
   /// Get from gallery

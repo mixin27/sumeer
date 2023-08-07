@@ -54,7 +54,7 @@ class _EducationCardState extends ConsumerState<EducationCard> {
                         color: Color(0xFF407BFF),
                       ),
                     ),
-                    ref.watch(educationSectionProvider) == null
+                    ref.watch(resumeDataProvider)?.education == null
                         ? const SizedBox()
                         : IconButton(
                             onPressed: () {
@@ -68,12 +68,12 @@ class _EducationCardState extends ConsumerState<EducationCard> {
                               size: 40,
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                          )
+                          ),
                   ],
                 ),
               ),
             ),
-            ref.watch(educationSectionProvider) == null
+            ref.watch(resumeDataProvider)?.education == null
                 ? const SizedBox()
                 : Column(
                     children: [
