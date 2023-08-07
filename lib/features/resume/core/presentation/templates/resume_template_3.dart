@@ -12,6 +12,10 @@ Future<Uint8List> generateTemplate3(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  final profileImage = resumeData.profileImage != null
+      ? await networkImage(resumeData.profileImage!)
+      : null;
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -23,10 +27,7 @@ Future<Uint8List> generateTemplate3(
 
   final pageTheme = await _pageTheme(format);
   var nameFont = await PdfGoogleFonts.caveatSemiBold();
-  final netImage = await networkImage(
-      (resumeData.profileImage == null || resumeData.profileImage!.isEmpty)
-          ? 'https://www.nfet.net/nfet.jpg'
-          : resumeData.profileImage!);
+
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -94,8 +95,7 @@ Future<Uint8List> generateTemplate3(
                             ],
                           ]),
                     ),
-                    if (resumeData.profileImage != null &&
-                        resumeData.profileImage!.isNotEmpty)
+                    if (profileImage != null)
                       pw.Expanded(
                         child: pw.Container(
                           width: 130,
@@ -105,7 +105,7 @@ Future<Uint8List> generateTemplate3(
                             // pw.Image(resumeData.profileImage!,
                             //     width: 130, height: 130, fit: pw.BoxFit.cover),
                             // profileImage
-                            child: pw.Image(netImage),
+                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
                           ),
                         ),
                       ),

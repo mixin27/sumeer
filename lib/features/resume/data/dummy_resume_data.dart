@@ -7,7 +7,7 @@ Future<ResumeData> getDummyResumeData() async {
 
   final dummyResumeData = ResumeData(
     // profile image
-    profileImage: "https://www.nfet.net/nfet.jpg1",
+    profileImage: "https://www.nfet.net/nfet.jpg",
     personalDetail: const PersonalDetailSection(
       firstName: "Kyaw",
       lastName: "Zayar Tun",

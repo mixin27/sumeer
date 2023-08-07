@@ -15,6 +15,11 @@ Future<Uint8List> generateTemplate1(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  // get network image
+  final profileImage = resumeData.profileImage != null
+      ? await networkImage(resumeData.profileImage!)
+      : null;
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -162,7 +167,7 @@ Future<Uint8List> generateTemplate1(
                         crossAxisAlignment: pw.CrossAxisAlignment.center,
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
-                          if (resumeData.profileImage != null)
+                          if (profileImage != null)
                             pw.ClipOval(
                               child: pw.Container(
                                   width: 100,
@@ -170,7 +175,7 @@ Future<Uint8List> generateTemplate1(
                                   color: lightGreen,
                                   // child: pw.Image(resumeData.profileImage!),
                                   // profileImage
-                                  child: pw.SizedBox()),
+                                  child: pw.Image(profileImage)),
                             ),
                           if (resumeData.skill != null)
                             pw.Column(
