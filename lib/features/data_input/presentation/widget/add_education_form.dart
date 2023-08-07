@@ -1,10 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/utils/utils.dart';
+
+import '../../../../widgets/app_dialog_box.dart';
 
 class AddEducationForm extends ConsumerStatefulWidget {
   final int? index;
@@ -21,6 +26,12 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
   final cityController = TextEditingController();
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
+  String selectedStartDateStr = "";
+  DateTime? selectedStartDate;
+  String selectedEndDateStr = "";
+  DateTime? selectedEndDate;
+  bool isChecked = false;
+  bool isChecked1 = false;
 
   @override
   void initState() {
@@ -35,8 +46,19 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
         degreeController.text = widget.education?.degree ?? '';
         schoolController.text = widget.education?.school ?? '';
         cityController.text = widget.education?.city.toString() ?? '';
-        startDateController.text = widget.education?.startDate.toString() ?? '';
-        endDateController.text = widget.education?.endDate.toString() ?? '';
+
+        if (widget.education?.startDate != null) {
+          selectedStartDate = widget.education?.startDate;
+          selectedStartDateStr = DateFormat("MMMM-yyyy")
+              .format(selectedStartDate ?? DateTime.now());
+          startDateController.text = selectedStartDateStr;
+        }
+        if (widget.education?.endDate != null) {
+          selectedEndDate = widget.education?.endDate;
+          selectedEndDateStr =
+              DateFormat("MMMM-yyyy").format(selectedEndDate ?? DateTime.now());
+          endDateController.text = selectedEndDateStr;
+        }
       }
     });
   }
@@ -77,12 +99,12 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                       shrinkWrap: true,
                       children: [
                         TextInputFieldWidget(
-                          controller: degreeController,
-                          title: "Degree",
-                        ),
-                        TextInputFieldWidget(
                           controller: schoolController,
                           title: "School",
+                        ),
+                        TextInputFieldWidget(
+                          controller: degreeController,
+                          title: "Degree",
                         ),
                         TextInputFieldWidget(
                           controller: cityController,
@@ -91,10 +113,27 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                         TextInputFieldWidget(
                           controller: startDateController,
                           title: "Start Date",
+                          readOnly: true,
+                          suffixIcon: Icon(
+                            Icons.calendar_month,
+                            size: 30,
+                            color: Colors.grey.withOpacity(0.7),
+                          ),
+                          onTap: () => _showStartDatePicker(context),
                         ),
                         TextInputFieldWidget(
                           controller: endDateController,
                           title: "End Date",
+                          readOnly: true,
+                          suffixIcon: Icon(
+                            Icons.calendar_month,
+                            size: 30,
+                            color: Colors.grey.withOpacity(0.7),
+                          ),
+                          onTap: () => _showDatePicker(context),
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
@@ -105,8 +144,8 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                               degree: degreeController.text,
                               school: schoolController.text,
                               city: cityController.text,
-                              startDate: DateTime.now(),
-                              endDate: DateTime.now(),
+                              startDate: selectedStartDate,
+                              endDate: selectedEndDate,
                             );
                             if (degreeController.text.isEmpty &&
                                 schoolController.text.isEmpty) {
@@ -175,5 +214,131 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
             ]),
           );
         });
+  }
+
+  void _showDatePicker(BuildContext context) {
+    showAnimatedDialog(
+      context,
+      barrierDismissible: true,
+      barrierLabel: '',
+      dialog: AppDialogBox(
+        header: Text(
+          "Select Date of Birth",
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        content: DatePickerWidget(
+          looping: false, // default is not looping
+          firstDate: DateTime(1990, 01),
+          // lastDate: DateTime(2030, 1, 1),
+          initialDate: DateTime.now(),
+          dateFormat: "MMMM-yyyy",
+          onChange: (DateTime newDate, _) {
+            setState(() {
+              selectedEndDate = newDate;
+            });
+          },
+          locale: DateTimePickerLocale.en_us,
+          pickerTheme: DateTimePickerTheme(
+              itemTextStyle: const TextStyle(color: Colors.black, fontSize: 19),
+              dividerColor: Colors.blue,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.02)),
+        ),
+        footer: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    Theme.of(context).colorScheme.onSurface.withAlpha(90),
+              ),
+              child: const Text('Cancel'),
+            ),
+            // Gap(ALC.getWidth(10)),
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+                selectedEndDateStr = DateFormat("MMMM-yyyy")
+                    .format(selectedEndDate ?? DateTime.now());
+                endDateController.text = selectedEndDateStr;
+                selectedEndDate = selectedEndDate ?? DateTime.now();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: const Text("Confirm"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showStartDatePicker(BuildContext context) {
+    showAnimatedDialog(
+      context,
+      barrierDismissible: true,
+      barrierLabel: '',
+      dialog: AppDialogBox(
+        header: Text(
+          "Select Date of Birth",
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        content: DatePickerWidget(
+          looping: false, // default is not looping
+          firstDate: DateTime(1990, 01),
+          // lastDate: DateTime(2030, 1, 1),
+          initialDate: DateTime.now(),
+          dateFormat: "MMMM-yyyy",
+          onChange: (DateTime newDate, _) {
+            setState(() {
+              selectedStartDate = newDate;
+            });
+          },
+          locale: DateTimePickerLocale.en_us,
+          pickerTheme: DateTimePickerTheme(
+              itemTextStyle: const TextStyle(color: Colors.black, fontSize: 19),
+              dividerColor: Colors.blue,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.02)),
+        ),
+        footer: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    Theme.of(context).colorScheme.onSurface.withAlpha(90),
+              ),
+              child: const Text('Cancel'),
+            ),
+            // Gap(ALC.getWidth(10)),
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+                selectedStartDateStr = DateFormat("MMMM-yyyy")
+                    .format(selectedStartDate ?? DateTime.now());
+                startDateController.text = selectedStartDateStr;
+                selectedStartDate = selectedStartDate ?? (DateTime.now());
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: const Text("Confirm"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

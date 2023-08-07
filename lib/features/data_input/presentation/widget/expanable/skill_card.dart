@@ -38,6 +38,13 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.emoji_events,
+                        size: 30,
+                      ),
+                    ),
                     Text(
                       'Skill',
                       style: Theme.of(context)

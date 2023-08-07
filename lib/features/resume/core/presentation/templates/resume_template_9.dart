@@ -24,6 +24,10 @@ Future<Uint8List> generateTemplate9(
   var italic = await PdfGoogleFonts.nunitoSansItalic();
   var bold = await PdfGoogleFonts.nunitoSansBold();
   var boldItalic = await PdfGoogleFonts.nunitoSansBoldItalic();
+  // get network image
+  final profileImage = resumeData.profileImage != null
+      ? await networkImage(resumeData.profileImage!)
+      : null;
 
   doc.addPage(
     pw.MultiPage(
@@ -73,7 +77,10 @@ Future<Uint8List> generateTemplate9(
                   // child: pw.Image(resumeData.profileImage!,
                   //     height: 170, width: 210, fit: pw.BoxFit.cover),
                   // profileImage
-                  child: pw.SizedBox(),
+                  child: profileImage != null
+                      ? pw.Image(profileImage,
+                          height: 170, width: 210, fit: pw.BoxFit.cover)
+                      : pw.SizedBox(),
                 ),
               ),
               pw.Expanded(

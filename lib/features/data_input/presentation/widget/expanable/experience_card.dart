@@ -40,6 +40,13 @@ class _ExperienceCardState extends ConsumerState<ExperienceCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.business_center,
+                        size: 30,
+                      ),
+                    ),
                     Text(
                       'Professional Experience',
                       style: Theme.of(context)

@@ -12,6 +12,10 @@ Future<Uint8List> generateTemplate3(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  final profileImage = resumeData.profileImage != null
+      ? await networkImage(resumeData.profileImage!)
+      : null;
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -91,19 +95,20 @@ Future<Uint8List> generateTemplate3(
                             ],
                           ]),
                     ),
-                    pw.Expanded(
-                      child: pw.Container(
-                        width: 130,
-                        height: 130,
-                        alignment: pw.Alignment.topRight,
-                        child: pw.ClipOval(
-                          // child: pw.Image(resumeData.profileImage!,
-                          //     width: 130, height: 130, fit: pw.BoxFit.cover),
-                          // profileImage
-                          child: pw.SizedBox(),
+                    if (profileImage != null)
+                      pw.Expanded(
+                        child: pw.Container(
+                          width: 130,
+                          height: 130,
+                          child: pw.ClipOval(
+                            // child:
+                            // pw.Image(resumeData.profileImage!,
+                            //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                            // profileImage
+                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
+                          ),
                         ),
                       ),
-                    ),
                   ]),
                   pw.SizedBox(height: 20),
                   if (resumeData.profile!.contents.isNotEmpty) ...[
