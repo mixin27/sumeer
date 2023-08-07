@@ -118,7 +118,6 @@ class TextInputFieldWidget extends StatelessWidget {
               suffixIcon: suffixIcon,
               hintText: hintText,
               filled: true,
-              suffixIcon: suffixIcon,
               fillColor:
                   Theme.of(context).colorScheme.primary.withOpacity(0.03),
               focusedBorder: OutlineInputBorder(
