@@ -69,7 +69,10 @@ class _ExperienceState extends ConsumerState<EducationWidget> {
                       .update((state) => newResumeData);
                 });
               },
-              icon: const Icon(Icons.delete),
+              icon: Icon(
+                Icons.delete,
+                color: Theme.of(context).colorScheme.error,
+              ),
             ),
           ),
         ),

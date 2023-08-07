@@ -1,10 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/utils/logger/logger.dart';
+
+import '../../../../utils/helpers/dialog_helper.dart';
+import '../../../../widgets/app_dialog_box.dart';
 
 class AddProfessionalExperienceForm extends ConsumerStatefulWidget {
   final int? index;
@@ -24,7 +30,11 @@ class _AddProfessionalExperienceFormState
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   final descriptionController = TextEditingController();
-
+  String selectedStartDateStr = "";
+  DateTime? selectedStartDate;
+  String selectedEndDateStr = "";
+  DateTime? selectedEndDate;
+  bool isPresent = false;
   @override
   void initState() {
     super.initState();
@@ -35,13 +45,25 @@ class _AddProfessionalExperienceFormState
     Future.microtask(() {
       // final exp = ref.watch(userExpProvider);
       if (widget.experience != null) {
-        employerController.text = '';
+        employerController.text = widget.experience?.employer?.name ?? "";
         jobTitleController.text = widget.experience?.jobTitle ?? '';
         cityController.text = widget.experience?.city ?? '';
-        startDateController.text =
-            widget.experience?.startDate.toString() ?? '';
-        endDateController.text = widget.experience?.endDate.toString() ?? '';
+        isPresent = widget.experience?.isPresent ?? false;
+
         descriptionController.text = widget.experience?.description ?? '';
+
+        if (widget.experience?.startDate != null) {
+          selectedStartDate = widget.experience?.startDate;
+          selectedStartDateStr = DateFormat("MMMM-yyyy")
+              .format(selectedStartDate ?? DateTime.now());
+          startDateController.text = selectedStartDateStr;
+        }
+        if (widget.experience?.endDate != null) {
+          selectedEndDate = widget.experience?.endDate;
+          selectedEndDateStr =
+              DateFormat("MMMM-yyyy").format(selectedEndDate ?? DateTime.now());
+          endDateController.text = selectedEndDateStr;
+        }
       }
     });
   }
@@ -96,16 +118,54 @@ class _AddProfessionalExperienceFormState
                         TextInputFieldWidget(
                           controller: startDateController,
                           title: "Start Date",
+                          readOnly: true,
+                          suffixIcon: Icon(
+                            Icons.calendar_month,
+                            size: 30,
+                            color: Colors.grey.withOpacity(0.7),
+                          ),
+                          onTap: () => _showStartDatePicker(context),
                         ),
-                        TextInputFieldWidget(
-                          controller: endDateController,
-                          title: "End Date",
+                        Row(
+                          children: [
+                            Visibility(
+                              visible: !isPresent,
+                              child: Expanded(
+                                flex: 7,
+                                child: TextInputFieldWidget(
+                                  controller: endDateController,
+                                  title: "End Date",
+                                  readOnly: true,
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month,
+                                    size: 30,
+                                    color: Colors.grey.withOpacity(0.7),
+                                  ),
+                                  onTap: () => _showDatePicker(context),
+                                ),
+                              ),
+                            ),
+                            Checkbox(
+                                value: isPresent,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isPresent = value ?? false;
+                                  });
+                                }),
+                            Text(
+                              "Is Present",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            )
+                          ],
                         ),
                         TextInputFieldWidget(
                           controller: descriptionController,
                           title: "Description",
                           hintText: "Describe ypur role & achievements",
                           maxLines: 3,
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
@@ -119,6 +179,7 @@ class _AddProfessionalExperienceFormState
                               employer: employer,
                               jobTitle: jobTitleController.text,
                               city: cityController.text,
+                              isPresent: isPresent,
                               // startDate: startDate,
                               startDate: DateTime.now(),
                               endDate: DateTime.now(),
@@ -191,5 +252,131 @@ class _AddProfessionalExperienceFormState
             ]),
           );
         });
+  }
+
+  void _showDatePicker(BuildContext context) {
+    showAnimatedDialog(
+      context,
+      barrierDismissible: true,
+      barrierLabel: '',
+      dialog: AppDialogBox(
+        header: Text(
+          "Select Date of Birth",
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        content: DatePickerWidget(
+          looping: false, // default is not looping
+          firstDate: DateTime(1990, 01),
+          // lastDate: DateTime(2030, 1, 1),
+          initialDate: DateTime.now(),
+          dateFormat: "MMMM-yyyy",
+          onChange: (DateTime newDate, _) {
+            setState(() {
+              selectedEndDate = newDate;
+            });
+          },
+          locale: DateTimePickerLocale.en_us,
+          pickerTheme: DateTimePickerTheme(
+              itemTextStyle: const TextStyle(color: Colors.black, fontSize: 19),
+              dividerColor: Colors.blue,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.02)),
+        ),
+        footer: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    Theme.of(context).colorScheme.onSurface.withAlpha(90),
+              ),
+              child: const Text('Cancel'),
+            ),
+            // Gap(ALC.getWidth(10)),
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+                selectedEndDateStr = DateFormat("MMMM-yyyy")
+                    .format(selectedEndDate ?? DateTime.now());
+                endDateController.text = selectedEndDateStr;
+                selectedEndDate = selectedEndDate ?? DateTime.now();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: const Text("Confirm"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showStartDatePicker(BuildContext context) {
+    showAnimatedDialog(
+      context,
+      barrierDismissible: true,
+      barrierLabel: '',
+      dialog: AppDialogBox(
+        header: Text(
+          "Select Date of Birth",
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        content: DatePickerWidget(
+          looping: false, // default is not looping
+          firstDate: DateTime(1990, 01),
+          // lastDate: DateTime(2030, 1, 1),
+          initialDate: DateTime.now(),
+          dateFormat: "MMMM-yyyy",
+          onChange: (DateTime newDate, _) {
+            setState(() {
+              selectedStartDate = newDate;
+            });
+          },
+          locale: DateTimePickerLocale.en_us,
+          pickerTheme: DateTimePickerTheme(
+              itemTextStyle: const TextStyle(color: Colors.black, fontSize: 19),
+              dividerColor: Colors.blue,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.02)),
+        ),
+        footer: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    Theme.of(context).colorScheme.onSurface.withAlpha(90),
+              ),
+              child: const Text('Cancel'),
+            ),
+            // Gap(ALC.getWidth(10)),
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+                selectedStartDateStr = DateFormat("MMMM-yyyy")
+                    .format(selectedStartDate ?? DateTime.now());
+                startDateController.text = selectedStartDateStr;
+                selectedStartDate = selectedStartDate ?? (DateTime.now());
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: const Text("Confirm"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

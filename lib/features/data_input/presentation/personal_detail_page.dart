@@ -87,6 +87,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     Future.microtask(() {
       final resumeData = ref.watch(resumeDataProvider);
       if (resumeData != null) {
+        wLog('setData', '$resumeData');
         firstNameController.text = resumeData.personalDetail?.firstName ?? '';
         lastNameController.text = resumeData.personalDetail?.lastName ?? '';
         phoneController.text = resumeData.personalDetail?.phone ?? '';
@@ -113,6 +114,12 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
             resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
         _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
         //
+        if (_selectedDateStr.isNotEmpty) {
+          _selectedDate = DateFormat("dd-MMMM-yyyy").parse(_selectedDateStr);
+          dayofDOBController.text = _selectedDateStr.split("-")[0];
+          monthofDOBController.text = _selectedDateStr.split("-")[1];
+          yearofDOBController.text = _selectedDateStr.split("-")[2];
+        }
 
         imageUrl = resumeData.profileImage ?? '';
       } else {
@@ -752,8 +759,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
           ),
         ),
       ),
-      bottomSheet: SizedBox(
+      bottomSheet: Container(
         height: 80,
+        margin: const EdgeInsets.all(10),
         child: SaveBottomSheetWidget(
           routeTo: true,
           cancelOnTap: () {
@@ -764,7 +772,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
               savePerson();
               savePersonalDetail();
               // AutoRouter.of(context).pop();
-              AutoRouter.of(context).push(const DetailRoute());
+              setState(() {
+                AutoRouter.of(context).push(const DetailRoute());
+              });
             }
             // context.router.pop();
           },
