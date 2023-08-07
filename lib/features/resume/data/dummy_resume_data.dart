@@ -49,22 +49,22 @@ Future<ResumeData> getDummyResumeData() async {
           level: SkillLevel.experienced,
           information: 'Java, Kotlin',
         ),
-        Skill(skill: 'Flutter', percentage: 0.8, level: SkillLevel.experienced),
+        Skill(skill: 'Flutter', percentage: 60, level: SkillLevel.experienced),
         Skill(
             skill: 'Strategic thinking and problem-solving',
-            percentage: 0.5,
+            percentage: 50,
             level: SkillLevel.skillfull),
         Skill(
             skill: 'Relationship building and networking',
-            percentage: 0.5,
+            percentage: 40,
             level: SkillLevel.skillfull),
         Skill(
             skill: 'Effective communication and negotiatior',
-            percentage: 0.5,
+            percentage: 60,
             level: SkillLevel.skillfull),
         Skill(
             skill: 'Creative and innovative thinking',
-            percentage: 0.5,
+            percentage: 90,
             level: SkillLevel.skillfull),
       ],
     ),
@@ -143,7 +143,7 @@ const language = LanguageSection(
       title: "English",
       description: "Level1",
       level: LanguageLevel.elementary,
-      percentage: 20,
+      percentage: 80,
     ),
     Language(
       title: "Chinese",

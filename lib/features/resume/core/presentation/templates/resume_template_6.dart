@@ -183,9 +183,44 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: ProgressDesignLinear(
-                                      value: skill.percentage ?? 0.0,
+                                    child: pw.Row(
+                                      children: List.generate(
+                                        5,
+                                        (index) {
+                                          // (((skill.percentage ?? 0) / 10) / 2).ceil()
+                                          final value =
+                                              (((skill.percentage ?? 0) / 10) /
+                                                      2)
+                                                  .floor();
+
+                                          return pw.Container(
+                                            margin:
+                                                const pw.EdgeInsets.symmetric(
+                                                    horizontal: 5),
+                                            width: 10,
+                                            height: 10,
+                                            decoration: pw.BoxDecoration(
+                                              // DBDBF9
+                                              color: index < value
+                                                  ? PdfColor.fromHex('54448D')
+                                                  : PdfColor.fromHex('DBDBF9'),
+                                              border: pw.Border.all(
+                                                width: 1,
+                                                color:
+                                                    PdfColor.fromHex('54448D'),
+                                              ),
+                                              borderRadius:
+                                                  const pw.BorderRadius.all(
+                                                pw.Radius.circular(5),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
+                                    // child: ProgressDesignLinear(
+                                    //   value: skill.percentage ?? 0.0,
+                                    // ),
                                   ),
                                   pw.SizedBox(width: 20),
                                 ],
@@ -237,9 +272,45 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: ProgressDesignLinear(
-                                      value: language.percentage ?? 0.0,
+                                    child: pw.Row(
+                                      children: List.generate(
+                                        5,
+                                        (index) {
+                                          // (((skill.percentage ?? 0) / 10) / 2).ceil()
+                                          final value =
+                                              (((language.percentage ?? 0) /
+                                                          10) /
+                                                      2)
+                                                  .floor();
+
+                                          return pw.Container(
+                                            margin:
+                                                const pw.EdgeInsets.symmetric(
+                                                    horizontal: 5),
+                                            width: 10,
+                                            height: 10,
+                                            decoration: pw.BoxDecoration(
+                                              // DBDBF9
+                                              color: index < value
+                                                  ? PdfColor.fromHex('54448D')
+                                                  : PdfColor.fromHex('DBDBF9'),
+                                              border: pw.Border.all(
+                                                width: 1,
+                                                color:
+                                                    PdfColor.fromHex('54448D'),
+                                              ),
+                                              borderRadius:
+                                                  const pw.BorderRadius.all(
+                                                pw.Radius.circular(5),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
+                                    // child: ProgressDesignLinear(
+                                    //   value: language.percentage ?? 0.0,
+                                    // ),
                                   ),
                                   pw.SizedBox(width: 20),
                                 ],
