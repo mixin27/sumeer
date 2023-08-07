@@ -84,3 +84,29 @@ class SectionDesign5 extends pw.StatelessWidget {
     );
   }
 }
+
+class SectionDesign11 extends pw.StatelessWidget {
+  SectionDesign11({
+    required this.title,
+    required this.lineColor,
+  });
+
+  final String title;
+  final PdfColor lineColor;
+  @override
+  pw.Widget build(pw.Context context) {
+    return pw.Row(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(
+          title,
+          style: pw.TextStyle(
+            fontSize: 18,
+            fontWeight: pw.FontWeight.bold,
+            // decoration: pw.TextDecoration.underline,
+          ),
+        ),
+      ],
+    );
+  }
+}

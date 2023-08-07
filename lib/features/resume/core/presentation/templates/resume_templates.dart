@@ -5,6 +5,7 @@ import 'package:sumeer/features/resume/core/presentation/templates/resume_templa
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
+import 'resume_template_11.dart';
 import 'resume_template_4.dart';
 import 'package:sumeer/shared/constants/asset_paths.dart';
 export 'resume_template_1.dart';
@@ -105,6 +106,13 @@ const resumeTemplates = <ResumeTemplate>[
     'resume_template_8.dart',
     AssetPaths.resumeTemplate9,
     generateTemplate9,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'Resume Template 11',
+    'resume_template_11.dart',
+    AssetPaths.resumeTemplate5,
+    generateTemplate11,
     type: DocumentType.resume,
   ),
 ];
