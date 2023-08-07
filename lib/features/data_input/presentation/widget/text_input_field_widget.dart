@@ -117,6 +117,7 @@ class TextInputFieldWidget extends StatelessWidget {
               isDense: true,
               hintText: hintText,
               filled: true,
+              suffixIcon: suffixIcon,
               fillColor:
                   Theme.of(context).colorScheme.primary.withOpacity(0.03),
               focusedBorder: OutlineInputBorder(
@@ -151,8 +152,8 @@ class TextInputFieldWidget extends StatelessWidget {
                   Radius.circular(8),
                 ),
               ),
-              suffixIconConstraints:
-                  const BoxConstraints(minWidth: 23, maxHeight: 20),
+              // suffixIconConstraints:
+              //     const BoxConstraints(minWidth: 23, maxHeight: 20),
               counterText: "",
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
