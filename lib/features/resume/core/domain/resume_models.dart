@@ -21,6 +21,9 @@ class ResumeData with _$ResumeData {
     InterestSection? interest,
     AwardSection? award,
   }) = _ResumeData;
+
+  factory ResumeData.empty() => const ResumeData();
+
   factory ResumeData.fromJson(Map<String, dynamic> json) =>
       _$ResumeDataFromJson(json);
 }

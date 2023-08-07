@@ -8,29 +8,30 @@ import 'package:sumeer/features/resume/feat_resume.dart';
 
 @RoutePage()
 class ResumePreviewPage extends StatefulWidget {
-  const ResumePreviewPage({super.key, required this.resume});
+  const ResumePreviewPage({super.key, required this.resume, this.resumeData});
 
   final ResumeTemplate resume;
+  final ResumeData? resumeData;
 
   @override
   State<ResumePreviewPage> createState() => _ResumePreviewPageState();
 }
 
 class _ResumePreviewPageState extends State<ResumePreviewPage> {
-  ResumeData? _dummyResumeData;
+  // ResumeData? _dummyResumeData;
 
-  @override
-  void initState() {
-    _init();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _init();
+  //   super.initState();
+  // }
 
-  Future<void> _init() async {
-    final dummyResumeData = await getDummyResumeData();
-    setState(() {
-      _dummyResumeData = dummyResumeData;
-    });
-  }
+  // Future<void> _init() async {
+  //   final dummyResumeData = await getDummyResumeData();
+  //   setState(() {
+  //     _dummyResumeData = dummyResumeData;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,31 +39,27 @@ class _ResumePreviewPageState extends State<ResumePreviewPage> {
       appBar: AppBar(
         title: Text(widget.resume.name),
       ),
-      body: _dummyResumeData != null
-          ? PdfPreview(
-              pageFormats: const <String, pw.PdfPageFormat>{
-                'A4': pw.PdfPageFormat.a4,
-              },
-              canChangePageFormat: false,
-              // useActions: false,
-              scrollViewDecoration: const BoxDecoration(
-                color: Color(0xFFF1F2FD),
-              ),
-              allowPrinting: false,
-              canChangeOrientation: false,
-              canDebug: false,
-              build: (format) => widget.resume.builder(
-                format,
-                const GenerateDocParams(
-                  title: 'RESUME',
-                  author: 'Kyaw Zayar Tun',
-                ),
-                _dummyResumeData!,
-              ),
-            )
-          : const Center(
-              child: Text('Pdf Preview'),
-            ),
+      body: PdfPreview(
+        pageFormats: const <String, pw.PdfPageFormat>{
+          'A4': pw.PdfPageFormat.a4,
+        },
+        canChangePageFormat: false,
+        // useActions: false,
+        scrollViewDecoration: const BoxDecoration(
+          color: Color(0xFFF1F2FD),
+        ),
+        allowPrinting: false,
+        canChangeOrientation: false,
+        canDebug: false,
+        build: (format) => widget.resume.builder(
+          format,
+          GenerateDocParams(
+            title: 'RESUME',
+            author: widget.resumeData?.personalDetail?.fullName,
+          ),
+          widget.resumeData ?? ResumeData.empty(),
+        ),
+      ),
     );
   }
 }

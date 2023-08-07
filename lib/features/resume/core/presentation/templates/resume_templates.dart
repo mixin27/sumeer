@@ -2,16 +2,8 @@ import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
 
-import 'package:sumeer/features/resume/core/presentation/templates/resume_template_5.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/constants/asset_paths.dart';
-import 'resume_template_11.dart';
-import 'resume_template_12.dart';
-import 'resume_template_4.dart';
-
-export 'resume_template_1.dart';
-export 'resume_template_6.dart';
-export 'resume_template_7.dart';
 
 typedef LayoutCallbackWithData = Future<Uint8List> Function(
   PdfPageFormat pageFormat,
@@ -22,6 +14,8 @@ typedef LayoutCallbackWithData = Future<Uint8List> Function(
 enum DocumentType { resume, cv }
 
 class ResumeTemplate {
+  final String id;
+
   /// Template name
   final String name;
 
@@ -37,6 +31,7 @@ class ResumeTemplate {
   final DocumentType type;
 
   const ResumeTemplate(
+    this.id,
     this.name,
     this.file,
     this.thumbnail,
@@ -48,6 +43,7 @@ class ResumeTemplate {
 
 const resumeTemplates = <ResumeTemplate>[
   ResumeTemplate(
+    'resume-template-1',
     'Resume Template 1',
     'resume_template_1.dart',
     AssetPaths.resumeTemplate1,
@@ -55,6 +51,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-2',
     'Resume Template 2',
     'resume_template_2.dart',
     AssetPaths.resumeTemplate2,
@@ -62,6 +59,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-3',
     'Resume Template 3',
     'resume_template_3.dart',
     AssetPaths.resumeTemplate3,
@@ -69,6 +67,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-4',
     'Resume Template 4',
     'resume_template_4.dart',
     AssetPaths.resumeTemplate4,
@@ -76,6 +75,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-5',
     'Resume Template 5',
     'resume_template_5.dart',
     AssetPaths.resumeTemplate5,
@@ -83,6 +83,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.cv,
   ),
   ResumeTemplate(
+    'resume-template-6',
     'Resume Template 6',
     'resume_template_6.dart',
     AssetPaths.resumeTemplate6,
@@ -90,6 +91,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-7',
     'Resume Template 7',
     'resume_template_7.dart',
     AssetPaths.resumeTemplate7,
@@ -97,6 +99,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-8',
     'Resume Template 8',
     'resume_template_8.dart',
     AssetPaths.resumeTemplate8,
@@ -104,6 +107,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-9',
     'Resume Template 9',
     'resume_template_8.dart',
     AssetPaths.resumeTemplate9,
@@ -111,6 +115,15 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-10',
+    'Resume Template 10',
+    'resume_template_10.dart',
+    AssetPaths.resumeTemplate10,
+    generateTemplate10,
+    type: DocumentType.resume,
+  ),
+  ResumeTemplate(
+    'resume-template-11',
     'Resume Template 11',
     'resume_template_11.dart',
     AssetPaths.resumeTemplate5,
@@ -118,6 +131,7 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
   ResumeTemplate(
+    'resume-template-12',
     'Resume Template 12',
     'resume_template_12.dart',
     AssetPaths.resumeTemplate4,

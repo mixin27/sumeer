@@ -7,13 +7,19 @@ export 'core/presentation/widgets/widgets.dart';
 
 export 'core/shared/constants/pdf_constants.dart';
 
+export 'core/presentation/templates/resume_templates.dart';
 export 'core/presentation/templates/resume_template_1.dart';
 export 'core/presentation/templates/resume_template_2.dart';
 export 'core/presentation/templates/resume_template_3.dart';
-export 'core/presentation/templates/resume_templates.dart';
-export 'core/presentation/templates/resume_template_10.dart';
-export 'core/presentation/templates/resume_template_9.dart';
+export 'core/presentation/templates/resume_template_4.dart';
+export 'core/presentation/templates/resume_template_5.dart';
+export 'core/presentation/templates/resume_template_6.dart';
+export 'core/presentation/templates/resume_template_7.dart';
 export 'core/presentation/templates/resume_template_8.dart';
+export 'core/presentation/templates/resume_template_9.dart';
+export 'core/presentation/templates/resume_template_10.dart';
+export 'core/presentation/templates/resume_template_11.dart';
+export 'core/presentation/templates/resume_template_12.dart';
 
 export 'preview/presentation/resume_preview_page.dart';
 
