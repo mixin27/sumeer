@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:searchfield/searchfield.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
@@ -19,6 +20,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
   final skillController = TextEditingController();
   final infoController = TextEditingController();
   final levelController = TextEditingController();
+  List<String> skillList = ['Novice', 'Beginner', 'Experienced', 'Expert'];
   @override
   void initState() {
     super.initState();
@@ -80,6 +82,23 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     TextInputFieldWidget(
                       controller: levelController,
                       title: "Select skill level",
+                      suffixIcon: DropdownButton(
+                        underline: const SizedBox(),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+
+                        // Array list of items
+                        items: skillList.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        // After selecting the desired option,it will
+                        // change button value to selected value
+                        onChanged: (val) {
+                          levelController.text = val.toString();
+                        },
+                      ),
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
