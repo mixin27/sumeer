@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:searchfield/searchfield.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
@@ -98,13 +97,69 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                       controller: infoController,
                       title: "Information/ Sub-skills",
                     ),
-                    TextInputFieldWidget(
-                      readOnly: true,
-                      controller: levelController,
-                      title: "Select skill level",
-                      suffixIcon: DropdownButton(
+                    // TextInputFieldWidget(
+                    //   readOnly: true,
+                    //   controller: levelController,
+                    //   title: "Select skill level",
+                    //   suffixIcon: DropdownButton(
+                    //     underline: const SizedBox(),
+                    //     icon: const Icon(Icons.keyboard_arrow_down),
+
+                    //     // Array list of items
+                    //     items: skillList.map((SkillLevel items) {
+                    //       return DropdownMenuItem(
+                    //         value: items,
+                    //         child: Text(
+                    //           getSkillLevel(items),
+                    //         ),
+                    //       );
+                    //     }).toList(),
+                    //     // After selecting the desired option,it will
+                    //     // change button value to selected value
+                    //     onChanged: (val) {
+                    //       if (val != null) {
+                    //         ref
+                    //             .read(skillLevelProvider.notifier)
+                    //             .update((state) => val);
+                    //         levelController.text = getSkillLevel(val);
+                    //       }
+                    //       wtfLog('skill level onchange', val);
+                    //       wtfLog('skill level providere',
+                    //           ref.watch(skillLevelProvider));
+                    //     },
+                    //   ),
+                    // ),
+                    Text(
+                      "Select skill level",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 18,
+                          ),
+                    ),
+                    DecoratedBox(
+                      decoration: ShapeDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.03),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(0.2),
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                      ),
+                      child: DropdownButton(
+                        isExpanded: true,
                         underline: const SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
+                        value: ref.watch(skillLevelProvider),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
 
                         // Array list of items
                         items: skillList.map((SkillLevel items) {
@@ -129,6 +184,9 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                               ref.watch(skillLevelProvider));
                         },
                       ),
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
