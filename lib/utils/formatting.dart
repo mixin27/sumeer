@@ -35,3 +35,7 @@ Uint8List dataFromBase64String(String base64String) {
 String base64String(Uint8List data) {
   return base64Encode(data);
 }
+
+String getConcatStringFromArray(List<String> values) {
+  return values.join(',');
+}

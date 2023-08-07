@@ -7,7 +7,7 @@ Future<ResumeData> getDummyResumeData() async {
 
   final dummyResumeData = ResumeData(
     // profile image
-    profileImage: "https://www.nfet.net/nfet.jpg1",
+    profileImage: "https://www.nfet.net/nfet.jpg",
     personalDetail: const PersonalDetailSection(
       firstName: "Kyaw",
       lastName: "Zayar Tun",
@@ -45,7 +45,7 @@ Future<ResumeData> getDummyResumeData() async {
       skills: [
         Skill(
           skill: 'Android',
-          percentage: 0.7,
+          percentage: 60,
           level: SkillLevel.experienced,
           information: 'Java, Kotlin',
         ),

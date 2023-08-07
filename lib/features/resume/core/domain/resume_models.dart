@@ -326,3 +326,13 @@ enum LanguageLevel {
   highlyProficient,
   native,
 }
+
+String getLanguageLevel(LanguageLevel level) {
+  return switch (level) {
+    LanguageLevel.beginner => "Beginner",
+    LanguageLevel.elementary => "Elementary",
+    LanguageLevel.limitedWorking => "Limited working",
+    LanguageLevel.highlyProficient => "Highly proficient",
+    LanguageLevel.native => "Native"
+  };
+}
