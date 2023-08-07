@@ -23,7 +23,10 @@ Future<Uint8List> generateTemplate3(
 
   final pageTheme = await _pageTheme(format);
   var nameFont = await PdfGoogleFonts.caveatSemiBold();
-
+  final netImage = await networkImage(
+      (resumeData.profileImage == null || resumeData.profileImage!.isEmpty)
+          ? 'https://www.nfet.net/nfet.jpg'
+          : resumeData.profileImage!);
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -91,19 +94,21 @@ Future<Uint8List> generateTemplate3(
                             ],
                           ]),
                     ),
-                    pw.Expanded(
-                      child: pw.Container(
-                        width: 130,
-                        height: 130,
-                        alignment: pw.Alignment.topRight,
-                        child: pw.ClipOval(
-                          // child: pw.Image(resumeData.profileImage!,
-                          //     width: 130, height: 130, fit: pw.BoxFit.cover),
-                          // profileImage
-                          child: pw.SizedBox(),
+                    if (resumeData.profileImage != null &&
+                        resumeData.profileImage!.isNotEmpty)
+                      pw.Expanded(
+                        child: pw.Container(
+                          width: 130,
+                          height: 130,
+                          child: pw.ClipOval(
+                            // child:
+                            // pw.Image(resumeData.profileImage!,
+                            //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                            // profileImage
+                            child: pw.Image(netImage),
+                          ),
                         ),
                       ),
-                    ),
                   ]),
                   pw.SizedBox(height: 20),
                   if (resumeData.profile!.contents.isNotEmpty) ...[

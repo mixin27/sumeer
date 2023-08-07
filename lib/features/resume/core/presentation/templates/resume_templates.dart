@@ -108,11 +108,4 @@ const resumeTemplates = <ResumeTemplate>[
     generateTemplate9,
     type: DocumentType.resume,
   ),
-  ResumeTemplate(
-    'CV Template 1',
-    'cv_template_1.dart',
-    AssetPaths.cvTemplate1,
-    generateCVTemplate1,
-    type: DocumentType.cv,
-  ),
 ];

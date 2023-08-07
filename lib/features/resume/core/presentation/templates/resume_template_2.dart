@@ -25,6 +25,10 @@ Future<Uint8List> generateTemplate2(
   final resumeData = await getDummyResumeData();
   final font = await PdfGoogleFonts.robotoSlabBold();
   final fontRegular = await PdfGoogleFonts.robotoSlabRegular();
+  final netImage = await networkImage(
+      (resumeData.profileImage == null || resumeData.profileImage!.isEmpty)
+          ? 'https://www.nfet.net/nfet.jpg'
+          : resumeData.profileImage!);
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -49,17 +53,19 @@ Future<Uint8List> generateTemplate2(
                       style: pw.TextStyle(font: font, color: PdfColors.white),
                     ),
                     pw.SizedBox(height: 5),
-                    pw.Container(
-                      width: 130,
-                      height: 130,
-                      child: pw.ClipOval(
-                        // child:
-                        // pw.Image(resumeData.profileImage!,
-                        //     width: 130, height: 130, fit: pw.BoxFit.cover),
-                        // profileImage
-                        child: pw.SizedBox(),
+                    if (resumeData.profileImage != null &&
+                        resumeData.profileImage!.isNotEmpty)
+                      pw.Container(
+                        width: 130,
+                        height: 130,
+                        child: pw.ClipOval(
+                          // child:
+                          // pw.Image(resumeData.profileImage!,
+                          //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                          // profileImage
+                          child: pw.Image(netImage),
+                        ),
                       ),
-                    ),
                     pw.SizedBox(height: 20),
                     buildContactTemp(
                         context,

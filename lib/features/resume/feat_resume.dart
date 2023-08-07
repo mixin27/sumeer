@@ -14,7 +14,6 @@ export 'core/presentation/templates/resume_templates.dart';
 export 'core/presentation/templates/resume_template_10.dart';
 export 'core/presentation/templates/resume_template_9.dart';
 export 'core/presentation/templates/resume_template_8.dart';
-export 'core/presentation/templates/cv_template_1.dart';
 
 export 'preview/presentation/resume_preview_page.dart';
 

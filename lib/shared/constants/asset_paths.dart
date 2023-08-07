@@ -19,7 +19,6 @@ class AssetPaths {
       "assets/images/templates/resume_template_8.jpeg";
   static const String resumeTemplate9 =
       "assets/images/templates/resume_template_9.jpeg";
-  static const String cvTemplate1 = "assets/images/templates/cv_template_1.png";
 
   static const String resumeProfile = 'assets/images/resume/profile.jpg';
 

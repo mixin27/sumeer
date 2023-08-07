@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/features.dart';
@@ -53,13 +52,6 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
 
   @override
   Widget build(BuildContext context) {
-    final resTemplates = resumeTemplates
-        .where((element) => element.type == DocumentType.resume)
-        .toList();
-    final cvTemplates = resumeTemplates
-        .where((element) => element.type == DocumentType.cv)
-        .toList();
-
     return DefaultTabController(
       length: 3,
       initialIndex: initialIndex ?? 0,
@@ -112,162 +104,69 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                 // const SizedBox(
                 //   height: 10,
                 // ),
-                Center(
-                  child: ButtonsTabBar(
-                    radius: 17,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 45),
-                    backgroundColor: Colors.blueAccent,
-                    unselectedBackgroundColor: Colors.white,
-                    unselectedLabelStyle: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                    borderColor: Colors.blueAccent,
-                    unselectedBorderColor: Colors.grey.shade300,
-                    borderWidth: 1,
-                    labelStyle: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                    tabs: [
-                      templateTab("All"),
-                      templateTab("CVs"),
-                      templateTab("Resumes"),
-                    ],
-                  ),
-                ),
+                // Center(
+                //   child: ButtonsTabBar(
+                //     radius: 17,
+                //     contentPadding: const EdgeInsets.symmetric(horizontal: 45),
+                //     backgroundColor: Colors.blueAccent,
+                //     unselectedBackgroundColor: Colors.white,
+                //     unselectedLabelStyle: const TextStyle(
+                //         color: Colors.black, fontWeight: FontWeight.bold),
+                //     borderColor: Colors.blueAccent,
+                //     unselectedBorderColor: Colors.grey.shade300,
+                //     borderWidth: 1,
+                //     labelStyle: const TextStyle(
+                //         color: Colors.white, fontWeight: FontWeight.bold),
+                //     tabs: [
+                //       templateTab("All"),
+                //       templateTab("CVs"),
+                //       templateTab("Resumes"),
+                //     ],
+                //   ),
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
                 Expanded(
-                  child: TabBarView(
-                    children: <Widget>[
-                      GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 6,
-                          mainAxisSpacing: 0,
-                          childAspectRatio: 13.8 / 20,
-                        ),
-                        itemCount: resumeTemplates.length,
-                        itemBuilder: (context, index) {
-                          final template = resumeTemplates[index];
+                  child: GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 6,
+                      mainAxisSpacing: 0,
+                      childAspectRatio: 13.8 / 20,
+                    ),
+                    itemCount: resumeTemplates.length,
+                    itemBuilder: (context, index) {
+                      final template = resumeTemplates[index];
 
-                          return InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      ResumePreviewPage(resume: template),
-                                ),
-                              );
-                            },
-                            child: GridTile(
-                              key: ValueKey(index),
-                              child: Column(
-                                children: [
-                                  Card(
-                                      clipBehavior: Clip.hardEdge,
-                                      elevation: 5,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                      ),
-                                      child: Image.asset(template.thumbnail)),
-                                ],
-                              ),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) =>
+                                  ResumePreviewPage(resume: template),
                             ),
                           );
                         },
-                      ),
-                      GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 6,
-                          mainAxisSpacing: 0,
-                          childAspectRatio: 13.8 / 20,
+                        child: GridTile(
+                          key: ValueKey(index),
+                          child: Column(
+                            children: [
+                              Card(
+                                  clipBehavior: Clip.hardEdge,
+                                  elevation: 5,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(0)),
+                                  ),
+                                  child: Image.asset(template.thumbnail)),
+                            ],
+                          ),
                         ),
-                        itemCount: cvTemplates.length,
-                        itemBuilder: (context, index) {
-                          final template = cvTemplates[index];
-
-                          return InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      ResumePreviewPage(resume: template),
-                                ),
-                              );
-                            },
-                            child: GridTile(
-                              key: ValueKey(index),
-                              child: Column(
-                                children: [
-                                  Card(
-                                      clipBehavior: Clip.hardEdge,
-                                      elevation: 5,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                      ),
-                                      child: Image.asset(template.thumbnail)),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 6,
-                          mainAxisSpacing: 0,
-                          childAspectRatio: 13.8 / 20,
-                        ),
-                        itemCount: resTemplates.length,
-                        itemBuilder: (context, index) {
-                          final template = resTemplates[index];
-
-                          return InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      ResumePreviewPage(resume: template),
-                                ),
-                              );
-                            },
-                            child: GridTile(
-                              key: ValueKey(index),
-                              child: Column(
-                                children: [
-                                  Card(
-                                      clipBehavior: Clip.hardEdge,
-                                      elevation: 5,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                      ),
-                                      child: Image.asset(template.thumbnail)),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      // Center(
-                      //   child: Icon(Icons.directions_car),
-                      // ),
-                      // const Center(
-                      //   child: Icon(Icons.directions_transit),
-                      // ),
-                      // const Center(
-                      //   child: Icon(Icons.directions_bike),
-                      // ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ],
