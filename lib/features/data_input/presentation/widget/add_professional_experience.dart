@@ -113,8 +113,10 @@ class _AddProfessionalExperienceFormState
                                 ref.watch(experienceSectionProvider);
                             final oldResumeData = ref.watch(resumeDataProvider);
                             vLog('date time', DateTime.now());
+                            Employer employer =
+                                Employer(name: employerController.text);
                             Experience experience = Experience(
-                              employer: null,
+                              employer: employer,
                               jobTitle: jobTitleController.text,
                               city: cityController.text,
                               // startDate: startDate,
