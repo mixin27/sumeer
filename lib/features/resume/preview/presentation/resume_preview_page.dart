@@ -7,7 +7,6 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
-
 import '../../../auth/feat_auth.dart';
 import '../../../data_input/feat_data_input.dart';
 import '../../../templates/shared/provider.dart';
