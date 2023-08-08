@@ -135,6 +135,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   ref
                                       .read(resumeModelIdProvider.notifier)
                                       .state = '';
+
+                                  //
                                   ref
                                       .read(resumeModelIdProvider.notifier)
                                       .state = ref

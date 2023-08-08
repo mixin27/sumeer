@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/features.dart';
+import 'package:uuid/uuid.dart';
 
 @RoutePage()
 class TemplatesPage extends ConsumerStatefulWidget {
@@ -63,37 +64,7 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                 // color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
                 fontWeight: FontWeight.bold),
           ),
-          // bottom: TabBar(
-          //   controller: _tabController,
-          //   labelColor: Colors.white,
-          //   unselectedLabelColor: Colors.black,
-          //   indicatorColor: Colors.yellowAccent,
-          //   tabs: [
-          //     TemplateTab(
-          //       "All",
-          //       initialIndex == 0 ? Colors.blueAccent : Colors.white,
-          //     ),
-          //     TemplateTab(
-          //       "CVs",
-          //       initialIndex == 1 ? Colors.blueAccent : Colors.white,
-          //     ),
-          //     TemplateTab(
-          //       "Resumes",
-          //       initialIndex == 2 ? Colors.blueAccent : Colors.white,
-          //     ),
-          //     // Tab(icon: Icon(Icons.directions_transit)),
-          //     // Tab(icon: Icon(Icons.directions_car)),
-          //   ],
-          // ),
         ),
-        // body: TabBarView(
-        //   controller: _tabController,
-        //   children: const [
-        //     Icon(Icons.flight, size: 350),
-        //     Icon(Icons.directions_transit, size: 350),
-        //     Icon(Icons.directions_car, size: 350),
-        //   ],
-        // ),
         body: SafeArea(
           child: DefaultTabController(
             length: 3,
@@ -101,29 +72,6 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // Center(
-                //   child: ButtonsTabBar(
-                //     radius: 17,
-                //     contentPadding: const EdgeInsets.symmetric(horizontal: 45),
-                //     backgroundColor: Colors.blueAccent,
-                //     unselectedBackgroundColor: Colors.white,
-                //     unselectedLabelStyle: const TextStyle(
-                //         color: Colors.black, fontWeight: FontWeight.bold),
-                //     borderColor: Colors.blueAccent,
-                //     unselectedBorderColor: Colors.grey.shade300,
-                //     borderWidth: 1,
-                //     labelStyle: const TextStyle(
-                //         color: Colors.white, fontWeight: FontWeight.bold),
-                //     tabs: [
-                //       templateTab("All"),
-                //       templateTab("CVs"),
-                //       templateTab("Resumes"),
-                //     ],
-                //   ),
-                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -143,14 +91,37 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
 
                       return InkWell(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (ctx) => ResumePreviewPage(
-                                resume: template,
-                                resumeData: null,
+                          if (ref.watch(resumeDataProvider)?.templateId !=
+                              null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => ResumePreviewPage(
+                                  resume: template,
+                                  resumeData: ref.watch(resumeDataProvider),
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            //
+                            ref.read(resumeDataProvider.notifier).state = null;
+                            ref.read(skillSectionProvider.notifier).state =
+                                null;
+                            ref.read(educationSectionProvider.notifier).state =
+                                null;
+                            ref.read(experienceSectionProvider.notifier).state =
+                                null;
+                            ref.read(resumeModelIdProvider.notifier).state = '';
+                            //
+                            ref.read(resumeModelIdProvider.notifier).state =
+                                const Uuid().v4();
+                            ref.read(templatelIdProvider.notifier).state =
+                                template.id;
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => const PersonalDetailPage(),
+                              ),
+                            );
+                          }
                         },
                         child: GridTile(
                           key: ValueKey(index),
