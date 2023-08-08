@@ -4,8 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sumeer/features/features.dart';
 
-import 'package:sumeer/features/resume/feat_resume.dart';
-
 @RoutePage()
 class TemplateListingPage extends HookConsumerWidget {
   const TemplateListingPage({super.key});

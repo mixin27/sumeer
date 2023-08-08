@@ -179,7 +179,7 @@ class MyFilePage extends HookConsumerWidget {
                                         context.router.push(
                                           ResumePreviewRoute(
                                             resume: getResumeTemplateById(
-                                              resumeModel[idx].templateId,
+                                              'resume-template-2',
                                             ),
                                             resumeData: resumeModel[idx],
                                           ),

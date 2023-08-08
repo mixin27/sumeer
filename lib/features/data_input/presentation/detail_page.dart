@@ -7,9 +7,7 @@ import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/button1.dart';
-import '../../auth/feat_auth.dart';
 import '../../features.dart';
-import '../../templates/shared/provider.dart';
 
 @RoutePage()
 class DetailPage extends ConsumerStatefulWidget {

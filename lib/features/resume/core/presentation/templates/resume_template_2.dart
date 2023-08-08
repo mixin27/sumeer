@@ -27,6 +27,10 @@ Future<Uint8List> generateTemplate2(
     producer: params.producer,
   );
 
+  var regular = await PdfGoogleFonts.robotoSlabRegular();
+  var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
+  var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
+
   final pageTheme = await _pageTheme(format);
 
   doc.addPage(
@@ -70,19 +74,110 @@ Future<Uint8List> generateTemplate2(
                       "Email",
                       resumeData.personalDetail?.email ?? "",
                       0xe158,
+                      pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
                     buildContactTemp(
                       context,
                       "Phone",
                       resumeData.personalDetail?.phone ?? "",
                       0xe0b0,
+                      pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
                     buildContactTemp(
                       context,
                       "Address",
                       resumeData.personalDetail?.address ?? "",
                       0xe0c8,
+                      pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
+                    if (resumeData.personalDetail?.personalInfo?.dateOfBirth !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.dateOfBirth!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Date of Birth",
+                        resumeData.personalDetail?.personalInfo?.dateOfBirth ??
+                            "",
+                        0xe916,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData.personalDetail?.personalInfo?.gender !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.gender!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Gender",
+                        resumeData.personalDetail?.personalInfo?.gender ?? "",
+                        0xe4eb,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData.personalDetail?.personalInfo?.nationality !=
+                        null) ...[
+                      buildContactTemp(
+                        context,
+                        "Nationality",
+                        resumeData.personalDetail?.personalInfo?.nationality ??
+                            "",
+                        0xe569,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData.personalDetail?.personalInfo?.identityNo !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.identityNo!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Identity",
+                        resumeData.personalDetail?.personalInfo?.identityNo ??
+                            "",
+                        0xe069,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData
+                                .personalDetail?.personalInfo?.martialStatus !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.martialStatus!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Martial Status",
+                        resumeData
+                                .personalDetail?.personalInfo?.martialStatus ??
+                            "",
+                        0xf1a2,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
                     if (resumeData.personalDetail?.links != null) ...[
                       for (int i = 0;
                           i < resumeData.personalDetail!.links.length;
@@ -91,7 +186,11 @@ Future<Uint8List> generateTemplate2(
                           context,
                           resumeData.personalDetail!.links[i].name,
                           resumeData.personalDetail!.links[i].url,
-                          0xe250,
+                          0xf1a2,
+                          pw.TextStyle(
+                              color: PdfColors.white,
+                              font: regular,
+                              fontFallback: [fall1, fall2]),
                         )
                       ]
                     ],
@@ -557,7 +656,6 @@ Future<Uint8List> generateTemplate2(
                                 padding: const pw.EdgeInsets.only(left: 5),
                                 child: pw.Text(
                                   skill.skill,
-                                  style: const pw.TextStyle(),
                                 ),
                               ),
                             ]),
@@ -584,6 +682,8 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
   var italic = await PdfGoogleFonts.robotoBlackItalic();
   var bold = await PdfGoogleFonts.robotoSlabBold();
   var boldItalic = await PdfGoogleFonts.robotoSerifBoldItalic();
+  var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
+  var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
 
   return pw.PageTheme(
     margin: const pw.EdgeInsets.all(0),
@@ -603,6 +703,7 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
       italic: italic,
       bold: bold,
       boldItalic: boldItalic,
+      fontFallback: [fall1, fall2],
       icons: await PdfGoogleFonts.materialIcons(),
     ),
   );
@@ -636,12 +737,8 @@ pw.Widget buildTitleWidget(
   );
 }
 
-pw.Widget buildContactTemp(
-  pw.Context context,
-  String title,
-  String value,
-  int iconData,
-) {
+pw.Widget buildContactTemp(pw.Context context, String title, String value,
+    int iconData, pw.TextStyle textSyle) {
   return pw.Container(
       padding: const pw.EdgeInsets.only(bottom: 8),
       child: pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
@@ -655,7 +752,7 @@ pw.Widget buildContactTemp(
             padding: const pw.EdgeInsets.only(left: 8),
             child: pw.Text(
               value,
-              style: const pw.TextStyle(color: PdfColors.white),
+              style: textSyle,
             ),
           ),
         )
