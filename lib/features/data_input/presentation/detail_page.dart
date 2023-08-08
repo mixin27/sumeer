@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/button1.dart';
@@ -55,7 +54,19 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               //     .set(
               //       ref.watch(resumeDataProvider)?.toJson() ?? {},
               //     );
-              context.router.push(const TemplateListingRoute());
+              if (ref.watch(resumeDataProvider)?.templateId != null) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => ResumePreviewPage(
+                      resume: getResumeTemplateById(
+                          ref.watch(resumeDataProvider)?.templateId),
+                      resumeData: ref.watch(resumeDataProvider),
+                    ),
+                  ),
+                );
+              } else {
+                context.router.push(const TemplatesRoute());
+              }
             },
           ),
         ],
