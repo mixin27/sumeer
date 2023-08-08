@@ -43,6 +43,9 @@ final userProfileProvider = StateProvider<UserProfile?>((ref) {
 final userExperienceListProvider = StateProvider<List<UserExperience>>((ref) {
   return [];
 });
+final resumeListProvider = StateProvider<List<ResumeData>>((ref) {
+  return [];
+});
 
 final userSkillListProvider = StateProvider<List<UserSkill>>((ref) {
   return [];

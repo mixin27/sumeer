@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/features.dart';
@@ -13,47 +12,54 @@ import '../../../shared/shared.dart';
 import '../../auth/feat_auth.dart';
 
 @RoutePage()
-class MyFilePage extends HookConsumerWidget {
+class MyFilePage extends ConsumerStatefulWidget {
   const MyFilePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    List<ResumeData> resumeModeList = [];
+  ConsumerState<MyFilePage> createState() => _MyFilePageState();
+}
+
+class _MyFilePageState extends ConsumerState<MyFilePage> {
+  List<ResumeData> resumeModeList = [];
+
+  Future<List<ResumeData>> getData() async {
     var uid = ref.watch(authRepositoryProvider).currentUser?.uid.toString();
     dLog('userId build', uid);
 
-    Future<List<ResumeData>> getData() async {
-      dLog('userId', uid);
-      await ref
-          .read(cloudFirestoreProvider)
-          .collection("sumeer")
-          .doc(uid)
-          .collection("user")
-          .get()
-          .then(
-        (documentSnapshot) {
-          if (documentSnapshot.docs.isNotEmpty) {
-            vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
-            var list = documentSnapshot.docs
-                .map(
-                  (e) => ResumeData.fromJson(e.data()),
-                )
-                .toList();
-            resumeModeList = list;
-            wtfLog('resume list', resumeModeList);
-            return list;
-          }
-        },
-      );
+    dLog('userId', uid);
+    await ref
+        .read(cloudFirestoreProvider)
+        .collection("sumeer")
+        .doc(uid)
+        .collection("user")
+        .get()
+        .then(
+      (documentSnapshot) {
+        if (documentSnapshot.docs.isNotEmpty) {
+          vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
+          var list = documentSnapshot.docs
+              .map(
+                (e) => ResumeData.fromJson(e.data()),
+              )
+              .toList();
+          resumeModeList = list;
+          wtfLog('resume list', resumeModeList);
+          return list;
+        }
+      },
+    );
 
-      return resumeModeList;
-    }
+    return resumeModeList;
+  }
 
-    useEffect(() {
-      Future.microtask(() => getData());
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => getData());
+  }
 
-      return null;
-    }, []);
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Files'),
@@ -212,7 +218,24 @@ class MyFilePage extends HookConsumerWidget {
                                         ),
                                       ),
 
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        // to delete
+                                        var uid = ref
+                                            .watch(authRepositoryProvider)
+                                            .currentUser
+                                            ?.uid
+                                            .toString();
+                                        await ref
+                                            .read(cloudFirestoreProvider)
+                                            .collection("sumeer")
+                                            .doc(uid)
+                                            .collection("user")
+                                            .doc(resumeModel[idx].resumeId)
+                                            .delete();
+                                        setState(() {
+                                          getData();
+                                        });
+                                      },
                                       label: const Text('Delete'),
                                     ),
                                   ],
