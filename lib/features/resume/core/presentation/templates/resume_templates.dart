@@ -139,3 +139,11 @@ const resumeTemplates = <ResumeTemplate>[
     type: DocumentType.resume,
   ),
 ];
+
+ResumeTemplate getResumeTemplateById(String? id) {
+  final template = resumeTemplates.firstWhere(
+    (element) => element.id == id,
+    orElse: () => resumeTemplates[0],
+  );
+  return template;
+}

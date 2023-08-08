@@ -26,7 +26,7 @@ class MyFilePage extends HookConsumerWidget {
       dLog('userId', uid);
       await ref
           .read(cloudFirestoreProvider)
-          .collection("summer")
+          .collection("sumeer")
           .doc(uid)
           .collection("user")
           .get()
@@ -90,7 +90,8 @@ class MyFilePage extends HookConsumerWidget {
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) =>
                                         CircularProgressIndicator(
-                                            value: downloadProgress.progress),
+                                  value: downloadProgress.progress,
+                                ),
                                 errorWidget: (context, url, error) => Icon(
                                   Icons.camera_alt,
                                   color: Colors.grey.withOpacity(0.3),
@@ -166,7 +167,9 @@ class MyFilePage extends HookConsumerWidget {
                                     onPressed: () {
                                       context.router.push(
                                         ResumePreviewRoute(
-                                          resume: resumeTemplates[3],
+                                          resume: getResumeTemplateById(
+                                            resumeModel[idx].templateId,
+                                          ),
                                           resumeData: resumeModel[idx],
                                         ),
                                       );

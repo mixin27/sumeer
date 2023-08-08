@@ -7,37 +7,17 @@ import 'package:printing/printing.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 @RoutePage()
-class ResumePreviewPage extends StatefulWidget {
+class ResumePreviewPage extends StatelessWidget {
   const ResumePreviewPage({super.key, required this.resume, this.resumeData});
 
   final ResumeTemplate resume;
   final ResumeData? resumeData;
 
   @override
-  State<ResumePreviewPage> createState() => _ResumePreviewPageState();
-}
-
-class _ResumePreviewPageState extends State<ResumePreviewPage> {
-  // ResumeData? _dummyResumeData;
-
-  // @override
-  // void initState() {
-  //   _init();
-  //   super.initState();
-  // }
-
-  // Future<void> _init() async {
-  //   final dummyResumeData = await getDummyResumeData();
-  //   setState(() {
-  //     _dummyResumeData = dummyResumeData;
-  //   });
-  // }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.resume.name),
+        title: Text(resume.name),
       ),
       body: PdfPreview(
         pageFormats: const <String, pw.PdfPageFormat>{
@@ -51,13 +31,13 @@ class _ResumePreviewPageState extends State<ResumePreviewPage> {
         allowPrinting: false,
         canChangeOrientation: false,
         canDebug: false,
-        build: (format) => widget.resume.builder(
+        build: (format) => resume.builder(
           format,
           GenerateDocParams(
             title: 'RESUME',
-            author: widget.resumeData?.personalDetail?.fullName,
+            author: resumeData?.personalDetail?.fullName,
           ),
-          widget.resumeData ?? ResumeData.empty(),
+          resumeData ?? ResumeData.empty(),
         ),
       ),
     );
