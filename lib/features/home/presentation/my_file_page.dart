@@ -40,11 +40,12 @@ class MyFilePage extends HookConsumerWidget {
                 )
                 .toList();
             resumeModeList = list;
-            wLog('resume list', resumeModeList);
+            wtfLog('resume list', resumeModeList);
             return list;
           }
         },
       );
+
       return resumeModeList;
     }
 
@@ -176,6 +177,10 @@ class MyFilePage extends HookConsumerWidget {
                                       ),
 
                                       onPressed: () {
+                                        ref
+                                            .read(resumeDataProvider.notifier)
+                                            .update(
+                                                (state) => resumeModel[idx]);
                                         context.router.push(
                                           ResumePreviewRoute(
                                             resume: getResumeTemplateById(

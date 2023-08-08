@@ -96,3 +96,4 @@ final languageSectionListProvider =
     StateProvider<List<LanguageSection>>((ref) => []);
 // resumeModelId
 final resumeModelIdProvider = StateProvider<String>((ref) => '');
+final templatelIdProvider = StateProvider<String?>((ref) => null);
