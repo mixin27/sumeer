@@ -43,20 +43,21 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         leading: const AutoLeadingButton(),
         actions: [
           Button1(
-            text: "Save",
+            text: "View",
             onPressed: () async {
               dLog(ref.watch(resumeModelIdProvider));
-              var uid =
-                  ref.watch(authRepositoryProvider).currentUser?.uid.toString();
-              await ref
-                  .read(cloudFirestoreProvider)
-                  .collection("sumeer")
-                  .doc(uid)
-                  .collection("user")
-                  .doc(ref.watch(resumeModelIdProvider))
-                  .set(
-                    ref.watch(resumeDataProvider)?.toJson() ?? {},
-                  );
+              // var uid =
+              //     ref.watch(authRepositoryProvider).currentUser?.uid.toString();
+              // await ref
+              //     .read(cloudFirestoreProvider)
+              //     .collection("sumeer")
+              //     .doc(uid)
+              //     .collection("user")
+              //     .doc(ref.watch(resumeModelIdProvider))
+              //     .set(
+              //       ref.watch(resumeDataProvider)?.toJson() ?? {},
+              //     );
+              context.router.push(const TemplateListingRoute());
             },
           ),
         ],

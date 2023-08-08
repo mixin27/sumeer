@@ -124,9 +124,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   ref.read(resumeDataProvider.notifier).state =
                                       null;
                                   ref
+                                      .read(skillSectionProvider.notifier)
+                                      .state = null;
+                                  ref
+                                      .read(educationSectionProvider.notifier)
+                                      .state = null;
+                                  ref
+                                      .read(experienceSectionProvider.notifier)
+                                      .state = null;
+                                  ref
                                       .read(resumeModelIdProvider.notifier)
                                       .state = '';
-
                                   ref
                                       .read(resumeModelIdProvider.notifier)
                                       .state = ref

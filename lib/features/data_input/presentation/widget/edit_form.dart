@@ -31,7 +31,10 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
               onTap: () => showAddExperienceForm(context),
             ),
             SkillCard(
-              onTap: () => showAddSkillForm(context),
+              onTap: () {
+                ref.read(skillLevelProvider.notifier).state = null;
+                showAddSkillForm(context);
+              },
             ),
             const SizedBox(
               height: 30,

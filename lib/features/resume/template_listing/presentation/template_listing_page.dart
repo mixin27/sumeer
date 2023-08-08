@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sumeer/features/features.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 @RoutePage()
-class TemplateListingPage extends StatelessWidget {
+class TemplateListingPage extends HookConsumerWidget {
   const TemplateListingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Resume Templates'),
@@ -32,7 +34,7 @@ class TemplateListingPage extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (ctx) => ResumePreviewPage(
                     resume: template,
-                    resumeData: null,
+                    resumeData: ref.watch(resumeDataProvider),
                   ),
                 ),
               );

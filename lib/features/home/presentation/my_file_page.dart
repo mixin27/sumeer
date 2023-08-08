@@ -62,153 +62,168 @@ class MyFilePage extends HookConsumerWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var resumeModel = snapshot.data;
-            return ListView.builder(
-                itemCount: resumeModel!.length,
-                itemBuilder: (cxt, idx) {
-                  return Card(
-                    color: Theme.of(context).colorScheme.background,
-                    elevation: 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fill,
-                                imageUrl: resumeModel[idx].profileImage ?? '',
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
-                                        CircularProgressIndicator(
-                                  value: downloadProgress.progress,
+            if (resumeModel!.isEmpty || resumeModel.isEmpty) {
+              return Center(
+                  child: Text(
+                'No Data!',
+                style: Theme.of(context).textTheme.titleLarge,
+              ));
+            } else {
+              return ListView.builder(
+                  itemCount: resumeModel.length,
+                  itemBuilder: (cxt, idx) {
+                    return Card(
+                      color: Theme.of(context).colorScheme.background,
+                      elevation: 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
                                 ),
-                                errorWidget: (context, url, error) => Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.grey.withOpacity(0.3),
-                                  size: 50,
-                                ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Text(resumeModel[idx].personalDetail?.fullName ??
-                                  ''),
-                              Text(
-                                resumeModel[idx]
-                                        .personalDetail
-                                        ?.email
-                                        .toString() ??
-                                    '',
-                              ),
-                              Row(
-                                children: [
-                                  OutlinedButton.icon(
-                                    icon: const Icon(Icons.edit),
-                                    // style: outlineButtonStyle,
-                                    style: OutlinedButton.styleFrom(
-                                      foregroundColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 237, 245, 252),
-                                      minimumSize: const Size(88, 36),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-
-                                    onPressed: () {
-                                      ref
-                                          .read(resumeDataProvider.notifier)
-                                          .state = resumeModel[idx];
-                                      ref
-                                          .read(resumeModelIdProvider.notifier)
-                                          .state = resumeModel[idx]
-                                              .resumeId ??
-                                          '';
-                                      AutoRouter.of(context)
-                                          .push(const DetailRoute());
-                                    },
-                                    label: const Text('Edit'),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fill,
+                                  imageUrl: resumeModel[idx].profileImage ?? '',
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          CircularProgressIndicator(
+                                    value: downloadProgress.progress,
                                   ),
-                                  horSpace(8),
-                                  OutlinedButton.icon(
-                                    icon: const Icon(Icons.edit),
-                                    // style: outlineButtonStyle,
-                                    style: OutlinedButton.styleFrom(
-                                      foregroundColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 237, 245, 252),
-                                      minimumSize: const Size(88, 36),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-
-                                    onPressed: () {
-                                      context.router.push(
-                                        ResumePreviewRoute(
-                                          resume: getResumeTemplateById(
-                                            resumeModel[idx].templateId,
+                                  errorWidget: (context, url, error) => Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.grey.withOpacity(0.3),
+                                    size: 50,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                    resumeModel[idx].personalDetail?.fullName ??
+                                        ''),
+                                Text(
+                                  resumeModel[idx]
+                                          .personalDetail
+                                          ?.email
+                                          .toString() ??
+                                      '',
+                                ),
+                                Row(
+                                  children: [
+                                    OutlinedButton.icon(
+                                      icon: const Icon(Icons.edit),
+                                      // style: outlineButtonStyle,
+                                      style: OutlinedButton.styleFrom(
+                                        foregroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 237, 245, 252),
+                                        minimumSize: const Size(88, 36),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8),
                                           ),
-                                          resumeData: resumeModel[idx],
-                                        ),
-                                      );
-                                    },
-                                    label: const Text('View'),
-                                  ),
-                                  horSpace(8),
-                                  OutlinedButton.icon(
-                                    icon: const Icon(Icons.delete),
-                                    // style: outlineButtonStyle,
-                                    style: OutlinedButton.styleFrom(
-                                      foregroundColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 237, 245, 252),
-                                      minimumSize: const Size(88, 36),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8),
                                         ),
                                       ),
-                                    ),
 
-                                    onPressed: () {},
-                                    label: const Text('Delete'),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                                      onPressed: () {
+                                        ref
+                                            .read(resumeDataProvider.notifier)
+                                            .state = resumeModel[idx];
+                                        ref
+                                                .read(resumeModelIdProvider
+                                                    .notifier)
+                                                .state =
+                                            resumeModel[idx].resumeId ?? '';
+                                        AutoRouter.of(context)
+                                            .push(const DetailRoute());
+                                      },
+                                      label: const Text('Edit'),
+                                    ),
+                                    horSpace(8),
+                                    OutlinedButton.icon(
+                                      icon: const Icon(Icons.edit),
+                                      // style: outlineButtonStyle,
+                                      style: OutlinedButton.styleFrom(
+                                        foregroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 237, 245, 252),
+                                        minimumSize: const Size(88, 36),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+
+                                      onPressed: () {
+                                        context.router.push(
+                                          ResumePreviewRoute(
+                                            resume: getResumeTemplateById(
+                                              resumeModel[idx].templateId,
+                                            ),
+                                            resumeData: resumeModel[idx],
+                                          ),
+                                        );
+                                      },
+                                      label: const Text('View'),
+                                    ),
+                                    horSpace(8),
+                                    OutlinedButton.icon(
+                                      icon: const Icon(Icons.delete),
+                                      // style: outlineButtonStyle,
+                                      style: OutlinedButton.styleFrom(
+                                        foregroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 237, 245, 252),
+                                        minimumSize: const Size(88, 36),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+
+                                      onPressed: () {},
+                                      label: const Text('Delete'),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                });
+                    );
+                  });
+            }
           } else {
-            return const SizedBox();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
