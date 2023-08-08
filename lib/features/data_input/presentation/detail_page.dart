@@ -54,7 +54,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   .doc(uid)
                   .collection("user")
                   .doc(ref.watch(resumeModelIdProvider))
-                  .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
+                  .set(
+                    ref.watch(resumeDataProvider)?.toJson() ?? {},
+                  );
             },
           ),
         ],
