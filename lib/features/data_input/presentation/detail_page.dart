@@ -43,7 +43,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         leading: const AutoLeadingButton(),
         actions: [
           Button1(
-            text: "Save",
+            text: "View",
             onPressed: () async {
               dLog(ref.watch(resumeModelIdProvider));
               // var uid =
