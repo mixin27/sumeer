@@ -18,6 +18,7 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
     final skill = ref.watch(resumeDataProvider)?.skill;
     final skillList = skill?.skills ?? [];
     wLog('skill list', skillList.length);
+
     return Column(
       children: List.generate(
         skillList.length,
@@ -38,7 +39,9 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(skillList[index].skill),
-                Text(skillList[index].information ?? ''),
+                Text(getSkillLevel(
+                  skillList[index].level ?? SkillLevel.novice,
+                )),
               ],
             ),
             trailing: IconButton(
