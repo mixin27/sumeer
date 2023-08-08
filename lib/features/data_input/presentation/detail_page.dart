@@ -50,7 +50,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   ref.watch(authRepositoryProvider).currentUser?.uid.toString();
               await ref
                   .read(cloudFirestoreProvider)
-                  .collection("summer")
+                  .collection("sumeer")
                   .doc(uid)
                   .collection("user")
                   .doc(ref.watch(resumeModelIdProvider))
