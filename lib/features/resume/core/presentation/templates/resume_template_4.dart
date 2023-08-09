@@ -21,6 +21,17 @@ Future<Uint8List> generateTemplate4(
   );
 
   final pageTheme = await _pageTheme(format);
+  bool showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
+              .toString() !=
+          "" ||
+      resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
+          "" ||
+      resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
+      resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
+      resumeData.personalDetail?.personalInfo?.martialStatus.toString() != "" ||
+      resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
+          "" ||
+      resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
 
   doc.addPage(
     pw.MultiPage(
@@ -92,9 +103,9 @@ Future<Uint8List> generateTemplate4(
                     pw.SizedBox(height: 8),
                     pw.Divider(height: 2, thickness: 1),
 
-                    if (resumeData.personalDetail != null) ...[
+                    if (showPersonalDetail) ...[
                       SectionDesign4(title: 'Personal Detail'),
-                      if (resumeData.profile!.contents.isNotEmpty)
+                      if (resumeData.personalDetail?.personalInfo != null)
                         _personalDetail(resumeData, context)
                     ],
 
@@ -127,10 +138,13 @@ Future<Uint8List> generateTemplate4(
                     // pw.Divider(height: 2, thickness: 1),
 
                     // Experience
-                    if (resumeData.experience != null) ...[
-                      if (resumeData.experience?.title != null)
-                        SectionDesign4(
-                            title: resumeData.experience?.title ?? ''),
+                    if (resumeData.experience?.experiences != null) ...[
+                      // if (resumeData.experience?.title != null)
+                      SectionDesign4(
+                        title: resumeData.experience?.title.toString() == ""
+                            ? "Experience"
+                            : resumeData.experience?.title.toString() ?? "",
+                      ),
                       if (resumeData.experience!.experiences.isNotEmpty)
                         _experienceList(resumeData, context),
                     ],
@@ -138,10 +152,13 @@ Future<Uint8List> generateTemplate4(
                     pw.SizedBox(height: 8),
                     // pw.Divider(height: 2, thickness: 1),
                     // Education
-                    if (resumeData.education != null) ...[
-                      if (resumeData.education?.title != null)
-                        SectionDesign4(
-                            title: resumeData.education?.title ?? ''),
+                    if (resumeData.education?.educations != null) ...[
+                      // if (resumeData.education?.title != null)
+                      SectionDesign4(
+                        title: resumeData.education?.title.toString() == ""
+                            ? "Education"
+                            : resumeData.education?.title.toString() ?? "",
+                      ),
                       if (resumeData.education!.educations.isNotEmpty)
                         _eduationList(resumeData, context),
                     ],
@@ -150,9 +167,13 @@ Future<Uint8List> generateTemplate4(
                     // pw.Divider(height: 2, thickness: 1),
 
                     // Skill
-                    if (resumeData.skill != null) ...[
-                      if (resumeData.skill?.title != null)
-                        SectionDesign4(title: resumeData.skill?.title ?? ''),
+                    if (resumeData.skill?.skills != null) ...[
+                      // if (resumeData.skill?.title != null)
+                      SectionDesign4(
+                        title: resumeData.skill?.title.toString() == ""
+                            ? "Skill"
+                            : resumeData.skill?.title.toString() ?? "",
+                      ),
                       if (resumeData.skill!.skills.isNotEmpty)
                         _skillList(resumeData, context),
                     ],
@@ -254,31 +275,54 @@ Future<Uint8List> generateTemplate4(
 
 pw.Wrap _personalDetail(ResumeData resumeData, pw.Context context) {
   PersonalInformation? info = resumeData.personalDetail!.personalInfo;
+  bool showPersonalLink =
+      resumeData.personalDetail?.links[0].url.toString() != "" ||
+          resumeData.personalDetail?.links[1].url.toString() != "" ||
+          resumeData.personalDetail?.links[2].url.toString() != "" ||
+          resumeData.personalDetail?.links[3].url.toString() != "";
   return pw.Wrap(
     // crossAxisAlignment: pw.CrossAxisAlignment.start,
     children: [
-      if (info?.dateOfBirth != null)
+      if (info?.dateOfBirth.toString() != "")
         _personalDetailItem(context, 'Date Of Birth', info?.dateOfBirth),
-      if (info?.drivingLicense != null)
+      if (info?.drivingLicense.toString() != "")
         _personalDetailItem(context, 'Driving License', info?.drivingLicense),
-      if (info?.gender != null)
+      if (info?.gender.toString() != "")
         _personalDetailItem(context, 'Gender', info?.gender),
-      if (info?.identityNo != null)
+      if (info?.identityNo.toString() != "")
         _personalDetailItem(context, 'Identity No.', info?.identityNo),
-      if (info?.martialStatus != null)
+      if (info?.martialStatus.toString() != "")
         _personalDetailItem(context, 'Martial Status', info?.martialStatus),
-      if (info?.nationality != null)
+      if (info?.nationality.toString() != "")
         _personalDetailItem(context, 'Nationality', info?.nationality),
-      if (info?.militaryService != null)
+      if (info?.militaryService.toString() != "")
         _personalDetailItem(context, 'Military Service', info?.militaryService),
-      if (resumeData.personalDetail!.links.isNotEmpty)
-        ...List.generate(
-          resumeData.personalDetail!.links.length,
-          (index) => _personalDetailLinkItem(
-              context,
-              resumeData.personalDetail!.links[index].name,
-              resumeData.personalDetail!.links[index].url),
-        )
+      if (showPersonalLink) ...[
+        if (resumeData.personalDetail!.links[0].url.toString() != "")
+          _personalDetailLinkItem(
+            context,
+            resumeData.personalDetail!.links[0].name,
+            resumeData.personalDetail!.links[0].url,
+          ),
+        if (resumeData.personalDetail!.links[1].url.toString() != "")
+          _personalDetailLinkItem(
+            context,
+            resumeData.personalDetail!.links[1].name,
+            resumeData.personalDetail!.links[1].url,
+          ),
+        if (resumeData.personalDetail!.links[2].url.toString() != "")
+          _personalDetailLinkItem(
+            context,
+            resumeData.personalDetail!.links[2].name,
+            resumeData.personalDetail!.links[2].url,
+          ),
+        if (resumeData.personalDetail!.links[3].url.toString() != "")
+          _personalDetailLinkItem(
+            context,
+            resumeData.personalDetail!.links[3].name,
+            resumeData.personalDetail!.links[3].url,
+          ),
+      ]
     ],
   );
 }
@@ -308,21 +352,20 @@ pw.SizedBox _personalDetailItem(
       ));
 }
 
-pw.Row _personalDetailLinkItem(
-    pw.Context context, String? title, String? text) {
+pw.Row _personalDetailLinkItem(pw.Context context, String? name, String? url) {
   return pw.Row(
     children: [
       pw.SizedBox(
         width: 90,
         child: pw.Text(
-          title ?? '',
+          name ?? '',
           // 'Date Of Birth',
           textScaleFactor: 2,
           style: pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
         ),
       ),
       pw.Text(
-        " : ${text ?? ''}",
+        " : ${url ?? ''}",
         // " : ${info?.dateOfBirth ?? ''}",
         textScaleFactor: 2,
         textAlign: pw.TextAlign.justify,
@@ -447,13 +490,16 @@ pw.Column _experienceList(ResumeData resumeData, pw.Context context) {
               ],
             ),
             if (resumeData.experience!.experiences[index].description != null)
-              pw.Text(
-                resumeData.experience!.experiences[index].description ?? '',
-                textScaleFactor: 2,
-                textAlign: pw.TextAlign.justify,
-                style:
-                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
-              ),
+              pw.Row(children: [
+                pw.Text(
+                  resumeData.experience!.experiences[index].description ?? '',
+                  textScaleFactor: 2,
+                  textAlign: pw.TextAlign.justify,
+                  style: pw.Theme.of(context)
+                      .defaultTextStyle
+                      .copyWith(fontSize: 6),
+                ),
+              ])
           ],
         ),
       ),
