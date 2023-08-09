@@ -5,7 +5,7 @@ import '../../templates/domain/cv_model.dart';
 
 final resumeDataProvider = StateProvider<ResumeData?>((ref) {
   return ResumeData(
-    profile: ref.watch(profileProvider),
+    profile: ref.watch(profileSectionProvider),
     personalDetail: ref.watch(personalDetailSectionProvider),
     education: ref.watch(educationSectionProvider),
     project: ref.watch(projectSectionProvider),
@@ -69,7 +69,7 @@ final personalInformationProvider = StateProvider<PersonalInformation?>((ref) {
   return null;
 });
 // profile
-final profileProvider = StateProvider<ProfileSection?>((ref) => null);
+final profileSectionProvider = StateProvider<ProfileSection?>((ref) => null);
 // educaton
 final educationSectionProvider =
     StateProvider<EducationSection?>((ref) => null);

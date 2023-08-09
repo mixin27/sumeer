@@ -129,6 +129,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         .read(resumeDataProvider.notifier)
                                         .state = null;
                                     ref
+                                        .read(profileSectionProvider.notifier)
+                                        .state = null;
+                                    ref
                                         .read(templatelIdProvider.notifier)
                                         .state = null;
                                     ref

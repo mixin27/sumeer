@@ -38,7 +38,7 @@ class PersonalDetailSection with _$PersonalDetailSection {
     /// Your title, first and last name
     required String firstName,
     required String lastName,
-    required String fullName,
+    // required String fullName,
     required String jobTitle,
     required String email,
     required String phone,
@@ -49,6 +49,8 @@ class PersonalDetailSection with _$PersonalDetailSection {
     PersonalInformation? personalInfo,
     @Default([]) List<PersonalLink> links,
   }) = _PersonalDetailSection;
+
+  String get fullName => '$firstName $lastName';
 
   factory PersonalDetailSection.fromJson(Map<String, dynamic> json) =>
       _$PersonalDetailSectionFromJson(json);

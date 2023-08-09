@@ -11,7 +11,7 @@ Future<ResumeData> getDummyResumeData() async {
     personalDetail: const PersonalDetailSection(
       firstName: "Kyaw",
       lastName: "Zayar Tun",
-      fullName: "KYAW ZAYAR TUN",
+      // fullName: "KYAW ZAYAR TUN",
       jobTitle: "Mobile Developer",
       email: "kyawzayartun.sbs@gmail.com",
       phone: "+959 985 753 791",

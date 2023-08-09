@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/features/data_input/presentation/widget/add_language_form.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/education_card.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/experience_card.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/language_card.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/profile_card.dart';
 import '../../feat_data_input.dart';
 
 class EditFormWidget extends ConsumerStatefulWidget {
@@ -23,6 +26,9 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
           children: [
             // personnal detail card
             const PersonalDetailCard(),
+            ProfileCard(
+              onTap: () => showProfileForm(context),
+            ),
             EducationCard(
               onTap: () => showAddEducationForm(context),
             ),
@@ -34,6 +40,12 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
               onTap: () {
                 ref.read(skillLevelProvider.notifier).state = null;
                 showAddSkillForm(context);
+              },
+            ),
+            LanguageCard(
+              onTap: () {
+                ref.read(skillLevelProvider.notifier).state = null;
+                showLanguageForm(context);
               },
             ),
             const SizedBox(
@@ -218,6 +230,26 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         context: context,
         builder: (cxt) {
           return const AddSkillForm(null, null);
+        });
+  }
+
+  showLanguageForm(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        builder: (cxt) {
+          return const AddLanguageForm(null, null);
+        });
+  }
+
+  showProfileForm(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        builder: (cxt) {
+          return const AddProfileForm(null, null);
         });
   }
 }

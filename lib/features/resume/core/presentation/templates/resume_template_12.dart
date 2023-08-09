@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
@@ -11,6 +12,11 @@ Future<Uint8List> generateTemplate12(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  // get network image
+  final profileImage =
+      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
+          ? await networkImage(resumeData.profileImage!)
+          : null;
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -27,6 +33,24 @@ Future<Uint8List> generateTemplate12(
 
   final font = await PdfGoogleFonts.sourceSerifProItalic();
 
+  bool showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
+              .toString() !=
+          "" ||
+      resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
+          "" ||
+      resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
+      resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
+      resumeData.personalDetail?.personalInfo?.martialStatus.toString() != "" ||
+      resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
+          "" ||
+      resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
+
+  bool showPersonalLink =
+      resumeData.personalDetail?.links[0].url.toString() != "" ||
+          resumeData.personalDetail?.links[1].url.toString() != "" ||
+          resumeData.personalDetail?.links[2].url.toString() != "" ||
+          resumeData.personalDetail?.links[3].url.toString() != "";
+
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -41,11 +65,11 @@ Future<Uint8List> generateTemplate12(
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
                       // info
-                      _personalInfo(resumeData, context, font),
+                      _personalInfo(resumeData, context, font, profileImage),
                       pw.SizedBox(height: 10),
 
                       // Personal Detail
-                      if (resumeData.personalDetail != null) ...[
+                      if (showPersonalDetail || showPersonalLink) ...[
                         SectionDesign11(
                             lineColor: color, title: 'Personal Detail'),
                         if (resumeData.profile!.contents.isNotEmpty)
@@ -59,33 +83,42 @@ Future<Uint8List> generateTemplate12(
                       pw.SizedBox(height: 10),
 
                       // Experience
-                      if (resumeData.experience != null) ...[
-                        if (resumeData.experience?.title != null)
-                          SectionDesign11(
-                              lineColor: color,
-                              title: resumeData.experience?.title ?? ''),
+                      if (resumeData.experience?.experiences != null) ...[
+                        // if (resumeData.experience?.title != null)
+                        SectionDesign11(
+                          lineColor: color,
+                          title: resumeData.experience?.title.toString() == ""
+                              ? "Experience"
+                              : resumeData.experience?.title.toString() ?? "",
+                        ),
                         if (resumeData.experience!.experiences.isNotEmpty)
                           _experienceList(resumeData, context),
                       ],
                       pw.SizedBox(height: 10),
 
                       // Education
-                      if (resumeData.education != null) ...[
-                        if (resumeData.education?.title != null)
-                          SectionDesign11(
-                              lineColor: color,
-                              title: resumeData.education?.title ?? ''),
+                      if (resumeData.education?.educations != null) ...[
+                        // if (resumeData.education?.title != null)
+                        SectionDesign11(
+                          lineColor: color,
+                          title: resumeData.education?.title.toString() == ""
+                              ? "Education"
+                              : resumeData.education?.title.toString() ?? "",
+                        ),
                         if (resumeData.education!.educations.isNotEmpty)
                           _eduationList(resumeData, context),
                       ],
                       pw.SizedBox(height: 10),
 
                       // Skill
-                      if (resumeData.skill != null) ...[
-                        if (resumeData.skill?.title != null)
-                          SectionDesign11(
-                              lineColor: color,
-                              title: resumeData.skill?.title ?? ''),
+                      if (resumeData.skill?.skills != null) ...[
+                        // if (resumeData.skill?.title != null)
+                        SectionDesign11(
+                          lineColor: color,
+                          title: resumeData.skill?.title.toString() == ""
+                              ? "Skill"
+                              : resumeData.skill?.title.toString() ?? "",
+                        ),
                         if (resumeData.skill!.skills.isNotEmpty)
                           _skillList(resumeData, context, color),
                       ],
@@ -160,7 +193,8 @@ List<pw.Widget> _personalProfile(
   ];
 }
 
-pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font) {
+pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font,
+    ImageProvider? profileImage) {
   return pw.Row(
       // mainAxisAlignment: pw.MainAxisAlignment.end,
       // crossAxisAlignment: pw.CrossAxisAlignment.,
@@ -220,75 +254,77 @@ pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font) {
               ]),
         ),
         pw.SizedBox(width: 10),
-        if (resumeData.profileImage != null)
+        if (profileImage != null)
           pw.Expanded(
             flex: 2,
-            child: pw.ClipOval(
-              child: pw.Container(
-                width: 120,
-                height: 120,
-                color: lightGreen,
-                child: pw.SizedBox(),
-                // child: pw.Image(resumeData.profileImage!),
+            child: pw.Container(
+              width: 130,
+              height: 120,
+              // color: lightGreen,
+              child: pw.ClipOval(
+                // child: pw.SizedBox(),
+                child: pw.Image(profileImage, fit: pw.BoxFit.cover),
               ),
             ),
           ),
       ]);
 }
 
-// pw.Padding _personalInfoItem(pw.Context context, int codePoint, String text) {
-//   return pw.Padding(
-//       padding: const pw.EdgeInsets.symmetric(vertical: 3),
-//       child: pw.Wrap(
-//         children: [
-//           pw.Icon(
-//             pw.IconData(codePoint),
-//             color: PdfColor.fromHex('063841'),
-//             size: 20,
-//           ),
-//           pw.SizedBox(width: 4),
-//           pw.Text(
-//             text,
-//             // resumeData.personalDetail?.address ?? '',
-//             textScaleFactor: 1.2,
-//             style: pw.Theme.of(context).defaultTextStyle,
-//           ),
-//           pw.SizedBox(width: 6),
-//         ],
-//       ));
-// }
-
 pw.Wrap _personalDetail(ResumeData resumeData, pw.Context context) {
   PersonalInformation? info = resumeData.personalDetail!.personalInfo;
   return pw.Wrap(
     // crossAxisAlignment: pw.CrossAxisAlignment.start,
     children: [
-      if (info?.dateOfBirth != null)
+      if (info?.dateOfBirth.toString() != "")
         _personalDetailItem(
             context, 0xe7e9, 'Date Of Birth', info?.dateOfBirth),
-      if (info?.drivingLicense != null)
+      if (info?.drivingLicense.toString() != "")
         _personalDetailItem(
             context, 0xe531, 'Driving License', info?.drivingLicense),
-      if (info?.gender != null)
+      if (info?.gender.toString() != "")
         _personalDetailItem(context, 0xe63d, 'Gender', info?.gender),
-      if (info?.identityNo != null)
+      if (info?.identityNo.toString() != "")
         _personalDetailItem(context, 0xea67, 'Identity No.', info?.identityNo),
-      if (info?.martialStatus != null)
+      if (info?.martialStatus.toString() != "")
         _personalDetailItem(
             context, 0xefdf, 'Martial Status', info?.martialStatus),
-      if (info?.nationality != null)
+      if (info?.nationality.toString() != "")
         _personalDetailItem(context, 0xe153, 'Nationality', info?.nationality),
-      if (info?.militaryService != null)
+      if (info?.militaryService.toString() != "")
         _personalDetailItem(
             context, 0xea3f, 'Military Service', info?.militaryService),
-      if (resumeData.personalDetail!.links.isNotEmpty)
-        ...List.generate(
-          resumeData.personalDetail!.links.length,
-          (index) => _personalDetailLinkItem(
-              context,
-              resumeData.personalDetail!.links[index].name,
-              resumeData.personalDetail!.links[index].url),
-        )
+      if (resumeData.personalDetail!.links[0].url.toString() != "")
+        _personalDetailLinkItem(
+          context,
+          resumeData.personalDetail!.links[0].name,
+          resumeData.personalDetail!.links[0].url,
+        ),
+      if (resumeData.personalDetail!.links[1].url.toString() != "")
+        _personalDetailLinkItem(
+          context,
+          resumeData.personalDetail!.links[1].name,
+          resumeData.personalDetail!.links[1].url,
+        ),
+      if (resumeData.personalDetail!.links[2].url.toString() != "")
+        _personalDetailLinkItem(
+          context,
+          resumeData.personalDetail!.links[2].name,
+          resumeData.personalDetail!.links[2].url,
+        ),
+      if (resumeData.personalDetail!.links[3].url.toString() != "")
+        _personalDetailLinkItem(
+          context,
+          resumeData.personalDetail!.links[3].name,
+          resumeData.personalDetail!.links[3].url,
+        ),
+      // if (resumeData.personalDetail!.links.isNotEmpty)
+      //   ...List.generate(
+      //     resumeData.personalDetail!.links.length,
+      //     (index) => _personalDetailLinkItem(
+      //         context,
+      //         resumeData.personalDetail!.links[index].name,
+      //         resumeData.personalDetail!.links[index].url),
+      //   )
     ],
   );
 }

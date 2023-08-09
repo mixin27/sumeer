@@ -7,7 +7,6 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
-
 import '../../../auth/feat_auth.dart';
 import '../../../data_input/feat_data_input.dart';
 import '../../../templates/shared/provider.dart';
@@ -24,6 +23,12 @@ class ResumePreviewPage extends HookConsumerWidget {
     return WillPopScope(
       onWillPop: () async {
         ref.read(resumeDataProvider.notifier).state = null;
+        ref.read(resumeDataProvider.notifier).state = null;
+        ref.read(skillSectionProvider.notifier).state = null;
+        ref.read(educationSectionProvider.notifier).state = null;
+        ref.read(experienceSectionProvider.notifier).state = null;
+        ref.read(resumeModelIdProvider.notifier).state = '';
+        ref.read(profileSectionProvider.notifier).state = null;
         return true;
       },
       child: Scaffold(
