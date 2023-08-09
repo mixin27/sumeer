@@ -129,6 +129,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         .read(resumeDataProvider.notifier)
                                         .state = null;
                                     ref
+                                        .read(templatelIdProvider.notifier)
+                                        .state = null;
+                                    ref
                                         .read(skillSectionProvider.notifier)
                                         .state = null;
                                     ref
@@ -256,19 +259,42 @@ class _HomePageState extends ConsumerState<HomePage> {
                           itemBuilder: (context, index) {
                             final template = resumeTemplates[index];
 
-                            return Container(
-                              margin: const EdgeInsets.only(right: 8),
-                              child: Card(
-                                clipBehavior: Clip.hardEdge,
-                                elevation: 5,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(0)),
-                                ),
-                                child: Image.asset(
-                                  template.thumbnail,
-                                  // height: 350,
-                                  fit: BoxFit.cover,
+                            return InkWell(
+                              onTap: () {
+                                ref.read(resumeDataProvider.notifier).state =
+                                    null;
+                                ref.read(skillSectionProvider.notifier).state =
+                                    null;
+                                ref
+                                    .read(educationSectionProvider.notifier)
+                                    .state = null;
+                                ref
+                                    .read(experienceSectionProvider.notifier)
+                                    .state = null;
+                                ref.read(resumeModelIdProvider.notifier).state =
+                                    '';
+                                //
+                                ref.read(resumeModelIdProvider.notifier).state =
+                                    const Uuid().v4();
+                                ref.read(templatelIdProvider.notifier).state =
+                                    template.id;
+                                context.router
+                                    .push(const PersonalDetailRoute());
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 8),
+                                child: Card(
+                                  clipBehavior: Clip.hardEdge,
+                                  elevation: 5,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(0)),
+                                  ),
+                                  child: Image.asset(
+                                    template.thumbnail,
+                                    // height: 350,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             );

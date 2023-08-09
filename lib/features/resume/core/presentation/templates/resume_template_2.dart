@@ -48,12 +48,18 @@ Future<Uint8List> generateTemplate2(
                   children: [
                     pw.Text(resumeData.personalDetail?.fullName ?? "",
                         textScaleFactor: 2,
-                        style: const pw.TextStyle(color: PdfColors.white)),
+                        style: pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2])),
                     pw.SizedBox(height: 5),
                     pw.Text(
-                      resumeData.personalDetail!.jobTitle,
+                      resumeData.personalDetail?.jobTitle ?? "",
                       textScaleFactor: 1.5,
-                      style: const pw.TextStyle(color: PdfColors.white),
+                      style: pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
                     pw.SizedBox(height: 5),
                     if (profileImage != null)
@@ -131,7 +137,9 @@ Future<Uint8List> generateTemplate2(
                       )
                     ],
                     if (resumeData.personalDetail?.personalInfo?.nationality !=
-                        null) ...[
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.nationality!
+                            .isNotEmpty) ...[
                       buildContactTemp(
                         context,
                         "Nationality",
@@ -182,16 +190,17 @@ Future<Uint8List> generateTemplate2(
                       for (int i = 0;
                           i < resumeData.personalDetail!.links.length;
                           i++) ...[
-                        buildContactTemp(
-                          context,
-                          resumeData.personalDetail!.links[i].name,
-                          resumeData.personalDetail!.links[i].url,
-                          0xf1a2,
-                          pw.TextStyle(
-                              color: PdfColors.white,
-                              font: regular,
-                              fontFallback: [fall1, fall2]),
-                        )
+                        if (resumeData.personalDetail!.links[i].url.isNotEmpty)
+                          buildContactTemp(
+                            context,
+                            resumeData.personalDetail!.links[i].name,
+                            resumeData.personalDetail!.links[i].url,
+                            0xe569,
+                            pw.TextStyle(
+                                color: PdfColors.white,
+                                font: regular,
+                                fontFallback: [fall1, fall2]),
+                          )
                       ]
                     ],
                     pw.SizedBox(height: 20),
@@ -203,7 +212,10 @@ Future<Uint8List> generateTemplate2(
                         height: 85,
                         child: pw.Text(
                           resumeData.profile!.contents[0],
-                          style: const pw.TextStyle(color: PdfColors.white),
+                          style: pw.TextStyle(
+                              color: PdfColors.white,
+                              font: regular,
+                              fontFallback: [fall1, fall2]),
                         ),
                       ),
                       pw.SizedBox(height: 30),
@@ -462,11 +474,15 @@ Future<Uint8List> generateTemplate2(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text("${award.award} ",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Text("${award.issuer}",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.SizedBox(height: 20)
                               ],
                             );
@@ -493,11 +509,15 @@ Future<Uint8List> generateTemplate2(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text("${certificate.title} ",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Text("${certificate.school}",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.SizedBox(height: 20)
                               ],
                             );
@@ -535,9 +555,13 @@ Future<Uint8List> generateTemplate2(
                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                                 children: [
                                   pw.Text("${experience.employer?.name}",
-                                      style: const pw.TextStyle()),
+                                      style: pw.TextStyle(
+                                          font: regular,
+                                          fontFallback: [fall1, fall2])),
                                   pw.Text(experience.jobTitle,
-                                      style: const pw.TextStyle()),
+                                      style: pw.TextStyle(
+                                          font: regular,
+                                          fontFallback: [fall1, fall2])),
                                   pw.SizedBox(height: 5),
                                   if (experience.startDate != null &&
                                       experience.endDate != null &&
@@ -548,7 +572,9 @@ Future<Uint8List> generateTemplate2(
                                           DateFormat("E yyyy")
                                               .format(experience.startDate!)
                                               .toUpperCase(),
-                                          style: const pw.TextStyle(),
+                                          style: pw.TextStyle(
+                                              font: regular,
+                                              fontFallback: [fall1, fall2]),
                                         ),
                                         pw.SizedBox(width: 5),
                                         pw.Text('-'),
@@ -557,7 +583,9 @@ Future<Uint8List> generateTemplate2(
                                           DateFormat("E yyyy")
                                               .format(experience.endDate!)
                                               .toUpperCase(),
-                                          style: const pw.TextStyle(),
+                                          style: pw.TextStyle(
+                                              font: regular,
+                                              fontFallback: [fall1, fall2]),
                                         ),
                                       ],
                                     ),
@@ -604,9 +632,13 @@ Future<Uint8List> generateTemplate2(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text("${education.degree} ",
-                                    style: const pw.TextStyle()),
+                                    style: pw.TextStyle(
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Text("${education.school}",
-                                    style: const pw.TextStyle()),
+                                    style: pw.TextStyle(
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Row(
                                   children: [
                                     education.startDate != null
@@ -614,7 +646,9 @@ Future<Uint8List> generateTemplate2(
                                             DateFormat("yyyy")
                                                 .format(education.startDate!)
                                                 .toUpperCase(),
-                                            style: const pw.TextStyle(),
+                                            style: pw.TextStyle(
+                                                font: regular,
+                                                fontFallback: [fall1, fall2]),
                                           )
                                         : pw.SizedBox(),
                                     pw.SizedBox(width: 5),
@@ -624,7 +658,9 @@ Future<Uint8List> generateTemplate2(
                                     education.endDate != null
                                         ? pw.Text(
                                             "${DateFormat("yyyy").format(education.endDate!).toUpperCase()} | ${education.city}",
-                                            style: const pw.TextStyle(),
+                                            style: pw.TextStyle(
+                                                font: regular,
+                                                fontFallback: [fall1, fall2]),
                                           )
                                         : pw.SizedBox(),
                                   ],

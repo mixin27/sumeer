@@ -164,7 +164,10 @@ class _MyFilePageState extends ConsumerState<MyFilePage> {
                                     ),
                                     horSpace(8),
                                     OutlinedButton.icon(
-                                      icon: const Icon(Icons.edit),
+                                      icon: const Icon(
+                                        Icons.visibility,
+                                        size: 20,
+                                      ),
                                       // style: outlineButtonStyle,
                                       style: OutlinedButton.styleFrom(
                                         foregroundColor: Theme.of(context)
@@ -200,7 +203,11 @@ class _MyFilePageState extends ConsumerState<MyFilePage> {
                                     ),
                                     horSpace(8),
                                     OutlinedButton.icon(
-                                      icon: const Icon(Icons.delete),
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                      ),
                                       // style: outlineButtonStyle,
                                       style: OutlinedButton.styleFrom(
                                         foregroundColor: Theme.of(context)
@@ -236,7 +243,17 @@ class _MyFilePageState extends ConsumerState<MyFilePage> {
                                           getData();
                                         });
                                       },
-                                      label: const Text('Delete'),
+                                      label: Text(
+                                        'Delete',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
+                                            ),
+                                      ),
                                     ),
                                   ],
                                 )
