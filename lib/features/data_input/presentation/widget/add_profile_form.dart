@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-
 import '../../../../utils/utils.dart';
 
 class AddProfileForm extends ConsumerStatefulWidget {
@@ -80,7 +79,7 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                             ref.watch(profileSectionProvider);
                         final oldResumeData = ref.watch(resumeDataProvider);
 
-                        String content = contentController.text;
+                        // String content = contentController.text;
                         // ProfileSection education = ProfileSection(
                         //  title: '',
                         //  contents:

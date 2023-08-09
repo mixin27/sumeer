@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/features/data_input/presentation/widget/expanable/language.dart';
 
-import 'package:sumeer/features/data_input/presentation/widget/expanable/skill.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/language.dart';
 import '../../../../features.dart';
 
 class LanguageCard extends ConsumerStatefulWidget {

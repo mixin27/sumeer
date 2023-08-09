@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/features/data_input/presentation/widget/expanable/profile_widget.dart';
 
+import 'package:sumeer/features/data_input/presentation/widget/expanable/profile_widget.dart';
 import '../../../../features.dart';
 
 class ProfileCard extends ConsumerStatefulWidget {
