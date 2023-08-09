@@ -839,7 +839,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     var personalDetail = PersonalDetailSection(
       firstName: firstNameController.text,
       lastName: lastNameController.text,
-      fullName: "${firstNameController.text} ${lastNameController.text}",
+      // fullName: "${firstNameController.text} ${lastNameController.text}",
       jobTitle: jobTitleController.text,
       email: emailController.text,
       phone: phoneController.text,
