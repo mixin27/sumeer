@@ -876,12 +876,13 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       resumeId: ref.watch(resumeModelIdProvider),
       profileImage: imageUrl,
       personalDetail: personalDetail,
-      profile: const ProfileSection(
-        title: "Profile",
-        contents: [
-          'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
-        ],
-      ),
+      // profile: const ProfileSection(
+      //   title: "Profile",
+      //   contents: [
+      //     'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
+      //   ],
+      // ),
+      profile: ref.watch(profileSectionProvider),
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,
