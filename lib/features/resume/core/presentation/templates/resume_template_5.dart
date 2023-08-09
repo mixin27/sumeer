@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
@@ -11,6 +12,11 @@ Future<Uint8List> generateTemplate5(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  // get network image
+  final profileImage =
+      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
+          ? await networkImage(resumeData.profileImage!)
+          : null;
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -40,7 +46,7 @@ Future<Uint8List> generateTemplate5(
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
                       // info
-                      _personalInfo(resumeData, context, font),
+                      _personalInfo(resumeData, context, font, profileImage),
                       pw.SizedBox(height: 8),
 
                       // Profile
@@ -49,33 +55,42 @@ Future<Uint8List> generateTemplate5(
                       pw.SizedBox(height: 8),
 
                       // Experience
-                      if (resumeData.experience != null) ...[
-                        if (resumeData.experience?.title != null)
-                          SectionDesign5(
-                              lineColor: color,
-                              title: resumeData.experience?.title ?? ''),
+                      if (resumeData.experience?.experiences != null) ...[
+                        // if (resumeData.experience?.title != null)
+                        SectionDesign5(
+                          lineColor: color,
+                          title: resumeData.experience?.title.toString() == ""
+                              ? "Experience"
+                              : resumeData.experience?.title.toString() ?? "",
+                        ),
                         if (resumeData.experience!.experiences.isNotEmpty)
                           _experienceList(resumeData, context),
                       ],
                       pw.SizedBox(height: 8),
 
                       // Education
-                      if (resumeData.education != null) ...[
+                      if (resumeData.education?.educations != null) ...[
                         if (resumeData.education?.title != null)
                           SectionDesign5(
-                              lineColor: color,
-                              title: resumeData.education?.title ?? ''),
+                            lineColor: color,
+                            title: resumeData.education?.title.toString() == ""
+                                ? "Education"
+                                : resumeData.education?.title.toString() ?? "",
+                          ),
                         if (resumeData.education!.educations.isNotEmpty)
                           _eduationList(resumeData, context),
                       ],
                       pw.SizedBox(height: 8),
 
                       // Skill
-                      if (resumeData.skill != null) ...[
+                      if (resumeData.skill?.skills != null) ...[
                         if (resumeData.skill?.title != null)
                           SectionDesign5(
-                              lineColor: color,
-                              title: resumeData.skill?.title ?? ''),
+                            lineColor: color,
+                            title: resumeData.skill?.title.toString() == ""
+                                ? "Skill"
+                                : resumeData.skill?.title.toString() ?? "",
+                          ),
                         if (resumeData.skill!.skills.isNotEmpty)
                           _skillList(resumeData, context, color),
                       ],
@@ -150,7 +165,8 @@ List<pw.Widget> _personalProfile(
   ];
 }
 
-pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font) {
+pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font,
+    ImageProvider? profileImage) {
   return pw.Row(
       // mainAxisAlignment: pw.MainAxisAlignment.end,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -202,50 +218,57 @@ pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font) {
                         resumeData.personalDetail?.phone ?? ''),
                   //
                   if (resumeData.personalDetail?.personalInfo != null)
-                    if (resumeData.personalDetail?.personalInfo?.dateOfBirth !=
-                        null)
+                    if (resumeData.personalDetail?.personalInfo?.dateOfBirth
+                            .toString() !=
+                        "")
                       _personalDetialItem(
                           context,
                           0xe7e9,
                           resumeData
                                   .personalDetail?.personalInfo?.dateOfBirth ??
                               ''),
-                  if (resumeData.personalDetail?.personalInfo?.drivingLicense !=
-                      null)
+                  if (resumeData.personalDetail?.personalInfo?.drivingLicense
+                          .toString() !=
+                      '')
                     _personalDetialItem(
                         context,
                         0xe531,
                         resumeData
                                 .personalDetail?.personalInfo?.drivingLicense ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.gender != null)
+                  if (resumeData.personalDetail?.personalInfo?.gender
+                          .toString() !=
+                      "")
                     _personalDetialItem(context, 0xe63d,
                         resumeData.personalDetail?.personalInfo?.gender ?? ''),
-                  if (resumeData.personalDetail?.personalInfo?.identityNo !=
-                      null)
+                  if (resumeData.personalDetail?.personalInfo?.identityNo
+                          .toString() !=
+                      "")
                     _personalDetialItem(
                         context,
                         0xea67,
                         resumeData.personalDetail?.personalInfo?.identityNo ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.martialStatus !=
-                      null)
+                  if (resumeData.personalDetail?.personalInfo?.martialStatus
+                          .toString() !=
+                      "")
                     _personalDetialItem(
                         context,
                         0xefdf,
                         resumeData
                                 .personalDetail?.personalInfo?.martialStatus ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.nationality !=
-                      null)
+                  if (resumeData.personalDetail?.personalInfo?.nationality
+                          .toString() !=
+                      "")
                     _personalDetialItem(
                         context,
                         0xe153,
                         resumeData.personalDetail?.personalInfo?.nationality ??
                             ''),
-                  if (resumeData
-                          .personalDetail?.personalInfo?.militaryService !=
-                      null)
+                  if (resumeData.personalDetail?.personalInfo?.militaryService
+                          .toString() !=
+                      "")
                     _personalDetialItem(
                         context,
                         0xea3f,
@@ -253,26 +276,37 @@ pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font) {
                                 ?.militaryService ??
                             ''),
                   //
-                  if (resumeData.personalDetail != null &&
-                      resumeData.personalDetail!.links.isNotEmpty)
-                    ...List.generate(
-                      resumeData.personalDetail!.links.length,
-                      (index) => _personalDetialItem(context, 0xe157,
-                          resumeData.personalDetail!.links[index].url),
-                    )
+                  if (resumeData.personalDetail!.links[0].url.toString() != "")
+                    _personalDetialItem(context, 0xe157,
+                        resumeData.personalDetail!.links[0].url),
+                  if (resumeData.personalDetail!.links[1].url.toString() != "")
+                    _personalDetialItem(context, 0xe157,
+                        resumeData.personalDetail!.links[1].url),
+                  if (resumeData.personalDetail!.links[2].url.toString() != "")
+                    _personalDetialItem(context, 0xe157,
+                        resumeData.personalDetail!.links[2].url),
+                  if (resumeData.personalDetail!.links[3].url.toString() != "")
+                    _personalDetialItem(context, 0xe157,
+                        resumeData.personalDetail!.links[3].url),
+                  // if (resumeData.personalDetail != null &&
+                  //     resumeData.personalDetail!.links.isNotEmpty)
+                  //   ...
+                  //   List.generate(
+                  //     resumeData.personalDetail!.links.length,
+                  //     (index) => _personalDetialItem(context, 0xe157,
+                  //         resumeData.personalDetail!.links[index].url),
+                  //   )
                 ]),
               ]),
         ),
-        if (resumeData.profileImage != null)
+        if (profileImage != null)
           pw.Expanded(
             flex: 2,
-            child: pw.ClipOval(
-              child: pw.Container(
-                width: 150,
-                height: 150,
-                color: lightGreen,
-                child: pw.SizedBox(),
-                // child: pw.Image(resumeData.profileImage!),
+            child: pw.Container(
+              width: 130,
+              height: 120,
+              child: pw.ClipOval(
+                child: pw.Image(profileImage, fit: pw.BoxFit.cover),
               ),
             ),
           )
