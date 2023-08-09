@@ -5,16 +5,39 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
 
+import '../../../../utils/utils.dart';
+
 class AddProfileForm extends ConsumerStatefulWidget {
-  const AddProfileForm({super.key});
+  final int? index;
+  final String? content;
+  const AddProfileForm(this.index, this.content, {super.key});
 
   @override
   ConsumerState<AddProfileForm> createState() => _AddProfileFormState();
 }
 
 class _AddProfileFormState extends ConsumerState<AddProfileForm> {
+  final TextEditingController contentController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    setData();
+  }
+
+  Future<void> setData() async {
+    Future.microtask(() {
+      // final skill = ref.watch(userSkillProvider);
+      if (widget.content != null) {
+        contentController.text = widget.content ?? '';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    dLog('context list', widget.content);
+    dLog('context index', widget.index);
     return SingleChildScrollView(
       child: Container(
         padding: MediaQuery.of(context).viewInsets,
@@ -44,7 +67,8 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                 child: ListView(
                   shrinkWrap: true,
                   children: [
-                    const TextInputFieldWidget(
+                    TextInputFieldWidget(
+                      controller: contentController,
                       title: "Text",
                       hintText:
                           "Introduce yourself by pitching your skill & explaining how they can be of value to a company",
@@ -52,68 +76,71 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
-                        // final oldProfileSection = ref.watch(profileProvider);
-                        // final oldResumeData = ref.watch(resumeDataProvider);
-                        // ProfileSection education = Prof(
-                        //   degree: degreeController.text,
-                        //   school: schoolController.text,
-                        //   city: cityController.text,
-                        //   startDate: selectedStartDate,
-                        //   endDate: selectedEndDate,
+                        final oldProfileSection =
+                            ref.watch(profileSectionProvider);
+                        final oldResumeData = ref.watch(resumeDataProvider);
+
+                        String content = contentController.text;
+                        // ProfileSection education = ProfileSection(
+                        //  title: '',
+                        //  contents:
                         // );
-                        // if (degreeController.text.isEmpty &&
-                        //     schoolController.text.isEmpty) {
-                        //   return Navigator.of(context).pop();
-                        // } else {
-                        //   if (widget.index != null) {
-                        //     List<Education> list1 = [];
-                        //     List<Education> list =
-                        //         oldEduSection?.educations ?? [];
-                        //     for (var element in list) {
-                        //       list1.add(element);
-                        //     }
-                        //     list1.removeAt(widget.index ?? 0);
-                        //     wLog('updated list remove', list1);
+                        if (contentController.text.isEmpty) {
+                          return Navigator.of(context).pop();
+                        } else {
+                          if (widget.index != null) {
+                            List<String> list1 = [];
+                            List<String> oldList =
+                                oldResumeData?.profile?.contents ?? [];
+                            for (var element in oldList) {
+                              list1.add(element);
+                            }
+                            list1.removeAt(widget.index ?? 0);
+                            wLog('updated list remove', list1);
+                            list1.insert(
+                                widget.index ?? 0, contentController.text);
 
-                        //     list1.insert(widget.index ?? 0, education);
-                        //     wLog('updated list', list1);
-                        //     EducationSection educationSection =
-                        //         EducationSection(title: '', educations: list1);
+                            wLog('updated list', list1);
+                            ProfileSection profileSection = ProfileSection(
+                                title: 'Profile', contents: list1);
 
-                        //     ref
-                        //         .read(educationSectionProvider.notifier)
-                        //         .update((state) => educationSection);
+                            ref
+                                .read(profileSectionProvider.notifier)
+                                .update((state) => profileSection);
 
-                        //     final newResumeData = oldResumeData?.copyWith(
-                        //         education: ref.watch(educationSectionProvider));
-                        //     ref
-                        //         .read(resumeDataProvider.notifier)
-                        //         .update((state) => newResumeData);
-                        //   } else {
-                        //     List<Education> eduList = oldEduSection == null
-                        //         ? [education]
-                        //         : [...oldEduSection.educations, education];
-                        //     EducationSection eduScetion = EducationSection(
-                        //       title: '',
-                        //       educations: eduList,
-                        //     );
-                        //     ref
-                        //         .read(educationSectionProvider.notifier)
-                        //         .update((state) => eduScetion);
-                        //     // ResumeData resumeData = ResumeData(
-                        //     //     education: ref.watch(educationSectionProvider));
-                        //     final newResumeData = oldResumeData?.copyWith(
-                        //       education: ref.watch(educationSectionProvider),
-                        //     );
-                        //     ref
-                        //         .read(resumeDataProvider.notifier)
-                        //         .update((state) => newResumeData);
-                        //     // ref
-                        //     //     .read(resumeDataProvider.notifier)
-                        //     //     .update((state) => state);
-                        //   }
-                        // }
-
+                            final newResumeData = oldResumeData?.copyWith(
+                              profile: ref.watch(profileSectionProvider),
+                            );
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                          } else {
+                            List<String> contentList = oldProfileSection == null
+                                ? [contentController.text]
+                                : [
+                                    ...oldProfileSection.contents,
+                                    contentController.text
+                                  ];
+                            ProfileSection profileSection = ProfileSection(
+                              title: '',
+                              contents: contentList,
+                            );
+                            ref
+                                .read(profileSectionProvider.notifier)
+                                .update((state) => profileSection);
+                            // ResumeData resumeData = ResumeData(
+                            //     education: ref.watch(educationSectionProvider));
+                            final newResumeData = oldResumeData?.copyWith(
+                              profile: ref.watch(profileSectionProvider),
+                            );
+                            ref
+                                .read(resumeDataProvider.notifier)
+                                .update((state) => newResumeData);
+                            // ref
+                            //     .read(resumeDataProvider.notifier)
+                            //     .update((state) => state);
+                          }
+                        }
                         Navigator.pop(context);
                       },
                     )
