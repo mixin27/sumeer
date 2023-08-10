@@ -7,31 +7,33 @@ import 'package:intl/intl.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-import 'package:sumeer/utils/utils.dart';
+import 'package:sumeer/utils/logger/logger.dart';
+import '../../../../utils/helpers/dialog_helper.dart';
 import '../../../../widgets/app_dialog_box.dart';
 
-class AddEducationForm extends ConsumerStatefulWidget {
+class AddProfessionalExperienceForm extends ConsumerStatefulWidget {
   final int? index;
-  final Education? education;
-  const AddEducationForm(this.education, this.index, {super.key});
+  final Experience? experience;
+  const AddProfessionalExperienceForm(this.experience, this.index, {super.key});
 
   @override
-  ConsumerState<AddEducationForm> createState() => _AddEducationFormState();
+  ConsumerState<AddProfessionalExperienceForm> createState() =>
+      _AddProfessionalExperienceFormState();
 }
 
-class _AddEducationFormState extends ConsumerState<AddEducationForm> {
-  final degreeController = TextEditingController();
-  final schoolController = TextEditingController();
+class _AddProfessionalExperienceFormState
+    extends ConsumerState<AddProfessionalExperienceForm> {
+  final employerController = TextEditingController();
+  final jobTitleController = TextEditingController();
   final cityController = TextEditingController();
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
+  final descriptionController = TextEditingController();
   String selectedStartDateStr = "";
   DateTime? selectedStartDate;
   String selectedEndDateStr = "";
   DateTime? selectedEndDate;
-  bool isChecked = false;
-  bool isChecked1 = false;
-
+  bool isPresent = false;
   @override
   void initState() {
     super.initState();
@@ -40,20 +42,23 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
 
   Future<void> setData() async {
     Future.microtask(() {
-      // final skill = ref.watch(userSkillProvider);
-      if (widget.education != null) {
-        degreeController.text = widget.education?.degree ?? '';
-        schoolController.text = widget.education?.school ?? '';
-        cityController.text = widget.education?.city.toString() ?? '';
+      // final exp = ref.watch(userExpProvider);
+      if (widget.experience != null) {
+        employerController.text = widget.experience?.employer?.name ?? '';
+        jobTitleController.text = widget.experience?.jobTitle ?? '';
+        cityController.text = widget.experience?.city ?? '';
+        isPresent = widget.experience?.isPresent ?? false;
 
-        if (widget.education?.startDate != null) {
-          selectedStartDate = widget.education?.startDate;
+        descriptionController.text = widget.experience?.description ?? '';
+
+        if (widget.experience?.startDate != null) {
+          selectedStartDate = widget.experience?.startDate;
           selectedStartDateStr = DateFormat("MMMM-yyyy")
               .format(selectedStartDate ?? DateTime.now());
           startDateController.text = selectedStartDateStr;
         }
-        if (widget.education?.endDate != null) {
-          selectedEndDate = widget.education?.endDate;
+        if (widget.experience?.endDate != null) {
+          selectedEndDate = widget.experience?.endDate;
           selectedEndDateStr =
               DateFormat("MMMM-yyyy").format(selectedEndDate ?? DateTime.now());
           endDateController.text = selectedEndDateStr;
@@ -64,7 +69,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
 
   @override
   Widget build(BuildContext context) {
-    wLog('index number', 'called');
+    wtfLog('widget experience', widget.experience);
     return DraggableScrollableSheet(
         initialChildSize: 0.95,
         minChildSize: 0.5,
@@ -79,7 +84,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Add Education",
+                  "Add Professional Experience",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
@@ -98,12 +103,12 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                       shrinkWrap: true,
                       children: [
                         TextInputFieldWidget(
-                          controller: schoolController,
-                          title: "School",
+                          controller: employerController,
+                          title: "Employer",
                         ),
                         TextInputFieldWidget(
-                          controller: degreeController,
-                          title: "Degree",
+                          controller: jobTitleController,
+                          title: "Job Title",
                         ),
                         TextInputFieldWidget(
                           controller: cityController,
@@ -120,92 +125,122 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                           ),
                           onTap: () => _showStartDatePicker(context),
                         ),
+                        Row(
+                          children: [
+                            Visibility(
+                              visible: !isPresent,
+                              child: Expanded(
+                                flex: 7,
+                                child: TextInputFieldWidget(
+                                  controller: endDateController,
+                                  title: "End Date",
+                                  readOnly: true,
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month,
+                                    size: 30,
+                                    color: Colors.grey.withOpacity(0.7),
+                                  ),
+                                  onTap: () => _showDatePicker(context),
+                                ),
+                              ),
+                            ),
+                            Checkbox(
+                                value: isPresent,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isPresent = value ?? false;
+                                  });
+                                }),
+                            Text(
+                              "Is Present",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            )
+                          ],
+                        ),
                         TextInputFieldWidget(
-                          controller: endDateController,
-                          title: "End Date",
-                          readOnly: true,
-                          suffixIcon: Icon(
-                            Icons.calendar_month,
-                            size: 30,
-                            color: Colors.grey.withOpacity(0.7),
-                          ),
-                          onTap: () => _showDatePicker(context),
+                          controller: descriptionController,
+                          title: "Description",
+                          hintText: "Describe ypur role & achievements",
+                          maxLines: 3,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
-                            // final oldEduSection =
-                            //     ref.watch(educationSectionProvider);
                             final oldResumeData = ref.watch(resumeDataProvider);
-                            final oldEduSection =
-                                oldResumeData?.education?.educations ?? [];
-                            Education education = Education(
-                              degree: degreeController.text,
-                              school: schoolController.text,
+                            // final oldExpScetion =
+                            //     ref.watch(experienceSectionProvider);
+                            final oldExpScetion =
+                                oldResumeData?.experience?.experiences ?? [];
+                            vLog('date time', DateTime.now());
+                            Employer employer =
+                                Employer(name: employerController.text);
+                            Experience experience = Experience(
+                              employer: employer,
+                              jobTitle: jobTitleController.text,
                               city: cityController.text,
-                              startDate: selectedStartDate,
-                              endDate: selectedEndDate,
+                              isPresent: isPresent,
+                              // startDate: startDate,
+                              startDate: DateTime.now(),
+                              endDate: DateTime.now(),
+                              description: descriptionController.text,
                             );
-                            if (degreeController.text.isEmpty &&
-                                schoolController.text.isEmpty) {
+
+                            if (jobTitleController.text.isEmpty) {
                               return Navigator.of(context).pop();
                             } else {
                               if (widget.index != null) {
-                                List<Education> list1 = [];
-                                List<Education> list = oldEduSection;
+                                List<Experience> list1 = [];
+                                List<Experience> list = oldExpScetion;
                                 for (var element in list) {
                                   list1.add(element);
                                 }
                                 list1.removeAt(widget.index ?? 0);
                                 wLog('updated list remove', list1);
 
-                                list1.insert(widget.index ?? 0, education);
+                                list1.insert(widget.index ?? 0, experience);
                                 wLog('updated list', list1);
-                                EducationSection educationSection =
-                                    EducationSection(
-                                        title: '', educations: list1);
+                                ExperienceSection skillSection =
+                                    ExperienceSection(
+                                        title: '', experiences: list1);
 
                                 ref
-                                    .read(educationSectionProvider.notifier)
-                                    .update((state) => educationSection);
+                                    .read(experienceSectionProvider.notifier)
+                                    .update((state) => skillSection);
 
                                 final newResumeData = oldResumeData?.copyWith(
-                                    education:
-                                        ref.watch(educationSectionProvider));
+                                    experience:
+                                        ref.watch(experienceSectionProvider));
                                 ref
                                     .read(resumeDataProvider.notifier)
                                     .update((state) => newResumeData);
                               } else {
-                                List<Education> eduList = oldEduSection.isEmpty
-                                    ? [education]
-                                    : [...oldEduSection, education];
-                                EducationSection eduScetion = EducationSection(
+                                List<Experience> experienceList =
+                                    oldExpScetion.isEmpty
+                                        ? [experience]
+                                        : [...oldExpScetion, experience];
+                                ExperienceSection experienceSection =
+                                    ExperienceSection(
                                   title: '',
-                                  educations: eduList,
+                                  experiences: experienceList,
                                 );
                                 ref
-                                    .read(educationSectionProvider.notifier)
-                                    .update((state) => eduScetion);
-                                // ResumeData resumeData = ResumeData(
-                                //     education: ref.watch(educationSectionProvider));
+                                    .read(experienceSectionProvider.notifier)
+                                    .update((state) => experienceSection);
+
                                 final newResumeData = oldResumeData?.copyWith(
-                                  education:
-                                      ref.watch(educationSectionProvider),
-                                );
+                                    experience:
+                                        ref.watch(experienceSectionProvider));
                                 ref
                                     .read(resumeDataProvider.notifier)
                                     .update((state) => newResumeData);
-                                // ref
-                                //     .read(resumeDataProvider.notifier)
-                                //     .update((state) => state);
                               }
                             }
 
                             Navigator.pop(context);
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/features/data_input/presentation/widget/expanable/skill.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/language.dart';
 import '../../../../features.dart';
 
-class SkillCard extends ConsumerStatefulWidget {
-  const SkillCard({
+class LanguageCard extends ConsumerStatefulWidget {
+  const LanguageCard({
     Key? key,
     this.onTap,
   }) : super(key: key);
@@ -14,10 +14,10 @@ class SkillCard extends ConsumerStatefulWidget {
   final GestureTapCallback? onTap;
 
   @override
-  ConsumerState<SkillCard> createState() => _AddDataCardState();
+  ConsumerState<LanguageCard> createState() => _AddDataCardState();
 }
 
-class _AddDataCardState extends ConsumerState<SkillCard> {
+class _AddDataCardState extends ConsumerState<LanguageCard> {
   bool isShowSkill = false;
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,12 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                     const Padding(
                       padding: EdgeInsets.only(right: 8.0),
                       child: Icon(
-                        Icons.emoji_events,
+                        Icons.language,
                         size: 30,
                       ),
                     ),
                     Text(
-                      'Skill',
+                      'Language',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -61,7 +61,7 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                         color: Color(0xFF407BFF),
                       ),
                     ),
-                    ref.watch(resumeDataProvider)?.skill == null
+                    ref.watch(resumeDataProvider)?.languages == null
                         ? const SizedBox()
                         : IconButton(
                             onPressed: () {
@@ -80,11 +80,11 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                 ),
               ),
             ),
-            ref.watch(resumeDataProvider)?.skill == null
+            ref.watch(resumeDataProvider)?.languages == null
                 ? const SizedBox()
                 : Column(
                     children: [
-                      isShowSkill ? const SkillWdiget() : const SizedBox(),
+                      isShowSkill ? const LanguageWidget() : const SizedBox(),
                     ],
                   ),
           ],

@@ -121,21 +121,43 @@ class _HomePageState extends ConsumerState<HomePage> {
                             Expanded(
                               child: InkWell(
                                 onTap: () {
-                                  ref.read(resumeDataProvider.notifier).state =
-                                      null;
-                                  ref
-                                      .read(resumeModelIdProvider.notifier)
-                                      .state = '';
+                                  if (ref
+                                          .watch(authRepositoryProvider)
+                                          .currentUser !=
+                                      null) {
+                                    ref
+                                        .read(resumeDataProvider.notifier)
+                                        .state = null;
+                                    ref
+                                        .read(profileSectionProvider.notifier)
+                                        .state = null;
+                                    ref
+                                        .read(skillSectionProvider.notifier)
+                                        .state = null;
+                                    ref
+                                        .read(educationSectionProvider.notifier)
+                                        .state = null;
+                                    ref
+                                        .read(
+                                            experienceSectionProvider.notifier)
+                                        .state = null;
+                                    ref
+                                        .read(resumeModelIdProvider.notifier)
+                                        .state = '';
 
-                                  ref
-                                      .read(resumeModelIdProvider.notifier)
-                                      .state = ref
-                                          .watch(resumeModelIdProvider)
-                                          .isEmptyOrNull
-                                      ? const Uuid().v4()
-                                      : ref.watch(resumeModelIdProvider);
-                                  context.router
-                                      .push(const PersonalDetailRoute());
+                                    //
+                                    ref
+                                        .read(resumeModelIdProvider.notifier)
+                                        .state = ref
+                                            .watch(resumeModelIdProvider)
+                                            .isEmptyOrNull
+                                        ? const Uuid().v4()
+                                        : ref.watch(resumeModelIdProvider);
+                                    context.router
+                                        .push(const PersonalDetailRoute());
+                                  } else {
+                                    context.router.push(const SignInRoute());
+                                  }
                                 },
                                 child: Container(
                                   height: 100,

@@ -8,6 +8,7 @@ class ResumeData with _$ResumeData {
   const ResumeData._();
   const factory ResumeData({
     // pw.MemoryImage? profileImage,
+    String? templateId,
     String? resumeId,
     String? profileImage,
     PersonalDetailSection? personalDetail,
@@ -21,6 +22,9 @@ class ResumeData with _$ResumeData {
     InterestSection? interest,
     AwardSection? award,
   }) = _ResumeData;
+
+  factory ResumeData.empty() => const ResumeData();
+
   factory ResumeData.fromJson(Map<String, dynamic> json) =>
       _$ResumeDataFromJson(json);
 }
@@ -34,7 +38,7 @@ class PersonalDetailSection with _$PersonalDetailSection {
     /// Your title, first and last name
     required String firstName,
     required String lastName,
-    required String fullName,
+    // required String fullName,
     required String jobTitle,
     required String email,
     required String phone,
@@ -45,6 +49,8 @@ class PersonalDetailSection with _$PersonalDetailSection {
     PersonalInformation? personalInfo,
     @Default([]) List<PersonalLink> links,
   }) = _PersonalDetailSection;
+
+  String get fullName => '$firstName $lastName';
 
   factory PersonalDetailSection.fromJson(Map<String, dynamic> json) =>
       _$PersonalDetailSectionFromJson(json);

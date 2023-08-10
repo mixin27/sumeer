@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/features/data_input/presentation/widget/expanable/skill.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/profile_widget.dart';
 import '../../../../features.dart';
 
-class SkillCard extends ConsumerStatefulWidget {
-  const SkillCard({
+class ProfileCard extends ConsumerStatefulWidget {
+  const ProfileCard({
     Key? key,
     this.onTap,
   }) : super(key: key);
@@ -14,11 +14,11 @@ class SkillCard extends ConsumerStatefulWidget {
   final GestureTapCallback? onTap;
 
   @override
-  ConsumerState<SkillCard> createState() => _AddDataCardState();
+  ConsumerState<ProfileCard> createState() => _AddDataCardState();
 }
 
-class _AddDataCardState extends ConsumerState<SkillCard> {
-  bool isShowSkill = false;
+class _AddDataCardState extends ConsumerState<ProfileCard> {
+  bool isShowProfile = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +46,7 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                       ),
                     ),
                     Text(
-                      'Skill',
+                      'Profile',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -61,15 +61,15 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                         color: Color(0xFF407BFF),
                       ),
                     ),
-                    ref.watch(resumeDataProvider)?.skill == null
+                    ref.watch(resumeDataProvider)?.profile == null
                         ? const SizedBox()
                         : IconButton(
                             onPressed: () {
-                              isShowSkill = !isShowSkill;
+                              isShowProfile = !isShowProfile;
                               setState(() {});
                             },
                             icon: Icon(
-                              isShowSkill
+                              isShowProfile
                                   ? Icons.arrow_drop_up
                                   : Icons.arrow_drop_down,
                               size: 40,
@@ -80,11 +80,11 @@ class _AddDataCardState extends ConsumerState<SkillCard> {
                 ),
               ),
             ),
-            ref.watch(resumeDataProvider)?.skill == null
+            ref.watch(resumeDataProvider)?.profile == null
                 ? const SizedBox()
                 : Column(
                     children: [
-                      isShowSkill ? const SkillWdiget() : const SizedBox(),
+                      isShowProfile ? const ProfileWidget() : const SizedBox(),
                     ],
                   ),
           ],

@@ -4,16 +4,17 @@ import '../../features.dart';
 import '../../templates/domain/cv_model.dart';
 
 final resumeDataProvider = StateProvider<ResumeData?>((ref) {
-  return ResumeData(
-    profile: ref.watch(profileProvider),
-    personalDetail: ref.watch(personalDetailSectionProvider),
-    education: ref.watch(educationSectionProvider),
-    project: ref.watch(projectSectionProvider),
-    experience: ref.watch(experienceSectionProvider),
-    certificate: ref.watch(certificateSectionProvider),
-    skill: ref.watch(skillSectionProvider),
-    languages: ref.watch(languageSectionProvider),
-  );
+  return null;
+  // return ResumeData(
+  //   profile: ref.watch(profileSectionProvider),
+  //   personalDetail: ref.watch(personalDetailSectionProvider),
+  //   education: ref.watch(educationSectionProvider),
+  //   project: ref.watch(projectSectionProvider),
+  //   experience: ref.watch(experienceSectionProvider),
+  //   certificate: ref.watch(certificateSectionProvider),
+  //   skill: ref.watch(skillSectionProvider),
+  //   languages: ref.watch(languageSectionProvider),
+  // );
 });
 
 final cvMOdelProvider = StateProvider<CVModel?>((ref) {
@@ -43,6 +44,9 @@ final userProfileProvider = StateProvider<UserProfile?>((ref) {
 final userExperienceListProvider = StateProvider<List<UserExperience>>((ref) {
   return [];
 });
+final resumeListProvider = StateProvider<List<ResumeData>>((ref) {
+  return [];
+});
 
 final userSkillListProvider = StateProvider<List<UserSkill>>((ref) {
   return [];
@@ -66,7 +70,7 @@ final personalInformationProvider = StateProvider<PersonalInformation?>((ref) {
   return null;
 });
 // profile
-final profileProvider = StateProvider<ProfileSection?>((ref) => null);
+final profileSectionProvider = StateProvider<ProfileSection?>((ref) => null);
 // educaton
 final educationSectionProvider =
     StateProvider<EducationSection?>((ref) => null);
@@ -96,3 +100,4 @@ final languageSectionListProvider =
     StateProvider<List<LanguageSection>>((ref) => []);
 // resumeModelId
 final resumeModelIdProvider = StateProvider<String>((ref) => '');
+final templatelIdProvider = StateProvider<String?>((ref) => null);

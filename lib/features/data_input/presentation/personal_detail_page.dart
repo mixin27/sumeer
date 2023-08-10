@@ -87,6 +87,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     Future.microtask(() {
       final resumeData = ref.watch(resumeDataProvider);
       if (resumeData != null) {
+        wLog('setData', '$resumeData');
         firstNameController.text = resumeData.personalDetail?.firstName ?? '';
         lastNameController.text = resumeData.personalDetail?.lastName ?? '';
         phoneController.text = resumeData.personalDetail?.phone ?? '';
@@ -113,6 +114,12 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
             resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
         _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
         //
+        if (_selectedDateStr.isNotEmpty) {
+          _selectedDate = DateFormat("dd-MMMM-yyyy").parse(_selectedDateStr);
+          dayofDOBController.text = _selectedDateStr.split("-")[0];
+          monthofDOBController.text = _selectedDateStr.split("-")[1];
+          yearofDOBController.text = _selectedDateStr.split("-")[2];
+        }
 
         imageUrl = resumeData.profileImage ?? '';
       } else {
@@ -125,6 +132,14 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   @override
   Widget build(BuildContext context) {
     wtfLog('personal detail page', ref.watch(resumeModelIdProvider));
+    wtfLog('personal detail page resumeDataProvider',
+        ref.watch(resumeDataProvider));
+    wtfLog('personal detail page skillSectionProvider',
+        ref.watch(skillSectionProvider));
+    wtfLog('personal detail page educationSectionProvider',
+        ref.watch(educationSectionProvider));
+    wtfLog('personal detail page experienceSectionProvider',
+        ref.watch(experienceSectionProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Personal Detail"),
@@ -752,8 +767,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
           ),
         ),
       ),
-      bottomSheet: SizedBox(
+      bottomSheet: Container(
         height: 80,
+        margin: const EdgeInsets.all(10),
         child: SaveBottomSheetWidget(
           routeTo: true,
           cancelOnTap: () {
@@ -764,7 +780,9 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
               savePerson();
               savePersonalDetail();
               // AutoRouter.of(context).pop();
-              AutoRouter.of(context).push(const DetailRoute());
+              setState(() {
+                AutoRouter.of(context).push(const DetailRoute());
+              });
             }
             // context.router.pop();
           },
@@ -821,7 +839,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     var personalDetail = PersonalDetailSection(
       firstName: firstNameController.text,
       lastName: lastNameController.text,
-      fullName: "${firstNameController.text} ${lastNameController.text}",
+      // fullName: "${firstNameController.text} ${lastNameController.text}",
       jobTitle: jobTitleController.text,
       email: emailController.text,
       phone: phoneController.text,
@@ -854,15 +872,17 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     );
     wtfLog('resume data on save up resumedata', imageUrl);
     ResumeData resumeData = ResumeData(
+      templateId: ref.watch(templatelIdProvider),
       resumeId: ref.watch(resumeModelIdProvider),
       profileImage: imageUrl,
       personalDetail: personalDetail,
-      profile: const ProfileSection(
-        title: "Profile",
-        contents: [
-          'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
-        ],
-      ),
+      // profile: const ProfileSection(
+      //   title: "Profile",
+      //   contents: [
+      //     'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
+      //   ],
+      // ),
+      profile: ref.watch(profileSectionProvider),
       education: ref.watch(resumeDataProvider)?.education,
       project: ref.watch(resumeDataProvider)?.project,
       experience: ref.watch(resumeDataProvider)?.experience,

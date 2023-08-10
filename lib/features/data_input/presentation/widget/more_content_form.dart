@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 
+import 'package:sumeer/features/data_input/presentation/widget/add_language_form.dart';
 import 'package:sumeer/features/features.dart';
 
 class MoreContentBottomSheet extends StatelessWidget {
@@ -90,14 +91,20 @@ class MoreContentBottomSheet extends StatelessWidget {
                             .then((value) => showAddSkillForm(context));
                       },
                     ),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.language,
-                          size: 30,
-                        ),
-                        title: "Language",
-                        decription:
-                            "You speak more than one language? Make sure to list them here."),
+                    ContentItemCard(
+                      icon: const Icon(
+                        Icons.language,
+                        size: 30,
+                      ),
+                      title: "Language",
+                      decription:
+                          "You speak more than one language? Make sure to list them here.",
+                      onTap: () {
+                        context.router
+                            .pop()
+                            .then((value) => showAddLanguageForm(context));
+                      },
+                    ),
                     const ContentItemCard(
                         icon: Icon(
                           Icons.workspace_premium,
@@ -176,7 +183,7 @@ class MoreContentBottomSheet extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (cxt) {
-          return const AddProfileForm();
+          return const AddProfileForm(null, null);
         });
   }
 
@@ -207,6 +214,16 @@ class MoreContentBottomSheet extends StatelessWidget {
         context: context,
         builder: (cxt) {
           return const AddSkillForm(null, null);
+        });
+  }
+
+  showAddLanguageForm(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        builder: (cxt) {
+          return const AddLanguageForm(null, null);
         });
   }
 }

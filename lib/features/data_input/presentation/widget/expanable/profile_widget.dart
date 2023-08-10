@@ -5,23 +5,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../features.dart';
 
-class SkillWdiget extends StatefulHookConsumerWidget {
-  const SkillWdiget({super.key});
+class ProfileWidget extends StatefulHookConsumerWidget {
+  const ProfileWidget({super.key});
 
   @override
-  ConsumerState<SkillWdiget> createState() => _SkillWdigetState();
+  ConsumerState<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
-class _SkillWdigetState extends ConsumerState<SkillWdiget> {
+class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
-    final skill = ref.watch(resumeDataProvider)?.skill;
-    final skillList = skill?.skills ?? [];
-    wLog('skill list', skillList.length);
+    final profileSection = ref.watch(resumeDataProvider)?.profile;
+    final contentList = profileSection?.contents ?? [];
 
     return Column(
       children: List.generate(
-        skillList.length,
+        contentList.length,
         (index) => Padding(
           padding: const EdgeInsets.only(left: 8),
           child: ListTile(
@@ -31,38 +30,35 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
                   isScrollControlled: true,
                   context: context,
                   builder: (cxt) {
-                    return AddSkillForm(skillList[index], index);
+                    return AddProfileForm(index, contentList[index]);
                   });
             },
-            title: Text(skillList[index].skill),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(skillList[index].skill),
-                Text(getSkillLevel(
-                  skillList[index].level ?? SkillLevel.novice,
-                )),
-              ],
-            ),
+            title: Text(contentList[index]),
+            // subtitle: Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(contentList[index]),
+            //   ],
+            // ),
             trailing: IconButton(
               onPressed: () {
                 final oldResumeDataProvider = ref.watch(resumeDataProvider);
 
-                List<Skill> newSkillList = [];
+                List<String> newContentList = [];
 
-                for (var element in skillList) {
-                  newSkillList.add(element);
+                for (var element in contentList) {
+                  newContentList.add(element);
                 }
-                newSkillList.removeAt(index);
+                newContentList.removeAt(index);
 
-                SkillSection skillSection = SkillSection(
+                ProfileSection languageSection = ProfileSection(
                   title: '',
-                  skills: newSkillList,
+                  contents: newContentList,
                 );
                 final newResumeData = oldResumeDataProvider?.copyWith(
-                  skill: skillSection,
+                  profile: languageSection,
                 );
-                wtfLog('edu list', skillSection);
+                wtfLog('edu list', languageSection);
                 setState(() {
                   ref
                       .read(resumeDataProvider.notifier)

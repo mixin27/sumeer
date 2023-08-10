@@ -6,29 +6,29 @@ import 'package:sumeer/features/data_input/presentation/widget/text_input_field_
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/utils/utils.dart';
 
-final skillLevelProvider = StateProvider<SkillLevel?>((ref) {
+final languageLevelProvider = StateProvider<LanguageLevel?>((ref) {
   return null;
 });
 
-class AddSkillForm extends ConsumerStatefulWidget {
+class AddLanguageForm extends ConsumerStatefulWidget {
   final int? index;
-  final Skill? skill;
-  const AddSkillForm(this.skill, this.index, {super.key});
+  final Language? language;
+  const AddLanguageForm(this.language, this.index, {super.key});
 
   @override
-  ConsumerState<AddSkillForm> createState() => _AddSkillFormState();
+  ConsumerState<AddLanguageForm> createState() => _AddLanguageFormState();
 }
 
-class _AddSkillFormState extends ConsumerState<AddSkillForm> {
-  final skillController = TextEditingController();
-  final infoController = TextEditingController();
+class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
+  final languageController = TextEditingController();
+  final descriptionController = TextEditingController();
   final levelController = TextEditingController();
-  List<SkillLevel> skillList = [
-    SkillLevel.novice,
-    SkillLevel.beginner,
-    SkillLevel.skillfull,
-    SkillLevel.experienced,
-    SkillLevel.expert,
+  List<LanguageLevel> languageLevelList = [
+    LanguageLevel.beginner,
+    LanguageLevel.elementary,
+    LanguageLevel.limitedWorking,
+    LanguageLevel.highlyProficient,
+    LanguageLevel.native,
   ];
   // List<String> skillList = [
   //   'Novice',
@@ -46,11 +46,11 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
   Future<void> setData() async {
     Future.microtask(() {
       // final skill = ref.watch(userSkillProvider);
-      if (widget.skill != null) {
-        skillController.text = widget.skill?.skill ?? '';
-        infoController.text = widget.skill?.information ?? '';
-        levelController.text = getSkillLevel(
-          widget.skill!.level ?? SkillLevel.novice,
+      if (widget.language != null) {
+        languageController.text = widget.language?.title ?? '';
+        descriptionController.text = widget.language?.description ?? '';
+        levelController.text = getLanguageLevel(
+          widget.language!.level ?? LanguageLevel.beginner,
         );
       }
     });
@@ -72,7 +72,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Add Skill",
+                "Add language",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -90,12 +90,12 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                   shrinkWrap: true,
                   children: [
                     TextInputFieldWidget(
-                      controller: skillController,
-                      title: "Skill",
+                      controller: languageController,
+                      title: "Language",
                     ),
                     TextInputFieldWidget(
-                      controller: infoController,
-                      title: "Information/ Sub-skills",
+                      controller: descriptionController,
+                      title: "Description",
                     ),
                     // TextInputFieldWidget(
                     //   readOnly: true,
@@ -130,7 +130,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     //   ),
                     // ),
                     Text(
-                      "Select skill level",
+                      "Select language level",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 18,
                           ),
@@ -158,15 +158,15 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         isExpanded: true,
                         underline: const SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
-                        value: ref.watch(skillLevelProvider),
+                        value: ref.watch(languageLevelProvider),
                         padding: const EdgeInsets.symmetric(horizontal: 10),
 
                         // Array list of items
-                        items: skillList.map((SkillLevel items) {
+                        items: languageLevelList.map((LanguageLevel items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
-                              getSkillLevel(items),
+                              getLanguageLevel(items),
                             ),
                           );
                         }).toList(),
@@ -175,9 +175,9 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         onChanged: (val) {
                           if (val != null) {
                             ref
-                                .read(skillLevelProvider.notifier)
+                                .read(languageLevelProvider.notifier)
                                 .update((state) => val);
-                            levelController.text = getSkillLevel(val);
+                            levelController.text = getLanguageLevel(val);
                           }
                           wtfLog('skill level onchange', val);
                           wtfLog('skill level providere',
@@ -190,56 +190,58 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
+                        // final oldLanguageSection =
+                        //     ref.watch(languageSectionProvider);
                         final oldResumeData = ref.watch(resumeDataProvider);
-                        // final oldSkillSection = ref.watch(skillSectionProvider);
-                        final oldSkillSection =
-                            oldResumeData?.skill?.skills ?? [];
-                        Skill skill = Skill(
-                          skill: skillController.text,
-                          information: infoController.text,
-                          level: ref.watch(skillLevelProvider),
+                        final oldLanguageSection =
+                            oldResumeData?.languages?.languages ?? [];
+                        Language language = Language(
+                          title: languageController.text,
+                          description: descriptionController.text,
+                          level: ref.watch(languageLevelProvider),
                         );
 
-                        if (skillController.text.isEmpty) {
+                        if (languageController.text.isEmpty) {
                           return Navigator.of(context).pop();
                         } else {
                           if (widget.index != null) {
-                            List<Skill> list1 = [];
-                            List<Skill> list = oldSkillSection;
+                            List<Language> list1 = [];
+                            List<Language> list = oldLanguageSection;
                             for (var element in list) {
                               list1.add(element);
                             }
                             list1.removeAt(widget.index ?? 0);
                             wLog('updated list remove', list1);
 
-                            list1.insert(widget.index ?? 0, skill);
+                            list1.insert(widget.index ?? 0, language);
                             wLog('updated list', list1);
-                            SkillSection skillSection =
-                                SkillSection(title: '', skills: list1);
+                            LanguageSection languageSection =
+                                LanguageSection(title: '', languages: list1);
 
                             ref
-                                .read(skillSectionProvider.notifier)
-                                .update((state) => skillSection);
+                                .read(languageSectionProvider.notifier)
+                                .update((state) => languageSection);
 
                             final newResumeData = oldResumeData?.copyWith(
-                                skill: ref.watch(skillSectionProvider));
+                                languages: ref.watch(languageSectionProvider));
                             ref
                                 .read(resumeDataProvider.notifier)
                                 .update((state) => newResumeData);
                           } else {
-                            List<Skill> skillList = oldSkillSection.isEmpty
-                                ? [skill]
-                                : [...oldSkillSection, skill];
+                            List<Language> skillList =
+                                oldLanguageSection.isEmpty
+                                    ? [language]
+                                    : [...oldLanguageSection, language];
 
-                            SkillSection skillSection =
-                                SkillSection(title: '', skills: skillList);
+                            LanguageSection languageSection = LanguageSection(
+                                title: '', languages: skillList);
 
                             ref
-                                .read(skillSectionProvider.notifier)
-                                .update((state) => skillSection);
+                                .read(languageSectionProvider.notifier)
+                                .update((state) => languageSection);
 
                             final newResumeData = oldResumeData?.copyWith(
-                              skill: ref.watch(skillSectionProvider),
+                              languages: ref.watch(languageSectionProvider),
                             );
                             ref
                                 .read(resumeDataProvider.notifier)

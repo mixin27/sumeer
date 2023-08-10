@@ -38,6 +38,13 @@ class _EducationCardState extends ConsumerState<EducationCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.school,
+                        size: 30,
+                      ),
+                    ),
                     Text(
                       'Education',
                       style: Theme.of(context)

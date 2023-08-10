@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/button1.dart';
-import '../../auth/feat_auth.dart';
 import '../../features.dart';
-import '../../templates/shared/provider.dart';
 
 @RoutePage()
 class DetailPage extends ConsumerStatefulWidget {
@@ -43,18 +40,33 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         leading: const AutoLeadingButton(),
         actions: [
           Button1(
-            text: "Save",
+            text: "View",
             onPressed: () async {
               dLog(ref.watch(resumeModelIdProvider));
-              var uid =
-                  ref.watch(authRepositoryProvider).currentUser?.uid.toString();
-              await ref
-                  .read(cloudFirestoreProvider)
-                  .collection("summer")
-                  .doc(uid)
-                  .collection("user")
-                  .doc(ref.watch(resumeModelIdProvider))
-                  .set(ref.watch(resumeDataProvider)?.toJson() ?? {});
+              // var uid =
+              //     ref.watch(authRepositoryProvider).currentUser?.uid.toString();
+              // await ref
+              //     .read(cloudFirestoreProvider)
+              //     .collection("sumeer")
+              //     .doc(uid)
+              //     .collection("user")
+              //     .doc(ref.watch(resumeModelIdProvider))
+              //     .set(
+              //       ref.watch(resumeDataProvider)?.toJson() ?? {},
+              //     );
+              if (ref.watch(resumeDataProvider)?.templateId != null) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => ResumePreviewPage(
+                      resume: getResumeTemplateById(
+                          ref.watch(resumeDataProvider)?.templateId),
+                      resumeData: ref.watch(resumeDataProvider),
+                    ),
+                  ),
+                );
+              } else {
+                context.router.push(const TemplatesRoute());
+              }
             },
           ),
         ],

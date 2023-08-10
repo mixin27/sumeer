@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/features/data_input/presentation/widget/add_language_form.dart';
 import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../features.dart';
 
-class SkillWdiget extends StatefulHookConsumerWidget {
-  const SkillWdiget({super.key});
+class LanguageWidget extends StatefulHookConsumerWidget {
+  const LanguageWidget({super.key});
 
   @override
-  ConsumerState<SkillWdiget> createState() => _SkillWdigetState();
+  ConsumerState<LanguageWidget> createState() => _LanguageWidgetState();
 }
 
-class _SkillWdigetState extends ConsumerState<SkillWdiget> {
+class _LanguageWidgetState extends ConsumerState<LanguageWidget> {
   @override
   Widget build(BuildContext context) {
-    final skill = ref.watch(resumeDataProvider)?.skill;
-    final skillList = skill?.skills ?? [];
-    wLog('skill list', skillList.length);
+    final language = ref.watch(resumeDataProvider)?.languages;
+    final languageList = language?.languages ?? [];
+    wLog('skill list', languageList.length);
 
     return Column(
       children: List.generate(
-        skillList.length,
+        languageList.length,
         (index) => Padding(
           padding: const EdgeInsets.only(left: 8),
           child: ListTile(
@@ -31,16 +32,16 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
                   isScrollControlled: true,
                   context: context,
                   builder: (cxt) {
-                    return AddSkillForm(skillList[index], index);
+                    return AddLanguageForm(languageList[index], index);
                   });
             },
-            title: Text(skillList[index].skill),
+            title: Text(languageList[index].title ?? ''),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(skillList[index].skill),
-                Text(getSkillLevel(
-                  skillList[index].level ?? SkillLevel.novice,
+                Text(languageList[index].description ?? ''),
+                Text(getLanguageLevel(
+                  languageList[index].level ?? LanguageLevel.beginner,
                 )),
               ],
             ),
@@ -48,21 +49,21 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
               onPressed: () {
                 final oldResumeDataProvider = ref.watch(resumeDataProvider);
 
-                List<Skill> newSkillList = [];
+                List<Language> newLanguageList = [];
 
-                for (var element in skillList) {
-                  newSkillList.add(element);
+                for (var element in languageList) {
+                  newLanguageList.add(element);
                 }
-                newSkillList.removeAt(index);
+                newLanguageList.removeAt(index);
 
-                SkillSection skillSection = SkillSection(
+                LanguageSection languageSection = LanguageSection(
                   title: '',
-                  skills: newSkillList,
+                  languages: newLanguageList,
                 );
                 final newResumeData = oldResumeDataProvider?.copyWith(
-                  skill: skillSection,
+                  languages: languageSection,
                 );
-                wtfLog('edu list', skillSection);
+                wtfLog('edu list', languageSection);
                 setState(() {
                   ref
                       .read(resumeDataProvider.notifier)
