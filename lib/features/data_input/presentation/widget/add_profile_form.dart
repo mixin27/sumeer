@@ -125,7 +125,7 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                                         ?.contents ??
                                     []);
                           } else {
-                            List<String> contentList = oldProfileSection == null
+                            List<String> contentList = oldProfileSection.isEmpty
                                 ? [contentController.text]
                                 : [
                                     ...oldProfileSection,
