@@ -168,9 +168,11 @@ class _AddProfessionalExperienceFormState
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
-                            final oldExpScetion =
-                                ref.watch(experienceSectionProvider);
                             final oldResumeData = ref.watch(resumeDataProvider);
+                            // final oldExpScetion =
+                            //     ref.watch(experienceSectionProvider);
+                            final oldExpScetion =
+                                oldResumeData?.experience?.experiences ?? [];
                             vLog('date time', DateTime.now());
                             Employer employer =
                                 Employer(name: employerController.text);
@@ -190,8 +192,7 @@ class _AddProfessionalExperienceFormState
                             } else {
                               if (widget.index != null) {
                                 List<Experience> list1 = [];
-                                List<Experience> list =
-                                    oldExpScetion?.experiences ?? [];
+                                List<Experience> list = oldExpScetion;
                                 for (var element in list) {
                                   list1.add(element);
                                 }
@@ -216,12 +217,9 @@ class _AddProfessionalExperienceFormState
                                     .update((state) => newResumeData);
                               } else {
                                 List<Experience> experienceList =
-                                    oldExpScetion == null
+                                    oldExpScetion.isEmpty
                                         ? [experience]
-                                        : [
-                                            ...oldExpScetion.experiences,
-                                            experience
-                                          ];
+                                        : [...oldExpScetion, experience];
                                 ExperienceSection experienceSection =
                                     ExperienceSection(
                                   title: '',

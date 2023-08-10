@@ -190,8 +190,10 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
-                        final oldSkillSection = ref.watch(skillSectionProvider);
                         final oldResumeData = ref.watch(resumeDataProvider);
+                        // final oldSkillSection = ref.watch(skillSectionProvider);
+                        final oldSkillSection =
+                            oldResumeData?.skill?.skills ?? [];
                         Skill skill = Skill(
                           skill: skillController.text,
                           information: infoController.text,
@@ -203,7 +205,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         } else {
                           if (widget.index != null) {
                             List<Skill> list1 = [];
-                            List<Skill> list = oldSkillSection?.skills ?? [];
+                            List<Skill> list = oldSkillSection;
                             for (var element in list) {
                               list1.add(element);
                             }
@@ -225,9 +227,9 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                                 .read(resumeDataProvider.notifier)
                                 .update((state) => newResumeData);
                           } else {
-                            List<Skill> skillList = oldSkillSection == null
+                            List<Skill> skillList = oldSkillSection.isEmpty
                                 ? [skill]
-                                : [...oldSkillSection.skills, skill];
+                                : [...oldSkillSection, skill];
 
                             SkillSection skillSection =
                                 SkillSection(title: '', skills: skillList);

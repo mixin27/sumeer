@@ -136,9 +136,11 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                         ),
                         SaveBottomSheetWidget(
                           onTap: () {
-                            final oldEduSection =
-                                ref.watch(educationSectionProvider);
+                            // final oldEduSection =
+                            //     ref.watch(educationSectionProvider);
                             final oldResumeData = ref.watch(resumeDataProvider);
+                            final oldEduSection =
+                                oldResumeData?.education?.educations ?? [];
                             Education education = Education(
                               degree: degreeController.text,
                               school: schoolController.text,
@@ -152,8 +154,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                             } else {
                               if (widget.index != null) {
                                 List<Education> list1 = [];
-                                List<Education> list =
-                                    oldEduSection?.educations ?? [];
+                                List<Education> list = oldEduSection;
                                 for (var element in list) {
                                   list1.add(element);
                                 }
@@ -177,9 +178,9 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                                     .read(resumeDataProvider.notifier)
                                     .update((state) => newResumeData);
                               } else {
-                                List<Education> eduList = oldEduSection == null
+                                List<Education> eduList = oldEduSection.isEmpty
                                     ? [education]
-                                    : [...oldEduSection.educations, education];
+                                    : [...oldEduSection, education];
                                 EducationSection eduScetion = EducationSection(
                                   title: '',
                                   educations: eduList,

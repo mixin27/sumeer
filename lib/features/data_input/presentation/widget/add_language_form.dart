@@ -190,9 +190,11 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
-                        final oldLanguageSection =
-                            ref.watch(languageSectionProvider);
+                        // final oldLanguageSection =
+                        //     ref.watch(languageSectionProvider);
                         final oldResumeData = ref.watch(resumeDataProvider);
+                        final oldLanguageSection =
+                            oldResumeData?.languages?.languages ?? [];
                         Language language = Language(
                           title: languageController.text,
                           description: descriptionController.text,
@@ -204,8 +206,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                         } else {
                           if (widget.index != null) {
                             List<Language> list1 = [];
-                            List<Language> list =
-                                oldLanguageSection?.languages ?? [];
+                            List<Language> list = oldLanguageSection;
                             for (var element in list) {
                               list1.add(element);
                             }
@@ -227,10 +228,10 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                                 .read(resumeDataProvider.notifier)
                                 .update((state) => newResumeData);
                           } else {
-                            List<Language> skillList = oldLanguageSection ==
-                                    null
-                                ? [language]
-                                : [...oldLanguageSection.languages, language];
+                            List<Language> skillList =
+                                oldLanguageSection.isEmpty
+                                    ? [language]
+                                    : [...oldLanguageSection, language];
 
                             LanguageSection languageSection = LanguageSection(
                                 title: '', languages: skillList);
