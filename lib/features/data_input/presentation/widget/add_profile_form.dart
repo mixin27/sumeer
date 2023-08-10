@@ -75,8 +75,12 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                     ),
                     SaveBottomSheetWidget(
                       onTap: () {
+                        // final oldProfileSection =
+                        //     ref.watch(profileSectionProvider);
                         final oldProfileSection =
-                            ref.watch(profileSectionProvider);
+                            ref.watch(resumeDataProvider)?.profile?.contents ??
+                                [];
+
                         final oldResumeData = ref.watch(resumeDataProvider);
 
                         // String content = contentController.text;
@@ -103,21 +107,28 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                             ProfileSection profileSection = ProfileSection(
                                 title: 'Profile', contents: list1);
 
-                            ref
-                                .read(profileSectionProvider.notifier)
-                                .update((state) => profileSection);
+                            // ref
+                            //     .read(profileSectionProvider.notifier)
+                            //     .update((state) => profileSection);
 
                             final newResumeData = oldResumeData?.copyWith(
-                              profile: ref.watch(profileSectionProvider),
+                              profile: profileSection,
                             );
                             ref
                                 .read(resumeDataProvider.notifier)
                                 .update((state) => newResumeData);
+                            dLog(
+                                'updated profile content list',
+                                ref
+                                        .watch(resumeDataProvider)
+                                        ?.profile
+                                        ?.contents ??
+                                    []);
                           } else {
                             List<String> contentList = oldProfileSection == null
                                 ? [contentController.text]
                                 : [
-                                    ...oldProfileSection.contents,
+                                    ...oldProfileSection,
                                     contentController.text
                                   ];
                             ProfileSection profileSection = ProfileSection(
@@ -138,6 +149,13 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                             // ref
                             //     .read(resumeDataProvider.notifier)
                             //     .update((state) => state);
+                            dLog(
+                                'updated profile content list',
+                                ref
+                                        .watch(resumeDataProvider)
+                                        ?.profile
+                                        ?.contents ??
+                                    []);
                           }
                         }
                         Navigator.pop(context);
