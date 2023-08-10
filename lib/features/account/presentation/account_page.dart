@@ -5,6 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/core/shared/auth_providers.dart';
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class AccountPage extends ConsumerStatefulWidget {
@@ -103,48 +105,48 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               },
             ),
             const SizedBox(height: 10),
-            Divider(height: 1, color: Colors.grey[300]),
-            const SizedBox(height: 20),
-            const Text(
-              "Settings",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Row(
-              children: [
-                Icon(
-                  Icons.language,
-                  color: Colors.blueAccent,
-                ),
-                SizedBox(width: 6),
-                Expanded(
-                    child: Text(
-                  "Language",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                )),
-                Text("English"),
-                SizedBox(width: 4),
-                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                const Icon(
-                  Icons.dark_mode,
-                  color: Colors.blueAccent,
-                ),
-                const SizedBox(width: 6),
-                const Expanded(
-                    child: Text(
-                  "Dark Theme",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                )),
-                Switch(value: false, onChanged: (val) {}),
-              ],
-            ),
+            // Divider(height: 1, color: Colors.grey[300]),
+            // const SizedBox(height: 20),
+            // const Text(
+            //   "Settings",
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // const Row(
+            //   children: [
+            //     Icon(
+            //       Icons.language,
+            //       color: Colors.blueAccent,
+            //     ),
+            //     SizedBox(width: 6),
+            //     Expanded(
+            //         child: Text(
+            //       "Language",
+            //       style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            //     )),
+            //     Text("English"),
+            //     SizedBox(width: 4),
+            //     Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+            //   ],
+            // ),
+            // const SizedBox(height: 10),
+            // Row(
+            //   children: [
+            //     const Icon(
+            //       Icons.dark_mode,
+            //       color: Colors.blueAccent,
+            //     ),
+            //     const SizedBox(width: 6),
+            //     const Expanded(
+            //         child: Text(
+            //       "Dark Theme",
+            //       style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            //     )),
+            //     Switch(value: false, onChanged: (val) {}),
+            //   ],
+            // ),
             const SizedBox(height: 8),
             Divider(height: 1, color: Colors.grey[300]),
             const SizedBox(height: 22),
@@ -155,20 +157,25 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
             ),
             const SizedBox(height: 16),
-            const Row(
-              children: [
-                Icon(
-                  Icons.privacy_tip_outlined,
-                  color: Colors.blueAccent,
-                ),
-                SizedBox(width: 6),
-                Expanded(
-                    child: Text(
-                  "Privacy Policy",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                )),
-                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-              ],
+            InkWell(
+              onTap: () {
+                context.router.push(const PrivacyAndPolicyRoute());
+              },
+              child: const Row(
+                children: [
+                  Icon(
+                    Icons.privacy_tip_outlined,
+                    color: Colors.blueAccent,
+                  ),
+                  SizedBox(width: 6),
+                  Expanded(
+                      child: Text(
+                    "Privacy Policy",
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                  )),
+                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Divider(height: 1, color: Colors.grey[300]),
@@ -196,20 +203,36 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ],
             ),
             const SizedBox(height: 22),
-            const Row(
-              children: [
-                Icon(
-                  Icons.language_outlined,
-                  color: Colors.blueAccent,
-                ),
-                SizedBox(width: 6),
-                Expanded(
-                    child: Text(
-                  "Our Website",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                )),
-                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-              ],
+            InkWell(
+              onTap: () async {
+                // https://www.jobclick.com.mm/home
+                try {
+                  final uri = Uri.tryParse('https://www.jobclick.com.mm/home');
+                  if (uri == null) return;
+
+                  await launchUrl(
+                    uri,
+                    mode: LaunchMode.externalApplication,
+                  );
+                } catch (e) {
+                  eLog(e.toString());
+                }
+              },
+              child: const Row(
+                children: [
+                  Icon(
+                    Icons.language_outlined,
+                    color: Colors.blueAccent,
+                  ),
+                  SizedBox(width: 6),
+                  Expanded(
+                      child: Text(
+                    "Our Website",
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                  )),
+                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Divider(height: 1, color: Colors.grey[300]),

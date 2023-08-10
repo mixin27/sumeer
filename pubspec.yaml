@@ -53,6 +53,8 @@ dependencies:
   image_picker: ^1.0.1
   cached_network_image: ^3.2.3
   searchfield: ^0.8.3
+  flutter_html: ^3.0.0-beta.2
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +79,7 @@ flutter:
     - assets/images/templates/
     - assets/images/home/
     - assets/fonts/
+    - assets/www/
 
   # fonts:
   #   - family: Schyler
