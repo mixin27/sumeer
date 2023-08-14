@@ -55,7 +55,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
           );
         },
         success: (_) {
-          context.router.popAndPush(const MainRoute());
+          context.router.replaceAll([const MainRoute()]);
         },
         error: (_) {
           context.router.pop().then((value) {

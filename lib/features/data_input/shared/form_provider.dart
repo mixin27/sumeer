@@ -4,16 +4,17 @@ import '../../features.dart';
 import '../../templates/domain/cv_model.dart';
 
 final resumeDataProvider = StateProvider<ResumeData?>((ref) {
-  return ResumeData(
-    profile: ref.watch(profileSectionProvider),
-    personalDetail: ref.watch(personalDetailSectionProvider),
-    education: ref.watch(educationSectionProvider),
-    project: ref.watch(projectSectionProvider),
-    experience: ref.watch(experienceSectionProvider),
-    certificate: ref.watch(certificateSectionProvider),
-    skill: ref.watch(skillSectionProvider),
-    languages: ref.watch(languageSectionProvider),
-  );
+  return null;
+  // return ResumeData(
+  //   profile: ref.watch(profileSectionProvider),
+  //   personalDetail: ref.watch(personalDetailSectionProvider),
+  //   education: ref.watch(educationSectionProvider),
+  //   project: ref.watch(projectSectionProvider),
+  //   experience: ref.watch(experienceSectionProvider),
+  //   certificate: ref.watch(certificateSectionProvider),
+  //   skill: ref.watch(skillSectionProvider),
+  //   languages: ref.watch(languageSectionProvider),
+  // );
 });
 
 final cvMOdelProvider = StateProvider<CVModel?>((ref) {

@@ -8,7 +8,7 @@ export 'presentation/widget/content_item.dart';
 export 'presentation/widget/add_personal_detail_button.dart';
 export 'presentation/widget/save_bottom_sheet.dart';
 export 'presentation/widget/add_education_form.dart';
-export 'presentation/widget/add_professional_experience.dart';
+export 'presentation/widget/add_professional_experience_form.dart';
 export 'presentation/widget/add_skill_form.dart';
 export 'presentation/widget/add_profile_form.dart';
 

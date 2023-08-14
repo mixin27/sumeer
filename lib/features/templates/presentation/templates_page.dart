@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/utils.dart';
 import '../../auth/feat_auth.dart';
 
 @RoutePage()
@@ -106,6 +107,8 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                                 ),
                               );
                             } else if (ref.watch(resumeDataProvider) != null) {
+                              wLog('resumeDataProvider i = null',
+                                  ref.watch(resumeDataProvider));
                               ref.read(resumeModelIdProvider.notifier).state =
                                   ref.watch(resumeDataProvider)?.resumeId ?? '';
                               Navigator.of(context).push(
