@@ -83,11 +83,11 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   Future<void> setData() async {
-    wLog('setData', 'Called');
+    wLog('setData Called');
     Future.microtask(() {
       final resumeData = ref.watch(resumeDataProvider);
       if (resumeData != null) {
-        wLog('setData', '$resumeData');
+        wLog('setData $resumeData');
         firstNameController.text = resumeData.personalDetail?.firstName ?? '';
         lastNameController.text = resumeData.personalDetail?.lastName ?? '';
         phoneController.text = resumeData.personalDetail?.phone ?? '';
@@ -131,15 +131,6 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    wtfLog('personal detail page', ref.watch(resumeModelIdProvider));
-    wtfLog('personal detail page resumeDataProvider',
-        ref.watch(resumeDataProvider));
-    wtfLog('personal detail page skillSectionProvider',
-        ref.watch(skillSectionProvider));
-    wtfLog('personal detail page educationSectionProvider',
-        ref.watch(educationSectionProvider));
-    wtfLog('personal detail page experienceSectionProvider',
-        ref.watch(experienceSectionProvider));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Personal Detail"),
@@ -870,7 +861,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ],
     );
-    wtfLog('resume data on save up resumedata', imageUrl);
+    fLog('resume data on save up resumedata $imageUrl');
     ResumeData resumeData = ResumeData(
       templateId: ref.watch(templatelIdProvider),
       resumeId: ref.watch(resumeModelIdProvider),
@@ -889,9 +880,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       // personalInformation: personalInfo,
     );
     ref.read(resumeDataProvider.notifier).update((state) => resumeData);
-    wtfLog('resume data on save',
-        ref.watch(resumeDataProvider)?.profileImage ?? '5454');
-    wtfLog('resume data on save imageUrl', imageUrl);
+    fLog('resume data on save imageUrl $imageUrl');
   }
 
   /// Get from gallery

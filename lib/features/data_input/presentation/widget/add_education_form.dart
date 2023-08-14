@@ -64,7 +64,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
 
   @override
   Widget build(BuildContext context) {
-    wLog('index number', 'called');
+    wLog('index number called');
     return DraggableScrollableSheet(
         initialChildSize: 0.95,
         minChildSize: 0.5,
@@ -159,10 +159,10 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                                   list1.add(element);
                                 }
                                 list1.removeAt(widget.index ?? 0);
-                                wLog('updated list remove', list1);
+                                wLog('updated list remove $list1');
 
                                 list1.insert(widget.index ?? 0, education);
-                                wLog('updated list', list1);
+                                wLog('updated list $list1');
                                 EducationSection educationSection =
                                     EducationSection(
                                         title: '', educations: list1);

@@ -16,8 +16,8 @@ final prettyLog = Logger(
 );
 
 final wLog = prettyLog.w;
-final vLog = prettyLog.v;
+final tLog = prettyLog.t;
 final dLog = prettyLog.d;
 final iLog = prettyLog.i;
 final eLog = prettyLog.e;
-final wtfLog = prettyLog.wtf;
+final fLog = prettyLog.f;

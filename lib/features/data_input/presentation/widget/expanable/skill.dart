@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../features.dart';
 
 class SkillWdiget extends StatefulHookConsumerWidget {
@@ -17,7 +16,6 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
   Widget build(BuildContext context) {
     final skill = ref.watch(resumeDataProvider)?.skill;
     final skillList = skill?.skills ?? [];
-    wLog('skill list', skillList.length);
 
     return Column(
       children: List.generate(
@@ -34,13 +32,13 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
                     return AddSkillForm(skillList[index], index);
                   });
             },
-            title: Text(skillList[index].skill),
+            title: Text(skillList[index].name),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(skillList[index].skill),
+                Text(skillList[index].name),
                 Text(getSkillLevel(
-                  skillList[index].level ?? SkillLevel.novice,
+                  skillList[index].level ?? SkillLevelEnum.novice,
                 )),
               ],
             ),
@@ -62,7 +60,6 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
                 final newResumeData = oldResumeDataProvider?.copyWith(
                   skill: skillSection,
                 );
-                wtfLog('edu list', skillSection);
                 setState(() {
                   ref
                       .read(resumeDataProvider.notifier)

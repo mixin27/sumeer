@@ -418,7 +418,7 @@ Future<Uint8List> generateTemplate7(
                                           children: [
                                             pw.Expanded(
                                               child: pw.Text(
-                                                skill.skill,
+                                                skill.name,
                                               ),
                                             ),
                                             pw.SizedBox(width: 10),

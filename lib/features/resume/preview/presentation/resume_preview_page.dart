@@ -7,9 +7,7 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
-import '../../../auth/feat_auth.dart';
 import '../../../data_input/feat_data_input.dart';
-import '../../../templates/shared/provider.dart';
 
 @RoutePage()
 class ResumePreviewPage extends HookConsumerWidget {
@@ -102,30 +100,30 @@ class ResumePreviewPage extends HookConsumerWidget {
               right: 30,
               child: IconButton(
                   onPressed: () async {
-                    //
-                    final oldResumeData = ref.watch(resumeDataProvider);
-                    ref.read(resumeDataProvider.notifier).update(
-                          (state) =>
-                              oldResumeData?.copyWith(templateId: resume.id),
-                        );
-                    var uid = ref
-                        .watch(authRepositoryProvider)
-                        .currentUser
-                        ?.uid
-                        .toString();
-                    await ref
-                        .read(cloudFirestoreProvider)
-                        .collection("sumeer")
-                        .doc(uid)
-                        .collection("user")
-                        .doc(ref.watch(resumeDataProvider)?.resumeId)
-                        .set(
-                          ref.watch(resumeDataProvider)?.toJson() ?? {},
-                        )
-                        .then((value) => {
-                              context.router.replaceAll([const HomeRoute()]),
-                              ref.read(resumeDataProvider.notifier).state = null
-                            });
+                    // TODO: refactor
+                    // final oldResumeData = ref.watch(resumeDataProvider);
+                    // ref.read(resumeDataProvider.notifier).update(
+                    //       (state) =>
+                    //           oldResumeData?.copyWith(templateId: resume.id),
+                    //     );
+                    // var uid = ref
+                    //     .watch(authRepositoryProvider)
+                    //     .currentUser
+                    //     ?.uid
+                    //     .toString();
+                    // await ref
+                    //     .read(cloudFirestoreProvider)
+                    //     .collection("sumeer")
+                    //     .doc(uid)
+                    //     .collection("user")
+                    //     .doc(ref.watch(resumeDataProvider)?.resumeId)
+                    //     .set(
+                    //       ref.watch(resumeDataProvider)?.toJson() ?? {},
+                    //     )
+                    //     .then((value) => {
+                    //           context.router.replaceAll([const HomeRoute()]),
+                    //           ref.read(resumeDataProvider.notifier).state = null
+                    //         });
                   },
                   icon: Icon(
                     Icons.save,

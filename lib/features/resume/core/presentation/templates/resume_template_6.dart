@@ -179,7 +179,7 @@ Future<Uint8List> generateTemplate6(
                                     pw.MainAxisAlignment.spaceBetween,
                                 children: [
                                   pw.Expanded(
-                                    child: pw.Text(skill.skill),
+                                    child: pw.Text(skill.name),
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(

@@ -4,9 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-import 'package:sumeer/utils/utils.dart';
 
-final skillLevelProvider = StateProvider<SkillLevel?>((ref) {
+final skillLevelProvider = StateProvider<SkillLevelEnum?>((ref) {
   return null;
 });
 
@@ -23,12 +22,12 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
   final skillController = TextEditingController();
   final infoController = TextEditingController();
   final levelController = TextEditingController();
-  List<SkillLevel> skillList = [
-    SkillLevel.novice,
-    SkillLevel.beginner,
-    SkillLevel.skillfull,
-    SkillLevel.experienced,
-    SkillLevel.expert,
+  List<SkillLevelEnum> skillList = [
+    SkillLevelEnum.novice,
+    SkillLevelEnum.beginner,
+    SkillLevelEnum.skillfull,
+    SkillLevelEnum.experienced,
+    SkillLevelEnum.expert,
   ];
   // List<String> skillList = [
   //   'Novice',
@@ -47,10 +46,10 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
     Future.microtask(() {
       // final skill = ref.watch(userSkillProvider);
       if (widget.skill != null) {
-        skillController.text = widget.skill?.skill ?? '';
+        skillController.text = widget.skill?.name ?? '';
         infoController.text = widget.skill?.information ?? '';
         levelController.text = getSkillLevel(
-          widget.skill!.level ?? SkillLevel.novice,
+          widget.skill!.level ?? SkillLevelEnum.novice,
         );
       }
     });
@@ -58,7 +57,6 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
 
   @override
   Widget build(BuildContext context) {
-    wtfLog('widget index', widget.index);
     return SingleChildScrollView(
       child: Container(
         padding: MediaQuery.of(context).viewInsets,
@@ -162,7 +160,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
 
                         // Array list of items
-                        items: skillList.map((SkillLevel items) {
+                        items: skillList.map((SkillLevelEnum items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
@@ -179,9 +177,6 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                                 .update((state) => val);
                             levelController.text = getSkillLevel(val);
                           }
-                          wtfLog('skill level onchange', val);
-                          wtfLog('skill level providere',
-                              ref.watch(skillLevelProvider));
                         },
                       ),
                     ),
@@ -195,7 +190,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         final oldSkillSection =
                             oldResumeData?.skill?.skills ?? [];
                         Skill skill = Skill(
-                          skill: skillController.text,
+                          name: skillController.text,
                           information: infoController.text,
                           level: ref.watch(skillLevelProvider),
                         );
@@ -210,10 +205,8 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                               list1.add(element);
                             }
                             list1.removeAt(widget.index ?? 0);
-                            wLog('updated list remove', list1);
 
                             list1.insert(widget.index ?? 0, skill);
-                            wLog('updated list', list1);
                             SkillSection skillSection =
                                 SkillSection(title: '', skills: list1);
 

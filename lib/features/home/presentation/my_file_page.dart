@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/shared/provider.dart';
-import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
 import '../../../shared/shared.dart';
 import '../../auth/feat_auth.dart';
@@ -23,31 +22,28 @@ class _MyFilePageState extends ConsumerState<MyFilePage> {
   List<ResumeData> resumeModeList = [];
 
   Future<List<ResumeData>> getData() async {
-    var uid = ref.watch(authRepositoryProvider).currentUser?.uid.toString();
-    dLog('userId build', uid);
+    // var uid = ref.watch(authRepositoryProvider).currentUser?.uid.toString();
 
-    dLog('userId', uid);
-    await ref
-        .read(cloudFirestoreProvider)
-        .collection("sumeer")
-        .doc(uid)
-        .collection("user")
-        .get()
-        .then(
-      (documentSnapshot) {
-        if (documentSnapshot.docs.isNotEmpty) {
-          vLog('IsnotEmpty', documentSnapshot.docs.isNotEmpty);
-          var list = documentSnapshot.docs
-              .map(
-                (e) => ResumeData.fromJson(e.data()),
-              )
-              .toList();
-          resumeModeList = list;
-          wtfLog('resume list', resumeModeList);
-          return list;
-        }
-      },
-    );
+    // TODO: refactor
+    // await ref
+    //     .read(cloudFirestoreProvider)
+    //     .collection("sumeer")
+    //     .doc(uid)
+    //     .collection("user")
+    //     .get()
+    //     .then(
+    //   (documentSnapshot) {
+    //     if (documentSnapshot.docs.isNotEmpty) {
+    //       var list = documentSnapshot.docs
+    //           .map(
+    //             (e) => ResumeData.fromJson(e.data()),
+    //           )
+    //           .toList();
+    //       resumeModeList = list;
+    //       return list;
+    //     }
+    //   },
+    // );
 
     return resumeModeList;
   }

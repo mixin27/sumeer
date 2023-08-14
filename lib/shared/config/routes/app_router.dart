@@ -9,6 +9,9 @@ class AppRouter extends $AppRouter {
         // Splash
         AutoRoute(page: SplashRoute.page, path: '/'),
         AutoRoute(page: OnboardingRoute.page),
+        
+        AutoRoute(page: StarterRoute.page, path: '/start'),
+
         AutoRoute(
           page: MainRoute.page,
           path: '/main',

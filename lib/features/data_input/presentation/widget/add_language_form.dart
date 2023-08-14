@@ -6,7 +6,7 @@ import 'package:sumeer/features/data_input/presentation/widget/text_input_field_
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/utils/utils.dart';
 
-final languageLevelProvider = StateProvider<LanguageLevel?>((ref) {
+final languageLevelProvider = StateProvider<LanguageLevelEnum?>((ref) {
   return null;
 });
 
@@ -23,12 +23,12 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
   final languageController = TextEditingController();
   final descriptionController = TextEditingController();
   final levelController = TextEditingController();
-  List<LanguageLevel> languageLevelList = [
-    LanguageLevel.beginner,
-    LanguageLevel.elementary,
-    LanguageLevel.limitedWorking,
-    LanguageLevel.highlyProficient,
-    LanguageLevel.native,
+  List<LanguageLevelEnum> languageLevelList = [
+    LanguageLevelEnum.beginner,
+    LanguageLevelEnum.elementary,
+    LanguageLevelEnum.limitedWorking,
+    LanguageLevelEnum.highlyProficient,
+    LanguageLevelEnum.native,
   ];
   // List<String> skillList = [
   //   'Novice',
@@ -50,7 +50,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
         languageController.text = widget.language?.title ?? '';
         descriptionController.text = widget.language?.description ?? '';
         levelController.text = getLanguageLevel(
-          widget.language!.level ?? LanguageLevel.beginner,
+          widget.language!.level ?? LanguageLevelEnum.beginner,
         );
       }
     });
@@ -58,7 +58,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
 
   @override
   Widget build(BuildContext context) {
-    wtfLog('widget index', widget.index);
+    fLog('widget index ${widget.index}');
     return SingleChildScrollView(
       child: Container(
         padding: MediaQuery.of(context).viewInsets,
@@ -162,7 +162,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
 
                         // Array list of items
-                        items: languageLevelList.map((LanguageLevel items) {
+                        items: languageLevelList.map((LanguageLevelEnum items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
@@ -179,9 +179,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                                 .update((state) => val);
                             levelController.text = getLanguageLevel(val);
                           }
-                          wtfLog('skill level onchange', val);
-                          wtfLog('skill level providere',
-                              ref.watch(skillLevelProvider));
+                          fLog('skill level onchange $val');
                         },
                       ),
                     ),
@@ -211,10 +209,8 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                               list1.add(element);
                             }
                             list1.removeAt(widget.index ?? 0);
-                            wLog('updated list remove', list1);
 
                             list1.insert(widget.index ?? 0, language);
-                            wLog('updated list', list1);
                             LanguageSection languageSection =
                                 LanguageSection(title: '', languages: list1);
 
