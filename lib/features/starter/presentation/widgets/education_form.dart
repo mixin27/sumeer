@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:sumeer/features/starter/feat_starter.dart';
 
 class EducationForm extends StatefulHookConsumerWidget {
@@ -10,20 +12,93 @@ class EducationForm extends StatefulHookConsumerWidget {
 }
 
 class _EducationFormState extends ConsumerState<EducationForm> {
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _jobTitleController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final _degreeController = TextEditingController();
+  final _schoolController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _countryController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _startDateController = TextEditingController();
+  final _endDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Future<void> showStartDatePickerDialog() async {
+      final dt = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+      );
+      if (dt != null) {
+        _startDateController.text = DateFormat("MMM, yyyy").format(dt);
+        ref.read(eduStartDateProvider.notifier).update((state) => dt);
+      }
+    }
+
+    Future<void> showEndDatePickerDialog() async {
+      final dt = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+      );
+      if (dt != null) {
+        _endDateController.text = DateFormat("MMM, yyyy").format(dt);
+        ref.read(eduEndDateProvider.notifier).update((state) => dt);
+      }
+    }
+
+    final isPresent = ref.watch(eduIsPresentProvider);
+
     return Form(
       key: ref.watch(educationFormKeyProvider),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Name
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Degree',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              const SizedBox(height: 5),
+              TextFormField(
+                controller: _degreeController,
+                keyboardType: TextInputType.text,
+                validator: MultiValidator([
+                  RequiredValidator(errorText: 'Degree is required'),
+                ]),
+                onChanged: (value) => ref
+                    .read(eduDegreeProvider.notifier)
+                    .update((state) => value.trim()),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'School / Unversity',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              const SizedBox(height: 5),
+              TextFormField(
+                controller: _schoolController,
+                keyboardType: TextInputType.text,
+                validator: MultiValidator([
+                  RequiredValidator(
+                    errorText: 'School or university is required',
+                  ),
+                ]),
+                onChanged: (value) => ref
+                    .read(eduSchoolProvider.notifier)
+                    .update((state) => value.trim()),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -31,13 +106,16 @@ class _EducationFormState extends ConsumerState<EducationForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'First Name',
+                      'City',
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      controller: _firstNameController,
-                      keyboardType: TextInputType.name,
+                      controller: _cityController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) => ref
+                          .read(eduCityProvider.notifier)
+                          .update((state) => value.trim()),
                     ),
                   ],
                 ),
@@ -48,62 +126,89 @@ class _EducationFormState extends ConsumerState<EducationForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Last Name',
+                      'Country',
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      controller: _lastNameController,
-                      keyboardType: TextInputType.name,
+                      controller: _countryController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) => ref
+                          .read(eduCountryProvider.notifier)
+                          .update((state) => value.trim()),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-
           const SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                'Job Title',
-                style: Theme.of(context).textTheme.labelLarge,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Start Date',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _startDateController,
+                      onTap: showStartDatePickerDialog,
+                      readOnly: true,
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 5),
-              TextFormField(
-                controller: _jobTitleController,
-                keyboardType: TextInputType.text,
-              ),
+              const SizedBox(width: 10),
+              if (!isPresent)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'End Date',
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _endDateController,
+                        onTap: showEndDatePickerDialog,
+                        readOnly: true,
+                      ),
+                    ],
+                  ),
+                ),
             ],
+          ),
+          const SizedBox(height: 10),
+          CheckboxListTile.adaptive(
+            value: isPresent,
+            contentPadding: EdgeInsets.zero,
+            title: const Text("Present"),
+            controlAffinity: ListTileControlAffinity.leading,
+            onChanged: (value) => ref
+                .read(eduIsPresentProvider.notifier)
+                .update((state) => value ?? false),
           ),
           const SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Email',
+                'Description',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(height: 5),
               TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Phone number',
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const SizedBox(height: 5),
-              TextFormField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
+                controller: _descriptionController,
+                keyboardType: TextInputType.multiline,
+                maxLines: 5,
+                onChanged: (value) => ref
+                    .read(eduDescriptionProvider.notifier)
+                    .update((state) => value.trim()),
               ),
             ],
           ),
@@ -114,11 +219,13 @@ class _EducationFormState extends ConsumerState<EducationForm> {
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _jobTitleController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
+    _degreeController.dispose();
+    _schoolController.dispose();
+    _cityController.dispose();
+    _countryController.dispose();
+    _descriptionController.dispose();
+    _startDateController.dispose();
+    _endDateController.dispose();
     super.dispose();
   }
 }

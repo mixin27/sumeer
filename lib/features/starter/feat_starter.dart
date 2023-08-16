@@ -1,6 +1,7 @@
 export 'shared/personal_information_providers.dart';
 export 'shared/education_providers.dart';
 export 'shared/experience_providers.dart';
+export 'shared/starter_providers.dart';
 
 export 'presentation/starter_page.dart';
 

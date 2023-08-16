@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:sumeer/features/starter/feat_starter.dart';
 
 class ExperienceForm extends StatefulHookConsumerWidget {
@@ -10,58 +12,69 @@ class ExperienceForm extends StatefulHookConsumerWidget {
 }
 
 class _ExperienceFormState extends ConsumerState<ExperienceForm> {
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
+  final _employerController = TextEditingController();
   final _jobTitleController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _countryController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _startDateController = TextEditingController();
+  final _endDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Future<void> showStartDatePickerDialog() async {
+      final dt = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+      );
+      if (dt != null) {
+        _startDateController.text = DateFormat("MMM, yyyy").format(dt);
+        ref.read(expStartDateProvider.notifier).update((state) => dt);
+      }
+    }
+
+    Future<void> showEndDatePickerDialog() async {
+      final dt = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+      );
+      if (dt != null) {
+        _endDateController.text = DateFormat("MMM, yyyy").format(dt);
+        ref.read(expEndDateProvider.notifier).update((state) => dt);
+      }
+    }
+
+    final isPresent = ref.watch(expIsPresentProvider);
+
     return Form(
       key: ref.watch(experienceFormKeyProvider),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Name
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'First Name',
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: 5),
-                    TextFormField(
-                      controller: _firstNameController,
-                      keyboardType: TextInputType.name,
-                    ),
-                  ],
-                ),
+              Text(
+                'Employer',
+                style: Theme.of(context).textTheme.labelLarge,
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Last Name',
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: 5),
-                    TextFormField(
-                      controller: _lastNameController,
-                      keyboardType: TextInputType.name,
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 5),
+              TextFormField(
+                controller: _employerController,
+                keyboardType: TextInputType.text,
+                validator: MultiValidator([
+                  RequiredValidator(errorText: 'Employer is required'),
+                ]),
+                onChanged: (value) => ref
+                    .read(expEmployerProvider.notifier)
+                    .update((state) => value.trim()),
               ),
             ],
           ),
-
           const SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,36 +87,128 @@ class _ExperienceFormState extends ConsumerState<ExperienceForm> {
               TextFormField(
                 controller: _jobTitleController,
                 keyboardType: TextInputType.text,
+                validator: MultiValidator([
+                  RequiredValidator(
+                    errorText: 'Job title is required',
+                  ),
+                ]),
+                onChanged: (value) => ref
+                    .read(expJobTitleProvider.notifier)
+                    .update((state) => value.trim()),
               ),
             ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'City',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _cityController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) => ref
+                          .read(expCityProvider.notifier)
+                          .update((state) => value.trim()),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Country',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _countryController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) => ref
+                          .read(expCountryProvider.notifier)
+                          .update((state) => value.trim()),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Start Date',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _startDateController,
+                      onTap: showStartDatePickerDialog,
+                      readOnly: true,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              if (!isPresent)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'End Date',
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _endDateController,
+                        onTap: showEndDatePickerDialog,
+                        readOnly: true,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          CheckboxListTile.adaptive(
+            value: isPresent,
+            contentPadding: EdgeInsets.zero,
+            title: const Text("Present"),
+            controlAffinity: ListTileControlAffinity.leading,
+            onChanged: (value) => ref
+                .read(expIsPresentProvider.notifier)
+                .update((state) => value ?? false),
           ),
           const SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Email',
+                'Description',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(height: 5),
               TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Phone number',
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const SizedBox(height: 5),
-              TextFormField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
+                controller: _descriptionController,
+                keyboardType: TextInputType.multiline,
+                maxLines: 5,
+                onChanged: (value) => ref
+                    .read(expDescriptionProvider.notifier)
+                    .update((state) => value.trim()),
               ),
             ],
           ),
@@ -114,11 +219,13 @@ class _ExperienceFormState extends ConsumerState<ExperienceForm> {
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _employerController.dispose();
     _jobTitleController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
+    _cityController.dispose();
+    _countryController.dispose();
+    _descriptionController.dispose();
+    _startDateController.dispose();
+    _endDateController.dispose();
     super.dispose();
   }
 }
