@@ -55,6 +55,8 @@ dependencies:
   searchfield: ^0.8.3
   flutter_html: ^3.0.0-beta.2
   url_launcher: ^6.1.12
+  permission_handler: ^10.4.3
+  external_path: ^1.0.3
 
 dev_dependencies:
   flutter_test:

@@ -28,6 +28,7 @@ Future<Uint8List> generateTemplate2(
   );
 
   var regular = await PdfGoogleFonts.robotoSlabRegular();
+  var bold = await PdfGoogleFonts.robotoSlabSemiBold();
   var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
   var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
 
@@ -88,7 +89,7 @@ Future<Uint8List> generateTemplate2(
                     buildContactTemp(
                       context,
                       "Phone",
-                      resumeData.personalDetail?.phone ?? "",
+                      "0641757217 (Thailand)\n09453031966 (Myanmar)ေရး" ?? "",
                       0xe0b0,
                       pw.TextStyle(
                           color: PdfColors.white,
@@ -98,7 +99,7 @@ Future<Uint8List> generateTemplate2(
                     buildContactTemp(
                       context,
                       "Address",
-                      resumeData.personalDetail?.address ?? "",
+                      "ดา, 99/97, หม.ู่ 6 ต.ท่าทราย อ.เมอื งจ.สมุทรสาคร.74000",
                       0xe0c8,
                       pw.TextStyle(
                           color: PdfColors.white,
@@ -204,7 +205,9 @@ Future<Uint8List> generateTemplate2(
                       ]
                     ],
                     pw.SizedBox(height: 20),
-                    if (resumeData.profile!.contents.isNotEmpty) ...[
+                    if (resumeData.profile != null &&
+                        resumeData.profile?.contents != null &&
+                        resumeData.profile!.contents.isNotEmpty) ...[
                       buildTitleWidget("PROFILE", const pw.IconData(0xea67),
                           PdfColor.fromHex('293F4E'), PdfColors.white),
                       pw.SizedBox(height: 10),
@@ -490,7 +493,7 @@ Future<Uint8List> generateTemplate2(
                         ),
                       )
                     ],
-                    if (resumeData.certificate != null) ...[
+                    if (certificate != null) ...[
                       buildTitleWidget(
                           "CERTIFICATES",
                           const pw.IconData(0xea23),
@@ -500,30 +503,32 @@ Future<Uint8List> generateTemplate2(
                       pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: List.generate(
-                          resumeData.certificate!.certificates.length,
+                          certificate.certificates.length,
                           (index) {
-                            final certificate =
-                                resumeData.certificate!.certificates[index];
+                            final certificateData =
+                                certificate.certificates[index];
 
                             return pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
-                                pw.Text("${certificate.title} ",
+                                pw.Text("${certificateData.title} ",
                                     style: pw.TextStyle(
                                         color: PdfColors.white,
-                                        font: regular,
+                                        font: bold,
                                         fontFallback: [fall1, fall2])),
-                                pw.Text("${certificate.school}",
+                                pw.Text("${certificateData.school}",
                                     style: pw.TextStyle(
                                         color: PdfColors.white,
+                                        fontSize: 12,
                                         font: regular,
                                         fontFallback: [fall1, fall2])),
-                                pw.SizedBox(height: 20)
+                                pw.SizedBox(height: 10)
                               ],
                             );
                           },
                         ),
-                      )
+                      ),
+                      pw.SizedBox(height: 20)
                     ],
                   ],
                 ),
@@ -569,7 +574,7 @@ Future<Uint8List> generateTemplate2(
                                     pw.Row(
                                       children: [
                                         pw.Text(
-                                          DateFormat("E yyyy")
+                                          DateFormat("MMMM yyyy")
                                               .format(experience.startDate!)
                                               .toUpperCase(),
                                           style: pw.TextStyle(
@@ -580,7 +585,7 @@ Future<Uint8List> generateTemplate2(
                                         pw.Text('-'),
                                         pw.SizedBox(width: 5),
                                         pw.Text(
-                                          DateFormat("E yyyy")
+                                          DateFormat("MMMM yyyy")
                                               .format(experience.endDate!)
                                               .toUpperCase(),
                                           style: pw.TextStyle(
@@ -595,7 +600,7 @@ Future<Uint8List> generateTemplate2(
                                     pw.Row(
                                       children: [
                                         pw.Text(
-                                          DateFormat("E yyyy")
+                                          DateFormat("MMMM yyyy")
                                               .format(experience.startDate!)
                                               .toUpperCase(),
                                           style: const pw.TextStyle(),
