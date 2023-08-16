@@ -7,6 +7,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:rabbit_converter/rabbit_converter.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/shared.dart';
@@ -32,105 +33,117 @@ Future<Uint8List> generateTemplate13(
 
   final pageTheme = await _pageTheme(format);
   final mmFont2 = await PdfGoogleFonts.notoSansMyanmarMedium();
+  final mmFontBold = await PdfGoogleFonts.notoSansMyanmarBold();
 
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
       build: (pw.Context context) {
         return [
-          pw.Partitions(
-            children: [
-              pw.Partition(
-                child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.center,
-                  children: [
-                    pw.Container(
-                      padding: const pw.EdgeInsets.only(left: 30, bottom: 20),
-                      child: pw.Row(
-                        // crossAxisAlignment: pw.CrossAxisAlignment.center,
-                        children: [
-                          // if (resumeData.personalDetail?.fullName != null)
-                          pw.Text(
-                            // resumeData.personalDetail?.fullName ?? '',
-                            'ရေး',
-                            textScaleFactor: 2,
+          pw.Partition(
+            flex: 3,
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.center,
+              children: [
+                pw.Container(
+                  padding:
+                      const pw.EdgeInsets.only(left: 30, top: 10, bottom: 20),
+                  child: pw.Row(
+                    // crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    children: [
+                      // if (resumeData.personalDetail?.fullName != null)
+                      pw.Text(
+                        // resumeData.personalDetail?.fullName ?? '',
+                        // Rabbit.zg2uni(''),
+                        "ကိုယ် ‌ေရး ရာဇ၀င်အကျဉ်း",
+                        textScaleFactor: 2,
 
-                            style: pw.TextStyle(font: mmFont2),
-                          ),
-                          if (profileImage != null)
-                            pw.Container(
-                              width: 130,
-                              height: 130,
-                              decoration: pw.BoxDecoration(
-                                borderRadius: pw.BorderRadius.circular(8),
-                              ),
-                              child:
-                                  pw.Image(profileImage, fit: pw.BoxFit.cover),
-                            ),
-                        ],
+                        style: pw.TextStyle(font: mmFont2),
                       ),
-                    ),
-                  ],
+                      pw.SizedBox(width: 150),
+                      if (profileImage != null)
+                        pw.Container(
+                          margin: const pw.EdgeInsets.only(right: 10),
+                          width: 130,
+                          height: 130,
+                          decoration: pw.BoxDecoration(
+                            color: PdfColors.amber,
+                            borderRadius: pw.BorderRadius.circular(8),
+                          ),
+                          child: pw.Image(profileImage, fit: pw.BoxFit.cover),
+                        )
+                    ],
+                  ),
                 ),
-              ),
-              // pw.Partition(
-              //   width: sep,
-              //   child: pw.Column(
-              //     children: [
-              //       pw.Container(
-              //         height: pageTheme.pageFormat.availableHeight,
-              //         child: pw.Column(
-              //           crossAxisAlignment: pw.CrossAxisAlignment.center,
-              //           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             if (profileImage != null)
-              //               pw.ClipOval(
-              //                 child: pw.Container(
-              //                     width: 100,
-              //                     height: 100,
-              //                     color: lightGreen,
-              //                     // child: pw.Image(resumeData.profileImage!),
-              //                     // profileImage
-              //                     child: pw.Image(profileImage)),
-              //               ),
-              //             if (resumeData.skill != null)
-              //               pw.Column(
-              //                 children: List.generate(
-              //                   resumeData.skill!.skills.length,
-              //                   (index) {
-              //                     final skill = resumeData.skill!.skills[index];
-
-              //                     return ProgressDesignCircular1(
-              //                       size: 60,
-              //                       value: skill.percentage ?? 0.0,
-              //                       title: pw.Text(skill.skill),
-              //                     );
-              //                   },
-              //                 ),
-              //               ),
-              //             if (resumeData.personalDetail != null &&
-              //                 resumeData.personalDetail!.links.isNotEmpty)
-              //               pw.BarcodeWidget(
-              //                 data: resumeData.personalDetail!.links[0].url,
-              //                 width: 60,
-              //                 height: 60,
-              //                 barcode: pw.Barcode.qrCode(),
-              //                 drawText: false,
-              //               ),
-              //           ],
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-            ],
+              ],
+            ),
           ),
+          pw.Partition(
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                prefixTitle(mmFontBold, '၁။ အမည်', data: 'ဇူး ရတနာ'),
+                prefixTitle(mmFontBold, '၂။ အလုပ်အကိုင် ရာထူး', data: 'စာရေး'),
+                prefixTitle(mmFontBold, '၃။ အဘအမည်', data: 'ဉီး အေး သောင်း'),
+                prefixTitle(mmFontBold, '၄။ နိုင်ငံသားစိစစ်ရေးကတ်ြပားအမှတ်',
+                    data: '၁၄/၀ခမ(နိုင်)၂၃၂၂၃'),
+                prefixTitle(mmFontBold, '၅။ အသက် / မွေးသက္ကရာဇ်',
+                    data: '၀၆/၁၁/၂၀၀၃'),
+                prefixTitle(mmFontBold, '၆။ လူမျိုး / ဘာသာ', data: 'ဗုဓ္ဒ'),
+                prefixTitle(mmFontBold, '၇။ ပညာ အရည်အချင်း',
+                    data: 'ဆယ်တန်း အောင်'),
+                prefixTitle(mmFontBold, '၈။ လုပ်ငန်းအတွေ. အကြုံ',
+                    data: '၃ နှစ်'),
+                prefixTitle(mmFontBold, '၉။ အခြားတက်ရောက်ခဲ့သည်.သင်တန်းများ',
+                    data: 'စက်ချူပ်'),
+                prefixTitle(mmFontBold, '၁၀။ ။ အပခာူးကျွမ်ူးက င်သညဲ့်ဘာသာစကာူ',
+                    data: 'အင်္ဂ လိပ်'),
+                prefixTitle(mmFontBold, '၁၁။ အခြားကျွမ်းကျင်သည့် ဘာသာစကား',
+                    data: ''),
+                prefixTitle(mmFontBold, '၁၂။ အိမ်ထောင်ရှိ/မရှိ', data: 'မရှိ'),
+                prefixTitle(mmFontBold, '၁၃။ ဆက်သွယ်ရန်နေရပ်လိပ်စာ',
+                    data: 'ဆက်သွယ်ရန်နေရပ်လိပ်စာ'),
+                prefixTitle(mmFontBold, '၁၄။ ဖုန်းနံပတ်', data: '၀၉၈၈၃၂၉၇၈၂၃'),
+                prefixTitle(mmFontBold, '၁၅။ အီးမေ(လ်) လိပ်စာ',
+                    data: 'email@gamil.com'),
+              ],
+            ),
+          )
         ];
       },
     ),
   );
 
   return doc.save();
+}
+
+pw.Widget prefixTitle(pw.Font mmFontBold, String prefixText,
+    {required String? data}) {
+  return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 4),
+      child: pw.Row(
+        children: [
+          pw.Expanded(
+            flex: 4,
+            child: pw.Text(
+              prefixText,
+              textScaleFactor: 1.2,
+              style: pw.TextStyle(font: mmFontBold),
+            ),
+          ),
+          pw.SizedBox(width: 10),
+          // flex: 4,
+          pw.Text(
+            'း',
+            textScaleFactor: 1.2,
+          ),
+
+          pw.Expanded(
+            flex: 4,
+            child: pw.Text(textAlign: pw.TextAlign.center, data ?? ''),
+          ),
+        ],
+      ));
 }
 
 Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
@@ -140,19 +153,20 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
 
   format = format.applyMargin(
     left: 2.0 * PdfPageFormat.cm,
-    top: 4.0 * PdfPageFormat.cm,
+    top: 0 * PdfPageFormat.cm,
     right: 2.0 * PdfPageFormat.cm,
     bottom: 2.0 * PdfPageFormat.cm,
   );
 
   return pw.PageTheme(
-    pageFormat: format,
+    margin: const pw.EdgeInsets.only(top: 0, left: 16, right: 4),
+    // pageFormat: format,
     theme: pw.ThemeData.withFont(
-        // base: await PdfGoogleFonts.notoSansMyanmarRegular(),
-        // bold: await PdfGoogleFonts.notoSansMyanmarBold(),
-        // icons: await PdfGoogleFonts.materialIcons(),
-        // fontFallback: [mmFont2],
-        ),
+      base: await PdfGoogleFonts.notoSansMyanmarRegular(),
+      bold: await PdfGoogleFonts.notoSansMyanmarBold(),
+      icons: await PdfGoogleFonts.materialIcons(),
+      fontFallback: [mmFont2],
+    ),
     buildBackground: (pw.Context context) {
       return pw.FullPage(
         ignoreMargins: true,

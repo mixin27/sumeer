@@ -1309,6 +1309,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  rabbit_converter:
+    dependency: "direct main"
+    description:
+      name: rabbit_converter
+      sha256: bd796f6a6d9cf6ebb03b64719bc7ce3fb2da2aeff14d96e56a63828226f1e687
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   riverpod:
     dependency: transitive
     description:
