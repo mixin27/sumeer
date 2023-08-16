@@ -31,6 +31,7 @@ Future<Uint8List> generateTemplate13(
   );
 
   final pageTheme = await _pageTheme(format);
+  final mmFont2 = await PdfGoogleFonts.notoSansMyanmarMedium();
 
   doc.addPage(
     pw.MultiPage(
@@ -45,29 +46,26 @@ Future<Uint8List> generateTemplate13(
                   children: [
                     pw.Container(
                       padding: const pw.EdgeInsets.only(left: 30, bottom: 20),
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                      child: pw.Row(
+                        // crossAxisAlignment: pw.CrossAxisAlignment.center,
                         children: [
-                          if (resumeData.personalDetail?.fullName != null)
-                            pw.Text(
-                              resumeData.personalDetail?.fullName ?? '',
-                              textScaleFactor: 2,
-                              style: pw.Theme.of(context)
-                                  .defaultTextStyle
-                                  .copyWith(fontWeight: pw.FontWeight.bold),
-                            ),
+                          // if (resumeData.personalDetail?.fullName != null)
+                          pw.Text(
+                            // resumeData.personalDetail?.fullName ?? '',
+                            'ရေး',
+                            textScaleFactor: 2,
+
+                            style: pw.TextStyle(font: mmFont2),
+                          ),
                           if (profileImage != null)
                             pw.Container(
                               width: 130,
                               height: 130,
-                              child: pw.ClipOval(
-                                // child:
-                                // pw.Image(resumeData.profileImage!,
-                                //     width: 130, height: 130, fit: pw.BoxFit.cover),
-                                // profileImage
-                                child: pw.Image(profileImage,
-                                    fit: pw.BoxFit.cover),
+                              decoration: pw.BoxDecoration(
+                                borderRadius: pw.BorderRadius.circular(8),
                               ),
+                              child:
+                                  pw.Image(profileImage, fit: pw.BoxFit.cover),
                             ),
                         ],
                       ),
@@ -136,7 +134,9 @@ Future<Uint8List> generateTemplate13(
 }
 
 Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
-  final bgShape = await rootBundle.loadString(AssetPaths.resumeSvg);
+  // final bgShape = await rootBundle.loadString(AssetPaths.resumeSvg);
+  // final mmFont = await PdfGoogleFonts.notoSansMyanmarRegular();
+  final mmFont2 = await PdfGoogleFonts.notoSansMyanmarMedium();
 
   format = format.applyMargin(
     left: 2.0 * PdfPageFormat.cm,
@@ -148,10 +148,11 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
   return pw.PageTheme(
     pageFormat: format,
     theme: pw.ThemeData.withFont(
-      base: await PdfGoogleFonts.openSansRegular(),
-      bold: await PdfGoogleFonts.openSansBold(),
-      icons: await PdfGoogleFonts.materialIcons(),
-    ),
+        // base: await PdfGoogleFonts.notoSansMyanmarRegular(),
+        // bold: await PdfGoogleFonts.notoSansMyanmarBold(),
+        // icons: await PdfGoogleFonts.materialIcons(),
+        // fontFallback: [mmFont2],
+        ),
     buildBackground: (pw.Context context) {
       return pw.FullPage(
         ignoreMargins: true,
