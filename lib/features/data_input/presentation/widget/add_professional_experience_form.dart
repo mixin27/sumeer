@@ -182,8 +182,8 @@ class _AddProfessionalExperienceFormState
                               city: cityController.text,
                               isPresent: isPresent,
                               // startDate: startDate,
-                              startDate: DateTime.now(),
-                              endDate: DateTime.now(),
+                              startDate: selectedStartDate,
+                              endDate: selectedEndDate,
                               description: descriptionController.text,
                             );
 
