@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/starter/feat_starter.dart';
+import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 
 @RoutePage()
@@ -37,7 +38,7 @@ class StarterExperiencePage extends HookConsumerWidget {
                     onPressed: experiences.isNotEmpty
                         ? null
                         : () {
-                            // context.router.push(const StarterExperienceRoute());
+                            context.router.push(const StarterCompleteRoute());
                           },
                     child: const Text('Skip'),
                   )
@@ -187,16 +188,23 @@ class StarterExperiencePage extends HookConsumerWidget {
 
                             final starterResumeData = ResumeData(
                               personalDetail: personalDetail,
-                              education: EducationSection(
-                                educations: educations,
-                              ),
-                              experience: ExperienceSection(
-                                experiences: experiences,
-                              ),
+                              education: educations.isNotEmpty
+                                  ? EducationSection(
+                                      educations: educations,
+                                    )
+                                  : null,
+                              experience: experiences.isNotEmpty
+                                  ? ExperienceSection(
+                                      experiences: experiences,
+                                    )
+                                  : null,
                             );
                             tLog("StarterResumeData => $starterResumeData");
+                            ref
+                                .read(starterResumeDataProvider.notifier)
+                                .update((state) => starterResumeData);
 
-                            // context.router.push(const StarterExperienceRoute());
+                            context.router.push(const StarterCompleteRoute());
                           },
                     style: FilledButton.styleFrom(
                       shape: const RoundedRectangleBorder(

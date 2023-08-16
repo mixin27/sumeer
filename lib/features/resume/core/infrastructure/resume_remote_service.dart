@@ -11,7 +11,7 @@ class ResumeRemoteService {
   Stream<List<ResumeDataDto>> getAllResumeDataStream({
     required String userId,
   }) async* {
-    yield* _firestore
+    final result = _firestore
         .collection(FirestoreConsts.resumes)
         .doc(userId)
         .collection(FirestoreConsts.files)
@@ -21,6 +21,8 @@ class ResumeRemoteService {
         return ResumeDataDto.fromJson(e.data());
       }).toList();
     });
+
+    yield* result;
   }
 
   Future<String> addResumeData({

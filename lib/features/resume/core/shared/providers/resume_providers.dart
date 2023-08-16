@@ -7,13 +7,21 @@ import 'package:sumeer/shared/shared.dart';
 part 'resume_providers.g.dart';
 
 @Riverpod(keepAlive: true)
+ResumeLocalService resumeLocalService(ResumeLocalServiceRef ref) {
+  return ResumeLocalService();
+}
+
+@Riverpod(keepAlive: true)
 ResumeRemoteService resumeRemoteService(ResumeRemoteServiceRef ref) {
   return ResumeRemoteService(ref.watch(firebaseFirestoreProvider));
 }
 
 @Riverpod(keepAlive: true)
 ResumeRepository resumeRepository(ResumeRepositoryRef ref) {
-  return ResumeRepository(ref.watch(resumeRemoteServiceProvider));
+  return ResumeRepository(
+    ref.watch(resumeRemoteServiceProvider),
+    ref.watch(resumeLocalServiceProvider),
+  );
 }
 
 final addResumeDataNotifierProvider =
@@ -33,3 +41,7 @@ Stream<List<ResumeData>> resumeDataList(ResumeDataListRef ref,
   final repository = ref.read(resumeRepositoryProvider);
   yield* repository.getAllResumeDataStream(userId: userId);
 }
+
+final selectedResumeTemplateProvider = StateProvider<ResumeTemplate?>((ref) {
+  return null;
+});

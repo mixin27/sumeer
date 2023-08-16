@@ -5,8 +5,9 @@ import 'package:sumeer/utils/logger/logger.dart';
 
 class ResumeRepository {
   final ResumeRemoteService _remoteService;
+  final ResumeLocalService _localService;
 
-  ResumeRepository(this._remoteService);
+  ResumeRepository(this._remoteService, this._localService);
 
   Future<Either<String, String>> addResumeData({
     required String userId,
@@ -64,4 +65,16 @@ class ResumeRepository {
         .getAllResumeDataStream(userId: userId)
         .map((event) => event.map((e) => e.toDomain()).toList());
   }
+
+  Future<void> saveToLocal(List<ResumeData> items) async {
+    await _localService
+        .save(items.map((e) => ResumeDataDto.fromDomain(e)).toList());
+  }
+
+  Future<List<ResumeData>> getLocalData() async {
+    final result = await _localService.getData();
+    return result.map((e) => e.toDomain()).toList();
+  }
+
+  Future<void> clearLocalData() async => _localService.clearLocalData();
 }

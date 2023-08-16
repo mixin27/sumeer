@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
       // Navigate to Main Rotue
       // context.router.replaceAll([const MainRoute()]);
     }
-    context.router.replaceAll([const StarterRoute()]);
+    if (mounted) context.router.replaceAll([const StarterRoute()]);
   }
 
   @override

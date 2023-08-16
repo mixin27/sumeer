@@ -327,13 +327,26 @@ Future<Uint8List> generateTemplate6(
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
-                    pw.Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                      style: const pw.TextStyle(
-                        color: PdfColors.white,
+                    if (resumeData.profile != null &&
+                        resumeData.profile!.contents.isNotEmpty) ...[
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: List.generate(
+                          resumeData.profile!.contents.length,
+                          (index) {
+                            final item = resumeData.profile!.contents[index];
+                            return pw.Text(
+                              item,
+                              style: const pw.TextStyle(
+                                color: PdfColors.white,
+                              ),
+                              textAlign: pw.TextAlign.justify,
+                            );
+                          },
+                        ),
                       ),
-                      textAlign: pw.TextAlign.justify,
-                    ),
+                    ],
+
                     pw.SizedBox(height: 20),
                     if (resumeData.experience != null) ...[
                       pw.Row(

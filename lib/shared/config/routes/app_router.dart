@@ -10,7 +10,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: SplashRoute.page, path: '/'),
         AutoRoute(page: OnboardingRoute.page),
 
-        AutoRoute(page: StarterRoute.page, path: '/start'),
+        AutoRoute(page: StarterRoute.page, path: '/starter'),
         AutoRoute(
           page: StarterPersonalDetailRoute.page,
           path: '/personal-information',
@@ -22,6 +22,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: StarterExperienceRoute.page,
           path: '/experience',
+        ),
+        AutoRoute(
+          page: StarterCompleteRoute.page,
+          path: '/complete',
         ),
 
         AutoRoute(
@@ -53,6 +57,7 @@ class AppRouter extends $AppRouter {
           path: '/edit_personal_detail',
         ),
         AutoRoute(page: MyFileRoute.page, path: '/my_file'),
+        AutoRoute(page: MyFilesRoute.page, path: '/my-files'),
 
         AutoRoute(page: PrivacyAndPolicyRoute.page, path: '/privacy-policy'),
       ];

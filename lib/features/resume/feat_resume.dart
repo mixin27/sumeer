@@ -3,6 +3,7 @@ export 'data/dummy_resume_data.dart';
 export 'core/domain/resume_models.dart';
 export 'core/domain/document_params.dart';
 
+export 'core/infrastructure/resume_local_service.dart';
 export 'core/infrastructure/resume_remote_service.dart';
 export 'core/infrastructure/resume_repository.dart';
 export 'core/infrastructure/resume_dto.dart';
