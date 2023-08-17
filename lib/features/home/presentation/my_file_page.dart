@@ -10,42 +10,6 @@ import '../../auth/feat_auth.dart';
 @RoutePage()
 class MyFilePage extends HookConsumerWidget {
   const MyFilePage({super.key});
-  // List<ResumeData> resumeModeList = [];
-
-  // Future<List<ResumeData>> getData() async {
-  //  final currentUser = ref.watch(authRepositoryProvider).currentUser;
-
-  // var uid = ref.watch(authRepositoryProvider).currentUser?.uid.toString();
-
-  // TODO: refactor
-  // await ref
-  //     .read(cloudFirestoreProvider)
-  //     .collection("sumeer")
-  //     .doc(uid)
-  //     .collection("user")
-  //     .get()
-  //     .then(
-  //   (documentSnapshot) {
-  //     if (documentSnapshot.docs.isNotEmpty) {
-  //       var list = documentSnapshot.docs
-  //           .map(
-  //             (e) => ResumeData.fromJson(e.data()),
-  //           )
-  //           .toList();
-  //       resumeModeList = list;
-  //       return list;
-  //     }
-  //   },
-  // );
-
-  //   return resumeModeList;
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.microtask(() => getData());
-  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

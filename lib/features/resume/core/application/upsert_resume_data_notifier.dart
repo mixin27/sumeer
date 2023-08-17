@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 part 'upsert_resume_data_notifier.freezed.dart';

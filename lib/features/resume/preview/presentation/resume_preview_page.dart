@@ -100,7 +100,6 @@ class ResumePreviewPage extends HookConsumerWidget {
               right: 30,
               child: IconButton(
                   onPressed: () async {
-                    // TODO: refactor
                     // final oldResumeData = ref.watch(resumeDataProvider);
                     // ref.read(resumeDataProvider.notifier).update(
                     //       (state) =>

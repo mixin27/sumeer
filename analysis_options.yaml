@@ -1,6 +1,9 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  # language:
+  #   strict-raw-types: true
+  #   strict-casts: true
   plugins:
     - custom_lint
   exclude:

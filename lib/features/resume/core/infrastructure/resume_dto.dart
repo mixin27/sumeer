@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 part 'resume_dto.freezed.dart';

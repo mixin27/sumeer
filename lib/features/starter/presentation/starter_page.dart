@@ -1,6 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/features/starter/feat_starter.dart';
