@@ -154,70 +154,70 @@ class ResumePreviewPage extends HookConsumerWidget {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 30,
-              child: IconButton(
-                  onPressed: () {
-                    //
-                    context.router.push(const TemplatesRoute());
-                  },
-                  icon: Icon(
-                    Icons.change_circle,
-                    size: 30,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  )),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 30,
-              child: IconButton(
-                  onPressed: () async {
-                    final oldResumeData = ref.watch(resumeDataProvider);
-                    ref.read(resumeDataProvider.notifier).update(
-                          (state) =>
-                              oldResumeData?.copyWith(templateId: resume.id),
-                        );
-                    var uid = ref
-                        .watch(authRepositoryProvider)
-                        .currentUser
-                        ?.uid
-                        .toString();
-                    final resumeData = ref.watch(resumeDataProvider);
+            // Positioned(
+            //   bottom: 0,
+            //   left: 30,
+            //   child: IconButton(
+            //       onPressed: () {
+            //         //
+            //         context.router.push(const TemplatesRoute());
+            //       },
+            //       icon: Icon(
+            //         Icons.change_circle,
+            //         size: 30,
+            //         color: Theme.of(context).colorScheme.onPrimary,
+            //       )),
+            // ),
+            // Positioned(
+            //   bottom: 0,
+            //   right: 30,
+            //   child: IconButton(
+            //       onPressed: () async {
+            //         final oldResumeData = ref.watch(resumeDataProvider);
+            //         ref.read(resumeDataProvider.notifier).update(
+            //               (state) =>
+            //                   oldResumeData?.copyWith(templateId: resume.id),
+            //             );
+            //         var uid = ref
+            //             .watch(authRepositoryProvider)
+            //             .currentUser
+            //             ?.uid
+            //             .toString();
+            //         final resumeData = ref.watch(resumeDataProvider);
 
-                    if (uid != null && resumeData != null) {
-                      await ref
-                          .read(upsertResumeDataNotifierProvider.notifier)
-                          .upsertResumeData(
-                            userId: uid,
-                            resumeData: resumeData,
-                            resumeDocId: resumeData.resumeId,
-                          )
-                          .then((value) {
-                        ref.read(resumeDataProvider.notifier).state = null;
-                        context.router.replaceAll([const HomeRoute()]);
-                      });
-                    }
-                    // await ref
-                    //     .read(cloudFirestoreProvider)
-                    //     .collection("sumeer")
-                    //     .doc(uid)
-                    //     .collection("user")
-                    //     .doc(ref.watch(resumeDataProvider)?.resumeId)
-                    //     .set(
-                    //       ref.watch(resumeDataProvider)?.toJson() ?? {},
-                    //     )
-                    //     .then((value) => {
-                    //           context.router.replaceAll([const HomeRoute()]),
-                    //           ref.read(resumeDataProvider.notifier).state = null
-                    //         });
-                  },
-                  icon: Icon(
-                    Icons.save,
-                    size: 30,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  )),
-            ),
+            //         if (uid != null && resumeData != null) {
+            //           await ref
+            //               .read(upsertResumeDataNotifierProvider.notifier)
+            //               .upsertResumeData(
+            //                 userId: uid,
+            //                 resumeData: resumeData,
+            //                 resumeDocId: resumeData.resumeId,
+            //               )
+            //               .then((value) {
+            //             ref.read(resumeDataProvider.notifier).state = null;
+            //             context.router.replaceAll([const HomeRoute()]);
+            //           });
+            //         }
+            //         // await ref
+            //         //     .read(cloudFirestoreProvider)
+            //         //     .collection("sumeer")
+            //         //     .doc(uid)
+            //         //     .collection("user")
+            //         //     .doc(ref.watch(resumeDataProvider)?.resumeId)
+            //         //     .set(
+            //         //       ref.watch(resumeDataProvider)?.toJson() ?? {},
+            //         //     )
+            //         //     .then((value) => {
+            //         //           context.router.replaceAll([const HomeRoute()]),
+            //         //           ref.read(resumeDataProvider.notifier).state = null
+            //         //         });
+            //       },
+            //       icon: Icon(
+            //         Icons.save,
+            //         size: 30,
+            //         color: Theme.of(context).colorScheme.onPrimary,
+            //       )),
+            // ),
           ],
         ),
       ),
