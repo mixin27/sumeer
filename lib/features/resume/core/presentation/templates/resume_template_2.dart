@@ -1,9 +1,11 @@
 import 'package:flutter/services.dart';
+
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:rabbit_converter/rabbit_converter.dart';
+
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 Future<Uint8List> generateTemplate2(
