@@ -49,177 +49,107 @@ class ResumePreviewPage extends HookConsumerWidget {
       }
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        ref.read(resumeDataProvider.notifier).state = null;
-        ref.read(resumeDataProvider.notifier).state = null;
-        ref.read(skillSectionProvider.notifier).state = null;
-        ref.read(educationSectionProvider.notifier).state = null;
-        ref.read(experienceSectionProvider.notifier).state = null;
-        ref.read(resumeModelIdProvider.notifier).state = '';
-        ref.read(profileSectionProvider.notifier).state = null;
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(resume.name),
-        ),
-        body: Stack(
-          children: [
-            InteractiveViewer(
-              child: PdfPreview(
-                pageFormats: const <String, pw.PdfPageFormat>{
-                  'A4': pw.PdfPageFormat.a4,
-                },
-                canChangePageFormat: false,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(resume.name),
+      ),
+      body: Stack(
+        children: [
+          InteractiveViewer(
+            child: PdfPreview(
+              pageFormats: const <String, pw.PdfPageFormat>{
+                'A4': pw.PdfPageFormat.a4,
+              },
+              canChangePageFormat: false,
 
-                // useActions: false,
-                scrollViewDecoration: const BoxDecoration(
-                  color: Color(0xFFF1F2FD),
-                ),
-                onPrinted: (context) {},
-                allowPrinting: false,
-                canChangeOrientation: false,
-                canDebug: false,
-                build: (format) => resume.builder(
-                  format,
-                  GenerateDocParams(
-                    title: 'RESUME',
-                    author: resumeData?.personalDetail?.fullName,
-                  ),
-                  resumeData ?? ResumeData.empty(),
-                ),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        //
-                        context.router.push(const TemplatesRoute());
-                      },
-                      icon: Icon(
-                        Icons.change_circle,
-                        size: 30,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      )),
-                  PdfPreviewAction(
-                      icon: Icon(
-                        Icons.save,
-                        size: 30,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                      onPressed: (context, fn, format) async {
-                        //if you call fn(format), you'll get Future<UInt8List>
-                        var data = await fn(format);
-                        saveLocalStorage(data);
-                        final oldResumeData = ref.watch(resumeDataProvider);
-                        ref.read(resumeDataProvider.notifier).update(
-                              (state) => oldResumeData?.copyWith(
-                                  templateId: resume.id),
-                            );
-                        var uid = ref
-                            .watch(authRepositoryProvider)
-                            .currentUser
-                            ?.uid
-                            .toString();
-                        final resumeData = ref.watch(resumeDataProvider);
-
-                        if (uid != null && resumeData != null) {
-                          await ref
-                              .read(upsertResumeDataNotifierProvider.notifier)
-                              .upsertResumeData(
-                                userId: uid,
-                                resumeData: resumeData,
-                                resumeDocId: resumeData.resumeId,
-                              )
-                              .then((value) {
-                            context.router.replaceAll([const HomeRoute()]);
-                            ref.read(resumeDataProvider.notifier).state = null;
-                          });
-                        }
-                        // await ref
-                        //     .read(cloudFirestoreProvider)
-                        //     .collection("sumeer")
-                        //     .doc(uid)
-                        //     .collection("user")
-                        //     .doc(ref.watch(resumeDataProvider)?.resumeId)
-                        //     .set(
-                        //       ref.watch(resumeDataProvider)?.toJson() ?? {},
-                        //     )
-                        //     .then((value) => {
-                        //           context.router
-                        //               .replaceAll([const HomeRoute()]),
-                        //           ref.read(resumeDataProvider.notifier).state =
-                        //               null
-                        //         });
-                      }),
-                ],
+              // useActions: false,
+              scrollViewDecoration: const BoxDecoration(
+                color: Color(0xFFF1F2FD),
               ),
-            ),
-            // Positioned(
-            //   bottom: 0,
-            //   left: 30,
-            //   child: IconButton(
-            //       onPressed: () {
-            //         //
-            //         context.router.push(const TemplatesRoute());
-            //       },
-            //       icon: Icon(
-            //         Icons.change_circle,
-            //         size: 30,
-            //         color: Theme.of(context).colorScheme.onPrimary,
-            //       )),
-            // ),
-            // Positioned(
-            //   bottom: 0,
-            //   right: 30,
-            //   child: IconButton(
-            //       onPressed: () async {
-            //         final oldResumeData = ref.watch(resumeDataProvider);
-            //         ref.read(resumeDataProvider.notifier).update(
-            //               (state) =>
-            //                   oldResumeData?.copyWith(templateId: resume.id),
-            //             );
-            //         var uid = ref
-            //             .watch(authRepositoryProvider)
-            //             .currentUser
-            //             ?.uid
-            //             .toString();
-            //         final resumeData = ref.watch(resumeDataProvider);
+              onPrinted: (context) {},
+              allowPrinting: false,
+              canChangeOrientation: false,
+              canDebug: false,
+              build: (format) => resume.builder(
+                format,
+                GenerateDocParams(
+                  title: 'RESUME',
+                  author: resumeData?.personalDetail?.fullName,
+                ),
+                resumeData ?? ResumeData.empty(),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    //
+                    context.router.push(const TemplatesRoute());
+                  },
+                  icon: Icon(
+                    Icons.change_circle,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+                PdfPreviewAction(
+                  icon: Icon(
+                    Icons.save,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  onPressed: (context, fn, format) async {
+                    //if you call fn(format), you'll get Future<UInt8List>
+                    var data = await fn(format);
+                    saveLocalStorage(data);
+                    final oldResumeData = ref.watch(resumeDataProvider);
+                    ref.read(resumeDataProvider.notifier).update(
+                          (state) =>
+                              oldResumeData?.copyWith(templateId: resume.id),
+                        );
 
-            //         if (uid != null && resumeData != null) {
-            //           await ref
-            //               .read(upsertResumeDataNotifierProvider.notifier)
-            //               .upsertResumeData(
-            //                 userId: uid,
-            //                 resumeData: resumeData,
-            //                 resumeDocId: resumeData.resumeId,
-            //               )
-            //               .then((value) {
-            //             ref.read(resumeDataProvider.notifier).state = null;
-            //             context.router.replaceAll([const HomeRoute()]);
-            //           });
-            //         }
-            //         // await ref
-            //         //     .read(cloudFirestoreProvider)
-            //         //     .collection("sumeer")
-            //         //     .doc(uid)
-            //         //     .collection("user")
-            //         //     .doc(ref.watch(resumeDataProvider)?.resumeId)
-            //         //     .set(
-            //         //       ref.watch(resumeDataProvider)?.toJson() ?? {},
-            //         //     )
-            //         //     .then((value) => {
-            //         //           context.router.replaceAll([const HomeRoute()]),
-            //         //           ref.read(resumeDataProvider.notifier).state = null
-            //         //         });
-            //       },
-            //       icon: Icon(
-            //         Icons.save,
-            //         size: 30,
-            //         color: Theme.of(context).colorScheme.onPrimary,
-            //       )),
-            // ),
-          ],
-        ),
+                    var uid = ref
+                        .watch(authRepositoryProvider)
+                        .currentUser
+                        ?.uid
+                        .toString();
+                    final resumeData = ref.watch(resumeDataProvider);
+
+                    if (resumeData != null) {
+                      if (uid == null) {
+                        final oldData = await ref
+                            .watch(resumeRepositoryProvider)
+                            .getLocalData();
+                        ref.read(resumeRepositoryProvider).saveToLocal(
+                          [resumeData, ...oldData],
+                        );
+                      } else {
+                        await ref
+                            .read(upsertResumeDataNotifierProvider.notifier)
+                            .upsertResumeData(
+                              userId: uid,
+                              resumeData: resumeData,
+                              resumeDocId: resumeData.resumeId,
+                            );
+                      }
+
+                      ref.read(resumeDataProvider.notifier).state = null;
+                      ref.read(resumeDataProvider.notifier).state = null;
+                      ref.read(resumeDataProvider.notifier).state = null;
+                      ref.read(skillSectionProvider.notifier).state = null;
+                      ref.read(educationSectionProvider.notifier).state = null;
+                      ref.read(experienceSectionProvider.notifier).state = null;
+                      ref.read(resumeModelIdProvider.notifier).state = '';
+                      ref.read(profileSectionProvider.notifier).state = null;
+
+                      if (context.mounted) {
+                        context.router.replaceAll([const HomeRoute()]);
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

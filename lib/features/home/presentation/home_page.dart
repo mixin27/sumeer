@@ -4,12 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
-import 'package:sumeer/features/home/presentation/widgets/home_auth_notice_card.dart';
-import 'package:sumeer/features/home/presentation/widgets/home_banner_card.dart';
-import 'package:sumeer/features/home/presentation/widgets/home_create_button_row.dart';
-import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
+
+import 'widgets/home_auth_notice_card.dart';
+import 'widgets/home_banner_card.dart';
+import 'widgets/home_create_button_row.dart';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -62,31 +62,31 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: HomeCreateButtonRow(),
           ),
           const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
-            child: Consumer(
-              builder: (context, ref, child) {
-                return ElevatedButton(
-                  onPressed: () async {
-                    final currentUser =
-                        ref.read(authRepositoryProvider).currentUser;
-                    if (currentUser == null) return;
-                    final resumeData = await getDummyResumeData();
-                    ref
-                        .read(upsertResumeDataNotifierProvider.notifier)
-                        .upsertResumeData(
-                          userId: currentUser.uid,
-                          resumeData: resumeData,
-                        );
-                  },
-                  child: const Text("Add Dummy Data"),
-                );
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(
+          //     horizontal: 16,
+          //     vertical: 8,
+          //   ),
+          //   child: Consumer(
+          //     builder: (context, ref, child) {
+          //       return ElevatedButton(
+          //         onPressed: () async {
+          //           final currentUser =
+          //               ref.read(authRepositoryProvider).currentUser;
+          //           if (currentUser == null) return;
+          //           final resumeData = await getDummyResumeData();
+          //           ref
+          //               .read(upsertResumeDataNotifierProvider.notifier)
+          //               .upsertResumeData(
+          //                 userId: currentUser.uid,
+          //                 resumeData: resumeData,
+          //               );
+          //         },
+          //         child: const Text("Add Dummy Data"),
+          //       );
+          //     },
+          //   ),
+          // ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           //   child: Column(

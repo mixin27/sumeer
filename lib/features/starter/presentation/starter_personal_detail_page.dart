@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/features/starter/feat_starter.dart';
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/widgets/widgets.dart';
 
 @RoutePage()
 class StarterPersonalDetailPage extends StatelessWidget {
@@ -14,12 +15,21 @@ class StarterPersonalDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Padding(
+      body: Container(
+        height: MediaQuery.sizeOf(context).height,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: SvgImage(AssetPaths.background),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               Row(
@@ -30,7 +40,12 @@ class StarterPersonalDetailPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
+              Text(
+                AppStrings.loremIpsumParagraph.substring(0, 90),
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: 40),
               const PersonalInformationForm(),
               const SizedBox(height: 20),
               Row(
