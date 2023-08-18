@@ -814,6 +814,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   void savePersonalDetail() async {
+    // final currentUser = ref.watch(authRepositoryProvider).currentUser;
+
     final oldResumeData = ref.watch(resumeDataProvider);
     PersonalInformation personalInfo = PersonalInformation(
       dateOfBirth: _selectedDateStr,
