@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pdf/pdf.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:sumeer/features/auth/feat_auth.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
@@ -100,16 +101,30 @@ class ResumePreviewPage extends HookConsumerWidget {
               right: 30,
               child: IconButton(
                   onPressed: () async {
-                    // final oldResumeData = ref.watch(resumeDataProvider);
-                    // ref.read(resumeDataProvider.notifier).update(
-                    //       (state) =>
-                    //           oldResumeData?.copyWith(templateId: resume.id),
-                    //     );
-                    // var uid = ref
-                    //     .watch(authRepositoryProvider)
-                    //     .currentUser
-                    //     ?.uid
-                    //     .toString();
+                    final oldResumeData = ref.watch(resumeDataProvider);
+                    ref.read(resumeDataProvider.notifier).update(
+                          (state) =>
+                              oldResumeData?.copyWith(templateId: resume.id),
+                        );
+                    var uid = ref
+                        .watch(authRepositoryProvider)
+                        .currentUser
+                        ?.uid
+                        .toString();
+                    final resumeData = ref.watch(resumeDataProvider);
+
+                    if (uid != null && resumeData != null) {
+                      await ref
+                          .read(upsertResumeDataNotifierProvider.notifier)
+                          .upsertResumeData(
+                            userId: uid,
+                            resumeData: resumeData,
+                          )
+                          .then((value) {
+                        ref.read(resumeDataProvider.notifier).state = null;
+                        context.router.replaceAll([const HomeRoute()]);
+                      });
+                    }
                     // await ref
                     //     .read(cloudFirestoreProvider)
                     //     .collection("sumeer")
