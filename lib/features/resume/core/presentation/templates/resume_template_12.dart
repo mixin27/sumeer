@@ -694,7 +694,7 @@ pw.Column _skillList(
               children: [
                 pw.Expanded(
                   child: pw.Text(
-                    resumeData.skill!.skills[index].skill,
+                    resumeData.skill!.skills[index].name,
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)

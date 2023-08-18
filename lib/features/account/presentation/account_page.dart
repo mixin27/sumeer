@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:sumeer/features/auth/core/shared/auth_providers.dart';
 import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/logger/logger.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class AccountPage extends ConsumerStatefulWidget {

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
-import 'package:sumeer/features/resume/core/presentation/templates/resume_template_13.dart';
 
+import 'package:sumeer/features/resume/core/presentation/templates/resume_template_13.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/constants/asset_paths.dart';
 

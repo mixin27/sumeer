@@ -59,12 +59,13 @@ Future<Uint8List> generateTemplate8(
                   child: profileImage != null
                       ? pw.ClipOval(
                           child: pw.Container(
-                              width: 100,
-                              height: 100,
-                              color: lightGreen,
-                              // child: pw.Image(resumeData.profileImage!),
-                              // profileImage
-                              child: pw.Image(profileImage)),
+                            width: 100,
+                            height: 100,
+                            color: lightGreen,
+                            // child: pw.Image(resumeData.profileImage!),
+                            // profileImage
+                            child: pw.Image(profileImage),
+                          ),
                         )
                       : pw.SizedBox()),
             ),
@@ -210,7 +211,7 @@ Future<Uint8List> generateTemplate8(
                                   child: pw.Padding(
                                     padding: const pw.EdgeInsets.only(left: 5),
                                     child: pw.Text(
-                                      skill.skill,
+                                      skill.name,
                                       style: pw.Theme.of(context)
                                           .defaultTextStyle
                                           .copyWith(

@@ -173,7 +173,7 @@ Future<Uint8List> generateTemplate9(
                                           padding:
                                               const pw.EdgeInsets.only(left: 5),
                                           child: pw.Text(
-                                            skill.skill,
+                                            skill.name,
                                             style: pw.Theme.of(context)
                                                 .defaultTextStyle
                                                 .copyWith(

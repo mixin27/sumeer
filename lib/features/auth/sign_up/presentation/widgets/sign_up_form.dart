@@ -5,6 +5,8 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/sign_up/shared/sign_up_providers.dart';
+import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/widgets.dart';
 
@@ -53,8 +55,24 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
             },
           );
         },
-        success: (_) {
-          context.router.pop();
+        success: (_) async {
+          final localData =
+              await ref.read(resumeRepositoryProvider).getLocalData();
+          if (localData.isEmpty && mounted) {
+            context.router.replaceAll([const MainRoute()]);
+          }
+
+          for (ResumeData data in localData) {
+            await ref
+                .read(upsertResumeDataNotifierProvider.notifier)
+                .upsertResumeData(
+                  userId: _.user.uid,
+                  resumeData: data,
+                );
+          }
+
+          await ref.read(resumeRepositoryProvider).clearLocalData();
+          if (mounted) context.router.replaceAll([const MainRoute()]);
         },
         error: (_) {
           context.router.pop().then((value) {

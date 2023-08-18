@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../features.dart';
 
 class ProfileWidget extends StatefulHookConsumerWidget {
@@ -58,7 +57,6 @@ class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
                 final newResumeData = oldResumeDataProvider?.copyWith(
                   profile: languageSection,
                 );
-                wtfLog('edu list', languageSection);
                 setState(() {
                   ref
                       .read(resumeDataProvider.notifier)
