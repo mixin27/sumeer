@@ -9,6 +9,25 @@ class AppRouter extends $AppRouter {
         // Splash
         AutoRoute(page: SplashRoute.page, path: '/'),
         AutoRoute(page: OnboardingRoute.page),
+
+        AutoRoute(page: StarterRoute.page, path: '/starter'),
+        AutoRoute(
+          page: StarterPersonalDetailRoute.page,
+          path: '/personal-information',
+        ),
+        AutoRoute(
+          page: StarterEducationRoute.page,
+          path: '/education',
+        ),
+        AutoRoute(
+          page: StarterExperienceRoute.page,
+          path: '/experience',
+        ),
+        AutoRoute(
+          page: StarterCompleteRoute.page,
+          path: '/complete',
+        ),
+
         AutoRoute(
           page: MainRoute.page,
           path: '/main',
@@ -34,7 +53,12 @@ class AppRouter extends $AppRouter {
 
         //personal_detail
         AutoRoute(
-            page: PersonalDetailRoute.page, path: '/edit_personal_detail'),
+          page: PersonalDetailRoute.page,
+          path: '/edit_personal_detail',
+        ),
         AutoRoute(page: MyFileRoute.page, path: '/my_file'),
+        AutoRoute(page: MyFilesRoute.page, path: '/my-files'),
+
+        AutoRoute(page: PrivacyAndPolicyRoute.page, path: '/privacy-policy'),
       ];
 }

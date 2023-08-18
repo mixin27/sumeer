@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../features.dart';
 
 class ExperienceWidget extends StatefulHookConsumerWidget {
@@ -17,7 +16,6 @@ class _ExperienceState extends ConsumerState<ExperienceWidget> {
   Widget build(BuildContext context) {
     final expSection = ref.watch(resumeDataProvider)?.experience;
     final expList = expSection?.experiences ?? [];
-    wLog('skill list', expList.length);
     return Column(
       children: List.generate(
         expList.length,
@@ -62,7 +60,6 @@ class _ExperienceState extends ConsumerState<ExperienceWidget> {
                 final newResumeData = oldResumeDataProvider?.copyWith(
                   experience: experienceScetion,
                 );
-                wtfLog('exp list', experienceScetion);
                 setState(() {
                   ref
                       .read(resumeDataProvider.notifier)

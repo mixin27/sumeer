@@ -21,6 +21,8 @@ class AssetPaths {
       "assets/images/templates/resume_template_9.jpeg";
   static const String resumeTemplate10 =
       "assets/images/templates/resume_template_1.jpg";
+  static const String resumeTemplate13 =
+      "assets/images/templates/resume_template_13.png";
 
   static const String resumeProfile = 'assets/images/resume/profile.jpg';
 
@@ -33,4 +35,19 @@ class AssetPaths {
   static const String file = "assets/images/home/file.png";
   static const String cv = "assets/images/home/cv.png";
   static const String resume = "assets/images/home/resume.png";
+
+  // svg
+  static const String background = "assets/svg/background.svg";
+  static const String starter = "assets/svg/starter.svg";
+  static const String bgEducation = "assets/svg/bg_education.svg";
+  static const String bgExperience = "assets/svg/bg_experience.svg";
+  static const String bgInfo = "assets/svg/bg_info.svg";
+  static const String bgSkill = "assets/svg/bg_skill.svg";
+  static const String bgWelcome = "assets/svg/bg_welcome.svg";
+
+  static const String bgEducationWhite = "assets/svg/bg_education_white.svg";
+  static const String bgExperienceWhite = "assets/svg/bg_experience_white.svg";
+  static const String bgInfoWhite = "assets/svg/bg_info_white.svg";
+  static const String bgSkillWhite = "assets/svg/bg_skill_white.svg";
+  static const String bgWelcomeWhite = "assets/svg/bg_welcome_white.svg";
 }

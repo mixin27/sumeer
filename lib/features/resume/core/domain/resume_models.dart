@@ -1,7 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'package:sumeer/features/resume/feat_resume.dart';
+
 part 'resume_models.freezed.dart';
-part 'resume_models.g.dart';
 
 @freezed
 class ResumeData with _$ResumeData {
@@ -21,12 +22,10 @@ class ResumeData with _$ResumeData {
     LanguageSection? languages,
     InterestSection? interest,
     AwardSection? award,
+    DateTime? date,
   }) = _ResumeData;
 
   factory ResumeData.empty() => const ResumeData();
-
-  factory ResumeData.fromJson(Map<String, dynamic> json) =>
-      _$ResumeDataFromJson(json);
 }
 
 @freezed
@@ -51,9 +50,6 @@ class PersonalDetailSection with _$PersonalDetailSection {
   }) = _PersonalDetailSection;
 
   String get fullName => '$firstName $lastName';
-
-  factory PersonalDetailSection.fromJson(Map<String, dynamic> json) =>
-      _$PersonalDetailSectionFromJson(json);
 }
 
 @freezed
@@ -71,8 +67,6 @@ class PersonalInformation with _$PersonalInformation {
     String? drivingLicense,
     String? gender,
   }) = _PersonalInformation;
-  factory PersonalInformation.fromJson(Map<String, dynamic> json) =>
-      _$PersonalInformationFromJson(json);
 }
 
 @freezed
@@ -83,8 +77,6 @@ class PersonalLink with _$PersonalLink {
     required String url,
     int? codePoint,
   }) = _PersonalLink;
-  factory PersonalLink.fromJson(Map<String, dynamic> json) =>
-      _$PersonalLinkFromJson(json);
 }
 
 @freezed
@@ -94,8 +86,6 @@ class ProfileSection with _$ProfileSection {
     @Default('Profile') String title,
     @Default([]) List<String> contents,
   }) = _ProfileSection;
-  factory ProfileSection.fromJson(Map<String, dynamic> json) =>
-      _$ProfileSectionFromJson(json);
 }
 
 @freezed
@@ -105,8 +95,6 @@ class ExperienceSection with _$ExperienceSection {
     @Default('Professional Experience') String title,
     @Default([]) List<Experience> experiences,
   }) = _ExperienceSection;
-  factory ExperienceSection.fromJson(Map<String, dynamic> json) =>
-      _$ExperienceSectionFromJson(json);
 }
 
 @freezed
@@ -122,8 +110,6 @@ class Experience with _$Experience {
     @Default(false) bool isPresent,
     String? description,
   }) = _Experience;
-  factory Experience.fromJson(Map<String, dynamic> json) =>
-      _$ExperienceFromJson(json);
 }
 
 @freezed
@@ -133,8 +119,6 @@ class Employer with _$Employer {
     required String name,
     String? link,
   }) = _Employer;
-  factory Employer.fromJson(Map<String, dynamic> json) =>
-      _$EmployerFromJson(json);
 }
 
 @freezed
@@ -144,8 +128,6 @@ class EducationSection with _$EducationSection {
     @Default('Education') String title,
     @Default([]) List<Education> educations,
   }) = _EducationSection;
-  factory EducationSection.fromJson(Map<String, dynamic> json) =>
-      _$EducationSectionFromJson(json);
 }
 
 @freezed
@@ -164,8 +146,6 @@ class Education with _$Education {
     @Default(false) bool isPresent,
     String? description,
   }) = _Education;
-  factory Education.fromJson(Map<String, dynamic> json) =>
-      _$EducationFromJson(json);
 }
 
 @freezed
@@ -175,30 +155,19 @@ class SkillSection with _$SkillSection {
     @Default('Skills') String title,
     @Default([]) List<Skill> skills,
   }) = _SkillSection;
-  factory SkillSection.fromJson(Map<String, dynamic> json) =>
-      _$SkillSectionFromJson(json);
 }
 
 @freezed
 class Skill with _$Skill {
   const Skill._();
   const factory Skill({
-    required String skill,
+    required String name,
 
     /// Information / Sub-skills
     String? information,
-    SkillLevel? level,
+    SkillLevelEnum? level,
     double? percentage,
   }) = _Skill;
-  factory Skill.fromJson(Map<String, dynamic> json) => _$SkillFromJson(json);
-}
-
-enum SkillLevel {
-  novice,
-  beginner,
-  skillfull,
-  experienced,
-  expert,
 }
 
 @freezed
@@ -208,8 +177,6 @@ class ProjectSection with _$ProjectSection {
     @Default('Projects') String title,
     @Default([]) List<Project> projects,
   }) = _ProjectSection;
-  factory ProjectSection.fromJson(Map<String, dynamic> json) =>
-      _$ProjectSectionFromJson(json);
 }
 
 @freezed
@@ -223,8 +190,6 @@ class Project with _$Project {
     @Default(false) bool isPresent,
     String? description,
   }) = _Project;
-  factory Project.fromJson(Map<String, dynamic> json) =>
-      _$ProjectFromJson(json);
 }
 
 @freezed
@@ -234,8 +199,6 @@ class CertificateSection with _$CertificateSection {
     @Default('Certificate') String title,
     @Default([]) List<Certificate> certificates,
   }) = _CertificateSection;
-  factory CertificateSection.fromJson(Map<String, dynamic> json) =>
-      _$CertificateSectionFromJson(json);
 }
 
 @freezed
@@ -252,8 +215,6 @@ class Certificate with _$Certificate {
     @Default(false) bool isPresent,
     String? description,
   }) = _Certificate;
-  factory Certificate.fromJson(Map<String, dynamic> json) =>
-      _$CertificateFromJson(json);
 }
 
 @freezed
@@ -263,8 +224,6 @@ class LanguageSection with _$LanguageSection {
     @Default('Language') String title,
     @Default([]) List<Language> languages,
   }) = _LanguageSection;
-  factory LanguageSection.fromJson(Map<String, dynamic> json) =>
-      _$LanguageSectionFromJson(json);
 }
 
 @freezed
@@ -274,11 +233,9 @@ class Language with _$Language {
     /// Degree / Field of Study / Exchange Semester
     String? title,
     String? description,
-    LanguageLevel? level,
+    LanguageLevelEnum? level,
     double? percentage,
   }) = _Language;
-  factory Language.fromJson(Map<String, dynamic> json) =>
-      _$LanguageFromJson(json);
 }
 
 @freezed
@@ -288,8 +245,6 @@ class InterestSection with _$InterestSection {
     @Default('Interests') String title,
     @Default([]) List<Interest> interests,
   }) = _InterestSection;
-  factory InterestSection.fromJson(Map<String, dynamic> json) =>
-      _$InterestSectionFromJson(json);
 }
 
 @freezed
@@ -298,8 +253,6 @@ class Interest with _$Interest {
   const factory Interest({
     String? title,
   }) = _Interest;
-  factory Interest.fromJson(Map<String, dynamic> json) =>
-      _$InterestFromJson(json);
 }
 
 @freezed
@@ -309,8 +262,6 @@ class AwardSection with _$AwardSection {
     @Default('Awards') String title,
     @Default([]) List<Award> awards,
   }) = _AwardSection;
-  factory AwardSection.fromJson(Map<String, dynamic> json) =>
-      _$AwardSectionFromJson(json);
 }
 
 @freezed
@@ -322,33 +273,24 @@ class Award with _$Award {
     DateTime? awardDate,
     String? description,
   }) = _Award;
-  factory Award.fromJson(Map<String, dynamic> json) => _$AwardFromJson(json);
 }
 
-enum LanguageLevel {
-  beginner,
-  elementary,
-  limitedWorking,
-  highlyProficient,
-  native,
-}
-
-String getLanguageLevel(LanguageLevel level) {
+String getLanguageLevel(LanguageLevelEnum level) {
   return switch (level) {
-    LanguageLevel.beginner => "Beginner",
-    LanguageLevel.elementary => "Elementary",
-    LanguageLevel.limitedWorking => "Limited working",
-    LanguageLevel.highlyProficient => "Highly proficient",
-    LanguageLevel.native => "Native"
+    LanguageLevelEnum.beginner => "Beginner",
+    LanguageLevelEnum.elementary => "Elementary",
+    LanguageLevelEnum.limitedWorking => "Limited working",
+    LanguageLevelEnum.highlyProficient => "Highly proficient",
+    LanguageLevelEnum.native => "Native"
   };
 }
 
-String getSkillLevel(SkillLevel level) {
+String getSkillLevel(SkillLevelEnum level) {
   return switch (level) {
-    SkillLevel.novice => "Novice",
-    SkillLevel.beginner => "Beginner",
-    SkillLevel.skillfull => "Skill Full",
-    SkillLevel.experienced => "Experienced",
-    SkillLevel.expert => "Expert"
+    SkillLevelEnum.novice => "Novice",
+    SkillLevelEnum.beginner => "Beginner",
+    SkillLevelEnum.skillfull => "Skill Full",
+    SkillLevelEnum.experienced => "Experienced",
+    SkillLevelEnum.expert => "Expert"
   };
 }

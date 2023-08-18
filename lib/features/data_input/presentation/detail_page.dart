@@ -54,29 +54,39 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               //     .set(
               //       ref.watch(resumeDataProvider)?.toJson() ?? {},
               //     );
-              if (ref.watch(resumeDataProvider)?.templateId != null) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => ResumePreviewPage(
-                      resume: getResumeTemplateById(
-                          ref.watch(resumeDataProvider)?.templateId),
-                      resumeData: ref.watch(resumeDataProvider),
-                    ),
-                  ),
-                );
-              } else {
-                context.router.push(const TemplatesRoute());
-              }
+
+              context.router.push(
+                ResumePreviewRoute(
+                  resume: getResumeTemplateById(
+                      ref.watch(resumeDataProvider)?.templateId),
+                  resumeData: ref.watch(resumeDataProvider),
+                ),
+              );
+              // if (ref.watch(resumeDataProvider)?.templateId != null) {
+              //   Navigator.of(context).push(
+              //     MaterialPageRoute(
+              //       builder: (ctx) => ResumePreviewPage(
+              //         resume: getResumeTemplateById(
+              //             ref.watch(resumeDataProvider)?.templateId),
+              //         resumeData: ref.watch(resumeDataProvider),
+              //       ),
+              //     ),
+              //   );
+              // } else {
+              //   context.router.push(const TemplatesRoute());
+              // }
             },
           ),
         ],
       ),
       body: WillPopScope(
-          onWillPop: () async {
-            context.router.replaceAll([const HomeRoute()]);
-            return true;
-          },
-          child: const EditFormWidget()),
+        onWillPop: () async {
+          // context.router.replaceAll([const HomeRoute()]);
+          context.router.pop();
+          return true;
+        },
+        child: const EditFormWidget(),
+      ),
     );
   }
 }

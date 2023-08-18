@@ -44,34 +44,35 @@ Future<ResumeData> getDummyResumeData() async {
       title: 'Skills',
       skills: [
         Skill(
-          skill: 'Android',
+          name: 'Android',
           percentage: 60,
-          level: SkillLevel.experienced,
+          level: SkillLevelEnum.experienced,
           information: 'Java, Kotlin',
         ),
-        Skill(skill: 'Flutter', percentage: 60, level: SkillLevel.experienced),
         Skill(
-            skill: 'Strategic thinking and problem-solving',
+            name: 'Flutter', percentage: 60, level: SkillLevelEnum.experienced),
+        Skill(
+            name: 'Strategic thinking and problem-solving',
             percentage: 50,
-            level: SkillLevel.skillfull),
+            level: SkillLevelEnum.skillfull),
         Skill(
-            skill: 'Relationship building and networking',
+            name: 'Relationship building and networking',
             percentage: 40,
-            level: SkillLevel.skillfull),
+            level: SkillLevelEnum.skillfull),
         Skill(
-            skill: 'Effective communication and negotiatior',
+            name: 'Effective communication and negotiatior',
             percentage: 60,
-            level: SkillLevel.skillfull),
+            level: SkillLevelEnum.skillfull),
         Skill(
-            skill: 'Creative and innovative thinking',
+            name: 'Creative and innovative thinking',
             percentage: 90,
-            level: SkillLevel.skillfull),
+            level: SkillLevelEnum.skillfull),
       ],
     ),
-    languages: language,
-    interest: interest,
-    certificate: certificate,
-    award: award,
+    languages: languageSection,
+    interest: interestSection,
+    certificate: certificateSection,
+    award: awardSection,
   );
 
   return dummyResumeData;
@@ -136,38 +137,45 @@ final educationData = EducationSection(
   ],
 );
 
-const language = LanguageSection(
+const languageSection = LanguageSection(
   title: 'Languages',
   languages: [
     Language(
       title: "English",
       description: "Level1",
-      level: LanguageLevel.elementary,
+      level: LanguageLevelEnum.elementary,
       percentage: 80,
     ),
     Language(
       title: "Chinese",
       description: "A1",
-      level: LanguageLevel.limitedWorking,
+      level: LanguageLevelEnum.limitedWorking,
       percentage: 50.5,
     ),
   ],
 );
-final certificate = CertificateSection(
+final certificateSection = CertificateSection(
   title: 'Certifications',
   certificates: [
     Certificate(
-      title: 'PHP Framework(certificate)',
-      school: 'Zwnd, Fodegnier Symfony',
+      title: 'Web Development Certificate',
+      school: 'Realistic Infoteach Group(RGI)',
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     ),
     Certificate(
-      title: 'Programming Languages',
-      school:
-          'Java, Kotlin, Flutter, MySQL, Dart, C#, Firebase, SQL, Python, Java',
+      title: 'Helth Consulte(PHP)',
+      school: '',
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    ),
+    Certificate(
+      title: 'Internship Completion Letter(Sept 2020 to Nov 2020)',
+      school: '',
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       description:
@@ -176,7 +184,7 @@ final certificate = CertificateSection(
   ],
 );
 
-const interest = InterestSection(
+const interestSection = InterestSection(
   title: 'Interests',
   interests: [
     Interest(title: 'Travelling'),
@@ -184,7 +192,7 @@ const interest = InterestSection(
   ],
 );
 
-final award = AwardSection(
+final awardSection = AwardSection(
   title: 'Awards',
   awards: [
     Award(
