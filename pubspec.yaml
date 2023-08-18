@@ -63,6 +63,12 @@ dependencies:
   rabbit_converter: ^2.0.0
   http: ^1.1.0
 
+  syncfusion_flutter_pdf: ^22.2.9
+  open_file: ^3.1.0
+  syncfusion_flutter_pdfviewer: ^22.2.9
+  flutter_full_pdf_viewer_null_safe: ^1.0.0
+  image: ^4.0.17
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -89,10 +95,18 @@ flutter:
     - assets/fonts/
     - assets/svg/
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Schyler
+      fonts:
+        - asset: assets/fonts/times.ttf
+        - asset: assets/fonts/NotoSansMono.ttf
+    - family: NatoSanMyanmar
+      fonts:
+        - asset: assets/fonts/notoSerifMyanmar_regular.ttf
+    - family: Pyi
+      fonts:
+        - asset: assets/fonts/Zawgyi-One_V3.1.ttf
+        
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
