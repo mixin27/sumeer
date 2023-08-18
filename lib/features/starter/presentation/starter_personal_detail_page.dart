@@ -29,6 +29,7 @@ class StarterPersonalDetailPage extends StatelessWidget {
           ),
         ),
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               Row(

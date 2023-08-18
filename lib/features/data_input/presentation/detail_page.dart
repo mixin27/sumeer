@@ -54,19 +54,27 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               //     .set(
               //       ref.watch(resumeDataProvider)?.toJson() ?? {},
               //     );
-              if (ref.watch(resumeDataProvider)?.templateId != null) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => ResumePreviewPage(
-                      resume: getResumeTemplateById(
-                          ref.watch(resumeDataProvider)?.templateId),
-                      resumeData: ref.watch(resumeDataProvider),
-                    ),
-                  ),
-                );
-              } else {
-                context.router.push(const TemplatesRoute());
-              }
+
+              context.router.push(
+                ResumePreviewRoute(
+                  resume: getResumeTemplateById(
+                      ref.watch(resumeDataProvider)?.templateId),
+                  resumeData: ref.watch(resumeDataProvider),
+                ),
+              );
+              // if (ref.watch(resumeDataProvider)?.templateId != null) {
+              //   Navigator.of(context).push(
+              //     MaterialPageRoute(
+              //       builder: (ctx) => ResumePreviewPage(
+              //         resume: getResumeTemplateById(
+              //             ref.watch(resumeDataProvider)?.templateId),
+              //         resumeData: ref.watch(resumeDataProvider),
+              //       ),
+              //     ),
+              //   );
+              // } else {
+              //   context.router.push(const TemplatesRoute());
+              // }
             },
           ),
         ],

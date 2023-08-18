@@ -9,6 +9,7 @@ import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/features/starter/feat_starter.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
+import 'package:uuid/uuid.dart';
 
 @RoutePage()
 class StarterCompletePage extends HookConsumerWidget {
@@ -58,11 +59,15 @@ class StarterCompletePage extends HookConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () async {
+                    tLog(starterResumeData);
                     if (starterResumeData != null) {
+                      final data = starterResumeData.copyWith(
+                        resumeId: const Uuid().v4(),
+                      );
                       final oldData = await ref
                           .read(resumeRepositoryProvider)
                           .getLocalData();
-                      oldData.addFirst(starterResumeData);
+                      oldData.addFirst(data);
 
                       ref
                           .read(resumeRepositoryProvider)

@@ -68,6 +68,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                 .upsertResumeData(
                   userId: _.user.uid,
                   resumeData: data,
+                  resumeDocId: data.resumeId,
                 );
           }
 

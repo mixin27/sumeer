@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
@@ -20,23 +19,24 @@ class HomeCreateButtonRow extends HookConsumerWidget {
         Expanded(
           child: FilledButton.icon(
             onPressed: () {
-              if (ref.watch(authRepositoryProvider).currentUser != null) {
-                ref.read(resumeDataProvider.notifier).state = null;
-                ref.read(profileSectionProvider.notifier).state = null;
-                ref.read(skillSectionProvider.notifier).state = null;
-                ref.read(educationSectionProvider.notifier).state = null;
-                ref.read(experienceSectionProvider.notifier).state = null;
-                ref.read(resumeModelIdProvider.notifier).state = '';
+              ref.read(resumeDataProvider.notifier).state = null;
+              ref.read(profileSectionProvider.notifier).state = null;
+              ref.read(skillSectionProvider.notifier).state = null;
+              ref.read(educationSectionProvider.notifier).state = null;
+              ref.read(experienceSectionProvider.notifier).state = null;
+              ref.read(resumeModelIdProvider.notifier).state = '';
 
-                //
-                ref.read(resumeModelIdProvider.notifier).state =
-                    ref.watch(resumeModelIdProvider).isEmptyOrNull
-                        ? const Uuid().v4()
-                        : ref.watch(resumeModelIdProvider);
-                context.router.push(const PersonalDetailRoute());
-              } else {
-                context.router.push(const SignInRoute());
-              }
+              //
+              ref.read(resumeModelIdProvider.notifier).state =
+                  ref.watch(resumeModelIdProvider).isEmptyOrNull
+                      ? const Uuid().v4()
+                      : ref.watch(resumeModelIdProvider);
+              context.router.push(const PersonalDetailRoute());
+              // if (ref.watch(authRepositoryProvider).currentUser != null) {
+
+              // } else {
+              //   context.router.push(const SignInRoute());
+              // }
             },
             style: FilledButton.styleFrom(
               padding: const EdgeInsets.symmetric(
