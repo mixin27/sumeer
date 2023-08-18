@@ -27,6 +27,11 @@ Future<Uint8List> generateTemplate2(
     producer: params.producer,
   );
 
+  var regular = await PdfGoogleFonts.robotoSlabRegular();
+  var bold = await PdfGoogleFonts.robotoSlabSemiBold();
+  var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
+  var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
+
   final pageTheme = await _pageTheme(format);
 
   doc.addPage(
@@ -44,12 +49,18 @@ Future<Uint8List> generateTemplate2(
                   children: [
                     pw.Text(resumeData.personalDetail?.fullName ?? "",
                         textScaleFactor: 2,
-                        style: const pw.TextStyle(color: PdfColors.white)),
+                        style: pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2])),
                     pw.SizedBox(height: 5),
                     pw.Text(
-                      resumeData.personalDetail!.jobTitle,
+                      resumeData.personalDetail?.jobTitle ?? "",
                       textScaleFactor: 1.5,
-                      style: const pw.TextStyle(color: PdfColors.white),
+                      style: pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
                     pw.SizedBox(height: 5),
                     if (profileImage != null)
@@ -70,33 +81,133 @@ Future<Uint8List> generateTemplate2(
                       "Email",
                       resumeData.personalDetail?.email ?? "",
                       0xe158,
+                      pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
                     buildContactTemp(
                       context,
                       "Phone",
-                      resumeData.personalDetail?.phone ?? "",
+                      "0641757217 (Thailand)\n09453031966 (Myanmar)ေရး" ?? "",
                       0xe0b0,
+                      pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
                     buildContactTemp(
                       context,
                       "Address",
-                      resumeData.personalDetail?.address ?? "",
+                      "ดา, 99/97, หม.ู่ 6 ต.ท่าทราย อ.เมอื งจ.สมุทรสาคร.74000",
                       0xe0c8,
+                      pw.TextStyle(
+                          color: PdfColors.white,
+                          font: regular,
+                          fontFallback: [fall1, fall2]),
                     ),
+                    if (resumeData.personalDetail?.personalInfo?.dateOfBirth !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.dateOfBirth!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Date of Birth",
+                        resumeData.personalDetail?.personalInfo?.dateOfBirth ??
+                            "",
+                        0xe916,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData.personalDetail?.personalInfo?.gender !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.gender!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Gender",
+                        resumeData.personalDetail?.personalInfo?.gender ?? "",
+                        0xe4eb,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData.personalDetail?.personalInfo?.nationality !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.nationality!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Nationality",
+                        resumeData.personalDetail?.personalInfo?.nationality ??
+                            "",
+                        0xe569,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData.personalDetail?.personalInfo?.identityNo !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.identityNo!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Identity",
+                        resumeData.personalDetail?.personalInfo?.identityNo ??
+                            "",
+                        0xe069,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
+                    if (resumeData
+                                .personalDetail?.personalInfo?.martialStatus !=
+                            null &&
+                        resumeData.personalDetail!.personalInfo!.martialStatus!
+                            .isNotEmpty) ...[
+                      buildContactTemp(
+                        context,
+                        "Martial Status",
+                        resumeData
+                                .personalDetail?.personalInfo?.martialStatus ??
+                            "",
+                        0xf1a2,
+                        pw.TextStyle(
+                            color: PdfColors.white,
+                            font: regular,
+                            fontFallback: [fall1, fall2]),
+                      )
+                    ],
                     if (resumeData.personalDetail?.links != null) ...[
                       for (int i = 0;
                           i < resumeData.personalDetail!.links.length;
                           i++) ...[
-                        buildContactTemp(
-                          context,
-                          resumeData.personalDetail!.links[i].name,
-                          resumeData.personalDetail!.links[i].url,
-                          0xe250,
-                        )
+                        if (resumeData.personalDetail!.links[i].url.isNotEmpty)
+                          buildContactTemp(
+                            context,
+                            resumeData.personalDetail!.links[i].name,
+                            resumeData.personalDetail!.links[i].url,
+                            0xe569,
+                            pw.TextStyle(
+                                color: PdfColors.white,
+                                font: regular,
+                                fontFallback: [fall1, fall2]),
+                          )
                       ]
                     ],
                     pw.SizedBox(height: 20),
-                    if (resumeData.profile!.contents.isNotEmpty) ...[
+                    if (resumeData.profile != null &&
+                        resumeData.profile?.contents != null &&
+                        resumeData.profile!.contents.isNotEmpty) ...[
                       buildTitleWidget("PROFILE", const pw.IconData(0xea67),
                           PdfColor.fromHex('293F4E'), PdfColors.white),
                       pw.SizedBox(height: 10),
@@ -104,7 +215,10 @@ Future<Uint8List> generateTemplate2(
                         height: 85,
                         child: pw.Text(
                           resumeData.profile!.contents[0],
-                          style: const pw.TextStyle(color: PdfColors.white),
+                          style: pw.TextStyle(
+                              color: PdfColors.white,
+                              font: regular,
+                              fontFallback: [fall1, fall2]),
                         ),
                       ),
                       pw.SizedBox(height: 30),
@@ -363,11 +477,15 @@ Future<Uint8List> generateTemplate2(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text("${award.award} ",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Text("${award.issuer}",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.SizedBox(height: 20)
                               ],
                             );
@@ -375,7 +493,7 @@ Future<Uint8List> generateTemplate2(
                         ),
                       )
                     ],
-                    if (resumeData.certificate != null) ...[
+                    if (certificate != null) ...[
                       buildTitleWidget(
                           "CERTIFICATES",
                           const pw.IconData(0xea23),
@@ -385,26 +503,32 @@ Future<Uint8List> generateTemplate2(
                       pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: List.generate(
-                          resumeData.certificate!.certificates.length,
+                          certificate.certificates.length,
                           (index) {
-                            final certificate =
-                                resumeData.certificate!.certificates[index];
+                            final certificateData =
+                                certificate.certificates[index];
 
                             return pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
-                                pw.Text("${certificate.title} ",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
-                                pw.Text("${certificate.school}",
-                                    style: const pw.TextStyle(
-                                        color: PdfColors.white)),
-                                pw.SizedBox(height: 20)
+                                pw.Text("${certificateData.title} ",
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        font: bold,
+                                        fontFallback: [fall1, fall2])),
+                                pw.Text("${certificateData.school}",
+                                    style: pw.TextStyle(
+                                        color: PdfColors.white,
+                                        fontSize: 12,
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
+                                pw.SizedBox(height: 10)
                               ],
                             );
                           },
                         ),
-                      )
+                      ),
+                      pw.SizedBox(height: 20)
                     ],
                   ],
                 ),
@@ -436,9 +560,13 @@ Future<Uint8List> generateTemplate2(
                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                                 children: [
                                   pw.Text("${experience.employer?.name}",
-                                      style: const pw.TextStyle()),
+                                      style: pw.TextStyle(
+                                          font: regular,
+                                          fontFallback: [fall1, fall2])),
                                   pw.Text(experience.jobTitle,
-                                      style: const pw.TextStyle()),
+                                      style: pw.TextStyle(
+                                          font: regular,
+                                          fontFallback: [fall1, fall2])),
                                   pw.SizedBox(height: 5),
                                   if (experience.startDate != null &&
                                       experience.endDate != null &&
@@ -446,19 +574,23 @@ Future<Uint8List> generateTemplate2(
                                     pw.Row(
                                       children: [
                                         pw.Text(
-                                          DateFormat("E yyyy")
+                                          DateFormat("MMMM yyyy")
                                               .format(experience.startDate!)
                                               .toUpperCase(),
-                                          style: const pw.TextStyle(),
+                                          style: pw.TextStyle(
+                                              font: regular,
+                                              fontFallback: [fall1, fall2]),
                                         ),
                                         pw.SizedBox(width: 5),
                                         pw.Text('-'),
                                         pw.SizedBox(width: 5),
                                         pw.Text(
-                                          DateFormat("E yyyy")
+                                          DateFormat("MMMM yyyy")
                                               .format(experience.endDate!)
                                               .toUpperCase(),
-                                          style: const pw.TextStyle(),
+                                          style: pw.TextStyle(
+                                              font: regular,
+                                              fontFallback: [fall1, fall2]),
                                         ),
                                       ],
                                     ),
@@ -468,7 +600,7 @@ Future<Uint8List> generateTemplate2(
                                     pw.Row(
                                       children: [
                                         pw.Text(
-                                          DateFormat("E yyyy")
+                                          DateFormat("MMMM yyyy")
                                               .format(experience.startDate!)
                                               .toUpperCase(),
                                           style: const pw.TextStyle(),
@@ -505,9 +637,13 @@ Future<Uint8List> generateTemplate2(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text("${education.degree} ",
-                                    style: const pw.TextStyle()),
+                                    style: pw.TextStyle(
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Text("${education.school}",
-                                    style: const pw.TextStyle()),
+                                    style: pw.TextStyle(
+                                        font: regular,
+                                        fontFallback: [fall1, fall2])),
                                 pw.Row(
                                   children: [
                                     education.startDate != null
@@ -515,7 +651,9 @@ Future<Uint8List> generateTemplate2(
                                             DateFormat("yyyy")
                                                 .format(education.startDate!)
                                                 .toUpperCase(),
-                                            style: const pw.TextStyle(),
+                                            style: pw.TextStyle(
+                                                font: regular,
+                                                fontFallback: [fall1, fall2]),
                                           )
                                         : pw.SizedBox(),
                                     pw.SizedBox(width: 5),
@@ -525,7 +663,9 @@ Future<Uint8List> generateTemplate2(
                                     education.endDate != null
                                         ? pw.Text(
                                             "${DateFormat("yyyy").format(education.endDate!).toUpperCase()} | ${education.city}",
-                                            style: const pw.TextStyle(),
+                                            style: pw.TextStyle(
+                                                font: regular,
+                                                fontFallback: [fall1, fall2]),
                                           )
                                         : pw.SizedBox(),
                                   ],
@@ -557,7 +697,6 @@ Future<Uint8List> generateTemplate2(
                                 padding: const pw.EdgeInsets.only(left: 5),
                                 child: pw.Text(
                                   skill.skill,
-                                  style: const pw.TextStyle(),
                                 ),
                               ),
                             ]),
@@ -584,6 +723,8 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
   var italic = await PdfGoogleFonts.robotoBlackItalic();
   var bold = await PdfGoogleFonts.robotoSlabBold();
   var boldItalic = await PdfGoogleFonts.robotoSerifBoldItalic();
+  var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
+  var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
 
   return pw.PageTheme(
     margin: const pw.EdgeInsets.all(0),
@@ -603,6 +744,7 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
       italic: italic,
       bold: bold,
       boldItalic: boldItalic,
+      fontFallback: [fall1, fall2],
       icons: await PdfGoogleFonts.materialIcons(),
     ),
   );
@@ -636,12 +778,8 @@ pw.Widget buildTitleWidget(
   );
 }
 
-pw.Widget buildContactTemp(
-  pw.Context context,
-  String title,
-  String value,
-  int iconData,
-) {
+pw.Widget buildContactTemp(pw.Context context, String title, String value,
+    int iconData, pw.TextStyle textSyle) {
   return pw.Container(
       padding: const pw.EdgeInsets.only(bottom: 8),
       child: pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
@@ -655,7 +793,7 @@ pw.Widget buildContactTemp(
             padding: const pw.EdgeInsets.only(left: 8),
             child: pw.Text(
               value,
-              style: const pw.TextStyle(color: PdfColors.white),
+              style: textSyle,
             ),
           ),
         )
