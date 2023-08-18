@@ -180,6 +180,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                                 // });
                                 File? file =
                                     await pickImageFromGallery(context);
+                                dLog("Selected Image :", file);
                                 if (file != null) {
                                   imageUrl = await storeFileToFirebase(
                                       "sumeer/$imageId", file, ref);
@@ -813,6 +814,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   }
 
   void savePersonalDetail() async {
+    final oldResumeData = ref.watch(resumeDataProvider);
     PersonalInformation personalInfo = PersonalInformation(
       dateOfBirth: _selectedDateStr,
       nationality: nationalityController.text,
@@ -873,10 +875,13 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       //     'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
       //   ],
       // ),
-      profile: ref.watch(profileSectionProvider),
-      education: ref.watch(resumeDataProvider)?.education,
-      project: ref.watch(resumeDataProvider)?.project,
-      experience: ref.watch(resumeDataProvider)?.experience,
+      // profile: ref.watch(profileSectionProvider),
+      profile: oldResumeData?.profile,
+      education: oldResumeData?.education,
+      project: oldResumeData?.project,
+      experience: oldResumeData?.experience,
+      skill: oldResumeData?.skill,
+      languages: oldResumeData?.languages,
       // personalInformation: personalInfo,
     );
     ref.read(resumeDataProvider.notifier).update((state) => resumeData);
@@ -907,7 +912,6 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         content: DatePickerWidget(
           looping: false, // default is not looping
           firstDate: DateTime(1990, 01, 01),
-          // lastDate: DateTime(2030, 1, 1),
           initialDate: DateTime.now(),
           dateFormat: "dd-MMMM-yyyy",
           onChange: (DateTime newDate, _) {

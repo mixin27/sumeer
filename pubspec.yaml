@@ -58,6 +58,9 @@ dependencies:
   url_launcher: ^6.1.12
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  permission_handler: ^10.4.3
+  external_path: ^1.0.3
+  rabbit_converter: ^2.0.0
 
 dev_dependencies:
   flutter_test:

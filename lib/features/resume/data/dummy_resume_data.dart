@@ -158,17 +158,24 @@ final certificateSection = CertificateSection(
   title: 'Certifications',
   certificates: [
     Certificate(
-      title: 'PHP Framework(certificate)',
-      school: 'Zwnd, Fodegnier Symfony',
+      title: 'Web Development Certificate',
+      school: 'Realistic Infoteach Group(RGI)',
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     ),
     Certificate(
-      title: 'Programming Languages',
-      school:
-          'Java, Kotlin, Flutter, MySQL, Dart, C#, Firebase, SQL, Python, Java',
+      title: 'Helth Consulte(PHP)',
+      school: '',
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    ),
+    Certificate(
+      title: 'Internship Completion Letter(Sept 2020 to Nov 2020)',
+      school: '',
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       description:
