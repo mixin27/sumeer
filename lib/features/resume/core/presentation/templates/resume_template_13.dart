@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -29,7 +27,7 @@ Future<Uint8List> generateTemplate13(
 
   final pageTheme = await _pageTheme(format);
   var regular = await PdfGoogleFonts.robotoSlabRegular();
-  final mmFont2 = await PdfGoogleFonts.notoSansMyanmarMedium();
+  // final mmFont2 = await PdfGoogleFonts.notoSansMyanmarMedium();
   // final mmFontBold = await PdfGoogleFonts.notoSansMyanmarBold();
   final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
   final fall2 = pw.Font.ttf(font);
