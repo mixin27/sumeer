@@ -1,10 +1,9 @@
-import 'dart:typed_data';
-
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-
+import 'package:rabbit_converter/rabbit_converter.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 
 Future<Uint8List> generateTemplate2(
@@ -17,7 +16,6 @@ Future<Uint8List> generateTemplate2(
       (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
           ? await networkImage(resumeData.profileImage!)
           : null;
-
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -30,10 +28,9 @@ Future<Uint8List> generateTemplate2(
   var regular = await PdfGoogleFonts.robotoSlabRegular();
   // var bold = await PdfGoogleFonts.robotoSlabSemiBold();
   var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
-  var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
-
+  final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
+  final fall2 = pw.Font.ttf(font);
   final pageTheme = await _pageTheme(format);
-
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -47,7 +44,9 @@ Future<Uint8List> generateTemplate2(
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
-                    pw.Text(resumeData.personalDetail?.fullName ?? "",
+                    pw.Text(
+                        Rabbit.uni2zg(
+                            resumeData.personalDetail?.fullName ?? ""),
                         textScaleFactor: 2,
                         style: pw.TextStyle(
                             color: PdfColors.white,
@@ -89,7 +88,7 @@ Future<Uint8List> generateTemplate2(
                     buildContactTemp(
                       context,
                       "Phone",
-                      "0641757217 (Thailand)\n09453031966 (Myanmar)ေရး",
+                      resumeData.personalDetail?.phone ?? "",
                       0xe0b0,
                       pw.TextStyle(
                           color: PdfColors.white,
@@ -99,7 +98,7 @@ Future<Uint8List> generateTemplate2(
                     buildContactTemp(
                       context,
                       "Address",
-                      "ดา, 99/97, หม.ู่ 6 ต.ท่าทราย อ.เมอื งจ.สมุทรสาคร.74000",
+                      resumeData.personalDetail?.address ?? "",
                       0xe0c8,
                       pw.TextStyle(
                           color: PdfColors.white,
@@ -494,6 +493,37 @@ Future<Uint8List> generateTemplate2(
                         ),
                       )
                     ],
+                    if (resumeData.certificate != null) ...[
+                      buildTitleWidget(
+                          "CERTIFICATES",
+                          const pw.IconData(0xea23),
+                          PdfColor.fromHex('293F4E'),
+                          PdfColors.white),
+                      pw.SizedBox(height: 10),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: List.generate(
+                          resumeData.certificate!.certificates.length,
+                          (index) {
+                            final certificate =
+                                resumeData.certificate!.certificates[index];
+
+                            return pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text("${certificate.title} ",
+                                    style: const pw.TextStyle(
+                                        color: PdfColors.white)),
+                                pw.Text("${certificate.school}",
+                                    style: const pw.TextStyle(
+                                        color: PdfColors.white)),
+                                pw.SizedBox(height: 20)
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
                   ],
                 ),
               ),
@@ -706,8 +736,8 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
     ]),
     theme: pw.ThemeData.withFont(
       base: regular,
-      italic: italic,
       bold: bold,
+      italic: italic,
       boldItalic: boldItalic,
       fontFallback: [fall1, fall2],
       icons: await PdfGoogleFonts.materialIcons(),
