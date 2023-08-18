@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../utils/helpers/dialog_helper.dart';
 import '../../../../widgets/app_dialog_box.dart';
 
@@ -69,7 +68,6 @@ class _AddProfessionalExperienceFormState
 
   @override
   Widget build(BuildContext context) {
-    wtfLog('widget experience', widget.experience);
     return DraggableScrollableSheet(
         initialChildSize: 0.95,
         minChildSize: 0.5,
@@ -173,7 +171,6 @@ class _AddProfessionalExperienceFormState
                             //     ref.watch(experienceSectionProvider);
                             final oldExpScetion =
                                 oldResumeData?.experience?.experiences ?? [];
-                            vLog('date time', DateTime.now());
                             Employer employer =
                                 Employer(name: employerController.text);
                             Experience experience = Experience(
@@ -197,10 +194,8 @@ class _AddProfessionalExperienceFormState
                                   list1.add(element);
                                 }
                                 list1.removeAt(widget.index ?? 0);
-                                wLog('updated list remove', list1);
 
                                 list1.insert(widget.index ?? 0, experience);
-                                wLog('updated list', list1);
                                 ExperienceSection skillSection =
                                     ExperienceSection(
                                         title: '', experiences: list1);

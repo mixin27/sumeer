@@ -187,7 +187,7 @@ Future<Uint8List> generateTemplate1(
                                   return ProgressDesignCircular1(
                                     size: 60,
                                     value: skill.percentage ?? 0.0,
-                                    title: pw.Text(skill.skill),
+                                    title: pw.Text(skill.name),
                                   );
                                 },
                               ),

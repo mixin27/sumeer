@@ -26,6 +26,7 @@ Future<Uint8List> generateTemplate2(
   );
 
   var regular = await PdfGoogleFonts.robotoSlabRegular();
+  // var bold = await PdfGoogleFonts.robotoSlabSemiBold();
   var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
   final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
   final fall2 = pw.Font.ttf(font);
@@ -244,7 +245,8 @@ Future<Uint8List> generateTemplate2(
                               ),
                             ),
                             if (language.level != null) ...[
-                              if (language.level == LanguageLevel.beginner) ...[
+                              if (language.level ==
+                                  LanguageLevelEnum.beginner) ...[
                                 pw.Expanded(
                                   child: pw.Row(
                                     children: [
@@ -286,7 +288,7 @@ Future<Uint8List> generateTemplate2(
                                   ),
                                 ),
                               ] else if (language.level ==
-                                  LanguageLevel.elementary) ...[
+                                  LanguageLevelEnum.elementary) ...[
                                 pw.Expanded(
                                   child: pw.Row(
                                     children: [
@@ -329,7 +331,7 @@ Future<Uint8List> generateTemplate2(
                                   ),
                                 ),
                               ] else if (language.level ==
-                                  LanguageLevel.limitedWorking) ...[
+                                  LanguageLevelEnum.limitedWorking) ...[
                                 pw.Expanded(
                                   child: pw.Row(
                                     children: [
@@ -371,7 +373,7 @@ Future<Uint8List> generateTemplate2(
                                   ),
                                 ),
                               ] else if (language.level ==
-                                  LanguageLevel.highlyProficient) ...[
+                                  LanguageLevelEnum.highlyProficient) ...[
                                 pw.Expanded(
                                   child: pw.Row(
                                     children: [
@@ -688,7 +690,8 @@ Future<Uint8List> generateTemplate2(
                               pw.Padding(
                                 padding: const pw.EdgeInsets.only(left: 5),
                                 child: pw.Text(
-                                  skill.skill,
+                                  skill.name,
+                                  style: const pw.TextStyle(),
                                 ),
                               ),
                             ]),

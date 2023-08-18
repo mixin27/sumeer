@@ -6,12 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:sumeer/shared/shared.dart';
 
 class AppInit {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    // Initialize hive
+    await Hive.initFlutter();
+    // Open the prefs box
+    await Hive.openBox(AppConsts.keyPrefs);
 
     /// Firebase initialization
     await Firebase.initializeApp(

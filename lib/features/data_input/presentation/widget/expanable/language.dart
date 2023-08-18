@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/add_language_form.dart';
-import 'package:sumeer/utils/logger/logger.dart';
 import '../../../../features.dart';
 
 class LanguageWidget extends StatefulHookConsumerWidget {
@@ -18,7 +17,6 @@ class _LanguageWidgetState extends ConsumerState<LanguageWidget> {
   Widget build(BuildContext context) {
     final language = ref.watch(resumeDataProvider)?.languages;
     final languageList = language?.languages ?? [];
-    wLog('skill list', languageList.length);
 
     return Column(
       children: List.generate(
@@ -41,7 +39,7 @@ class _LanguageWidgetState extends ConsumerState<LanguageWidget> {
               children: [
                 Text(languageList[index].description ?? ''),
                 Text(getLanguageLevel(
-                  languageList[index].level ?? LanguageLevel.beginner,
+                  languageList[index].level ?? LanguageLevelEnum.beginner,
                 )),
               ],
             ),
@@ -63,7 +61,6 @@ class _LanguageWidgetState extends ConsumerState<LanguageWidget> {
                 final newResumeData = oldResumeDataProvider?.copyWith(
                   languages: languageSection,
                 );
-                wtfLog('edu list', languageSection);
                 setState(() {
                   ref
                       .read(resumeDataProvider.notifier)

@@ -287,7 +287,7 @@ Future<Uint8List> generateTemplate3(
                         (index) {
                           final skill = resumeData.skill!.skills[index];
                           return pw.Wrap(children: [
-                            pw.Text(skill.skill),
+                            pw.Text(skill.name),
                             if (resumeData.skill!.skills.last != skill) ...[
                               pw.Container(
                                 width: 6,

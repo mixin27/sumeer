@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/logger/logger.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {
@@ -13,19 +15,30 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   init();
-  // }
+  late final Box box;
 
-  // void init() async {
-  //   await Future.delayed(const Duration(milliseconds: 3000));
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    init();
+  }
 
-  //   if (mounted) context.router.replaceAll([const DetailRoute()]);
-  // }
-  //   if (mounted) context.router.replaceAll([const SignInRoute()]);
-  // }
+  void init() async {
+    box = Hive.box(AppConsts.keyPrefs);
+    final bool firstTime = box.get(AppConsts.keyFirstTime, defaultValue: true);
+    if (firstTime) {
+      tLog('First time user.');
+      // Navigate to Starter Route
+      // await box.put(AppConsts.keyFirstTime, false);
+
+      // if (mounted) context.router.replaceAll([const StarterRoute()]);
+    } else {
+      tLog('Not a first time user.');
+      // Navigate to Main Rotue
+      // context.router.replaceAll([const MainRoute()]);
+    }
+    if (mounted) context.router.replaceAll([const StarterRoute()]);
+  }
 
   @override
   Widget build(BuildContext context) {

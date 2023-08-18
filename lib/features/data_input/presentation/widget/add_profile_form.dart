@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/presentation/widget/text_input_field_widget.dart';
 import 'package:sumeer/features/features.dart';
-import '../../../../utils/utils.dart';
 
 class AddProfileForm extends ConsumerStatefulWidget {
   final int? index;
@@ -35,8 +34,6 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    dLog('context list', widget.content);
-    dLog('context index', widget.index);
     return SingleChildScrollView(
       child: Container(
         padding: MediaQuery.of(context).viewInsets,
@@ -99,11 +96,9 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                               list1.add(element);
                             }
                             list1.removeAt(widget.index ?? 0);
-                            wLog('updated list remove', list1);
                             list1.insert(
                                 widget.index ?? 0, contentController.text);
 
-                            wLog('updated list', list1);
                             ProfileSection profileSection = ProfileSection(
                                 title: 'Profile', contents: list1);
 
@@ -117,13 +112,6 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                             ref
                                 .read(resumeDataProvider.notifier)
                                 .update((state) => newResumeData);
-                            dLog(
-                                'updated profile content list',
-                                ref
-                                        .watch(resumeDataProvider)
-                                        ?.profile
-                                        ?.contents ??
-                                    []);
                           } else {
                             List<String> contentList = oldProfileSection.isEmpty
                                 ? [contentController.text]
@@ -149,13 +137,6 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                             // ref
                             //     .read(resumeDataProvider.notifier)
                             //     .update((state) => state);
-                            dLog(
-                                'updated profile content list',
-                                ref
-                                        .watch(resumeDataProvider)
-                                        ?.profile
-                                        ?.contents ??
-                                    []);
                           }
                         }
                         Navigator.pop(context);

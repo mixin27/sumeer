@@ -70,7 +70,7 @@ class HomeCreateButtonRow extends HookConsumerWidget {
         Expanded(
           child: FilledButton.icon(
             onPressed: () {
-              context.router.push(const MyFileRoute());
+              context.router.push(const MyFilesRoute());
             },
             style: FilledButton.styleFrom(
               padding: const EdgeInsets.symmetric(

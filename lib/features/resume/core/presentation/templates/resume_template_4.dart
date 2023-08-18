@@ -660,7 +660,7 @@ pw.Column _skillList(ResumeData resumeData, pw.Context context) {
                 ),
                 pw.SizedBox(width: 4),
                 pw.Text(
-                  resumeData.skill!.skills[index].skill,
+                  resumeData.skill!.skills[index].name,
                   textScaleFactor: 2,
                   textAlign: pw.TextAlign.justify,
                   style: pw.Theme.of(context)

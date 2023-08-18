@@ -113,7 +113,7 @@ Future<Uint8List> generateTemplate10(
                                   pw.Padding(
                                     padding: const pw.EdgeInsets.only(left: 5),
                                     child: pw.Text(
-                                      skill.skill,
+                                      skill.name,
                                       style: pw.Theme.of(context)
                                           .defaultTextStyle
                                           .copyWith(
