@@ -1,16 +1,10 @@
-import 'dart:math';
 import 'dart:typed_data';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'package:rabbit_converter/rabbit_converter.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
-import 'package:sumeer/shared/shared.dart';
 
 Future<Uint8List> generateTemplate13(
   PdfPageFormat format,

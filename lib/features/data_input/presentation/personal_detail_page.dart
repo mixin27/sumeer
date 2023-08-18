@@ -180,7 +180,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                                 // });
                                 File? file =
                                     await pickImageFromGallery(context);
-                                dLog("Selected Image :", file);
+                                dLog("Selected Image : $file");
                                 if (file != null) {
                                   imageUrl = await storeFileToFirebase(
                                       "sumeer/$imageId", file, ref);

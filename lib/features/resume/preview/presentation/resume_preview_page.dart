@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:external_path/external_path.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pdf/pdf.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:printing/printing.dart';
-import 'package:sumeer/features/auth/feat_auth.dart';
 
+import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 import '../../../data_input/feat_data_input.dart';
@@ -108,18 +108,33 @@ class ResumePreviewPage extends HookConsumerWidget {
                       ),
                       onPressed: (context, fn, format) async {
                         //if you call fn(format), you'll get Future<UInt8List>
-                        // var data = await fn(format);
-                        // saveLocalStorage(data);
-                        // final oldResumeData = ref.watch(resumeDataProvider);
-                        // ref.read(resumeDataProvider.notifier).update(
-                        //       (state) => oldResumeData?.copyWith(
-                        //           templateId: resume.id),
-                        //     );
-                        // var uid = ref
-                        //     .watch(authRepositoryProvider)
-                        //     .currentUser
-                        //     ?.uid
-                        //     .toString();
+                        var data = await fn(format);
+                        saveLocalStorage(data);
+                        final oldResumeData = ref.watch(resumeDataProvider);
+                        ref.read(resumeDataProvider.notifier).update(
+                              (state) => oldResumeData?.copyWith(
+                                  templateId: resume.id),
+                            );
+                        var uid = ref
+                            .watch(authRepositoryProvider)
+                            .currentUser
+                            ?.uid
+                            .toString();
+                        final resumeData = ref.watch(resumeDataProvider);
+
+                        if (uid != null && resumeData != null) {
+                          await ref
+                              .read(upsertResumeDataNotifierProvider.notifier)
+                              .upsertResumeData(
+                                userId: uid,
+                                resumeData: resumeData,
+                                resumeDocId: resumeData.resumeId,
+                              )
+                              .then((value) {
+                            context.router.replaceAll([const HomeRoute()]);
+                            ref.read(resumeDataProvider.notifier).state = null;
+                          });
+                        }
                         // await ref
                         //     .read(cloudFirestoreProvider)
                         //     .collection("sumeer")
@@ -176,6 +191,7 @@ class ResumePreviewPage extends HookConsumerWidget {
                           .upsertResumeData(
                             userId: uid,
                             resumeData: resumeData,
+                            resumeDocId: resumeData.resumeId,
                           )
                           .then((value) {
                         ref.read(resumeDataProvider.notifier).state = null;
