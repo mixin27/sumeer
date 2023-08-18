@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/features.dart';
-import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/widgets/widgets.dart';
 
