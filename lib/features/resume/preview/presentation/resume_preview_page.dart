@@ -13,6 +13,7 @@ import 'package:printing/printing.dart';
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
+import 'package:sumeer/utils/utils.dart';
 import '../../../data_input/feat_data_input.dart';
 
 @RoutePage()
@@ -98,13 +99,13 @@ class ResumePreviewPage extends HookConsumerWidget {
                   ),
                   onPressed: (context, fn, format) async {
                     //if you call fn(format), you'll get Future<UInt8List>
-                    var data = await fn(format);
-                    saveLocalStorage(data);
-                    final oldResumeData = ref.watch(resumeDataProvider);
-                    ref.read(resumeDataProvider.notifier).update(
-                          (state) =>
-                              oldResumeData?.copyWith(templateId: resume.id),
-                        );
+                    // var data = await fn(format);
+                    // saveLocalStorage(data);
+                    // final oldResumeData = ref.watch(resumeDataProvider);
+                    // ref.read(resumeDataProvider.notifier).update(
+                    //       (state) =>
+                    //           oldResumeData?.copyWith(templateId: resume.id),
+                    //     );
 
                     var uid = ref
                         .watch(authRepositoryProvider)
@@ -118,9 +119,25 @@ class ResumePreviewPage extends HookConsumerWidget {
                         final oldData = await ref
                             .watch(resumeRepositoryProvider)
                             .getLocalData();
-                        ref.read(resumeRepositoryProvider).saveToLocal(
-                          [resumeData, ...oldData],
+
+                        final exist = oldData.firstWhere(
+                          (element) => element.resumeId == resumeData.resumeId,
+                          orElse: () => ResumeData.empty(),
                         );
+
+                        if (exist.resumeId.isEmptyOrNull) {
+                          ref.read(resumeRepositoryProvider).saveToLocal(
+                            [resumeData, ...oldData],
+                          );
+                        } else {
+                          final items = oldData
+                              .where((element) =>
+                                  element.resumeId != resumeData.resumeId)
+                              .toList();
+                          ref.read(resumeRepositoryProvider).saveToLocal(
+                            [resumeData, ...items],
+                          );
+                        }
                       } else {
                         await ref
                             .read(upsertResumeDataNotifierProvider.notifier)
