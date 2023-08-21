@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:sumeer/widgets/widgets.dart';
 
 class ErrorWidgetClass extends StatelessWidget {
