@@ -104,7 +104,7 @@ Future<Uint8List> generateTemplate13(
                     font: fall2),
                 prefixTitle(regular, '၉။ အခြားတက်ရောက်ခဲ့သည်.သင်တန်းများ',
                     data: '', font: fall2),
-                prefixTitle(regular, '၁၀။ ။ အခြားတတ်ကျွမ်းသညဲ့်ဘာသာစကာူ',
+                prefixTitle(regular, '၁၀။ ။ အခြားတတ်ကျွမ်းသညဲ့်ဘာသာစကား',
                     data: resumeData.languages?.languages.first.title ?? '',
                     font: fall2),
                 prefixTitle(regular, '၁၁။ အိမ်ထောင်ရှိ/မရှိ',
