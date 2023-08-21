@@ -139,11 +139,11 @@ class _PersonalInformationFormState
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                validator: MultiValidator([
-                  RequiredValidator(
-                    errorText: 'Email is required',
-                  ),
-                ]),
+                // validator: MultiValidator([
+                //   RequiredValidator(
+                //     errorText: 'Email is required',
+                //   ),
+                // ]),
                 onChanged: (value) => ref
                     .read(emailProvider.notifier)
                     .update((state) => value.trim()),
@@ -162,11 +162,11 @@ class _PersonalInformationFormState
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                validator: MultiValidator([
-                  RequiredValidator(
-                    errorText: 'Phone number is required',
-                  ),
-                ]),
+                // validator: MultiValidator([
+                //   RequiredValidator(
+                //     errorText: 'Phone number is required',
+                //   ),
+                // ]),
                 onChanged: (value) => ref
                     .read(phoneNumberProvider.notifier)
                     .update((state) => value.trim()),
@@ -185,11 +185,11 @@ class _PersonalInformationFormState
               TextFormField(
                 controller: _addressController,
                 keyboardType: TextInputType.streetAddress,
-                validator: MultiValidator([
-                  RequiredValidator(
-                    errorText: 'City or country is required',
-                  ),
-                ]),
+                // validator: MultiValidator([
+                //   RequiredValidator(
+                //     errorText: 'City or country is required',
+                //   ),
+                // ]),
                 onChanged: (value) => ref
                     .read(addressProvider.notifier)
                     .update((state) => value.trim()),

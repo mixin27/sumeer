@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:printing/printing.dart';
 import 'package:uuid/uuid.dart';
@@ -72,7 +73,7 @@ class StarterCompletePage extends HookConsumerWidget {
                       ref
                           .read(resumeRepositoryProvider)
                           .saveToLocal(oldData)
-                          .then((value) {
+                          .then((value) async {
                         ref
                             .read(personalDetailProvider.notifier)
                             .update((state) => null);
@@ -83,7 +84,12 @@ class StarterCompletePage extends HookConsumerWidget {
                             .read(experiencesProvider.notifier)
                             .update((state) => []);
 
-                        context.router.replaceAll([const MainRoute()]);
+                        final box = Hive.box(AppConsts.keyPrefs);
+                        await box.put(AppConsts.keyFirstTime, false);
+
+                        if (context.mounted) {
+                          context.router.replaceAll([const MainRoute()]);
+                        }
                       });
                     }
                   },
