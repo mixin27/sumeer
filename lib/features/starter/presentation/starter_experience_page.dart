@@ -49,6 +49,28 @@ class StarterExperiencePage extends HookConsumerWidget {
                     onPressed: experiences.isNotEmpty
                         ? null
                         : () {
+                            final personalDetail =
+                                ref.watch(personalDetailProvider);
+                            final educations = ref.watch(educationsProvider);
+
+                            final starterResumeData = ResumeData(
+                              personalDetail: personalDetail,
+                              education: educations.isNotEmpty
+                                  ? EducationSection(
+                                      educations: educations,
+                                    )
+                                  : null,
+                              experience: experiences.isNotEmpty
+                                  ? ExperienceSection(
+                                      experiences: experiences,
+                                    )
+                                  : null,
+                            );
+                            tLog("StarterResumeData => $starterResumeData");
+                            ref
+                                .read(starterResumeDataProvider.notifier)
+                                .update((state) => starterResumeData);
+
                             context.router.push(const StarterCompleteRoute());
                           },
                     child: const Text('Skip'),

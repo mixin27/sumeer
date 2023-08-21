@@ -93,12 +93,11 @@ class NoAuthenticatedFileList extends HookConsumerWidget {
                             ),
 
                             onPressed: () {
-                              // ref.read(resumeDataProvider.notifier).state =
-                              //     data[idx];
-                              // ref
-                              //     .read(resumeModelIdProvider.notifier)
-                              //     .state = data[idx].resumeId ?? '';
-                              // context.router.push(const DetailRoute());
+                              ref.read(resumeDataProvider.notifier).state =
+                                  data.value[idx];
+                              ref.read(resumeModelIdProvider.notifier).state =
+                                  data.value[idx].resumeId ?? '';
+                              context.router.push(const DetailRoute());
                             },
                             label: const Text('Edit'),
                           ),

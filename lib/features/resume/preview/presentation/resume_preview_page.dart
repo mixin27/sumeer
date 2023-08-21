@@ -122,7 +122,10 @@ class ResumePreviewPage extends HookConsumerWidget {
 
                         if (exist.resumeId.isEmptyOrNull) {
                           ref.read(resumeRepositoryProvider).saveToLocal(
-                            [resumeData, ...oldData],
+                            [
+                              resumeData.copyWith(templateId: resume.id),
+                              ...oldData
+                            ],
                           );
                         } else {
                           final items = oldData
@@ -130,7 +133,10 @@ class ResumePreviewPage extends HookConsumerWidget {
                                   element.resumeId != resumeData.resumeId)
                               .toList();
                           ref.read(resumeRepositoryProvider).saveToLocal(
-                            [resumeData, ...items],
+                            [
+                              resumeData.copyWith(templateId: resume.id),
+                              ...items
+                            ],
                           );
                         }
                       } else {

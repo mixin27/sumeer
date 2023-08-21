@@ -64,6 +64,7 @@ class StarterCompletePage extends HookConsumerWidget {
                     if (starterResumeData != null) {
                       final data = starterResumeData.copyWith(
                         resumeId: const Uuid().v4(),
+                        templateId: selectedTemplate?.id,
                       );
                       final oldData = await ref
                           .read(resumeRepositoryProvider)
@@ -83,6 +84,10 @@ class StarterCompletePage extends HookConsumerWidget {
                         ref
                             .read(experiencesProvider.notifier)
                             .update((state) => []);
+
+                        ref
+                            .read(selectedResumeTemplateProvider.notifier)
+                            .update((state) => null);
 
                         final box = Hive.box(AppConsts.keyPrefs);
                         await box.put(AppConsts.keyFirstTime, false);
