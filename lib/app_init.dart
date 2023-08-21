@@ -58,8 +58,10 @@ class AppInit {
     }
 
     /// https://github.com/flutter/flutter/issues/35162
-    if (Platform.isAndroid) {
-      await FlutterDisplayMode.setHighRefreshRate();
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        await FlutterDisplayMode.setHighRefreshRate();
+      }
     }
   }
 }
