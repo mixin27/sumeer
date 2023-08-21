@@ -29,15 +29,13 @@ class _SplashPageState extends State<SplashPage> {
     if (firstTime) {
       tLog('First time user.');
       // Navigate to Starter Route
-      // await box.put(AppConsts.keyFirstTime, false);
-
-      // if (mounted) context.router.replaceAll([const StarterRoute()]);
+      context.router.replaceAll([const StarterRoute()]);
     } else {
       tLog('Not a first time user.');
       // Navigate to Main Rotue
-      // context.router.replaceAll([const MainRoute()]);
+      context.router.replaceAll([const MainRoute()]);
     }
-    if (mounted) context.router.replaceAll([const StarterRoute()]);
+    // if (mounted) context.router.replaceAll([const StarterRoute()]);
   }
 
   @override
