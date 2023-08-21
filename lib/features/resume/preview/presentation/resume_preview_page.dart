@@ -1,13 +1,8 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:external_path/external_path.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pdf/pdf.dart' as pw;
-import 'package:permission_handler/permission_handler.dart';
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
@@ -25,30 +20,30 @@ class ResumePreviewPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    saveLocalStorage(Uint8List data) async {
-      final permissionStatus = await Permission.storage.status;
-      if (permissionStatus.isDenied) {
-        // Here just ask for the permission for the first time
-        await Permission.storage.request();
+    // saveLocalStorage(Uint8List data) async {
+    //   final permissionStatus = await Permission.storage.status;
+    //   if (permissionStatus.isDenied) {
+    //     // Here just ask for the permission for the first time
+    //     await Permission.storage.request();
 
-        // I noticed that sometimes popup won't show after user press deny
-        // so I do the check once again but now go straight to appSettings
-        if (permissionStatus.isDenied) {
-          await openAppSettings();
-        }
-      } else if (permissionStatus.isPermanentlyDenied) {
-        // Here open app settings for user to manually enable permission in case
-        // where permission was permanently denied
-        await openAppSettings();
-      } else {
-        // Do stuff that require permission here
-        final String dir = await ExternalPath.getExternalStoragePublicDirectory(
-            ExternalPath.DIRECTORY_DOWNLOADS);
-        final String path = '$dir/${resume.name}.pdf';
-        final File file = File(path);
-        await file.writeAsBytes(data);
-      }
-    }
+    //     // I noticed that sometimes popup won't show after user press deny
+    //     // so I do the check once again but now go straight to appSettings
+    //     if (permissionStatus.isDenied) {
+    //       await openAppSettings();
+    //     }
+    //   } else if (permissionStatus.isPermanentlyDenied) {
+    //     // Here open app settings for user to manually enable permission in case
+    //     // where permission was permanently denied
+    //     await openAppSettings();
+    //   } else {
+    //     // Do stuff that require permission here
+    //     final String dir = await ExternalPath.getExternalStoragePublicDirectory(
+    //         ExternalPath.DIRECTORY_DOWNLOADS);
+    //     final String path = '$dir/${resume.name}.pdf';
+    //     final File file = File(path);
+    //     await file.writeAsBytes(data);
+    //   }
+    // }
 
     return Scaffold(
       appBar: AppBar(
