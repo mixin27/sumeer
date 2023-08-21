@@ -39,7 +39,7 @@ class AppInit {
     // Open the prefs box
     await Hive.openBox(AppConsts.keyPrefs);
 
-    /// Firebase initialization
+    // Firebase initialization
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -57,7 +57,7 @@ class AppInit {
       };
     }
 
-    /// https://github.com/flutter/flutter/issues/35162
+    // https://github.com/flutter/flutter/issues/35162
     if (!kIsWeb) {
       if (Platform.isAndroid) {
         await FlutterDisplayMode.setHighRefreshRate();
