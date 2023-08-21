@@ -144,7 +144,9 @@ class ResumePreviewPage extends HookConsumerWidget {
                             .read(upsertResumeDataNotifierProvider.notifier)
                             .upsertResumeData(
                               userId: uid,
-                              resumeData: resumeData,
+                              resumeData: resumeData.copyWith(
+                                templateId: resume.id,
+                              ),
                               resumeDocId: resumeData.resumeId,
                             );
                       }

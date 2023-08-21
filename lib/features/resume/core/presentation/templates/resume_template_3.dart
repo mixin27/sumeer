@@ -1,5 +1,4 @@
-import 'dart:typed_data';
-
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -27,7 +26,10 @@ Future<Uint8List> generateTemplate3(
 
   final pageTheme = await _pageTheme(format);
   var nameFont = await PdfGoogleFonts.caveatSemiBold();
-
+  var regular = await PdfGoogleFonts.nunitoSansRegular();
+  var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
+  final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
+  final fall2 = pw.Font.ttf(font);
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
@@ -44,12 +46,12 @@ Future<Uint8List> generateTemplate3(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text(resumeData.personalDetail?.fullName ?? "",
-                                textScaleFactor: 2,
+                                textScaleFactor: 2.3,
                                 style: pw.TextStyle(font: nameFont)),
                             pw.SizedBox(height: 5),
                             pw.Text(
-                              resumeData.personalDetail!.jobTitle,
-                              textScaleFactor: 1.5,
+                              resumeData.personalDetail?.jobTitle ?? "",
+                              textScaleFactor: 1.8,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
                                   .copyWith(fontStyle: pw.FontStyle.italic),
@@ -58,39 +60,128 @@ Future<Uint8List> generateTemplate3(
                             pw.SizedBox(height: 5),
                             buildContactTemp1(
                               context,
+                              "Email",
                               resumeData.personalDetail?.email ?? "",
                               0xe158,
+                              pw.TextStyle(
+                                  font: regular, fontFallback: [fall1, fall2]),
                             ),
                             buildContactTemp1(
                               context,
+                              "Phone",
                               resumeData.personalDetail?.phone ?? "",
                               0xe0b0,
+                              pw.TextStyle(
+                                  font: regular, fontFallback: [fall1, fall2]),
                             ),
                             buildContactTemp1(
                               context,
+                              "Address",
                               resumeData.personalDetail?.address ?? "",
                               0xe0c8,
+                              pw.TextStyle(
+                                  font: regular, fontFallback: [fall1, fall2]),
                             ),
                             if (resumeData.personalDetail?.personalInfo
-                                    ?.dateOfBirth !=
-                                null) ...[
+                                        ?.dateOfBirth !=
+                                    null &&
+                                resumeData.personalDetail!.personalInfo!
+                                    .dateOfBirth!.isNotEmpty) ...[
                               buildContactTemp1(
                                 context,
+                                "Date of Birth",
                                 resumeData.personalDetail?.personalInfo
                                         ?.dateOfBirth ??
                                     "",
-                                0xebcc,
-                              ),
+                                0xe916,
+                                pw.TextStyle(
+                                    font: regular,
+                                    fontFallback: [fall1, fall2]),
+                              )
+                            ],
+                            if (resumeData
+                                        .personalDetail?.personalInfo?.gender !=
+                                    null &&
+                                resumeData.personalDetail!.personalInfo!.gender!
+                                    .isNotEmpty) ...[
+                              buildContactTemp1(
+                                context,
+                                "Gender",
+                                resumeData
+                                        .personalDetail?.personalInfo?.gender ??
+                                    "",
+                                0xe4eb,
+                                pw.TextStyle(
+                                    font: regular,
+                                    fontFallback: [fall1, fall2]),
+                              )
+                            ],
+                            if (resumeData.personalDetail?.personalInfo
+                                        ?.nationality !=
+                                    null &&
+                                resumeData.personalDetail!.personalInfo!
+                                    .nationality!.isNotEmpty) ...[
+                              buildContactTemp1(
+                                context,
+                                "Nationality",
+                                resumeData.personalDetail?.personalInfo
+                                        ?.nationality ??
+                                    "",
+                                0xe569,
+                                pw.TextStyle(
+                                    font: regular,
+                                    fontFallback: [fall1, fall2]),
+                              )
+                            ],
+                            if (resumeData.personalDetail?.personalInfo
+                                        ?.identityNo !=
+                                    null &&
+                                resumeData.personalDetail!.personalInfo!
+                                    .identityNo!.isNotEmpty) ...[
+                              buildContactTemp1(
+                                context,
+                                "Identity",
+                                resumeData.personalDetail?.personalInfo
+                                        ?.identityNo ??
+                                    "",
+                                0xe069,
+                                pw.TextStyle(
+                                    font: regular,
+                                    fontFallback: [fall1, fall2]),
+                              )
+                            ],
+                            if (resumeData.personalDetail?.personalInfo
+                                        ?.martialStatus !=
+                                    null &&
+                                resumeData.personalDetail!.personalInfo!
+                                    .martialStatus!.isNotEmpty) ...[
+                              buildContactTemp1(
+                                context,
+                                "Martial Status",
+                                resumeData.personalDetail?.personalInfo
+                                        ?.martialStatus ??
+                                    "",
+                                0xf1a2,
+                                pw.TextStyle(
+                                    font: regular,
+                                    fontFallback: [fall1, fall2]),
+                              )
                             ],
                             if (resumeData.personalDetail?.links != null) ...[
                               for (int i = 0;
                                   i < resumeData.personalDetail!.links.length;
                                   i++) ...[
-                                buildContactTemp1(
-                                  context,
-                                  resumeData.personalDetail!.links[i].url,
-                                  0xe250,
-                                )
+                                if (resumeData
+                                    .personalDetail!.links[i].url.isNotEmpty)
+                                  buildContactTemp1(
+                                    context,
+                                    resumeData.personalDetail!.links[i].name,
+                                    resumeData.personalDetail!.links[i].url,
+                                    0xe569,
+                                    pw.TextStyle(
+                                        font: regular,
+                                        fontFallback: [fall1, fall2]),
+                                  )
                               ]
                             ],
                           ]),
@@ -100,18 +191,22 @@ Future<Uint8List> generateTemplate3(
                         child: pw.Container(
                           width: 130,
                           height: 130,
+                          alignment: pw.Alignment.centerRight,
                           child: pw.ClipOval(
                             // child:
                             // pw.Image(resumeData.profileImage!,
                             //     width: 130, height: 130, fit: pw.BoxFit.cover),
                             // profileImage
-                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
+                            child: pw.Image(profileImage,
+                                width: 130, height: 130, fit: pw.BoxFit.cover),
                           ),
                         ),
                       ),
                   ]),
                   pw.SizedBox(height: 20),
-                  if (resumeData.profile!.contents.isNotEmpty) ...[
+                  if (resumeData.profile != null &&
+                      resumeData.profile?.contents != null &&
+                      resumeData.profile!.contents.isNotEmpty) ...[
                     _buildTitleWidget("PROFILE", context),
                     pw.SizedBox(height: 10),
                     pw.Container(
@@ -420,11 +515,8 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
   );
 }
 
-pw.Widget buildContactTemp1(
-  pw.Context context,
-  String value,
-  int iconData,
-) {
+pw.Widget buildContactTemp1(pw.Context context, String title, String value,
+    int iconData, pw.TextStyle textSyle) {
   return pw.Container(
       padding: const pw.EdgeInsets.only(bottom: 8),
       child: pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
@@ -437,7 +529,7 @@ pw.Widget buildContactTemp1(
             padding: const pw.EdgeInsets.only(left: 8),
             child: pw.Text(
               value,
-              style: pw.Theme.of(context).defaultTextStyle,
+              style: textSyle,
             ),
           ),
         )
