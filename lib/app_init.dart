@@ -9,10 +9,30 @@ import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/widgets/widgets.dart';
 
 class AppInit {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    // Set the ErrorWidget's builder before the app
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      // If we're in debug mode
+      // message
+      // if (kDebugMode) {
+      //   return ErrorWidget(details.exception);
+      // }
+
+      // In release builds
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: CustomErrorWidget(
+            errorMessage: details.exceptionAsString(),
+          ),
+        ),
+      );
+    };
 
     // Initialize hive
     await Hive.initFlutter();
