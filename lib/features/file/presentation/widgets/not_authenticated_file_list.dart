@@ -139,7 +139,7 @@ class NoAuthenticatedFileList extends HookConsumerWidget {
                           ),
                           horSpace(8),
                           OutlinedButton.icon(
-                            icon: const Icon(Icons.delete),
+                            icon: const Icon(Icons.preview),
                             // style: outlineButtonStyle,
                             style: OutlinedButton.styleFrom(
                               foregroundColor:
