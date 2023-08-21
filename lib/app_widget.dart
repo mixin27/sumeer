@@ -47,6 +47,7 @@ class AppWidget extends ConsumerWidget {
     //     );
     //   },
     // );
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Sumeer',

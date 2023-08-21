@@ -1,12 +1,13 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui' as ui show Image;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 /// Get svg string.
 typedef SvgStringGetter = Future<String?> Function(SvgImageKey key);
