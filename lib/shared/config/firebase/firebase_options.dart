@@ -19,10 +19,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -30,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -50,6 +44,16 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCN7t_iA6nQINdRS69DoT6JitXurNA9UgA',
+    appId: '1:604374980802:web:dc5c1eeda1504b6bc5435b',
+    messagingSenderId: '604374980802',
+    projectId: 'sumeer-flutter',
+    authDomain: 'sumeer-flutter.firebaseapp.com',
+    storageBucket: 'sumeer-flutter.appspot.com',
+    measurementId: 'G-CETEQ42JMC',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCqRccira3mYvuhfdOkJcfD5kiRYiChPI0',
@@ -68,5 +72,16 @@ class DefaultFirebaseOptions {
     iosClientId:
         '604374980802-smlmgdhn17p8oshdkh7diri6qfgt33s3.apps.googleusercontent.com',
     iosBundleId: 'com.systematic.sumeer',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDgToUhPvEwE5yA4IJv2uiP5ClpJ0jmf5A',
+    appId: '1:604374980802:ios:92fe8b3765f2628ac5435b',
+    messagingSenderId: '604374980802',
+    projectId: 'sumeer-flutter',
+    storageBucket: 'sumeer-flutter.appspot.com',
+    iosClientId:
+        '604374980802-27u990gliaeb0lfpu9bljoqvo4danv66.apps.googleusercontent.com',
+    iosBundleId: 'com.systematic.sumeer.RunnerTests',
   );
 }

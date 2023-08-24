@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
@@ -74,7 +75,12 @@ class StarterPage extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () async {
-                              context.router.replaceAll([const MainRoute()]);
+                              final box = Hive.box(AppConsts.keyPrefs);
+                              await box.put(AppConsts.keyFirstTime, false);
+
+                              if (context.mounted) {
+                                context.router.replaceAll([const MainRoute()]);
+                              }
                             },
                             child: const Text("Skip"),
                           ),

@@ -79,14 +79,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           ),
         ],
       ),
-      body: WillPopScope(
-        onWillPop: () async {
-          // context.router.replaceAll([const HomeRoute()]);
-          context.router.pop();
-          return true;
-        },
-        child: const EditFormWidget(),
-      ),
+      body: const EditFormWidget(),
     );
   }
 }

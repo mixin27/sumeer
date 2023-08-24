@@ -94,6 +94,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         addressController.text = resumeData.personalDetail?.address ?? '';
         jobTitleController.text = resumeData.personalDetail?.jobTitle ?? '';
         emailController.text = resumeData.personalDetail?.email ?? '';
+
         _selectedDateStr =
             resumeData.personalDetail?.personalInfo?.dateOfBirth ?? '';
         //gender
@@ -113,6 +114,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         drivingController.text =
             resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
         _isAddDriving = drivingController.text.isEmptyOrNull ? false : true;
+
         //
         if (_selectedDateStr.isNotEmpty) {
           _selectedDate = DateFormat("dd-MMMM-yyyy").parse(_selectedDateStr);
@@ -122,6 +124,27 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         }
 
         imageUrl = resumeData.profileImage ?? '';
+        // links
+        var linkList = resumeData.personalDetail?.links ?? [];
+        // print('link list length  ${linkList.length}');
+        for (var i = 0; i < linkList.length; i++) {
+          if (i == 0) {
+            githubController.text = linkList[i].url;
+            _isAddGithub = githubController.text.isEmptyOrNull ? false : true;
+          }
+          if (i == 1) {
+            websiteController.text = linkList[i].url;
+            _isAddWebsite = websiteController.text.isEmptyOrNull ? false : true;
+          }
+          if (i == 2) {
+            skypeController.text = linkList[i].url;
+            _isAddSkype = skypeController.text.isEmptyOrNull ? false : true;
+          }
+          if (i == 3) {
+            linkInController.text = linkList[i].url;
+            _isAddLinkIn = linkInController.text.isEmptyOrNull ? false : true;
+          }
+        }
       } else {
         imageId = const Uuid().v4();
       }
@@ -239,7 +262,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                     title: "Phone no",
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
-                    validator: (v) => requiredValidator(v, "Type your phone"),
+                    // validator: (v) => requiredValidator(v, "Type your phone"),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,

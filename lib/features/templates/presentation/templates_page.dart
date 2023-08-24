@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/shared/shared.dart';
-import '../../auth/feat_auth.dart';
 
 @RoutePage()
 class TemplatesPage extends ConsumerStatefulWidget {
@@ -93,53 +92,49 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
 
                       return InkWell(
                         onTap: () {
-                          if (ref.watch(authRepositoryProvider).currentUser !=
+                          // if (ref.watch(authRepositoryProvider).currentUser !=
+                          //     null) {
+                          if (ref.watch(resumeDataProvider)?.templateId !=
                               null) {
-                            if (ref.watch(resumeDataProvider)?.templateId !=
-                                null) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => ResumePreviewPage(
-                                    resume: template,
-                                    resumeData: ref.watch(resumeDataProvider),
-                                  ),
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => ResumePreviewPage(
+                                  resume: template,
+                                  resumeData: ref.watch(resumeDataProvider),
                                 ),
-                              );
-                            } else if (ref.watch(resumeDataProvider) != null) {
-                              ref.read(resumeModelIdProvider.notifier).state =
-                                  ref.watch(resumeDataProvider)?.resumeId ?? '';
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => ResumePreviewPage(
-                                    resume: template,
-                                    resumeData: ref.watch(resumeDataProvider),
-                                  ),
+                              ),
+                            );
+                          } else if (ref.watch(resumeDataProvider) != null) {
+                            ref.read(resumeModelIdProvider.notifier).state =
+                                ref.watch(resumeDataProvider)?.resumeId ?? '';
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => ResumePreviewPage(
+                                  resume: template,
+                                  resumeData: ref.watch(resumeDataProvider),
                                 ),
-                              );
-                            } else {
-                              //
-                              ref.read(resumeDataProvider.notifier).state =
-                                  null;
-                              ref.read(skillSectionProvider.notifier).state =
-                                  null;
-                              ref
-                                  .read(educationSectionProvider.notifier)
-                                  .state = null;
-                              ref
-                                  .read(experienceSectionProvider.notifier)
-                                  .state = null;
-                              ref.read(resumeModelIdProvider.notifier).state =
-                                  '';
-                              //
-                              ref.read(resumeModelIdProvider.notifier).state =
-                                  const Uuid().v4();
-                              ref.read(templatelIdProvider.notifier).state =
-                                  template.id;
-                              context.router.push(const PersonalDetailRoute());
-                            }
+                              ),
+                            );
                           } else {
-                            context.router.push(const SignInRoute());
+                            //
+                            ref.read(resumeDataProvider.notifier).state = null;
+                            ref.read(skillSectionProvider.notifier).state =
+                                null;
+                            ref.read(educationSectionProvider.notifier).state =
+                                null;
+                            ref.read(experienceSectionProvider.notifier).state =
+                                null;
+                            ref.read(resumeModelIdProvider.notifier).state = '';
+                            //
+                            ref.read(resumeModelIdProvider.notifier).state =
+                                const Uuid().v4();
+                            ref.read(templatelIdProvider.notifier).state =
+                                template.id;
+                            context.router.push(const PersonalDetailRoute());
                           }
+                          // } else {
+                          //   context.router.push(const SignInRoute());
+                          // }
                         },
                         child: GridTile(
                           key: ValueKey(index),

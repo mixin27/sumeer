@@ -49,6 +49,11 @@ class StarterEducationPage extends HookConsumerWidget {
                     onPressed: educations.isNotEmpty
                         ? null
                         : () {
+                            final personalDetail =
+                                ref.watch(personalDetailProvider);
+                            tLog("PersonalDetail => $personalDetail");
+                            tLog("Educations => $educations");
+
                             context.router.push(const StarterExperienceRoute());
                           },
                     child: const Text('Skip'),
