@@ -18,7 +18,7 @@ dependencies:
   flutter_displaymode: ^0.6.0
   logger: ^2.0.1
   collection: ^1.17.1
-  auto_route: ^7.7.1
+  auto_route: ^7.8.2
   flutter_hooks: ^0.20.0
   hooks_riverpod: ^2.3.6
   shared_preferences: ^2.2.0
@@ -39,10 +39,10 @@ dependencies:
   onboarding_animation: ^0.0.3
 
   firebase_core: ^2.15.0
-  firebase_auth: ^4.7.1
+  firebase_auth: ^4.8.0
   firebase_analytics: ^10.4.4
   firebase_storage: ^11.2.5
-  cloud_firestore: ^4.8.3
+  cloud_firestore: ^4.9.0
   firebase_crashlytics: ^3.3.4
   riverpod_annotation: ^2.1.1
   firebase_ui_auth: ^1.6.4
@@ -63,10 +63,10 @@ dependencies:
   rabbit_converter: ^2.0.0
   http: ^1.1.0
 
-  syncfusion_flutter_pdf: ^22.2.9
-  open_file: ^3.1.0
-  syncfusion_flutter_pdfviewer: ^22.2.9
+  syncfusion_flutter_pdf: ^22.2.10
+  syncfusion_flutter_pdfviewer: ^22.2.10
   flutter_full_pdf_viewer_null_safe: ^1.0.0
+  open_file: ^3.1.0
   image: ^4.0.17
 
 dev_dependencies:
