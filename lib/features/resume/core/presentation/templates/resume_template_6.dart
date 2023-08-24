@@ -37,12 +37,24 @@ Future<Uint8List> generateTemplate6(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     if (resumeData.personalDetail != null) ...[
-                      pw.Text(
-                        resumeData.personalDetail?.fullName ?? '',
-                        style: pw.TextStyle(
-                          font: font,
-                          fontSize: 40,
-                        ),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            resumeData.personalDetail?.firstName ?? '',
+                            style: pw.TextStyle(
+                              font: font,
+                              fontSize: 40,
+                            ),
+                          ),
+                          pw.Text(
+                            resumeData.personalDetail?.lastName ?? '',
+                            style: pw.TextStyle(
+                              font: font,
+                              fontSize: 40,
+                            ),
+                          ),
+                        ],
                       ),
                       pw.SizedBox(height: 5),
                       pw.Text(
@@ -113,6 +125,8 @@ Future<Uint8List> generateTemplate6(
                             (index) {
                               final link =
                                   resumeData.personalDetail!.links[index];
+
+                              if (link.url.isEmpty) return pw.SizedBox();
 
                               return pw.Column(
                                 children: [
