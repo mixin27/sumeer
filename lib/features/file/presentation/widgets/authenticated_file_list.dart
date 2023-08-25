@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/shared/shared.dart';
-import 'package:sumeer/widgets/widgets.dart';
+
+import 'file_list_item.dart';
 
 class AuthenticatedFileList extends HookConsumerWidget {
   const AuthenticatedFileList({super.key});
@@ -32,164 +32,50 @@ class AuthenticatedFileList extends HookConsumerWidget {
         }
 
         return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (cxt, idx) {
-              return Card(
-                color: Theme.of(context).colorScheme.background,
-                elevation: 0.5,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.fill,
-                            imageUrl: data[idx].profileImage ?? '',
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                              value: downloadProgress.progress,
-                            ),
-                            errorWidget: (context, url, error) => Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey.withOpacity(0.3),
-                              size: 50,
-                            ),
-                          ),
-                        ),
+          itemCount: data.length,
+          itemBuilder: (cxt, idx) {
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: FileListItem(
+                resumeData: data[idx],
+                onTap: (resumeData) {
+                  ref
+                      .read(resumeDataProvider.notifier)
+                      .update((state) => resumeData);
+                  context.router.push(
+                    ResumePreviewRoute(
+                      resume: getResumeTemplateById(
+                        resumeData.templateId,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(data[idx].personalDetail?.fullName ?? ''),
-                          Text(
-                            data[idx].personalDetail?.email.toString() ?? '',
-                          ),
-                          Row(
-                            children: [
-                              OutlinedButton.icon(
-                                icon: const Icon(Icons.edit),
-                                // style: outlineButtonStyle,
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 237, 245, 252),
-                                  minimumSize: const Size(88, 36),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8),
-                                    ),
-                                  ),
-                                ),
+                      resumeData: resumeData,
+                    ),
+                  );
+                },
+                onEdit: (resumeData) {
+                  ref.read(resumeDataProvider.notifier).state = resumeData;
+                  ref.read(resumeModelIdProvider.notifier).state =
+                      resumeData.resumeId ?? '';
+                  context.router.push(const DetailRoute());
+                },
+                onDelete: (resumeData) async {
+                  var uid = ref
+                      .watch(authRepositoryProvider)
+                      .currentUser
+                      ?.uid
+                      .toString();
 
-                                onPressed: () {
-                                  ref.read(resumeDataProvider.notifier).state =
-                                      data[idx];
-                                  ref
-                                      .read(resumeModelIdProvider.notifier)
-                                      .state = data[idx].resumeId ?? '';
-                                  context.router.push(const DetailRoute());
-                                },
-                                label: const Text('Edit'),
-                              ),
-                              horSpace(8),
-                              OutlinedButton.icon(
-                                icon: const Icon(Icons.preview),
-                                // style: outlineButtonStyle,
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 237, 245, 252),
-                                  minimumSize: const Size(88, 36),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8),
-                                    ),
-                                  ),
-                                ),
-
-                                onPressed: () {
-                                  ref
-                                      .read(resumeDataProvider.notifier)
-                                      .update((state) => data[idx]);
-                                  context.router.push(
-                                    ResumePreviewRoute(
-                                      resume: getResumeTemplateById(
-                                        data[idx].templateId,
-                                      ),
-                                      resumeData: data[idx],
-                                    ),
-                                  );
-                                },
-                                label: const Text('View'),
-                              ),
-                              horSpace(8),
-                              OutlinedButton.icon(
-                                icon: const Icon(Icons.delete),
-                                // style: outlineButtonStyle,
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 237, 245, 252),
-                                  minimumSize: const Size(88, 36),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8),
-                                    ),
-                                  ),
-                                ),
-
-                                onPressed: () async {
-                                  // to delete
-                                  var uid = ref
-                                      .watch(authRepositoryProvider)
-                                      .currentUser
-                                      ?.uid
-                                      .toString();
-
-                                  if (uid == null &&
-                                      data[idx].resumeId == null) {
-                                    return;
-                                  }
-                                  ref
-                                      .read(resumeRepositoryProvider)
-                                      .removeResumeData(
-                                        userId: uid!,
-                                        resumeDocId: data[idx].resumeId!,
-                                      );
-                                },
-                                label: const Text('Delete'),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              );
-            });
+                  if (uid == null && resumeData.resumeId == null) {
+                    return;
+                  }
+                  ref.read(resumeRepositoryProvider).removeResumeData(
+                        userId: uid!,
+                        resumeDocId: resumeData.resumeId!,
+                      );
+                },
+              ),
+            );
+          },
+        );
       },
       error: (error, stackTrace) => Center(
         child: Text(error.toString()),
