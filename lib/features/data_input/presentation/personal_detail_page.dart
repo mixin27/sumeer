@@ -255,7 +255,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                     title: "Email",
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (v) => requiredValidator(v, "Type your email"),
+                    // validator: (v) => requiredValidator(v, "Type your email"),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -268,7 +268,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     title: "Address",
                     controller: addressController,
-                    validator: (v) => requiredValidator(v, "Type your address"),
+                    // validator: (v) => requiredValidator(v, "Type your address"),
                   ),
                   const SizedBox(
                     height: 10,
