@@ -21,7 +21,10 @@ Future<Uint8List> generateTemplate10(
     keywords: params.keywords,
     producer: params.producer,
   );
-
+  final profileImage =
+      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
+          ? await networkImage(resumeData.profileImage!)
+          : null;
   var regular = await PdfGoogleFonts.nunitoSansRegular();
   var italic = await PdfGoogleFonts.nunitoSansItalic();
   var bold = await PdfGoogleFonts.nunitoSansBold();
@@ -61,7 +64,13 @@ Future<Uint8List> generateTemplate10(
                         // child: pw.Image(resumeData.profileImage!,
                         //     fit: pw.BoxFit.cover),
                         // profileImage
-                        child: pw.SizedBox(),
+                        child: profileImage != null
+                            ? pw.Image(profileImage,
+                                height: 170, width: 210, fit: pw.BoxFit.cover)
+                            : pw.SizedBox(
+                                height: 170,
+                                width: 210,
+                              ),
                       ),
                     ),
                     pw.SizedBox(height: 25),
@@ -87,18 +96,19 @@ Future<Uint8List> generateTemplate10(
                               resumeData.personalDetail?.email ?? ""),
                           buildContact(context, "Address",
                               resumeData.personalDetail?.address ?? ""),
-                          pw.Text(
-                            "Skill Heilights",
-                            textScaleFactor: 1.5,
-                            style:
-                                pw.Theme.of(context).defaultTextStyle.copyWith(
-                                      color: PdfColors.white,
-                                      fontWeight: pw.FontWeight.bold,
-                                    ),
-                          ),
-                          pw.Divider(height: 1, color: PdfColors.white),
-                          pw.SizedBox(height: 10),
-                          if (resumeData.skill != null)
+                          if (resumeData.skill != null) ...[
+                            pw.Text(
+                              "Skill Heilights",
+                              textScaleFactor: 1.5,
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.white,
+                                    fontWeight: pw.FontWeight.bold,
+                                  ),
+                            ),
+                            pw.Divider(height: 1, color: PdfColors.white),
+                            pw.SizedBox(height: 10),
                             pw.Column(
                               children: List.generate(
                                   resumeData.skill!.skills.length, (index) {
@@ -125,6 +135,7 @@ Future<Uint8List> generateTemplate10(
                                 ]);
                               }),
                             ),
+                          ],
                           if (resumeData.languages != null) ...[
                             pw.SizedBox(height: 20),
                             pw.Text(
@@ -183,7 +194,7 @@ Future<Uint8List> generateTemplate10(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text(
-                      resumeData.personalDetail!.fullName,
+                      resumeData.personalDetail?.fullName ?? "",
                       textScaleFactor: 2,
                       style: pw.Theme.of(context)
                           .defaultTextStyle
@@ -191,21 +202,25 @@ Future<Uint8List> generateTemplate10(
                     ),
                     pw.SizedBox(height: 5),
                     pw.Text(
-                      resumeData.personalDetail!.jobTitle,
+                      resumeData.personalDetail?.jobTitle ?? "",
                       textScaleFactor: 1.5,
                       style: pw.Theme.of(context).defaultTextStyle,
                     ),
                     pw.SizedBox(height: 10),
-                    pw.Container(
-                      height: 85,
-                      child: pw.Text(
-                        resumeData.profile!.contents[0],
-                        style: pw.Theme.of(context)
-                            .defaultTextStyle
-                            .copyWith(fontSize: 10),
+                    if (resumeData.profile != null &&
+                        resumeData.profile?.contents != null &&
+                        resumeData.profile!.contents.isNotEmpty) ...[
+                      pw.Container(
+                        height: 85,
+                        child: pw.Text(
+                          resumeData.profile!.contents[0],
+                          style: pw.Theme.of(context)
+                              .defaultTextStyle
+                              .copyWith(fontSize: 10),
+                        ),
                       ),
-                    ),
-                    pw.SizedBox(height: 20),
+                      pw.SizedBox(height: 20),
+                    ],
                     if (resumeData.experience != null) ...[
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,

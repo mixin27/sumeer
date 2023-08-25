@@ -55,7 +55,8 @@ Future<Uint8List> generateTemplate5(
                       pw.SizedBox(height: 8),
 
                       // Experience
-                      if (resumeData.experience?.experiences != null) ...[
+                      if (resumeData.experience != null &&
+                          resumeData.experience?.experiences != null) ...[
                         // if (resumeData.experience?.title != null)
                         SectionDesign5(
                           lineColor: color,
@@ -69,7 +70,8 @@ Future<Uint8List> generateTemplate5(
                       pw.SizedBox(height: 8),
 
                       // Education
-                      if (resumeData.education?.educations != null) ...[
+                      if (resumeData.education != null &&
+                          resumeData.education?.educations != null) ...[
                         if (resumeData.education?.title != null)
                           SectionDesign5(
                             lineColor: color,
@@ -227,48 +229,60 @@ pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font,
                           resumeData
                                   .personalDetail?.personalInfo?.dateOfBirth ??
                               ''),
-                  if (resumeData.personalDetail?.personalInfo?.drivingLicense
-                          .toString() !=
-                      '')
+                  if (resumeData.personalDetail?.personalInfo?.drivingLicense !=
+                          null &&
+                      resumeData.personalDetail?.personalInfo?.drivingLicense
+                              .toString() !=
+                          '')
                     _personalDetialItem(
                         context,
                         0xe531,
                         resumeData
                                 .personalDetail?.personalInfo?.drivingLicense ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.gender
-                          .toString() !=
-                      "")
+                  if (resumeData.personalDetail?.personalInfo?.gender != null &&
+                      resumeData.personalDetail?.personalInfo?.gender
+                              .toString() !=
+                          "")
                     _personalDetialItem(context, 0xe63d,
                         resumeData.personalDetail?.personalInfo?.gender ?? ''),
-                  if (resumeData.personalDetail?.personalInfo?.identityNo
-                          .toString() !=
-                      "")
+                  if (resumeData.personalDetail?.personalInfo?.identityNo !=
+                          null &&
+                      resumeData.personalDetail?.personalInfo?.identityNo
+                              .toString() !=
+                          "")
                     _personalDetialItem(
                         context,
                         0xea67,
                         resumeData.personalDetail?.personalInfo?.identityNo ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.martialStatus
-                          .toString() !=
-                      "")
+                  if (resumeData.personalDetail?.personalInfo?.martialStatus !=
+                          null &&
+                      resumeData.personalDetail?.personalInfo?.martialStatus
+                              .toString() !=
+                          "")
                     _personalDetialItem(
                         context,
                         0xefdf,
                         resumeData
                                 .personalDetail?.personalInfo?.martialStatus ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.nationality
-                          .toString() !=
-                      "")
+                  if (resumeData.personalDetail?.personalInfo?.nationality !=
+                          null &&
+                      resumeData.personalDetail?.personalInfo?.nationality
+                              .toString() !=
+                          "")
                     _personalDetialItem(
                         context,
                         0xe153,
                         resumeData.personalDetail?.personalInfo?.nationality ??
                             ''),
-                  if (resumeData.personalDetail?.personalInfo?.militaryService
-                          .toString() !=
-                      "")
+                  if (resumeData
+                              .personalDetail?.personalInfo?.militaryService !=
+                          null &&
+                      resumeData.personalDetail?.personalInfo?.militaryService
+                              .toString() !=
+                          "")
                     _personalDetialItem(
                         context,
                         0xea3f,
@@ -276,18 +290,25 @@ pw.Row _personalInfo(ResumeData resumeData, pw.Context context, pw.Font font,
                                 ?.militaryService ??
                             ''),
                   //
-                  if (resumeData.personalDetail!.links[0].url.toString() != "")
-                    _personalDetialItem(context, 0xe157,
-                        resumeData.personalDetail!.links[0].url),
-                  if (resumeData.personalDetail!.links[1].url.toString() != "")
-                    _personalDetialItem(context, 0xe157,
-                        resumeData.personalDetail!.links[1].url),
-                  if (resumeData.personalDetail!.links[2].url.toString() != "")
-                    _personalDetialItem(context, 0xe157,
-                        resumeData.personalDetail!.links[2].url),
-                  if (resumeData.personalDetail!.links[3].url.toString() != "")
-                    _personalDetialItem(context, 0xe157,
-                        resumeData.personalDetail!.links[3].url),
+                  if (resumeData.personalDetail!.links.isNotEmpty) ...[
+                    if (resumeData.personalDetail!.links[0].url.toString() !=
+                        "")
+                      _personalDetialItem(context, 0xe157,
+                          resumeData.personalDetail!.links[0].url),
+                    if (resumeData.personalDetail!.links[1].url.toString() !=
+                        "")
+                      _personalDetialItem(context, 0xe157,
+                          resumeData.personalDetail!.links[1].url),
+                    if (resumeData.personalDetail!.links[2].url.toString() !=
+                        "")
+                      _personalDetialItem(context, 0xe157,
+                          resumeData.personalDetail!.links[2].url),
+                    if (resumeData.personalDetail!.links[3].url.toString() !=
+                        "")
+                      _personalDetialItem(context, 0xe157,
+                          resumeData.personalDetail!.links[3].url),
+                  ]
+
                   // if (resumeData.personalDetail != null &&
                   //     resumeData.personalDetail!.links.isNotEmpty)
                   //   ...

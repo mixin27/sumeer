@@ -33,23 +33,33 @@ Future<Uint8List> generateTemplate12(
 
   final font = await PdfGoogleFonts.sourceSerifProItalic();
 
-  bool showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
-              .toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.martialStatus.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
+  bool showPersonalDetail = false;
+  if (resumeData.personalDetail != null &&
+      resumeData.personalDetail?.personalInfo != null) {
+    showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
+                .toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
+        resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
+        resumeData.personalDetail?.personalInfo?.martialStatus.toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
+  }
 
-  bool showPersonalLink =
-      resumeData.personalDetail?.links[0].url.toString() != "" ||
-          resumeData.personalDetail?.links[1].url.toString() != "" ||
-          resumeData.personalDetail?.links[2].url.toString() != "" ||
-          resumeData.personalDetail?.links[3].url.toString() != "";
+  bool showPersonalLink = false;
+  if (resumeData.personalDetail != null &&
+      resumeData.personalDetail?.links != null &&
+      resumeData.personalDetail!.links.isNotEmpty) {
+    showPersonalLink =
+        resumeData.personalDetail?.links[0].url.toString() != "" ||
+            resumeData.personalDetail?.links[1].url.toString() != "" ||
+            resumeData.personalDetail?.links[2].url.toString() != "" ||
+            resumeData.personalDetail?.links[3].url.toString() != "";
+  }
 
   doc.addPage(
     pw.MultiPage(
