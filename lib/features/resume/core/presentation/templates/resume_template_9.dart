@@ -291,7 +291,7 @@ Future<Uint8List> generateTemplate9(
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,
                         child: pw.Text(
-                          resumeData.education!.title,
+                          resumeData.education?.title ?? "",
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,
@@ -327,7 +327,7 @@ Future<Uint8List> generateTemplate9(
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,
                         child: pw.Text(
-                          resumeData.certificate!.title,
+                          resumeData.certificate?.title ?? '',
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,
