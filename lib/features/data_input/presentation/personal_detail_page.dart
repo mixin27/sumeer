@@ -280,8 +280,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
-                          ?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ),
                   const SizedBox(
@@ -590,8 +589,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
-                          ?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ),
                   const SizedBox(

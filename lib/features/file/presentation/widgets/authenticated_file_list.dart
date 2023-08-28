@@ -7,7 +7,6 @@ import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/shared.dart';
-
 import 'file_list_item.dart';
 
 class AuthenticatedFileList extends HookConsumerWidget {
