@@ -1,9 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
+import 'package:sumeer/shared/constants/app_lists.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'widgets/home_auth_notice_card.dart';
@@ -61,6 +63,40 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: HomeCreateButtonRow(),
           ),
           const SizedBox(height: 20),
+          CarouselSlider(
+            options: CarouselOptions(
+              // height: 400,
+              aspectRatio: 16 / 9,
+              viewportFraction: 1,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              enlargeFactor: 0.3,
+              scrollDirection: Axis.horizontal,
+            ),
+            items: bannerList.map((i) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        i,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }).toList(),
+          )
           // Padding(
           //   padding: const EdgeInsets.symmetric(
           //     horizontal: 16,

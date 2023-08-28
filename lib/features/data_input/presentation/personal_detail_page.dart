@@ -156,9 +156,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.router.replaceAll([
-          const DetailRoute(),
-        ]);
+        // context.router.replaceAll([
+        //   const DetailRoute(),
+        // ]);
+        context.router.pop();
         return true;
       },
       child: Scaffold(
