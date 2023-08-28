@@ -81,9 +81,7 @@ Future<Uint8List> generateTemplate1(
                                   crossAxisAlignment:
                                       pw.CrossAxisAlignment.start,
                                   children: [
-                                    pw.Text(
-                                        resumeData.personalDetail?.address ??
-                                            ""),
+                                    pw.Text(resumeData.personalDetail!.address),
                                   ],
                                 ),
                                 pw.Column(

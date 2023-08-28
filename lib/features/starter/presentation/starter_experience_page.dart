@@ -79,7 +79,7 @@ class StarterExperiencePage extends HookConsumerWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                AppStrings.loremIpsumParagraph.substring(0, 90),
+                "Your work history showcases your accomplishments. Add your previous job roles, starting with the most recent.",
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 40),

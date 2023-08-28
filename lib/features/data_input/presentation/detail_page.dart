@@ -37,7 +37,15 @@ class _DetailPageState extends ConsumerState<DetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Resume"),
-        leading: const AutoLeadingButton(),
+        // leading: const AutoLeadingButton(),
+        leading: IconButton(
+            onPressed: () {
+              context.router.pushAll([
+                const HomeRoute(),
+              ]);
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
+
         actions: [
           Button1(
             text: "View",
