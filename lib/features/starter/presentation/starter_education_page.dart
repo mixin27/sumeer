@@ -62,7 +62,7 @@ class StarterEducationPage extends HookConsumerWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                AppStrings.loremIpsumParagraph.substring(0, 90),
+                "Highlight your educational background to demonstrate your qualifications.",
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 40),

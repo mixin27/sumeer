@@ -42,7 +42,7 @@ class StarterPersonalDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                AppStrings.loremIpsumParagraph.substring(0, 90),
+                "Welcome to the first step of building your professional CV! Let's start strong! Enter your name, contact, and address.",
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 40),
