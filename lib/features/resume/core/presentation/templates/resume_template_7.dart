@@ -87,21 +87,27 @@ Future<Uint8List> generateTemplate7(
                             // ),
                           ),
                           pw.SizedBox(height: 20),
-                          pw.Text(
-                            "Date of Birth",
-                            style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.bold,
-                              fontSize: 16,
+                          if (resumeData.personalDetail?.personalInfo
+                                      ?.dateOfBirth !=
+                                  null &&
+                              resumeData.personalDetail!.personalInfo!
+                                  .dateOfBirth!.isNotEmpty) ...[
+                            pw.Text(
+                              "Date of Birth",
+                              style: pw.TextStyle(
+                                fontWeight: pw.FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          pw.Text(
-                            resumeData.personalDetail?.personalInfo
-                                    ?.dateOfBirth ??
-                                '',
-                            style: pw.TextStyle(
-                              font: sourceCodeFontRegular,
+                            pw.Text(
+                              resumeData.personalDetail?.personalInfo
+                                      ?.dateOfBirth ??
+                                  '',
+                              style: pw.TextStyle(
+                                font: sourceCodeFontRegular,
+                              ),
                             ),
-                          ),
+                          ]
                         ],
                       ),
                     ),

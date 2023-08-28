@@ -80,19 +80,25 @@ Future<Uint8List> generateTemplate9(
                   child: profileImage != null
                       ? pw.Image(profileImage,
                           height: 170, width: 210, fit: pw.BoxFit.cover)
-                      : pw.SizedBox(),
+                      : pw.SizedBox(
+                          height: 170,
+                          width: 210,
+                        ),
                 ),
               ),
               pw.Expanded(
                 flex: 7,
-                child: pw.Container(
-                  color: PdfColors.grey100,
-                  padding: const pw.EdgeInsets.all(20),
-                  child: pw.Text(
-                    resumeData.profile!.contents[0],
-                    style: pw.Theme.of(context).defaultTextStyle,
-                  ),
-                ),
+                child: (resumeData.profile != null &&
+                        resumeData.profile?.contents != null)
+                    ? pw.Container(
+                        color: PdfColors.grey100,
+                        padding: const pw.EdgeInsets.all(20),
+                        child: pw.Text(
+                          resumeData.profile?.contents[0] ?? "",
+                          style: pw.Theme.of(context).defaultTextStyle,
+                        ),
+                      )
+                    : pw.SizedBox(),
               )
             ]),
             pw.Positioned(
@@ -105,7 +111,7 @@ Future<Uint8List> generateTemplate9(
                       padding: const pw.EdgeInsets.only(left: 8),
                       color: PdfColors.black,
                       child: pw.Text(
-                        resumeData.personalDetail!.fullName,
+                        resumeData.personalDetail?.fullName ?? "",
                         textScaleFactor: 2,
                         style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.bold,
@@ -117,7 +123,7 @@ Future<Uint8List> generateTemplate9(
               child: pw.Padding(
                 padding: const pw.EdgeInsets.only(left: 8),
                 child: pw.Text(
-                  resumeData.personalDetail!.fullName,
+                  resumeData.personalDetail?.fullName ?? "",
                   textScaleFactor: 2,
                   style: pw.Theme.of(context).defaultTextStyle.copyWith(
                       fontWeight: pw.FontWeight.bold, color: PdfColors.white),
@@ -143,17 +149,18 @@ Future<Uint8List> generateTemplate9(
                               resumeData.personalDetail?.email ?? ""),
                           buildContact1(context, "Address :",
                               resumeData.personalDetail?.address ?? ""),
-                          pw.Text(
-                            "Skill Heilights",
-                            textScaleFactor: 1.5,
-                            style:
-                                pw.Theme.of(context).defaultTextStyle.copyWith(
-                                      fontWeight: pw.FontWeight.bold,
-                                    ),
-                          ),
-                          pw.Divider(height: 1),
-                          pw.SizedBox(height: 10),
-                          if (resumeData.skill != null)
+                          if (resumeData.skill != null) ...[
+                            pw.Text(
+                              "Skill Heilights",
+                              textScaleFactor: 1.5,
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    fontWeight: pw.FontWeight.bold,
+                                  ),
+                            ),
+                            pw.Divider(height: 1),
+                            pw.SizedBox(height: 10),
                             pw.Column(
                               children: List.generate(
                                   resumeData.skill!.skills.length, (index) {
@@ -186,6 +193,7 @@ Future<Uint8List> generateTemplate9(
                                     ]));
                               }),
                             ),
+                          ],
                           if (resumeData.languages != null) ...[
                             pw.SizedBox(height: 20),
                             pw.Text(
@@ -283,7 +291,7 @@ Future<Uint8List> generateTemplate9(
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,
                         child: pw.Text(
-                          resumeData.education!.title,
+                          resumeData.education?.title ?? "",
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,
@@ -319,7 +327,7 @@ Future<Uint8List> generateTemplate9(
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,
                         child: pw.Text(
-                          resumeData.certificate!.title,
+                          resumeData.certificate?.title ?? '',
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,

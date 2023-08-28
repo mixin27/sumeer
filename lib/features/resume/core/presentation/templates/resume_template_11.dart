@@ -32,24 +32,33 @@ Future<Uint8List> generateTemplate11(
   final pageTheme = await _pageTheme(format, color);
 
   final font = await PdfGoogleFonts.sourceSerifProItalic();
+  bool showPersonalDetail = false;
+  if (resumeData.personalDetail != null &&
+      resumeData.personalDetail?.personalInfo != null) {
+    showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
+                .toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
+        resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
+        resumeData.personalDetail?.personalInfo?.martialStatus.toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
+            "" ||
+        resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
+  }
 
-  bool showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
-              .toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.martialStatus.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
-
-  bool showPersonalLink =
-      resumeData.personalDetail?.links[0].url.toString() != "" ||
-          resumeData.personalDetail?.links[1].url.toString() != "" ||
-          resumeData.personalDetail?.links[2].url.toString() != "" ||
-          resumeData.personalDetail?.links[3].url.toString() != "";
+  bool showPersonalLink = false;
+  if (resumeData.personalDetail != null &&
+      resumeData.personalDetail?.links != null &&
+      resumeData.personalDetail!.links.isNotEmpty) {
+    showPersonalLink =
+        resumeData.personalDetail?.links[0].url.toString() != "" ||
+            resumeData.personalDetail?.links[1].url.toString() != "" ||
+            resumeData.personalDetail?.links[2].url.toString() != "" ||
+            resumeData.personalDetail?.links[3].url.toString() != "";
+  }
 
   doc.addPage(
     pw.MultiPage(
@@ -83,7 +92,8 @@ Future<Uint8List> generateTemplate11(
                       pw.SizedBox(height: 8),
 
                       // Experience
-                      if (resumeData.experience?.experiences != null) ...[
+                      if (resumeData.experience != null &&
+                          resumeData.experience?.experiences != null) ...[
                         // if (resumeData.experience?.title != null)
                         SectionDesign11(
                           lineColor: color,
@@ -98,7 +108,8 @@ Future<Uint8List> generateTemplate11(
                       pw.SizedBox(height: 8),
 
                       // Education
-                      if (resumeData.education?.educations != null) ...[
+                      if (resumeData.education != null &&
+                          resumeData.education?.educations != null) ...[
                         // if (resumeData.education?.title != null)
                         SectionDesign11(
                           lineColor: color,
@@ -112,7 +123,8 @@ Future<Uint8List> generateTemplate11(
                       pw.SizedBox(height: 8),
 
                       // Skill
-                      if (resumeData.skill?.skills != null) ...[
+                      if (resumeData.skill != null &&
+                          resumeData.skill?.skills != null) ...[
                         // if (resumeData.skill?.title != null)
                         SectionDesign11(
                           lineColor: color,

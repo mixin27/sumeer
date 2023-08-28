@@ -8,11 +8,11 @@ class AssetPaths {
   static const String resumeTemplate3 =
       "assets/images/templates/resume_template_3.webp";
   static const String resumeTemplate4 =
-      "assets/images/templates/resume_template_4.webp";
+      "assets/images/templates/resume_template_4.png";
   static const String resumeTemplate5 =
       "assets/images/templates/resume_template_5.webp";
   static const String resumeTemplate6 =
-      "assets/images/templates/resume_template_6.png";
+      "assets/images/templates/resume_template_6.webp";
   static const String resumeTemplate7 =
       "assets/images/templates/resume_template_7.png";
   static const String resumeTemplate8 =
@@ -20,6 +20,10 @@ class AssetPaths {
   static const String resumeTemplate9 =
       "assets/images/templates/resume_template_9.jpeg";
   static const String resumeTemplate10 =
+      "assets/images/templates/resume_template_1.jpg";
+  static const String resumeTemplate11 =
+      "assets/images/templates/resume_template_1.jpg";
+  static const String resumeTemplate12 =
       "assets/images/templates/resume_template_1.jpg";
   static const String resumeTemplate13 =
       "assets/images/templates/resume_template_13.png";

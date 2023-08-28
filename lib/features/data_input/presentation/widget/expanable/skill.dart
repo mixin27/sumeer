@@ -36,7 +36,7 @@ class _SkillWdigetState extends ConsumerState<SkillWdiget> {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(skillList[index].name),
+                Text(skillList[index].information ?? ''),
                 Text(getSkillLevel(
                   skillList[index].level ?? SkillLevelEnum.novice,
                 )),

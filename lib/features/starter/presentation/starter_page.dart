@@ -52,7 +52,7 @@ class StarterPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 20),
                               Text(
-                                AppStrings.loremIpsum,
+                                'Resume Builder App',
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
@@ -61,7 +61,7 @@ class StarterPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                AppStrings.loremIpsumParagraph.substring(0, 90),
+                                "Your Dream Job Awaits - Let's Shape Your CV Together.",
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
