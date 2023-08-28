@@ -33,6 +33,7 @@ class BlockDesign5 extends pw.StatelessWidget {
   pw.Widget build(pw.Context context) {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
+      mainAxisAlignment: pw.MainAxisAlignment.start,
       children: [
         pw.Text(
           "$title - ${DateFormat("MM/yyyy").format(endDate ?? startDate!)}",

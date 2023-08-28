@@ -65,8 +65,18 @@ Future<Uint8List> generateTemplate10(
                         //     fit: pw.BoxFit.cover),
                         // profileImage
                         child: profileImage != null
-                            ? pw.Image(profileImage,
-                                height: 170, width: 210, fit: pw.BoxFit.cover)
+                            ? pw.Container(
+                                height: 170,
+                                width: 210,
+                                child: pw.ClipOval(
+                                  // child:
+                                  // pw.Image(resumeData.profileImage!,
+                                  //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                                  // profileImage
+                                  child: pw.Image(profileImage,
+                                      fit: pw.BoxFit.cover),
+                                ),
+                              )
                             : pw.SizedBox(
                                 height: 170,
                                 width: 210,
