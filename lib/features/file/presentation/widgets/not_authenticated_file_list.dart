@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/features.dart';
+import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 
@@ -39,13 +40,19 @@ class NoAuthenticatedFileList extends HookConsumerWidget {
               ref
                   .read(resumeDataProvider.notifier)
                   .update((state) => resumeData);
+
+              final resumeTemplate =
+                  getResumeTemplateById(resumeData.templateId);
+              ref
+                  .read(resumeTemplateProvider.notifier)
+                  .update((state) => resumeTemplate);
               context.router.push(
-                ResumePreviewRoute(
-                  resume: getResumeTemplateById(
-                    resumeData.templateId,
-                  ),
-                  resumeData: resumeData,
-                ),
+                const ResumePreviewRoute(
+                    // resume: getResumeTemplateById(
+                    //   resumeData.templateId,
+                    // ),
+                    // resumeData: resumeData,
+                    ),
               );
             },
             onEdit: (resumeData) {

@@ -92,46 +92,53 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
 
                       return InkWell(
                         onTap: () {
+                          ref.read(resumeDataProvider.notifier).state = null;
+                          ref.read(skillSectionProvider.notifier).state = null;
+                          ref.read(educationSectionProvider.notifier).state =
+                              null;
+                          ref.read(experienceSectionProvider.notifier).state =
+                              null;
+                          ref.read(resumeModelIdProvider.notifier).state = '';
+                          //
+                          ref.read(resumeModelIdProvider.notifier).state =
+                              const Uuid().v4();
+                          ref.read(templatelIdProvider.notifier).state =
+                              template.id;
+                          context.router.push(const PersonalDetailRoute());
                           // if (ref.watch(authRepositoryProvider).currentUser !=
                           //     null) {
-                          if (ref.watch(resumeDataProvider)?.templateId !=
-                              null) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => ResumePreviewPage(
-                                  resume: template,
-                                  resumeData: ref.watch(resumeDataProvider),
-                                ),
-                              ),
-                            );
-                          } else if (ref.watch(resumeDataProvider) != null) {
-                            ref.read(resumeModelIdProvider.notifier).state =
-                                ref.watch(resumeDataProvider)?.resumeId ?? '';
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => ResumePreviewPage(
-                                  resume: template,
-                                  resumeData: ref.watch(resumeDataProvider),
-                                ),
-                              ),
-                            );
-                          } else {
-                            //
-                            ref.read(resumeDataProvider.notifier).state = null;
-                            ref.read(skillSectionProvider.notifier).state =
-                                null;
-                            ref.read(educationSectionProvider.notifier).state =
-                                null;
-                            ref.read(experienceSectionProvider.notifier).state =
-                                null;
-                            ref.read(resumeModelIdProvider.notifier).state = '';
-                            //
-                            ref.read(resumeModelIdProvider.notifier).state =
-                                const Uuid().v4();
-                            ref.read(templatelIdProvider.notifier).state =
-                                template.id;
-                            context.router.push(const PersonalDetailRoute());
-                          }
+                          // if (ref.watch(resumeDataProvider)?.templateId !=
+                          //     null) {
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(
+                          //       builder: (ctx) => const ResumePreviewPage(),
+                          //     ),
+                          //   );
+                          // } else if (ref.watch(resumeDataProvider) != null) {
+                          //   ref.read(resumeModelIdProvider.notifier).state =
+                          //       ref.watch(resumeDataProvider)?.resumeId ?? '';
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(
+                          //       builder: (ctx) => const ResumePreviewPage(),
+                          //     ),
+                          //   );
+                          // } else {
+                          //   //
+                          //   ref.read(resumeDataProvider.notifier).state = null;
+                          //   ref.read(skillSectionProvider.notifier).state =
+                          //       null;
+                          //   ref.read(educationSectionProvider.notifier).state =
+                          //       null;
+                          //   ref.read(experienceSectionProvider.notifier).state =
+                          //       null;
+                          //   ref.read(resumeModelIdProvider.notifier).state = '';
+                          //   //
+                          //   ref.read(resumeModelIdProvider.notifier).state =
+                          //       const Uuid().v4();
+                          //   ref.read(templatelIdProvider.notifier).state =
+                          //       template.id;
+                          //   context.router.push(const PersonalDetailRoute());
+                          // }
                           // } else {
                           //   context.router.push(const SignInRoute());
                           // }
@@ -141,13 +148,14 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                           child: Column(
                             children: [
                               Card(
-                                  clipBehavior: Clip.hardEdge,
-                                  elevation: 5,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(0)),
-                                  ),
-                                  child: Image.asset(template.thumbnail)),
+                                clipBehavior: Clip.hardEdge,
+                                elevation: 5,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(0)),
+                                ),
+                                child: Image.asset(template.thumbnail),
+                              ),
                             ],
                           ),
                         ),

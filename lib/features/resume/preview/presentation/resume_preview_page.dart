@@ -7,19 +7,23 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 import 'package:sumeer/utils/utils.dart';
 import '../../../data_input/feat_data_input.dart';
+import 'widgets/modal_dimissible.dart';
+import 'widgets/template_chooser_dialog.dart';
+import 'widgets/template_modal_bottom_sheet.dart';
 
 @RoutePage()
 class ResumePreviewPage extends HookConsumerWidget {
-  const ResumePreviewPage({super.key, required this.resume, this.resumeData});
-
-  final ResumeTemplate resume;
-  final ResumeData? resumeData;
+  const ResumePreviewPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final resumeTemplate = ref.watch(resumeTemplateProvider);
+    final resumeData = ref.watch(resumeDataProvider);
+
     // saveLocalStorage(Uint8List data) async {
     //   final permissionStatus = await Permission.storage.status;
     //   if (permissionStatus.isDenied) {
@@ -47,7 +51,7 @@ class ResumePreviewPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(resume.name),
+        title: Text(resumeTemplate.name),
       ),
       body: Stack(
         children: [
@@ -66,7 +70,7 @@ class ResumePreviewPage extends HookConsumerWidget {
               allowPrinting: false,
               canChangeOrientation: false,
               canDebug: false,
-              build: (format) => resume.builder(
+              build: (format) => resumeTemplate.builder(
                 format,
                 GenerateDocParams(
                   title: 'RESUME',
@@ -77,8 +81,25 @@ class ResumePreviewPage extends HookConsumerWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    //
-                    context.router.push(const TemplatesRoute());
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => ModalDismissible(
+                        child: DraggableScrollableSheet(
+                          initialChildSize: 0.7,
+                          maxChildSize: 0.9,
+                          minChildSize: 0.5,
+                          builder: (context, scrollController) =>
+                              TemplateModalBottomSheet(
+                            child: TemplateChooserDialog(
+                              scrollController: scrollController,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                    // context.router.push(const TemplatesRoute());
                   },
                   icon: Icon(
                     Icons.change_circle,
@@ -123,7 +144,8 @@ class ResumePreviewPage extends HookConsumerWidget {
                         if (exist.resumeId.isEmptyOrNull) {
                           ref.read(resumeRepositoryProvider).saveToLocal(
                             [
-                              resumeData.copyWith(templateId: resume.id),
+                              resumeData.copyWith(
+                                  templateId: resumeTemplate.id),
                               ...oldData
                             ],
                           );
@@ -134,7 +156,8 @@ class ResumePreviewPage extends HookConsumerWidget {
                               .toList();
                           ref.read(resumeRepositoryProvider).saveToLocal(
                             [
-                              resumeData.copyWith(templateId: resume.id),
+                              resumeData.copyWith(
+                                  templateId: resumeTemplate.id),
                               ...items
                             ],
                           );
@@ -145,7 +168,7 @@ class ResumePreviewPage extends HookConsumerWidget {
                             .upsertResumeData(
                               userId: uid,
                               resumeData: resumeData.copyWith(
-                                templateId: resume.id,
+                                templateId: resumeTemplate.id,
                               ),
                               resumeDocId: resumeData.resumeId,
                             );
@@ -159,9 +182,15 @@ class ResumePreviewPage extends HookConsumerWidget {
                       ref.read(experienceSectionProvider.notifier).state = null;
                       ref.read(resumeModelIdProvider.notifier).state = '';
                       ref.read(profileSectionProvider.notifier).state = null;
+                      ref
+                          .read(resumeTemplateProvider.notifier)
+                          .update((state) => resumeTemplates[0]);
 
                       if (context.mounted) {
-                        context.router.replaceAll([const HomeRoute()]);
+                        context.router.replaceAll(const [
+                          HomeRoute(),
+                          MyFilesRoute(),
+                        ]);
                       }
                     }
                   },
