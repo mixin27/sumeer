@@ -7,6 +7,7 @@ import 'package:printing/printing.dart';
 import 'package:rabbit_converter/rabbit_converter.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/shared/constants/asset_paths.dart';
 
 Future<Uint8List> generateTemplate2(
   PdfPageFormat format,
@@ -27,8 +28,8 @@ Future<Uint8List> generateTemplate2(
     producer: params.producer,
   );
 
-  var regular = await PdfGoogleFonts.robotoSlabRegular();
-  // var bold = await PdfGoogleFonts.robotoSlabSemiBold();
+  var regular =
+      pw.Font.ttf(await rootBundle.load(AssetPaths.robotoslabRegular));
   var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
   final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
   final fall2 = pw.Font.ttf(font);
@@ -555,7 +556,7 @@ Future<Uint8List> generateTemplate2(
                             return pw.Column(
                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                                 children: [
-                                  pw.Text("${experience.employer?.name}",
+                                  pw.Text(experience.employer?.name ?? "",
                                       style: pw.TextStyle(
                                           font: regular,
                                           fontFallback: [fall1, fall2])),
@@ -632,11 +633,11 @@ Future<Uint8List> generateTemplate2(
                             return pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
-                                pw.Text("${education.degree} ",
+                                pw.Text(education.degree ?? "",
                                     style: pw.TextStyle(
                                         font: regular,
                                         fontFallback: [fall1, fall2])),
-                                pw.Text("${education.school}",
+                                pw.Text(education.school ?? "",
                                     style: pw.TextStyle(
                                         font: regular,
                                         fontFallback: [fall1, fall2])),
@@ -658,7 +659,7 @@ Future<Uint8List> generateTemplate2(
                                     pw.SizedBox(width: 5),
                                     education.endDate != null
                                         ? pw.Text(
-                                            "${DateFormat("yyyy").format(education.endDate!).toUpperCase()} | ${education.city}",
+                                            "${DateFormat("yyyy").format(education.endDate!).toUpperCase()} | ${education.city ?? ""}",
                                             style: pw.TextStyle(
                                                 font: regular,
                                                 fontFallback: [fall1, fall2]),
@@ -674,7 +675,7 @@ Future<Uint8List> generateTemplate2(
                       )
                     ],
                     if (resumeData.skill != null) ...[
-                      buildTitleWidget("SKILLS", const pw.IconData(0xea23),
+                      buildTitleWidget("SKILLS", const pw.IconData(0xea4a),
                           PdfColor.fromHex('EFEFEF'), PdfColors.black),
                       pw.SizedBox(height: 10),
                       pw.Column(
@@ -716,10 +717,8 @@ Future<Uint8List> generateTemplate2(
 }
 
 Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
-  var regular = await PdfGoogleFonts.robotoSlabRegular();
-  var italic = await PdfGoogleFonts.robotoBlackItalic();
-  var bold = await PdfGoogleFonts.robotoSlabBold();
-  var boldItalic = await PdfGoogleFonts.robotoSerifBoldItalic();
+  var regular = await rootBundle.load(AssetPaths.robotoslabRegular);
+  var bold = await rootBundle.load(AssetPaths.robotoslabBold);
   var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
   var fall2 = await PdfGoogleFonts.notoSansMyanmarRegular();
 
@@ -737,10 +736,8 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
           ))
     ]),
     theme: pw.ThemeData.withFont(
-      base: regular,
-      bold: bold,
-      italic: italic,
-      boldItalic: boldItalic,
+      base: pw.Font.ttf(regular),
+      bold: pw.Font.ttf(bold),
       fontFallback: [fall1, fall2],
       icons: await PdfGoogleFonts.materialIcons(),
     ),

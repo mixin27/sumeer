@@ -29,13 +29,8 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
     SkillLevelEnum.experienced,
     SkillLevelEnum.expert,
   ];
-  // List<String> skillList = [
-  //   'Novice',
-  //   'Beginner',
-  //   'SkillFull',
-  //   'Experienced',
-  //   'Expert'
-  // ];
+  String percentage = "";
+
   @override
   void initState() {
     super.initState();
@@ -45,14 +40,48 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
   Future<void> setData() async {
     Future.microtask(() {
       // final skill = ref.watch(userSkillProvider);
+
       if (widget.skill != null) {
-        skillController.text = widget.skill?.name ?? '';
-        infoController.text = widget.skill?.information ?? '';
-        levelController.text = getSkillLevel(
-          widget.skill!.level ?? SkillLevelEnum.novice,
-        );
+        setState(() {
+          skillController.text = widget.skill?.name ?? '';
+          infoController.text = widget.skill?.information ?? '';
+          ref.read(skillLevelProvider.notifier).state = widget.skill!.level;
+          levelController.text = getSkillLevel(
+            widget.skill!.level ?? SkillLevelEnum.novice,
+          );
+          getPercentage(getSkillLevel(
+            widget.skill!.level ?? SkillLevelEnum.novice,
+          ));
+        });
+      } else {
+        setState(() {
+          ref.read(skillLevelProvider.notifier).state = SkillLevelEnum.novice;
+          levelController.text = getSkillLevel(
+            SkillLevelEnum.novice,
+          );
+          getPercentage(getSkillLevel(
+            SkillLevelEnum.novice,
+          ));
+        });
       }
     });
+  }
+
+  void getPercentage(String level) {
+    switch (level) {
+      case "Novice":
+        percentage = "0.1";
+      case "Beginner":
+        percentage = "0.2";
+      case "Skill Full":
+        percentage = "0.5";
+      case "Experienced":
+        percentage = "0.8";
+      case "Expert":
+        percentage = "1.0";
+      default:
+        percentage = "0";
+    }
   }
 
   @override
@@ -176,6 +205,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                                 .read(skillLevelProvider.notifier)
                                 .update((state) => val);
                             levelController.text = getSkillLevel(val);
+                            getPercentage(getSkillLevel(val));
                           }
                         },
                       ),
@@ -189,11 +219,12 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                         // final oldSkillSection = ref.watch(skillSectionProvider);
                         final oldSkillSection =
                             oldResumeData?.skill?.skills ?? [];
+
                         Skill skill = Skill(
-                          name: skillController.text,
-                          information: infoController.text,
-                          level: ref.watch(skillLevelProvider),
-                        );
+                            name: skillController.text,
+                            information: infoController.text,
+                            level: ref.watch(skillLevelProvider),
+                            percentage: double.parse(percentage));
 
                         if (skillController.text.isEmpty) {
                           return Navigator.of(context).pop();

@@ -12,6 +12,12 @@ Future<Uint8List> generateTemplate6(
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  // get network image
+  final profileImage =
+      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
+          ? await networkImage(resumeData.profileImage!)
+          : null;
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -65,6 +71,14 @@ Future<Uint8List> generateTemplate6(
                         ),
                       ),
                       pw.SizedBox(height: 5),
+                      if (profileImage != null)
+                        pw.Container(
+                          width: 100,
+                          height: 100,
+                          child: pw.ClipOval(
+                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
+                          ),
+                        ),
                       pw.Row(
                         children: [
                           pw.Icon(
@@ -197,45 +211,56 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: pw.Row(
-                                      children: List.generate(
-                                        5,
-                                        (index) {
-                                          // (((skill.percentage ?? 0) / 10) / 2).ceil()
-                                          final value =
-                                              (((skill.percentage ?? 0) / 10) /
-                                                      2)
-                                                  .floor();
-
-                                          return pw.Container(
-                                            margin:
-                                                const pw.EdgeInsets.symmetric(
-                                                    horizontal: 5),
-                                            width: 10,
-                                            height: 10,
-                                            decoration: pw.BoxDecoration(
-                                              // DBDBF9
-                                              color: index < value
-                                                  ? PdfColor.fromHex('54448D')
-                                                  : PdfColor.fromHex('DBDBF9'),
-                                              border: pw.Border.all(
-                                                width: 1,
-                                                color:
-                                                    PdfColor.fromHex('54448D'),
-                                              ),
-                                              borderRadius:
-                                                  const pw.BorderRadius.all(
-                                                pw.Radius.circular(5),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                    child: pw.LinearProgressIndicator(
+                                      value: skill.percentage ?? 0.0,
+                                      minHeight: 3,
+                                      backgroundColor:
+                                          PdfColor.fromHex('C5C4E9'),
+                                      valueColor: PdfColor.fromHex('54448D'),
                                     ),
-                                    // child: ProgressDesignLinear(
-                                    //   value: skill.percentage ?? 0.0,
-                                    // ),
                                   ),
+                                  // pw.Expanded(
+                                  //   child: pw.Row(
+                                  //     children: List.generate(
+                                  //       5,
+                                  //       (index) {
+                                  //         // (((skill.percentage ?? 0) / 10) / 2).ceil()
+                                  //         final value =
+                                  //             (((skill.percentage ?? 0) / 10) /
+                                  //                     2)
+                                  //                 .floor();
+                                  //         print(
+                                  //             "Percentage${skill.percentage}");
+
+                                  //         return pw.Container(
+                                  //           margin:
+                                  //               const pw.EdgeInsets.symmetric(
+                                  //                   horizontal: 5),
+                                  //           width: 10,
+                                  //           height: 10,
+                                  //           decoration: pw.BoxDecoration(
+                                  //             // DBDBF9
+                                  //             color: index < value
+                                  //                 ? PdfColor.fromHex('54448D')
+                                  //                 : PdfColor.fromHex('DBDBF9'),
+                                  //             border: pw.Border.all(
+                                  //               width: 1,
+                                  //               color:
+                                  //                   PdfColor.fromHex('54448D'),
+                                  //             ),
+                                  //             borderRadius:
+                                  //                 const pw.BorderRadius.all(
+                                  //               pw.Radius.circular(5),
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  //   // child: ProgressDesignLinear(
+                                  //   //   value: skill.percentage ?? 0.0,
+                                  //   // ),
+                                  // ),
                                   pw.SizedBox(width: 20),
                                 ],
                               ),
@@ -286,46 +311,52 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: pw.Row(
-                                      children: List.generate(
-                                        5,
-                                        (index) {
-                                          // (((skill.percentage ?? 0) / 10) / 2).ceil()
-                                          final value =
-                                              (((language.percentage ?? 0) /
-                                                          10) /
-                                                      2)
-                                                  .floor();
+                                      child: pw.LinearProgressIndicator(
+                                    value: language.percentage ?? 0.0,
+                                    minHeight: 3,
+                                    backgroundColor: PdfColor.fromHex('C5C4E9'),
+                                    valueColor: PdfColor.fromHex('54448D'),
+                                  )
+                                      // pw.Row(
+                                      //   children: List.generate(
+                                      //     5,
+                                      //     (index) {
+                                      //       // (((skill.percentage ?? 0) / 10) / 2).ceil()
+                                      //       final value =
+                                      //           (((language.percentage ?? 0) /
+                                      //                       10) /
+                                      //                   2)
+                                      //               .floor();
 
-                                          return pw.Container(
-                                            margin:
-                                                const pw.EdgeInsets.symmetric(
-                                                    horizontal: 5),
-                                            width: 10,
-                                            height: 10,
-                                            decoration: pw.BoxDecoration(
-                                              // DBDBF9
-                                              color: index < value
-                                                  ? PdfColor.fromHex('54448D')
-                                                  : PdfColor.fromHex('DBDBF9'),
-                                              border: pw.Border.all(
-                                                width: 1,
-                                                color:
-                                                    PdfColor.fromHex('54448D'),
-                                              ),
-                                              borderRadius:
-                                                  const pw.BorderRadius.all(
-                                                pw.Radius.circular(5),
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                      //       return pw.Container(
+                                      //         margin:
+                                      //             const pw.EdgeInsets.symmetric(
+                                      //                 horizontal: 5),
+                                      //         width: 10,
+                                      //         height: 10,
+                                      //         decoration: pw.BoxDecoration(
+                                      //           // DBDBF9
+                                      //           color: index < value
+                                      //               ? PdfColor.fromHex('54448D')
+                                      //               : PdfColor.fromHex('DBDBF9'),
+                                      //           border: pw.Border.all(
+                                      //             width: 1,
+                                      //             color:
+                                      //                 PdfColor.fromHex('54448D'),
+                                      //           ),
+                                      //           borderRadius:
+                                      //               const pw.BorderRadius.all(
+                                      //             pw.Radius.circular(5),
+                                      //           ),
+                                      //         ),
+                                      //       );
+                                      //     },
+                                      //   ),
+                                      // ),
+                                      // child: ProgressDesignLinear(
+                                      //   value: language.percentage ?? 0.0,
+                                      // ),
                                       ),
-                                    ),
-                                    // child: ProgressDesignLinear(
-                                    //   value: language.percentage ?? 0.0,
-                                    // ),
-                                  ),
                                   pw.SizedBox(width: 20),
                                 ],
                               ),
@@ -540,7 +571,7 @@ Future<Uint8List> generateTemplate6(
                                     education.endDate != null &&
                                     !education.isPresent) ...[
                                   pw.Text(
-                                    '${DateFormat('MM/yyyy').format(education.startDate!)}-${DateFormat('MM/yyyy').format(education.endDate!)}}',
+                                    '${DateFormat('MM/yyyy').format(education.startDate!)}-${DateFormat('MM/yyyy').format(education.endDate!)}',
                                     style: const pw.TextStyle(
                                       color: PdfColors.white,
                                       fontSize: 12,

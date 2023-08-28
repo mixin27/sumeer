@@ -30,13 +30,14 @@ class ProgressDesignCircular1 extends pw.StatelessWidget {
         height: size,
         child: pw.Stack(
           alignment: pw.Alignment.center,
-          fit: pw.StackFit.expand,
+          fit: pw.StackFit.passthrough,
           children: [
             pw.Center(
-              child: pw.Text(
+              child: pw.Flexible(
+                  child: pw.Text(
                 '${(value * 100).round().toInt()}%',
                 textScaleFactor: fontSize,
-              ),
+              )),
             ),
             pw.CircularProgressIndicator(
               value: value,

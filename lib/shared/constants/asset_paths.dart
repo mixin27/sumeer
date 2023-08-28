@@ -50,4 +50,11 @@ class AssetPaths {
   static const String bgInfoWhite = "assets/svg/bg_info_white.svg";
   static const String bgSkillWhite = "assets/svg/bg_skill_white.svg";
   static const String bgWelcomeWhite = "assets/svg/bg_welcome_white.svg";
+
+  static const String robotoslabRegular =
+      "assets/fonts/roboto_slab/robotoslab_regular.ttf";
+  static const String robotoslabBold =
+      "assets/fonts/roboto_slab/robotoslab_bold.ttf";
+  static const String robotoslabSemiBold =
+      "assets/fonts/roboto_slab/robotoslab_semi_bold.ttf";
 }

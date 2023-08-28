@@ -102,8 +102,11 @@ Future<Uint8List> generateTemplate5(
                       if (resumeData.languages != null) ...[
                         if (resumeData.languages?.title != null)
                           SectionDesign5(
-                              lineColor: color,
-                              title: resumeData.languages?.title ?? ''),
+                            lineColor: color,
+                            title: resumeData.languages?.title.toString() == ""
+                                ? "Languages"
+                                : resumeData.languages?.title.toString() ?? "",
+                          ),
                         if (resumeData.languages!.languages.isNotEmpty)
                           _languageList(resumeData, context, color),
                       ],
@@ -714,7 +717,8 @@ pw.Column _skillList(
                       .copyWith(fontSize: 6),
                 ),
               ]),
-            if (resumeData.skill!.skills[index].information != null)
+            if (resumeData.skill!.skills[index].information != null &&
+                resumeData.skill!.skills[index].information != "")
               pw.Text(
                 "Information : ${resumeData.skill!.skills[index].information!}",
                 textScaleFactor: 2,
@@ -796,7 +800,8 @@ pw.Column _languageList(
                 ),
               ]),
 
-            if (resumeData.languages!.languages[index].description != null)
+            if (resumeData.languages!.languages[index].description != null &&
+                resumeData.languages!.languages[index].description != "")
               pw.Row(children: [
                 pw.Transform.rotate(
                   angle: 65,

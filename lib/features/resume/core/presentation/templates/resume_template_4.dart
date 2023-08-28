@@ -183,8 +183,7 @@ Future<Uint8List> generateTemplate4(
                     // Language
                     if (resumeData.languages != null) ...[
                       if (resumeData.languages?.title != null)
-                        SectionDesign4(
-                            title: resumeData.languages?.title ?? ''),
+                        SectionDesign4(title: "Languages"),
                       if (resumeData.languages!.languages.isNotEmpty)
                         _languageList(resumeData, context),
                     ],
@@ -490,16 +489,13 @@ pw.Column _experienceList(ResumeData resumeData, pw.Context context) {
               ],
             ),
             if (resumeData.experience!.experiences[index].description != null)
-              pw.Row(children: [
-                pw.Text(
-                  resumeData.experience!.experiences[index].description ?? '',
-                  textScaleFactor: 2,
-                  textAlign: pw.TextAlign.justify,
-                  style: pw.Theme.of(context)
-                      .defaultTextStyle
-                      .copyWith(fontSize: 6),
-                ),
-              ])
+              pw.Text(
+                resumeData.experience!.experiences[index].description ?? '',
+                textScaleFactor: 2,
+                textAlign: pw.TextAlign.justify,
+                style:
+                    pw.Theme.of(context).defaultTextStyle.copyWith(fontSize: 6),
+              ),
           ],
         ),
       ),
@@ -690,7 +686,8 @@ pw.Column _skillList(ResumeData resumeData, pw.Context context) {
                           .copyWith(fontSize: 6),
                     ),
                 ]),
-            if (resumeData.skill!.skills[index].information != null)
+            if (resumeData.skill!.skills[index].information != null &&
+                resumeData.skill!.skills[index].information != "")
               pw.Text(
                 "Information : ${resumeData.skill!.skills[index].information!}",
                 textScaleFactor: 2,
@@ -760,7 +757,8 @@ pw.Column _languageList(ResumeData resumeData, pw.Context context) {
                           .copyWith(fontSize: 6),
                     ),
                 ]),
-            if (resumeData.languages!.languages[index].description != null)
+            if (resumeData.languages!.languages[index].description != null &&
+                resumeData.languages!.languages[index].description != "")
               pw.Text(
                 "Description : ${resumeData.languages!.languages[index].description!}",
                 textScaleFactor: 2,
