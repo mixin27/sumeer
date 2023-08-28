@@ -40,7 +40,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         // leading: const AutoLeadingButton(),
         leading: IconButton(
             onPressed: () {
-              context.router.pop();
+              context.router.pushAll([
+                const HomeRoute(),
+              ]);
             },
             icon: const Icon(Icons.arrow_back_ios)),
 
