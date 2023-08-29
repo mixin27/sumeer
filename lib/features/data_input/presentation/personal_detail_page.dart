@@ -1,11 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -72,9 +71,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   bool _isAddGithub = false;
   bool _isAddSkype = false;
   String imageId = '';
-  String? imageUrl;
-
-  Uint8List? _image;
+  // String? imageUrl;
 
   @override
   void initState() {
@@ -87,7 +84,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     Future.microtask(() {
       final resumeData = ref.watch(resumeDataProvider);
       if (resumeData != null) {
-        wLog('setData $resumeData');
+        // wLog('setData $resumeData');
         firstNameController.text = resumeData.personalDetail?.firstName ?? '';
         lastNameController.text = resumeData.personalDetail?.lastName ?? '';
         phoneController.text = resumeData.personalDetail?.phone ?? '';
@@ -126,7 +123,11 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
           yearofDOBController.text = _selectedDateStr.split("-")[2];
         }
 
-        imageUrl = resumeData.profileImage ?? '';
+        // imageUrl = resumeData.profileImage ?? '';
+        ref
+            .read(imageDataProvider.notifier)
+            .update((state) => resumeData.profileImage);
+
         // links
         var linkList = resumeData.personalDetail?.links ?? [];
         // print('link list length  ${linkList.length}');
@@ -157,6 +158,8 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final imageData = ref.watch(imageDataProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Personal Detail"),
@@ -177,20 +180,27 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         CircularProfileAvatar(
                           '',
                           radius: 60,
-                          child: CachedNetworkImage(
-                            fit: BoxFit.fill,
-                            imageUrl: imageUrl ?? '',
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                                        value: downloadProgress.progress),
-                            errorWidget: (context, url, error) => Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey.withOpacity(0.3),
-                              size: 50,
-                            ),
-                          ),
+                          child: (imageData != null && imageData.isNotEmpty)
+                              ? Image.memory(base64.decode(imageData))
+                              : const SizedBox(),
                         ),
+                        // CircularProfileAvatar(
+                        //   '',
+                        //   radius: 60,
+                        //   child: CachedNetworkImage(
+                        //     fit: BoxFit.fill,
+                        //     imageUrl: imageUrl ?? '',
+                        //     progressIndicatorBuilder:
+                        //         (context, url, downloadProgress) =>
+                        //             CircularProgressIndicator(
+                        //                 value: downloadProgress.progress),
+                        //     errorWidget: (context, url, error) => Icon(
+                        //       Icons.camera_alt,
+                        //       color: Colors.grey.withOpacity(0.3),
+                        //       size: 50,
+                        //     ),
+                        //   ),
+                        // ),
                         Positioned(
                           right: 1,
                           bottom: 2,
@@ -208,10 +218,15 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                                     await pickImageFromGallery(context);
                                 dLog("Selected Image : $file");
                                 if (file != null) {
-                                  imageUrl = await storeFileToFirebase(
-                                      "sumeer/$imageId", file, ref);
-                                  setState(() {});
-                                  dLog("ImageUrl : $imageUrl");
+                                  final bytes = await file.readAsBytes();
+                                  final base64Image = base64.encode(bytes);
+                                  ref
+                                      .read(imageDataProvider.notifier)
+                                      .update((state) => base64Image);
+                                  // imageUrl = await storeFileToFirebase(
+                                  //     "sumeer/$imageId", file, ref);
+                                  // setState(() {});
+                                  // dLog("ImageUrl : $imageUrl");
                                 }
                               },
                               child: CircleAvatar(
@@ -842,6 +857,11 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
   void savePersonalDetail() async {
     // final currentUser = ref.watch(authRepositoryProvider).currentUser;
 
+    final imageData = ref.watch(imageDataProvider);
+    final base64Image = imageData.isEmptyOrNull
+        ? ref.watch(resumeDataProvider)?.profileImage
+        : imageData;
+
     final oldResumeData = ref.watch(resumeDataProvider);
     PersonalInformation personalInfo = PersonalInformation(
       dateOfBirth: _selectedDateStr,
@@ -866,9 +886,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       phone: phoneController.text,
       address: addressController.text,
 
-      imageData: _image != null
-          ? base64String(_image!)
-          : ref.watch(resumeDataProvider)?.personalDetail?.imageData,
+      // imageData: base64Image,
       // personalInfo: PersonalInformation(
       //   dateOfBirth: _selectedDateStr,
       // ),
@@ -892,11 +910,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         ),
       ],
     );
-    fLog('resume data on save up resumedata $imageUrl');
     ResumeData resumeData = ResumeData(
       templateId: ref.watch(templatelIdProvider),
       resumeId: ref.watch(resumeModelIdProvider),
-      profileImage: imageUrl,
+      profileImage: base64Image,
       personalDetail: personalDetail,
       // profile: const ProfileSection(
       //   title: "Profile",
@@ -914,7 +931,6 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       // personalInformation: personalInfo,
     );
     ref.read(resumeDataProvider.notifier).update((state) => resumeData);
-    fLog('resume data on save imageUrl $imageUrl');
   }
 
   /// Get from gallery

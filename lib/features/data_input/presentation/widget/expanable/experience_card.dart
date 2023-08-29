@@ -47,14 +47,17 @@ class _ExperienceCardState extends ConsumerState<ExperienceCard> {
                         size: 30,
                       ),
                     ),
-                    Text(
-                      'Professional Experience',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                    Expanded(
+                      child: Text(
+                        'Professional Experience',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     IconButton(
                       onPressed: widget.onTap,
                       icon: const Icon(
