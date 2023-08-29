@@ -45,7 +45,7 @@ class BlockDesign1 extends pw.StatelessWidget {
               ),
             ),
             pw.Text(
-              title,
+              "$title - ${school ?? ""}",
               style: pw.Theme.of(context)
                   .defaultTextStyle
                   .copyWith(fontWeight: pw.FontWeight.bold),

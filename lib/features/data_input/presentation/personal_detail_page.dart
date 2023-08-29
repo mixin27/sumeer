@@ -108,8 +108,11 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
         // nationality
         nationalityController.text =
             resumeData.personalDetail?.personalInfo?.nationality ?? '';
+        passportController.text =
+            resumeData.personalDetail?.personalInfo?.identityNo ?? '';
         _isAddNationality =
             nationalityController.text.isEmptyOrNull ? false : true;
+        _isAddPassport = passportController.text.isEmptyOrNull ? false : true;
         // driving licence
         drivingController.text =
             resumeData.personalDetail?.personalInfo?.drivingLicense ?? '';
@@ -843,7 +846,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
     PersonalInformation personalInfo = PersonalInformation(
       dateOfBirth: _selectedDateStr,
       nationality: nationalityController.text,
-      identityNo: '',
+      identityNo: passportController.text,
       martialStatus: maritalController.text,
       militaryService: '',
       drivingLicense: drivingController.text,
@@ -862,6 +865,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       email: emailController.text,
       phone: phoneController.text,
       address: addressController.text,
+
       imageData: _image != null
           ? base64String(_image!)
           : ref.watch(resumeDataProvider)?.personalDetail?.imageData,

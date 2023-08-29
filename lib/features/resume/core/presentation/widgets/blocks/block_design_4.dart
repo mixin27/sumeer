@@ -102,7 +102,7 @@ class BlockDesign4 extends pw.StatelessWidget {
                     .copyWith(fontWeight: pw.FontWeight.bold),
               ),
         pw.Text(
-          description!,
+          description ?? "",
         ),
       ],
     );

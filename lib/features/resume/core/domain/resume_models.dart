@@ -294,3 +294,13 @@ String getSkillLevel(SkillLevelEnum level) {
     SkillLevelEnum.expert => "Expert"
   };
 }
+
+String getSkillLevelIndex(SkillLevelEnum level) {
+  return switch (level) {
+    SkillLevelEnum.novice => "1",
+    SkillLevelEnum.beginner => "2",
+    SkillLevelEnum.skillfull => "3",
+    SkillLevelEnum.experienced => "4",
+    SkillLevelEnum.expert => "5"
+  };
+}

@@ -57,14 +57,15 @@ Future<Uint8List> generateTemplate8(
                   alignment: pw.Alignment.centerRight,
                   padding: const pw.EdgeInsets.only(top: 20),
                   child: profileImage != null
-                      ? pw.ClipOval(
-                          child: pw.Container(
-                            width: 100,
-                            height: 100,
-                            color: lightGreen,
-                            // child: pw.Image(resumeData.profileImage!),
+                      ? pw.Container(
+                          width: 100,
+                          height: 100,
+                          child: pw.ClipOval(
+                            // child:
+                            // pw.Image(resumeData.profileImage!,
+                            //     width: 130, height: 130, fit: pw.BoxFit.cover),
                             // profileImage
-                            child: pw.Image(profileImage),
+                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
                           ),
                         )
                       : pw.SizedBox()),
@@ -281,6 +282,8 @@ Future<Uint8List> generateTemplate8(
                           ),
                           pw.SizedBox(height: 10),
                           pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
                             children: List.generate(
                               resumeData.education!.educations.length,
                               (index) {

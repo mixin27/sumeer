@@ -107,6 +107,11 @@ flutter:
     - family: Pyi
       fonts:
         - asset: assets/fonts/Zawgyi-One_V3.1.ttf
+    - family: RobotoSlab-Bold
+      fonts:
+        - asset: assets/fonts/roboto_slab/robotoslab_bold.ttf
+        - asset: assets/fonts/roboto_slab/robotoslab_regular.ttf
+        - asset: assets/fonts/roboto_slab/robotoslab_semi_bold.ttf
 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

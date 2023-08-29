@@ -6,11 +6,10 @@ import 'package:pdf/pdf.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
-import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
 import 'package:sumeer/utils/utils.dart';
-import '../../../data_input/feat_data_input.dart';
 import 'widgets/modal_dimissible.dart';
 import 'widgets/template_chooser_dialog.dart';
 import 'widgets/template_modal_bottom_sheet.dart';
@@ -30,8 +29,8 @@ class ResumePreviewPage extends HookConsumerWidget {
     //     // Here just ask for the permission for the first time
     //     await Permission.storage.request();
 
-    //     // I noticed that sometimes popup won't show after user press deny
-    //     // so I do the check once again but now go straight to appSettings
+    // I noticed that sometimes popup won't show after user press deny
+    // so I do the check once again but now go straight to appSettings
     //     if (permissionStatus.isDenied) {
     //       await openAppSettings();
     //     }

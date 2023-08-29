@@ -51,17 +51,15 @@ Future<Uint8List> generateTemplate7(
                         children: [
                           // image
                           if (profileImage != null)
-                            pw.ClipOval(
-                              child: pw.Container(
-                                height: 70,
-                                width: 70,
-                                decoration: const pw.BoxDecoration(
-                                  color: PdfColors.blue300,
-                                ),
-                                child: pw.Image(
-                                  profileImage,
-                                  fit: pw.BoxFit.cover,
-                                ),
+                            pw.Container(
+                              height: 100,
+                              width: 100,
+                              decoration: const pw.BoxDecoration(
+                                color: PdfColors.blue300,
+                              ),
+                              child: pw.Image(
+                                profileImage,
+                                fit: pw.BoxFit.cover,
                               ),
                             ),
                           pw.SizedBox(height: 10),
@@ -217,7 +215,7 @@ Future<Uint8List> generateTemplate7(
                                       children: [
                                         ItemTitle(
                                           title:
-                                              "${exp.jobTitle} at ${exp.employer?.name} ${exp.city != null ? ", ${exp.city}" : ''}${exp.country != null ? ", ${exp.country}" : null}",
+                                              "${exp.jobTitle} at ${exp.employer?.name} ${exp.city != null ? ", ${exp.city}" : ''}${exp.country != null ? ", ${exp.country}" : ''}",
                                         ),
                                         pw.SizedBox(height: 5),
                                         if (exp.startDate != null &&
@@ -280,7 +278,7 @@ Future<Uint8List> generateTemplate7(
                                       children: [
                                         ItemTitle(
                                           title:
-                                              "${edu.degree}, ${edu.school} ${edu.city != null ? ", ${edu.city}" : ''}${edu.country != null ? ", ${edu.country}" : null}",
+                                              "${edu.degree}, ${edu.school} ${edu.city != null ? ", ${edu.city}" : ''}${edu.country != null ? ", ${edu.country}" : ''}",
                                         ),
                                         pw.SizedBox(height: 5),
                                         if (edu.startDate != null &&
@@ -429,7 +427,7 @@ Future<Uint8List> generateTemplate7(
                                             ),
                                             pw.SizedBox(width: 10),
                                             pw.Text(
-                                              "${(((skill.percentage ?? 0) / 10) / 2).ceil()} / 5",
+                                              "${getSkillLevelIndex(skill.level ?? SkillLevelEnum.novice)} / 5",
                                               style: pw.TextStyle(
                                                 fontWeight: pw.FontWeight.bold,
                                               ),
@@ -443,6 +441,7 @@ Future<Uint8List> generateTemplate7(
                               ],
                             ),
                           ),
+                        pw.SizedBox(height: 10),
                         if (resumeData.languages != null)
                           pw.Container(
                             padding: const pw.EdgeInsets.symmetric(
@@ -489,7 +488,10 @@ Future<Uint8List> generateTemplate7(
                                                 lang.title ?? '',
                                               ),
                                             ),
-                                            pw.SizedBox(width: 10),
+                                            pw.SizedBox(
+                                              width: 10,
+                                              height: 1,
+                                            ),
                                             pw.Text(
                                               lang.level != null
                                                   ? getLanguageLevel(
