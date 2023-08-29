@@ -26,6 +26,15 @@ class NoAuthenticatedFileList extends HookConsumerWidget {
       return null;
     }, []);
 
+    if (data.value.isEmpty) {
+      return Center(
+        child: Text(
+          'No Data!',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      );
+    }
+
     return ListView.builder(
       itemCount: data.value.length,
       itemBuilder: (cxt, idx) {
