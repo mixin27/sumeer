@@ -11,6 +11,7 @@ import 'package:sumeer/utils/utils.dart';
 import 'widgets/home_auth_notice_card.dart';
 import 'widgets/home_banner_card.dart';
 import 'widgets/home_create_button_row.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -82,14 +83,21 @@ class _HomePageState extends ConsumerState<HomePage> {
             items: bannerList.map((i) {
               return Builder(
                 builder: (BuildContext context) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        i,
-                        fit: BoxFit.fill,
+                  return GestureDetector(
+                    onTap: () {
+                      StoreRedirect.redirect(
+                          androidAppId: "com.systematic.clickjob",
+                          iOSAppId: "585027354");
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          i,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   );
