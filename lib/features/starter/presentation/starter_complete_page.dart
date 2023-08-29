@@ -148,15 +148,27 @@ class StarterCompletePage extends HookConsumerWidget {
                               .read(selectedResumeTemplateProvider.notifier)
                               .update((state) => resumeTemplates[index]);
                         },
-                        child: Container(
-                          margin: const EdgeInsets.all(8),
-                          width: 120,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(template.thumbnail),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(8),
+                              width: 120,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(template.thumbnail),
+                                ),
+                              ),
                             ),
-                          ),
+                            const SizedBox(height: 5),
+                            Text(
+                              template.name,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
                         ),
                       );
                     },
