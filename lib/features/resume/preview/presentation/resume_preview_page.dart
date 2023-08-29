@@ -185,13 +185,16 @@ class ResumePreviewPage extends HookConsumerWidget {
                       ref
                           .read(resumeTemplateProvider.notifier)
                           .update((state) => resumeTemplates[0]);
+                      ref
+                          .read(imageDataProvider.notifier)
+                          .update((state) => null);
+                    }
 
-                      if (context.mounted) {
-                        context.router.replaceAll(const [
-                          HomeRoute(),
-                          MyFilesRoute(),
-                        ]);
-                      }
+                    if (context.mounted) {
+                      context.router.replaceAll(const [
+                        HomeRoute(),
+                        MyFilesRoute(),
+                      ]);
                     }
                   },
                 ),

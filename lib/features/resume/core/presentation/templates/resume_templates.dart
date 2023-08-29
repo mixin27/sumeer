@@ -45,7 +45,7 @@ class ResumeTemplate {
 const resumeTemplates = <ResumeTemplate>[
   ResumeTemplate(
     'resume-template-1',
-    'Resume Template 1',
+    'Pdf Built-in',
     'resume_template_1.dart',
     AssetPaths.resumeTemplate1,
     generateTemplate1,
@@ -53,7 +53,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-2',
-    'Resume Template 2',
+    'Atlantic Blue · Multi-column resume',
     'resume_template_2.dart',
     AssetPaths.resumeTemplate2,
     generateTemplate2,
@@ -61,7 +61,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-3',
-    'Resume Template 3',
+    'Grey Goose · Minimalistic · Simple',
     'resume_template_3.dart',
     AssetPaths.resumeTemplate3,
     generateTemplate3,
@@ -69,7 +69,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-4',
-    'Resume Template 4',
+    'Santiago',
     'resume_template_4.dart',
     AssetPaths.resumeTemplate4,
     generateTemplate4,
@@ -77,7 +77,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-5',
-    'Resume Template 5',
+    'Gold · Minimalistic',
     'resume_template_5.dart',
     AssetPaths.resumeTemplate5,
     generateTemplate5,
@@ -85,7 +85,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-6',
-    'Resume Template 6',
+    'Space · Creative · Two-column',
     'resume_template_6.dart',
     AssetPaths.resumeTemplate6,
     generateTemplate6,
@@ -93,7 +93,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-7',
-    'Resume Template 7',
+    'Toronto',
     'resume_template_7.dart',
     AssetPaths.resumeTemplate7,
     generateTemplate7,
@@ -141,7 +141,7 @@ const resumeTemplates = <ResumeTemplate>[
   ),
   ResumeTemplate(
     'resume-template-13',
-    'Resume Template 13',
+    'Curriculum Vitae . Myanmar Language',
     'resume_template_13.dart',
     AssetPaths.resumeTemplate13,
     generateTemplate13,

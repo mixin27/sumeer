@@ -84,7 +84,7 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                       crossAxisCount: 2,
                       crossAxisSpacing: 6,
                       mainAxisSpacing: 0,
-                      childAspectRatio: 13.8 / 20,
+                      childAspectRatio: 12 / 20,
                     ),
                     itemCount: resumeTemplates.length,
                     itemBuilder: (context, index) {
@@ -155,6 +155,14 @@ class _TemplatesPageState extends ConsumerState<TemplatesPage>
                                       BorderRadius.all(Radius.circular(0)),
                                 ),
                                 child: Image.asset(template.thumbnail),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                template.name,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],
                           ),
