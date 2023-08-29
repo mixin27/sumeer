@@ -73,7 +73,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               enableInfiniteScroll: true,
               reverse: false,
               autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayInterval: const Duration(seconds: 4),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
@@ -84,10 +84,11 @@ class _HomePageState extends ConsumerState<HomePage> {
               return Builder(
                 builder: (BuildContext context) {
                   return GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       StoreRedirect.redirect(
-                          androidAppId: "com.systematic.clickjob",
-                          iOSAppId: "585027354");
+                        androidAppId: 'com.systematic.clickjob',
+                        iOSAppId: '1541128188',
+                      );
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
