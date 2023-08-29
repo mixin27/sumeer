@@ -64,6 +64,10 @@ class AuthenticatedFileList extends HookConsumerWidget {
                   ref.read(resumeDataProvider.notifier).state = resumeData;
                   ref.read(resumeModelIdProvider.notifier).state =
                       resumeData.resumeId ?? '';
+                  ref
+                      .read(imageDataProvider.notifier)
+                      .update((state) => resumeData.profileImage);
+
                   context.router.push(const DetailRoute());
                 },
                 onDelete: (resumeData) async {

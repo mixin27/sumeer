@@ -39,14 +39,20 @@ class _DetailPageState extends ConsumerState<DetailPage> {
       appBar: AppBar(
         title: const Text("Resume"),
         // leading: const AutoLeadingButton(),
-        leading: IconButton(
-          onPressed: () {
-            context.router.pop();
-            // context.router.pushAll([
-            //   const HomeRoute(),
-            // ]);
+        leading: Consumer(
+          builder: (context, ref, child) {
+            return IconButton(
+              onPressed: () {
+                ref.read(imageDataProvider.notifier).update((state) => null);
+
+                context.router.pop();
+                // context.router.pushAll([
+                //   const HomeRoute(),
+                // ]);
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            );
           },
-          icon: const Icon(Icons.arrow_back_ios),
         ),
 
         actions: [

@@ -182,7 +182,13 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                           radius: 60,
                           child: (imageData != null && imageData.isNotEmpty)
                               ? Image.memory(base64.decode(imageData))
-                              : const SizedBox(),
+                              : Center(
+                                  child: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.grey.withOpacity(0.3),
+                                    size: 50,
+                                  ),
+                                ),
                         ),
                         // CircularProfileAvatar(
                         //   '',

@@ -55,7 +55,13 @@ class PersonalDetailCard extends ConsumerWidget {
                         backgroundColor: Colors.grey.withOpacity(0.3),
                         radius: 50,
                         child: imageData.isEmptyOrNull
-                            ? const SizedBox()
+                            ?  Center(
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.grey.withOpacity(0.3),
+                                  size: 50,
+                                ),
+                              )
                             : Image.memory(base64.decode(imageData!)),
                       ),
                     ),
@@ -73,11 +79,11 @@ class PersonalDetailCard extends ConsumerWidget {
                     //           (context, url, downloadProgress) =>
                     //               CircularProgressIndicator(
                     //                   value: downloadProgress.progress),
-                    //       errorWidget: (context, url, error) => Icon(
-                    //         Icons.camera_alt,
-                    //         color: Colors.grey.withOpacity(0.3),
-                    //         size: 50,
-                    //       ),
+                    // errorWidget: (context, url, error) => Icon(
+                    //   Icons.camera_alt,
+                    //   color: Colors.grey.withOpacity(0.3),
+                    //   size: 50,
+                    // ),
                     //     ),
                     //   ),
                     // ),
