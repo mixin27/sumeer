@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate10(
   PdfPageFormat format,
@@ -21,10 +23,15 @@ Future<Uint8List> generateTemplate10(
     keywords: params.keywords,
     producer: params.producer,
   );
-  final profileImage =
-      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
-          ? await networkImage(resumeData.profileImage!)
-          : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
+
   var regular = await PdfGoogleFonts.nunitoSansRegular();
   var italic = await PdfGoogleFonts.nunitoSansItalic();
   var bold = await PdfGoogleFonts.nunitoSansBold();

@@ -45,14 +45,17 @@ class _AddDataCardState extends ConsumerState<LanguageCard> {
                         size: 30,
                       ),
                     ),
-                    Text(
-                      'Language',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                    Expanded(
+                      child: Text(
+                        'Language',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     IconButton(
                       onPressed: widget.onTap,
                       icon: const Icon(

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -9,6 +10,7 @@ import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate1(
   PdfPageFormat format,
@@ -16,9 +18,18 @@ Future<Uint8List> generateTemplate1(
   ResumeData resumeData,
 ) async {
   // get network image
-  final profileImage = resumeData.profileImage != null
-      ? await networkImage(resumeData.profileImage!)
-      : null;
+  // final profileImage = resumeData.profileImage != null ? await  : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
+  // final pi = resumeData.profileImage != null
+  //     ? await networkImage(resumeData.profileImage!)
+  //     : null;
 
   final doc = pw.Document(
     title: params.title,

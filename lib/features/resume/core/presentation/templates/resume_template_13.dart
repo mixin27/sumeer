@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 
 import 'package:pdf/pdf.dart';
@@ -6,6 +8,7 @@ import 'package:printing/printing.dart';
 import 'package:rabbit_converter/rabbit_converter.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate13(
   PdfPageFormat format,
@@ -13,9 +16,14 @@ Future<Uint8List> generateTemplate13(
   ResumeData resumeData,
 ) async {
   // get network image
-  final profileImage = resumeData.profileImage != null
-      ? await networkImage(resumeData.profileImage!)
-      : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
 
   final doc = pw.Document(
     title: params.title,

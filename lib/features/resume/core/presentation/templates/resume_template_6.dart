@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:intl/intl.dart';
@@ -6,6 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate6(
   PdfPageFormat format,
@@ -13,10 +15,14 @@ Future<Uint8List> generateTemplate6(
   ResumeData resumeData,
 ) async {
   // get network image
-  final profileImage =
-      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
-          ? await networkImage(resumeData.profileImage!)
-          : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
 
   final doc = pw.Document(
     title: params.title,
@@ -62,7 +68,7 @@ Future<Uint8List> generateTemplate6(
                           ),
                         ],
                       ),
-                      pw.SizedBox(height: 5),
+                      pw.SizedBox(height: 8),
                       pw.Text(
                         resumeData.personalDetail?.jobTitle ?? '',
                         style: pw.TextStyle(
@@ -70,7 +76,7 @@ Future<Uint8List> generateTemplate6(
                           color: PdfColor.fromHex('54448D'),
                         ),
                       ),
-                      pw.SizedBox(height: 5),
+                      pw.SizedBox(height: 8),
                       if (profileImage != null)
                         pw.Container(
                           width: 100,
@@ -79,59 +85,62 @@ Future<Uint8List> generateTemplate6(
                             child: pw.Image(profileImage, fit: pw.BoxFit.cover),
                           ),
                         ),
-                      pw.Row(
-                        children: [
-                          pw.Icon(
-                            const pw.IconData(0xe158),
-                            color: PdfColor.fromHex('54448D'),
-                            size: 20,
-                          ),
-                          pw.SizedBox(width: 5),
-                          pw.Text(
-                            resumeData.personalDetail?.email ?? '',
-                            style: pw.TextStyle(
+                      if (resumeData.personalDetail!.email.isNotEmpty)
+                        pw.Row(
+                          children: [
+                            pw.Icon(
+                              const pw.IconData(0xe158),
                               color: PdfColor.fromHex('54448D'),
-                              fontSize: 12,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            pw.SizedBox(width: 5),
+                            pw.Text(
+                              resumeData.personalDetail?.email ?? '',
+                              style: pw.TextStyle(
+                                color: PdfColor.fromHex('54448D'),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
                       pw.SizedBox(height: 5),
-                      pw.Row(
-                        children: [
-                          pw.Icon(
-                            const pw.IconData(0xe0b0),
-                            color: PdfColor.fromHex('54448D'),
-                            size: 20,
-                          ),
-                          pw.SizedBox(width: 5),
-                          pw.Text(
-                            resumeData.personalDetail?.phone ?? '',
-                            style: pw.TextStyle(
+                      if (resumeData.personalDetail!.phone.isNotEmpty)
+                        pw.Row(
+                          children: [
+                            pw.Icon(
+                              const pw.IconData(0xe0b0),
                               color: PdfColor.fromHex('54448D'),
-                              fontSize: 12,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            pw.SizedBox(width: 5),
+                            pw.Text(
+                              resumeData.personalDetail?.phone ?? '',
+                              style: pw.TextStyle(
+                                color: PdfColor.fromHex('54448D'),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
                       pw.SizedBox(height: 5),
-                      pw.Row(
-                        children: [
-                          pw.Icon(
-                            const pw.IconData(0xe0c8),
-                            color: PdfColor.fromHex('54448D'),
-                            size: 20,
-                          ),
-                          pw.SizedBox(width: 5),
-                          pw.Text(
-                            resumeData.personalDetail?.address ?? '',
-                            style: pw.TextStyle(
+                      if (resumeData.personalDetail!.address.isNotEmpty)
+                        pw.Row(
+                          children: [
+                            pw.Icon(
+                              const pw.IconData(0xe0c8),
                               color: PdfColor.fromHex('54448D'),
-                              fontSize: 12,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            pw.SizedBox(width: 5),
+                            pw.Text(
+                              resumeData.personalDetail?.address ?? '',
+                              style: pw.TextStyle(
+                                color: PdfColor.fromHex('54448D'),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
                       if (resumeData.personalDetail!.links.isNotEmpty)
                         pw.Column(
                           children: List.generate(

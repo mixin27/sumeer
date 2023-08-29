@@ -70,29 +70,21 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         // },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Row(
+                          child: Column(
                             children: [
                               const Icon(
                                 Icons.person_2_outlined,
                                 color: Colors.blueAccent,
+                                size: 50,
                               ),
-                              const SizedBox(width: 6),
-                              const Expanded(
-                                child: Text(
-                                  "My Account",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16,
-                                  ),
+                              const Text(
+                                "My Account",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
                                 ),
                               ),
                               Text(data.email),
-                              const SizedBox(width: 4),
-                              const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 16,
-                                color: Colors.grey,
-                              ),
                             ],
                           ),
                         ),

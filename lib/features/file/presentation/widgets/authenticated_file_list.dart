@@ -7,6 +7,7 @@ import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/features/features.dart';
 import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/shared.dart';
+import 'package:sumeer/utils/logger/logger.dart';
 import 'file_list_item.dart';
 
 class AuthenticatedFileList extends HookConsumerWidget {
@@ -39,6 +40,7 @@ class AuthenticatedFileList extends HookConsumerWidget {
               child: FileListItem(
                 resumeData: data[idx],
                 onTap: (resumeData) {
+                  tLog(resumeData.profileImage);
                   ref
                       .read(resumeDataProvider.notifier)
                       .update((state) => resumeData);
