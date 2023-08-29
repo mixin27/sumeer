@@ -684,20 +684,24 @@ Future<Uint8List> generateTemplate2(
                           final skill = resumeData.skill!.skills[index];
 
                           return pw.Column(children: [
-                            pw.Row(children: [
-                              pw.ClipOval(
-                                  child: pw.Container(
-                                      width: 5,
-                                      height: 5,
-                                      color: PdfColors.black)),
-                              pw.Padding(
-                                padding: const pw.EdgeInsets.only(left: 5),
-                                child: pw.Text(
-                                  skill.name,
-                                  style: const pw.TextStyle(),
+                            pw.Row(
+                              children: [
+                                pw.ClipOval(
+                                    child: pw.Container(
+                                        width: 5,
+                                        height: 5,
+                                        color: PdfColors.black)),
+                                pw.Expanded(
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(left: 5),
+                                    child: pw.Text(
+                                      skill.name,
+                                      style: const pw.TextStyle(),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ]),
+                              ],
+                            ),
                             pw.SizedBox(height: 5),
                           ]);
                         }),

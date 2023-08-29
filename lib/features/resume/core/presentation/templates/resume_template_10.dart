@@ -124,25 +124,32 @@ Future<Uint8List> generateTemplate10(
                                   resumeData.skill!.skills.length, (index) {
                                 final skill = resumeData.skill!.skills[index];
 
-                                return pw.Row(children: [
-                                  pw.ClipOval(
+                                return pw.Row(
+                                  children: [
+                                    pw.ClipOval(
                                       child: pw.Container(
-                                          width: 5,
-                                          height: 5,
-                                          color: PdfColors.white)),
-                                  pw.Padding(
-                                    padding: const pw.EdgeInsets.only(left: 5),
-                                    child: pw.Text(
-                                      skill.name,
-                                      style: pw.Theme.of(context)
-                                          .defaultTextStyle
-                                          .copyWith(
-                                            color: PdfColors.white,
-                                            fontWeight: pw.FontWeight.bold,
-                                          ),
+                                        width: 5,
+                                        height: 5,
+                                        color: PdfColors.white,
+                                      ),
                                     ),
-                                  ),
-                                ]);
+                                    pw.Expanded(
+                                      child: pw.Padding(
+                                        padding:
+                                            const pw.EdgeInsets.only(left: 5),
+                                        child: pw.Text(
+                                          skill.name,
+                                          style: pw.Theme.of(context)
+                                              .defaultTextStyle
+                                              .copyWith(
+                                                color: PdfColors.white,
+                                                fontWeight: pw.FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
                               }),
                             ),
                           ],

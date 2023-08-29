@@ -178,7 +178,7 @@ Future<Uint8List> generateTemplate7(
                 ],
               ),
               pw.Padding(
-                padding: const pw.EdgeInsets.symmetric(vertical: 10),
+                padding: const pw.EdgeInsets.symmetric(vertical: 5),
                 child: pw.Divider(color: PdfColors.grey200),
               ),
               pw.Partitions(
@@ -357,9 +357,14 @@ Future<Uint8List> generateTemplate7(
                                       final link = resumeData
                                           .personalDetail!.links[index];
 
+                                      if (link.url.isEmpty) {
+                                        return pw.SizedBox();
+                                      }
+
                                       return pw.Padding(
                                         padding: const pw.EdgeInsets.symmetric(
-                                            vertical: 5),
+                                          vertical: 5,
+                                        ),
                                         child: pw.UrlLink(
                                           destination: link.url,
                                           child: pw.Text(
@@ -595,22 +600,6 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
         child: pw.Container(
           color: PdfColors.white,
         ),
-        // child: pw.Row(
-        //   children: [
-        //     pw.Expanded(
-        //       flex: 4,
-        //       child: pw.Container(
-        //         color: PdfColor.fromHex('DBDBF9'),
-        //       ),
-        //     ),
-        //     pw.Expanded(
-        //       flex: 5,
-        //       child: pw.Container(
-        //         color: PdfColor.fromHex('54448D'),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       );
     },
   );

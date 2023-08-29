@@ -665,27 +665,29 @@ pw.Column _skillList(ResumeData resumeData, pw.Context context) {
                 ),
               ],
             ),
-            pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
-                  pw.Text(
-                    "Level : ${resumeData.skill!.skills[index].level.toString().split(".")[1].toUpperCase()}",
-                    textScaleFactor: 2,
-                    textAlign: pw.TextAlign.justify,
-                    style: pw.Theme.of(context)
-                        .defaultTextStyle
-                        .copyWith(fontSize: 6),
-                  ),
-                  if (resumeData.skill!.skills[index].percentage != null)
-                    pw.Text(
-                      "${(resumeData.skill!.skills[index].percentage! * 100).toStringAsFixed(0)} %",
-                      textScaleFactor: 2,
-                      textAlign: pw.TextAlign.left,
-                      style: pw.Theme.of(context)
-                          .defaultTextStyle
-                          .copyWith(fontSize: 6),
-                    ),
-                ]),
+            // TODO: Fix array index error
+            // pw.Row(
+            //   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     pw.Text(
+            //       "Level : ${resumeData.skill!.skills[index].level.toString().split(".")[1].toUpperCase()}",
+            //       textScaleFactor: 2,
+            //       textAlign: pw.TextAlign.justify,
+            //       style: pw.Theme.of(context)
+            //           .defaultTextStyle
+            //           .copyWith(fontSize: 6),
+            //     ),
+            //     if (resumeData.skill!.skills[index].percentage != null)
+            //       pw.Text(
+            //         "${(resumeData.skill!.skills[index].percentage! * 100).toStringAsFixed(0)} %",
+            //         textScaleFactor: 2,
+            //         textAlign: pw.TextAlign.left,
+            //         style: pw.Theme.of(context)
+            //             .defaultTextStyle
+            //             .copyWith(fontSize: 6),
+            //       ),
+            //   ],
+            // ),
             if (resumeData.skill!.skills[index].information != null &&
                 resumeData.skill!.skills[index].information != "")
               pw.Text(

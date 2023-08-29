@@ -50,14 +50,14 @@ Future<Uint8List> generateTemplate6(
                             resumeData.personalDetail?.firstName ?? '',
                             style: pw.TextStyle(
                               font: font,
-                              fontSize: 40,
+                              fontSize: 35,
                             ),
                           ),
                           pw.Text(
                             resumeData.personalDetail?.lastName ?? '',
                             style: pw.TextStyle(
                               font: font,
-                              fontSize: 40,
+                              fontSize: 35,
                             ),
                           ),
                         ],
