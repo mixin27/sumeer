@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/shared/constants/app_lists.dart';
@@ -11,7 +12,6 @@ import 'package:sumeer/utils/utils.dart';
 import 'widgets/home_auth_notice_card.dart';
 import 'widgets/home_banner_card.dart';
 import 'widgets/home_create_button_row.dart';
-import 'package:store_redirect/store_redirect.dart';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
