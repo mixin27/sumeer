@@ -1,12 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sumeer/features/data_input/feat_data_input.dart';
 import 'package:sumeer/shared/config/routes/app_router.gr.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 class PersonalDetailCard extends ConsumerWidget {
   const PersonalDetailCard({super.key});
@@ -14,6 +16,8 @@ class PersonalDetailCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final resumeData = ref.watch(resumeDataProvider);
+    final imageData = ref.watch(imageDataProvider);
+
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(
@@ -50,22 +54,39 @@ class PersonalDetailCard extends ConsumerWidget {
                         '',
                         backgroundColor: Colors.grey.withOpacity(0.3),
                         radius: 50,
-                        child: CachedNetworkImage(
-                          fit: BoxFit.fill,
-                          imageUrl: resumeData?.profileImage ?? '',
-                          // imageUrl: '',
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                                      value: downloadProgress.progress),
-                          errorWidget: (context, url, error) => Icon(
-                            Icons.camera_alt,
-                            color: Colors.grey.withOpacity(0.3),
-                            size: 50,
-                          ),
-                        ),
+                        child: imageData.isEmptyOrNull
+                            ?  Center(
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.grey.withOpacity(0.3),
+                                  size: 50,
+                                ),
+                              )
+                            : Image.memory(base64.decode(imageData!)),
                       ),
                     ),
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: CircularProfileAvatar(
+                    //     '',
+                    //     backgroundColor: Colors.grey.withOpacity(0.3),
+                    //     radius: 50,
+                    //     child: CachedNetworkImage(
+                    //       fit: BoxFit.fill,
+                    //       imageUrl: resumeData?.profileImage ?? '',
+                    //       // imageUrl: '',
+                    //       progressIndicatorBuilder:
+                    //           (context, url, downloadProgress) =>
+                    //               CircularProgressIndicator(
+                    //                   value: downloadProgress.progress),
+                    // errorWidget: (context, url, error) => Icon(
+                    //   Icons.camera_alt,
+                    //   color: Colors.grey.withOpacity(0.3),
+                    //   size: 50,
+                    // ),
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(
@@ -143,9 +164,12 @@ class PersonalDetailCard extends ConsumerWidget {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
-                                  resumeData?.personalDetail?.address ?? "",
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                Expanded(
+                                  child: Text(
+                                    resumeData?.personalDetail?.address ?? "",
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
                                 ),
                               ],
                             ),

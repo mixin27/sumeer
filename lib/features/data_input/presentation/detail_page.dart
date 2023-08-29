@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/features/templates/shared/provider.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/utils/utils.dart';
 import 'package:sumeer/widgets/button1.dart';
@@ -38,13 +39,21 @@ class _DetailPageState extends ConsumerState<DetailPage> {
       appBar: AppBar(
         title: const Text("Resume"),
         // leading: const AutoLeadingButton(),
-        leading: IconButton(
-            onPressed: () {
-              context.router.pushAll([
-                const HomeRoute(),
-              ]);
-            },
-            icon: const Icon(Icons.arrow_back_ios)),
+        leading: Consumer(
+          builder: (context, ref, child) {
+            return IconButton(
+              onPressed: () {
+                ref.read(imageDataProvider.notifier).update((state) => null);
+
+                context.router.pop();
+                // context.router.pushAll([
+                //   const HomeRoute(),
+                // ]);
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            );
+          },
+        ),
 
         actions: [
           Button1(
@@ -63,12 +72,24 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               //       ref.watch(resumeDataProvider)?.toJson() ?? {},
               //     );
 
+              final resumeData = ref.watch(resumeDataProvider);
+              final resumeTemplate =
+                  getResumeTemplateById(resumeData?.templateId);
+
+              ref
+                  .read(resumeDataProvider.notifier)
+                  .update((state) => resumeData);
+
+              ref
+                  .read(resumeTemplateProvider.notifier)
+                  .update((state) => resumeTemplate);
+
               context.router.push(
-                ResumePreviewRoute(
-                  resume: getResumeTemplateById(
-                      ref.watch(resumeDataProvider)?.templateId),
-                  resumeData: ref.watch(resumeDataProvider),
-                ),
+                const ResumePreviewRoute(
+                    // resume: getResumeTemplateById(
+                    //     ref.watch(resumeDataProvider)?.templateId),
+                    // resumeData: ref.watch(resumeDataProvider),
+                    ),
               );
               // if (ref.watch(resumeDataProvider)?.templateId != null) {
               //   Navigator.of(context).push(

@@ -2,29 +2,29 @@ class AssetPaths {
   static const String logo = 'assets/logo.png';
 
   static const String resumeTemplate1 =
-      "assets/images/templates/resume_template_1.jpg";
+      "assets/images/templates/resume_template_1.png";
   static const String resumeTemplate2 =
-      "assets/images/templates/resume_template_2.webp";
+      "assets/images/templates/resume_template_2.png";
   static const String resumeTemplate3 =
-      "assets/images/templates/resume_template_3.webp";
+      "assets/images/templates/resume_template_3.png";
   static const String resumeTemplate4 =
       "assets/images/templates/resume_template_4.png";
   static const String resumeTemplate5 =
-      "assets/images/templates/resume_template_5.webp";
+      "assets/images/templates/resume_template_5.png";
   static const String resumeTemplate6 =
-      "assets/images/templates/resume_template_6.webp";
+      "assets/images/templates/resume_template_6.png";
   static const String resumeTemplate7 =
       "assets/images/templates/resume_template_7.png";
   static const String resumeTemplate8 =
-      "assets/images/templates/resume_template_8.jpeg";
+      "assets/images/templates/resume_template_8.png";
   static const String resumeTemplate9 =
-      "assets/images/templates/resume_template_9.jpeg";
+      "assets/images/templates/resume_template_9.png";
   static const String resumeTemplate10 =
-      "assets/images/templates/resume_template_1.jpg";
+      "assets/images/templates/resume_template_10.png";
   static const String resumeTemplate11 =
-      "assets/images/templates/resume_template_1.jpg";
+      "assets/images/templates/resume_template_11.png";
   static const String resumeTemplate12 =
-      "assets/images/templates/resume_template_1.jpg";
+      "assets/images/templates/resume_template_12.png";
   static const String resumeTemplate13 =
       "assets/images/templates/resume_template_13.png";
 
@@ -54,4 +54,11 @@ class AssetPaths {
   static const String bgInfoWhite = "assets/svg/bg_info_white.svg";
   static const String bgSkillWhite = "assets/svg/bg_skill_white.svg";
   static const String bgWelcomeWhite = "assets/svg/bg_welcome_white.svg";
+
+  static const String robotoslabRegular =
+      "assets/fonts/roboto_slab/robotoslab_regular.ttf";
+  static const String robotoslabBold =
+      "assets/fonts/roboto_slab/robotoslab_bold.ttf";
+  static const String robotoslabSemiBold =
+      "assets/fonts/roboto_slab/robotoslab_semi_bold.ttf";
 }

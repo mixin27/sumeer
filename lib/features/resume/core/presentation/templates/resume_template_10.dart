@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate10(
   PdfPageFormat format,
@@ -21,10 +23,15 @@ Future<Uint8List> generateTemplate10(
     keywords: params.keywords,
     producer: params.producer,
   );
-  final profileImage =
-      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
-          ? await networkImage(resumeData.profileImage!)
-          : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
+
   var regular = await PdfGoogleFonts.nunitoSansRegular();
   var italic = await PdfGoogleFonts.nunitoSansItalic();
   var bold = await PdfGoogleFonts.nunitoSansBold();
@@ -65,8 +72,18 @@ Future<Uint8List> generateTemplate10(
                         //     fit: pw.BoxFit.cover),
                         // profileImage
                         child: profileImage != null
-                            ? pw.Image(profileImage,
-                                height: 170, width: 210, fit: pw.BoxFit.cover)
+                            ? pw.Container(
+                                height: 170,
+                                width: 210,
+                                child: pw.ClipOval(
+                                  // child:
+                                  // pw.Image(resumeData.profileImage!,
+                                  //     width: 130, height: 130, fit: pw.BoxFit.cover),
+                                  // profileImage
+                                  child: pw.Image(profileImage,
+                                      fit: pw.BoxFit.cover),
+                                ),
+                              )
                             : pw.SizedBox(
                                 height: 170,
                                 width: 210,
@@ -98,7 +115,7 @@ Future<Uint8List> generateTemplate10(
                               resumeData.personalDetail?.address ?? ""),
                           if (resumeData.skill != null) ...[
                             pw.Text(
-                              "Skill Heilights",
+                              "Skill Hilights",
                               textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
@@ -114,25 +131,32 @@ Future<Uint8List> generateTemplate10(
                                   resumeData.skill!.skills.length, (index) {
                                 final skill = resumeData.skill!.skills[index];
 
-                                return pw.Row(children: [
-                                  pw.ClipOval(
+                                return pw.Row(
+                                  children: [
+                                    pw.ClipOval(
                                       child: pw.Container(
-                                          width: 5,
-                                          height: 5,
-                                          color: PdfColors.white)),
-                                  pw.Padding(
-                                    padding: const pw.EdgeInsets.only(left: 5),
-                                    child: pw.Text(
-                                      skill.name,
-                                      style: pw.Theme.of(context)
-                                          .defaultTextStyle
-                                          .copyWith(
-                                            color: PdfColors.white,
-                                            fontWeight: pw.FontWeight.bold,
-                                          ),
+                                        width: 5,
+                                        height: 5,
+                                        color: PdfColors.white,
+                                      ),
                                     ),
-                                  ),
-                                ]);
+                                    pw.Expanded(
+                                      child: pw.Padding(
+                                        padding:
+                                            const pw.EdgeInsets.only(left: 5),
+                                        child: pw.Text(
+                                          skill.name,
+                                          style: pw.Theme.of(context)
+                                              .defaultTextStyle
+                                              .copyWith(
+                                                color: PdfColors.white,
+                                                fontWeight: pw.FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
                               }),
                             ),
                           ],

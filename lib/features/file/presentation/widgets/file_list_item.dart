@@ -1,5 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+
 import 'package:sumeer/features/features.dart';
 
 class FileListItem extends StatelessWidget {
@@ -38,34 +40,57 @@ class FileListItem extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: CachedNetworkImage(
-                        fit: BoxFit.fill,
-                        imageUrl: resumeData.profileImage ?? '',
-                        imageBuilder: (context, imageProvider) => Container(
-                          height: 65,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+                    resumeData.profileImage != null
+                        ? Expanded(
+                            child: Container(
+                              height: 65,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: MemoryImage(
+                                    base64.decode(resumeData.profileImage!),
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Expanded(
+                            child: Center(
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Colors.grey.withOpacity(0.3),
+                                size: 50,
+                              ),
                             ),
                           ),
-                        ),
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                          child: CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Center(
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.grey.withOpacity(0.3),
-                            size: 50,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: CachedNetworkImage(
+                    //     fit: BoxFit.fill,
+                    //     imageUrl: resumeData.profileImage ?? '',
+                    //     imageBuilder: (context, imageProvider) => Container(
+                    //       height: 65,
+                    //       decoration: BoxDecoration(
+                    //         image: DecorationImage(
+                    //           image: imageProvider,
+                    //           fit: BoxFit.cover,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     progressIndicatorBuilder:
+                    //         (context, url, downloadProgress) => Center(
+                    //       child: CircularProgressIndicator(
+                    //         value: downloadProgress.progress,
+                    //       ),
+                    //     ),
+                    // errorWidget: (context, url, error) => Center(
+                    //   child: Icon(
+                    //     Icons.camera_alt,
+                    //     color: Colors.grey.withOpacity(0.3),
+                    //     size: 50,
+                    //   ),
+                    // ),
+                    //   ),
+                    // ),
                     Expanded(
                       flex: 4,
                       child: Padding(

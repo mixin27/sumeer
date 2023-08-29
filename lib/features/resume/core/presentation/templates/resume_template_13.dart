@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 
 import 'package:pdf/pdf.dart';
@@ -6,6 +8,7 @@ import 'package:printing/printing.dart';
 import 'package:rabbit_converter/rabbit_converter.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate13(
   PdfPageFormat format,
@@ -13,9 +16,14 @@ Future<Uint8List> generateTemplate13(
   ResumeData resumeData,
 ) async {
   // get network image
-  final profileImage = resumeData.profileImage != null
-      ? await networkImage(resumeData.profileImage!)
-      : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
 
   final doc = pw.Document(
     title: params.title,
@@ -89,25 +97,141 @@ Future<Uint8List> generateTemplate13(
                     font: fall2),
                 prefixTitle(regular, '၃။ အဘအမည်', data: '', font: fall2),
                 prefixTitle(regular, '၄။ နိုင်ငံသားစိစစ်ရေးကတ်ြပားအမှတ်',
-                    data: 'NRC', font: fall2),
+                    data: resumeData.personalDetail?.personalInfo?.identityNo ??
+                        "",
+                    font: fall2),
                 prefixTitle(regular, '၅။ အသက် / မွေးသက္ကရာဇ်',
                     data:
                         resumeData.personalDetail?.personalInfo?.dateOfBirth ??
                             '',
                     font: fall2),
                 prefixTitle(regular, '၆။ လူမျိုး / ဘာသာ',
-                    data: 'ဗုဓ္ဒ', font: fall2),
+                    data:
+                        resumeData.personalDetail?.personalInfo?.nationality ??
+                            "",
+                    font: fall2),
                 prefixTitle(regular, '၇။ ပညာ အရည်အချင်း',
                     data: resumeData.education?.educations.first.degree ?? '',
                     font: fall2),
+                if (resumeData.education != null) ...[
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.symmetric(vertical: 4),
+                      child: pw.Row(
+                        children: [
+                          pw.Expanded(
+                            flex: 4,
+                            child: pw.Text(
+                              Rabbit.uni2zg('၇။ ပညာ အရည်အချင်း'),
+                              textScaleFactor: 1.2,
+                              style: pw.TextStyle(
+                                  font: regular, fontFallback: [fall2]),
+                            ),
+                          ),
+                          pw.SizedBox(width: 10),
+                          // flex: 4,
+                          pw.Text(
+                            'း',
+                            textScaleFactor: 1.2,
+                          ),
+                          pw.SizedBox(width: 10),
+                          pw.Expanded(
+                            flex: 4,
+                            child: pw.Wrap(
+                              children: List.generate(
+                                resumeData.education!.educations.length,
+                                (index) {
+                                  final skill =
+                                      resumeData.education!.educations[index];
+                                  return pw.Wrap(children: [
+                                    pw.Text(
+                                      textAlign: pw.TextAlign.left,
+                                      Rabbit.uni2zg(skill.degree ?? ''),
+                                      style: pw.TextStyle(
+                                          font: regular, fontFallback: [fall2]),
+                                    ),
+                                    if (resumeData.education!.educations.last !=
+                                        skill) ...[
+                                      pw.Text(
+                                        Rabbit.uni2zg(
+                                          "/",
+                                        ),
+                                        style: pw.TextStyle(
+                                            font: regular,
+                                            fontFallback: [fall2]),
+                                      ),
+                                    ],
+                                    pw.SizedBox(width: 10)
+                                  ]);
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ))
+                ],
                 prefixTitle(regular, '၈။ လုပ်ငန်းအတွေ. အကြုံ',
-                    data: resumeData.experience?.experiences.first.jobTitle,
+                    data:
+                        "${resumeData.experience?.experiences.first.jobTitle}(${resumeData.experience?.experiences.first.employer?.name ?? ''})",
                     font: fall2),
                 prefixTitle(regular, '၉။ အခြားတက်ရောက်ခဲ့သည်.သင်တန်းများ',
                     data: '', font: fall2),
-                prefixTitle(regular, '၁၀။ ။ အခြားတတ်ကျွမ်းသညဲ့်ဘာသာစကား',
-                    data: resumeData.languages?.languages.first.title ?? '',
-                    font: fall2),
+                if (resumeData.languages != null) ...[
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.symmetric(vertical: 4),
+                      child: pw.Row(
+                        children: [
+                          pw.Expanded(
+                            flex: 4,
+                            child: pw.Text(
+                              Rabbit.uni2zg(
+                                  '၁၀။ ။ အခြားတတ်ကျွမ်းသညဲ့်ဘာသာစကား'),
+                              textScaleFactor: 1.2,
+                              style: pw.TextStyle(
+                                  font: regular, fontFallback: [fall2]),
+                            ),
+                          ),
+                          pw.SizedBox(width: 10),
+                          // flex: 4,
+                          pw.Text(
+                            'း',
+                            textScaleFactor: 1.2,
+                          ),
+                          pw.SizedBox(width: 10),
+                          pw.Expanded(
+                            flex: 4,
+                            child: pw.Wrap(
+                              children: List.generate(
+                                resumeData.languages!.languages.length,
+                                (index) {
+                                  final skill =
+                                      resumeData.languages!.languages[index];
+                                  return pw.Wrap(children: [
+                                    pw.Text(
+                                      textAlign: pw.TextAlign.left,
+                                      Rabbit.uni2zg(skill.title ?? ''),
+                                      style: pw.TextStyle(
+                                          font: regular, fontFallback: [fall2]),
+                                    ),
+                                    if (resumeData.languages?.languages.last !=
+                                        skill) ...[
+                                      pw.Text(
+                                        Rabbit.uni2zg(
+                                          "/",
+                                        ),
+                                        style: pw.TextStyle(
+                                            font: regular,
+                                            fontFallback: [fall2]),
+                                      ),
+                                    ],
+                                    pw.SizedBox(width: 10)
+                                  ]);
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ))
+                ],
                 prefixTitle(regular, '၁၁။ အိမ်ထောင်ရှိ/မရှိ',
                     data: resumeData
                             .personalDetail?.personalInfo?.martialStatus ??
@@ -150,11 +274,11 @@ pw.Widget prefixTitle(pw.Font mmFontBold, String prefixText,
             'း',
             textScaleFactor: 1.2,
           ),
-
+          pw.SizedBox(width: 10),
           pw.Expanded(
             flex: 4,
             child: pw.Text(
-              textAlign: pw.TextAlign.center,
+              textAlign: pw.TextAlign.left,
               Rabbit.uni2zg(data ?? ''),
               style: pw.TextStyle(font: mmFontBold, fontFallback: [font]),
             ),

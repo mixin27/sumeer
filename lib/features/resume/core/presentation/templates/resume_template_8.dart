@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -5,6 +6,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate8(
   PdfPageFormat format,
@@ -24,9 +26,15 @@ Future<Uint8List> generateTemplate8(
   var italic = await PdfGoogleFonts.nunitoSansItalic();
   var bold = await PdfGoogleFonts.nunitoSansBold();
   var boldItalic = await PdfGoogleFonts.nunitoSansBoldItalic();
-  final profileImage = resumeData.profileImage != null
-      ? await networkImage(resumeData.profileImage!)
-      : null;
+
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
 
   doc.addPage(
     pw.MultiPage(
@@ -57,14 +65,15 @@ Future<Uint8List> generateTemplate8(
                   alignment: pw.Alignment.centerRight,
                   padding: const pw.EdgeInsets.only(top: 20),
                   child: profileImage != null
-                      ? pw.ClipOval(
-                          child: pw.Container(
-                            width: 100,
-                            height: 100,
-                            color: lightGreen,
-                            // child: pw.Image(resumeData.profileImage!),
+                      ? pw.Container(
+                          width: 100,
+                          height: 100,
+                          child: pw.ClipOval(
+                            // child:
+                            // pw.Image(resumeData.profileImage!,
+                            //     width: 130, height: 130, fit: pw.BoxFit.cover),
                             // profileImage
-                            child: pw.Image(profileImage),
+                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
                           ),
                         )
                       : pw.SizedBox()),
@@ -281,6 +290,8 @@ Future<Uint8List> generateTemplate8(
                           ),
                           pw.SizedBox(height: 10),
                           pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
                             children: List.generate(
                               resumeData.education!.educations.length,
                               (index) {

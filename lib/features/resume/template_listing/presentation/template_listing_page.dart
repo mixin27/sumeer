@@ -29,14 +29,14 @@ class TemplateListingPage extends HookConsumerWidget {
 
           return InkWell(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => ResumePreviewPage(
-                    resume: template,
-                    resumeData: ref.watch(resumeDataProvider),
-                  ),
-                ),
-              );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (ctx) => ResumePreviewPage(
+              //       resume: template,
+              //       resumeData: ref.watch(resumeDataProvider),
+              //     ),
+              //   ),
+              // );
             },
             child: GridTile(
               key: ValueKey(index),

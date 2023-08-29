@@ -101,3 +101,7 @@ final languageSectionListProvider =
 // resumeModelId
 final resumeModelIdProvider = StateProvider<String>((ref) => '');
 final templatelIdProvider = StateProvider<String?>((ref) => null);
+
+final imageDataProvider = StateProvider<String?>((ref) {
+  return null;
+});

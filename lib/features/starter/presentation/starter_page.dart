@@ -15,9 +15,6 @@ class StarterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   toolbarHeight: 0,
-      // ),
       body: Stack(
         children: [
           SvgPicture.asset(
@@ -118,27 +115,4 @@ class StarterPage extends StatelessWidget {
       ),
     );
   }
-
-  // List<Step> getSteps(int currentStep) {
-  //   return <Step>[
-  //     Step(
-  //       state: currentStep > 0 ? StepState.complete : StepState.indexed,
-  //       isActive: currentStep >= 0,
-  //       title: const Text("Personal Detail"),
-  //       content: const PersonalInformationForm(),
-  //     ),
-  //     Step(
-  //       state: currentStep > 1 ? StepState.complete : StepState.indexed,
-  //       isActive: currentStep >= 1,
-  //       title: const Text("Education"),
-  //       content: const EducationForm(),
-  //     ),
-  //     Step(
-  //       state: currentStep > 2 ? StepState.complete : StepState.indexed,
-  //       isActive: currentStep >= 2,
-  //       title: const Text("Experience"),
-  //       content: const ExperienceForm(),
-  //     ),
-  //   ];
-  // }
 }

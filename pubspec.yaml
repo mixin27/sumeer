@@ -69,6 +69,7 @@ dependencies:
   open_file: ^3.1.0
   image: ^4.0.17
   carousel_slider: ^4.2.1
+  store_redirect: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -107,6 +108,11 @@ flutter:
     - family: Pyi
       fonts:
         - asset: assets/fonts/Zawgyi-One_V3.1.ttf
+    - family: RobotoSlab-Bold
+      fonts:
+        - asset: assets/fonts/roboto_slab/robotoslab_bold.ttf
+        - asset: assets/fonts/roboto_slab/robotoslab_regular.ttf
+        - asset: assets/fonts/roboto_slab/robotoslab_semi_bold.ttf
 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

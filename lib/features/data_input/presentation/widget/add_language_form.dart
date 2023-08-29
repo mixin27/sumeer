@@ -30,6 +30,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
     LanguageLevelEnum.highlyProficient,
     LanguageLevelEnum.native,
   ];
+  String percentage = "";
   // List<String> skillList = [
   //   'Novice',
   //   'Beginner',
@@ -43,15 +44,43 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
     setData();
   }
 
+  void getPercentage(String level) {
+    switch (level) {
+      case "Beginner":
+        percentage = "0.1";
+      case "Elementary":
+        percentage = "0.2";
+      case "Limited working":
+        percentage = "0.5";
+      case "Highly proficient":
+        percentage = "0.8";
+      case "Native":
+        percentage = "1.0";
+      default:
+        percentage = "0";
+    }
+  }
+
   Future<void> setData() async {
     Future.microtask(() {
       // final skill = ref.watch(userSkillProvider);
       if (widget.language != null) {
         languageController.text = widget.language?.title ?? '';
         descriptionController.text = widget.language?.description ?? '';
+        ref.read(languageLevelProvider.notifier).state =
+            widget.language!.level ?? LanguageLevelEnum.beginner;
         levelController.text = getLanguageLevel(
           widget.language!.level ?? LanguageLevelEnum.beginner,
         );
+        getPercentage(getLanguageLevel(
+          widget.language!.level ?? LanguageLevelEnum.beginner,
+        ));
+      } else {
+        ref.read(languageLevelProvider.notifier).state =
+            LanguageLevelEnum.beginner;
+        getPercentage(getLanguageLevel(
+          LanguageLevelEnum.beginner,
+        ));
       }
     });
   }
@@ -178,6 +207,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                                 .read(languageLevelProvider.notifier)
                                 .update((state) => val);
                             levelController.text = getLanguageLevel(val);
+                            getPercentage(getLanguageLevel(val));
                           }
                           fLog('skill level onchange $val');
                         },
@@ -194,10 +224,10 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                         final oldLanguageSection =
                             oldResumeData?.languages?.languages ?? [];
                         Language language = Language(
-                          title: languageController.text,
-                          description: descriptionController.text,
-                          level: ref.watch(languageLevelProvider),
-                        );
+                            title: languageController.text,
+                            description: descriptionController.text,
+                            level: ref.watch(languageLevelProvider),
+                            percentage: double.parse(percentage));
 
                         if (languageController.text.isEmpty) {
                           return Navigator.of(context).pop();

@@ -16,6 +16,7 @@ class ResumeRemoteService {
         .collection(FirestoreConsts.resumes)
         .doc(userId)
         .collection(FirestoreConsts.files)
+        .orderBy('date', descending: true)
         .snapshots()
         .map((event) {
       return event.docs.map((e) {

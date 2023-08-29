@@ -45,14 +45,17 @@ class _EducationCardState extends ConsumerState<EducationCard> {
                         size: 30,
                       ),
                     ),
-                    Text(
-                      'Education',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+                    Expanded(
+                      child: Text(
+                        'Education',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     IconButton(
                       onPressed: widget.onTap,
                       icon: const Icon(

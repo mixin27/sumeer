@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -6,6 +7,7 @@ import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate11(
   PdfPageFormat format,
@@ -13,10 +15,15 @@ Future<Uint8List> generateTemplate11(
   ResumeData resumeData,
 ) async {
   // get network image
-  final profileImage =
-      (resumeData.profileImage != null && resumeData.profileImage!.isNotEmpty)
-          ? await networkImage(resumeData.profileImage!)
-          : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -84,12 +91,12 @@ Future<Uint8List> generateTemplate11(
                         if (resumeData.profile!.contents.isNotEmpty)
                           _personalDetail(resumeData, context),
                       ],
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // Profile
                       if (resumeData.profile != null)
                         ..._personalProfile(resumeData, color, context),
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // Experience
                       if (resumeData.experience != null &&
@@ -105,7 +112,7 @@ Future<Uint8List> generateTemplate11(
                         if (resumeData.experience!.experiences.isNotEmpty)
                           _experienceList(resumeData, context),
                       ],
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // Education
                       if (resumeData.education != null &&
@@ -120,7 +127,7 @@ Future<Uint8List> generateTemplate11(
                         if (resumeData.education!.educations.isNotEmpty)
                           _eduationList(resumeData, context),
                       ],
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // Skill
                       if (resumeData.skill != null &&
@@ -136,18 +143,16 @@ Future<Uint8List> generateTemplate11(
                         if (resumeData.skill!.skills.isNotEmpty)
                           _skillList(resumeData, context, color),
                       ],
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // Language
                       if (resumeData.languages != null) ...[
                         if (resumeData.languages?.title != null)
-                          SectionDesign11(
-                              lineColor: color,
-                              title: resumeData.languages?.title ?? ''),
+                          SectionDesign11(lineColor: color, title: 'Languages'),
                         if (resumeData.languages!.languages.isNotEmpty)
                           _languageList(resumeData, context, color),
                       ],
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // Language
                       if (resumeData.certificate != null) ...[
@@ -158,7 +163,7 @@ Future<Uint8List> generateTemplate11(
                         if (resumeData.certificate!.certificates.isNotEmpty)
                           _certificateList(resumeData, context),
                       ],
-                      pw.SizedBox(height: 8),
+                      pw.SizedBox(height: 10),
 
                       // interest
                       if (resumeData.interest != null) ...[
@@ -770,7 +775,8 @@ pw.Column _skillList(
                       .copyWith(fontSize: 6),
                 ),
               ]),
-            if (resumeData.skill!.skills[index].information != null)
+            if (resumeData.skill!.skills[index].information != null &&
+                resumeData.skill!.skills[index].information != "")
               pw.Text(
                 "Information : ${resumeData.skill!.skills[index].information!}",
                 textScaleFactor: 2,
@@ -852,7 +858,8 @@ pw.Column _languageList(
                 ),
               ]),
 
-            if (resumeData.languages!.languages[index].description != null)
+            if (resumeData.languages!.languages[index].description != null &&
+                resumeData.languages!.languages[index].description != "")
               pw.Row(children: [
                 pw.Transform.rotate(
                   angle: 65,

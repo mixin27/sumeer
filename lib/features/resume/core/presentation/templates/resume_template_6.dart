@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:intl/intl.dart';
@@ -6,12 +7,23 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:sumeer/features/resume/feat_resume.dart';
+import 'package:sumeer/utils/extensions/dart_extensions.dart';
 
 Future<Uint8List> generateTemplate6(
   PdfPageFormat format,
   GenerateDocParams params,
   ResumeData resumeData,
 ) async {
+  // get network image
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
+
   final doc = pw.Document(
     title: params.title,
     author: params.author,
@@ -44,19 +56,19 @@ Future<Uint8List> generateTemplate6(
                             resumeData.personalDetail?.firstName ?? '',
                             style: pw.TextStyle(
                               font: font,
-                              fontSize: 40,
+                              fontSize: 35,
                             ),
                           ),
                           pw.Text(
                             resumeData.personalDetail?.lastName ?? '',
                             style: pw.TextStyle(
                               font: font,
-                              fontSize: 40,
+                              fontSize: 35,
                             ),
                           ),
                         ],
                       ),
-                      pw.SizedBox(height: 5),
+                      pw.SizedBox(height: 8),
                       pw.Text(
                         resumeData.personalDetail?.jobTitle ?? '',
                         style: pw.TextStyle(
@@ -64,60 +76,77 @@ Future<Uint8List> generateTemplate6(
                           color: PdfColor.fromHex('54448D'),
                         ),
                       ),
-                      pw.SizedBox(height: 5),
-                      pw.Row(
-                        children: [
-                          pw.Icon(
-                            const pw.IconData(0xe158),
-                            color: PdfColor.fromHex('54448D'),
-                            size: 20,
+                      pw.SizedBox(height: 8),
+                      if (profileImage != null)
+                        pw.Container(
+                          width: 100,
+                          height: 100,
+                          child: pw.ClipOval(
+                            child: pw.Image(profileImage, fit: pw.BoxFit.cover),
                           ),
-                          pw.SizedBox(width: 5),
-                          pw.Text(
-                            resumeData.personalDetail?.email ?? '',
-                            style: pw.TextStyle(
+                        ),
+                      if (resumeData.personalDetail!.email.isNotEmpty)
+                        pw.Row(
+                          children: [
+                            pw.Icon(
+                              const pw.IconData(0xe158),
                               color: PdfColor.fromHex('54448D'),
-                              fontSize: 12,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            pw.SizedBox(width: 5),
+                            pw.Expanded(
+                              child: pw.Text(
+                                resumeData.personalDetail?.email ?? '',
+                                style: pw.TextStyle(
+                                  color: PdfColor.fromHex('54448D'),
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       pw.SizedBox(height: 5),
-                      pw.Row(
-                        children: [
-                          pw.Icon(
-                            const pw.IconData(0xe0b0),
-                            color: PdfColor.fromHex('54448D'),
-                            size: 20,
-                          ),
-                          pw.SizedBox(width: 5),
-                          pw.Text(
-                            resumeData.personalDetail?.phone ?? '',
-                            style: pw.TextStyle(
+                      if (resumeData.personalDetail!.phone.isNotEmpty)
+                        pw.Row(
+                          children: [
+                            pw.Icon(
+                              const pw.IconData(0xe0b0),
                               color: PdfColor.fromHex('54448D'),
-                              fontSize: 12,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            pw.SizedBox(width: 5),
+                            pw.Expanded(
+                              child: pw.Text(
+                                resumeData.personalDetail?.phone ?? '',
+                                style: pw.TextStyle(
+                                  color: PdfColor.fromHex('54448D'),
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       pw.SizedBox(height: 5),
-                      pw.Row(
-                        children: [
-                          pw.Icon(
-                            const pw.IconData(0xe0c8),
-                            color: PdfColor.fromHex('54448D'),
-                            size: 20,
-                          ),
-                          pw.SizedBox(width: 5),
-                          pw.Text(
-                            resumeData.personalDetail?.address ?? '',
-                            style: pw.TextStyle(
+                      if (resumeData.personalDetail!.address.isNotEmpty)
+                        pw.Row(
+                          children: [
+                            pw.Icon(
+                              const pw.IconData(0xe0c8),
                               color: PdfColor.fromHex('54448D'),
-                              fontSize: 12,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            pw.SizedBox(width: 5),
+                            pw.Expanded(
+                              child: pw.Text(
+                                resumeData.personalDetail?.address ?? '',
+                                style: pw.TextStyle(
+                                  color: PdfColor.fromHex('54448D'),
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       if (resumeData.personalDetail!.links.isNotEmpty)
                         pw.Column(
                           children: List.generate(
@@ -139,11 +168,13 @@ Future<Uint8List> generateTemplate6(
                                         size: 20,
                                       ),
                                       pw.SizedBox(width: 5),
-                                      pw.Text(
-                                        link.url,
-                                        style: pw.TextStyle(
-                                          color: PdfColor.fromHex('54448D'),
-                                          fontSize: 12,
+                                      pw.Expanded(
+                                        child: pw.Text(
+                                          link.url,
+                                          style: pw.TextStyle(
+                                            color: PdfColor.fromHex('54448D'),
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -197,45 +228,56 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: pw.Row(
-                                      children: List.generate(
-                                        5,
-                                        (index) {
-                                          // (((skill.percentage ?? 0) / 10) / 2).ceil()
-                                          final value =
-                                              (((skill.percentage ?? 0) / 10) /
-                                                      2)
-                                                  .floor();
-
-                                          return pw.Container(
-                                            margin:
-                                                const pw.EdgeInsets.symmetric(
-                                                    horizontal: 5),
-                                            width: 10,
-                                            height: 10,
-                                            decoration: pw.BoxDecoration(
-                                              // DBDBF9
-                                              color: index < value
-                                                  ? PdfColor.fromHex('54448D')
-                                                  : PdfColor.fromHex('DBDBF9'),
-                                              border: pw.Border.all(
-                                                width: 1,
-                                                color:
-                                                    PdfColor.fromHex('54448D'),
-                                              ),
-                                              borderRadius:
-                                                  const pw.BorderRadius.all(
-                                                pw.Radius.circular(5),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                    child: pw.LinearProgressIndicator(
+                                      value: skill.percentage ?? 0.0,
+                                      minHeight: 3,
+                                      backgroundColor:
+                                          PdfColor.fromHex('C5C4E9'),
+                                      valueColor: PdfColor.fromHex('54448D'),
                                     ),
-                                    // child: ProgressDesignLinear(
-                                    //   value: skill.percentage ?? 0.0,
-                                    // ),
                                   ),
+                                  // pw.Expanded(
+                                  //   child: pw.Row(
+                                  //     children: List.generate(
+                                  //       5,
+                                  //       (index) {
+                                  //         // (((skill.percentage ?? 0) / 10) / 2).ceil()
+                                  //         final value =
+                                  //             (((skill.percentage ?? 0) / 10) /
+                                  //                     2)
+                                  //                 .floor();
+                                  //         print(
+                                  //             "Percentage${skill.percentage}");
+
+                                  //         return pw.Container(
+                                  //           margin:
+                                  //               const pw.EdgeInsets.symmetric(
+                                  //                   horizontal: 5),
+                                  //           width: 10,
+                                  //           height: 10,
+                                  //           decoration: pw.BoxDecoration(
+                                  //             // DBDBF9
+                                  //             color: index < value
+                                  //                 ? PdfColor.fromHex('54448D')
+                                  //                 : PdfColor.fromHex('DBDBF9'),
+                                  //             border: pw.Border.all(
+                                  //               width: 1,
+                                  //               color:
+                                  //                   PdfColor.fromHex('54448D'),
+                                  //             ),
+                                  //             borderRadius:
+                                  //                 const pw.BorderRadius.all(
+                                  //               pw.Radius.circular(5),
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  //   // child: ProgressDesignLinear(
+                                  //   //   value: skill.percentage ?? 0.0,
+                                  //   // ),
+                                  // ),
                                   pw.SizedBox(width: 20),
                                 ],
                               ),
@@ -286,46 +328,52 @@ Future<Uint8List> generateTemplate6(
                                   ),
                                   pw.SizedBox(width: 10),
                                   pw.Expanded(
-                                    child: pw.Row(
-                                      children: List.generate(
-                                        5,
-                                        (index) {
-                                          // (((skill.percentage ?? 0) / 10) / 2).ceil()
-                                          final value =
-                                              (((language.percentage ?? 0) /
-                                                          10) /
-                                                      2)
-                                                  .floor();
+                                      child: pw.LinearProgressIndicator(
+                                    value: language.percentage ?? 0.0,
+                                    minHeight: 3,
+                                    backgroundColor: PdfColor.fromHex('C5C4E9'),
+                                    valueColor: PdfColor.fromHex('54448D'),
+                                  )
+                                      // pw.Row(
+                                      //   children: List.generate(
+                                      //     5,
+                                      //     (index) {
+                                      //       // (((skill.percentage ?? 0) / 10) / 2).ceil()
+                                      //       final value =
+                                      //           (((language.percentage ?? 0) /
+                                      //                       10) /
+                                      //                   2)
+                                      //               .floor();
 
-                                          return pw.Container(
-                                            margin:
-                                                const pw.EdgeInsets.symmetric(
-                                                    horizontal: 5),
-                                            width: 10,
-                                            height: 10,
-                                            decoration: pw.BoxDecoration(
-                                              // DBDBF9
-                                              color: index < value
-                                                  ? PdfColor.fromHex('54448D')
-                                                  : PdfColor.fromHex('DBDBF9'),
-                                              border: pw.Border.all(
-                                                width: 1,
-                                                color:
-                                                    PdfColor.fromHex('54448D'),
-                                              ),
-                                              borderRadius:
-                                                  const pw.BorderRadius.all(
-                                                pw.Radius.circular(5),
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                      //       return pw.Container(
+                                      //         margin:
+                                      //             const pw.EdgeInsets.symmetric(
+                                      //                 horizontal: 5),
+                                      //         width: 10,
+                                      //         height: 10,
+                                      //         decoration: pw.BoxDecoration(
+                                      //           // DBDBF9
+                                      //           color: index < value
+                                      //               ? PdfColor.fromHex('54448D')
+                                      //               : PdfColor.fromHex('DBDBF9'),
+                                      //           border: pw.Border.all(
+                                      //             width: 1,
+                                      //             color:
+                                      //                 PdfColor.fromHex('54448D'),
+                                      //           ),
+                                      //           borderRadius:
+                                      //               const pw.BorderRadius.all(
+                                      //             pw.Radius.circular(5),
+                                      //           ),
+                                      //         ),
+                                      //       );
+                                      //     },
+                                      //   ),
+                                      // ),
+                                      // child: ProgressDesignLinear(
+                                      //   value: language.percentage ?? 0.0,
+                                      // ),
                                       ),
-                                    ),
-                                    // child: ProgressDesignLinear(
-                                    //   value: language.percentage ?? 0.0,
-                                    // ),
-                                  ),
                                   pw.SizedBox(width: 20),
                                 ],
                               ),
@@ -540,7 +588,7 @@ Future<Uint8List> generateTemplate6(
                                     education.endDate != null &&
                                     !education.isPresent) ...[
                                   pw.Text(
-                                    '${DateFormat('MM/yyyy').format(education.startDate!)}-${DateFormat('MM/yyyy').format(education.endDate!)}}',
+                                    '${DateFormat('MM/yyyy').format(education.startDate!)}-${DateFormat('MM/yyyy').format(education.endDate!)}',
                                     style: const pw.TextStyle(
                                       color: PdfColors.white,
                                       fontSize: 12,

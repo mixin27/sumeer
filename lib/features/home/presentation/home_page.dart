@@ -1,8 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'package:sumeer/features/auth/feat_auth.dart';
 import 'package:sumeer/shared/constants/app_lists.dart';
@@ -72,7 +73,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               enableInfiniteScroll: true,
               reverse: false,
               autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayInterval: const Duration(seconds: 4),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
@@ -82,14 +83,22 @@ class _HomePageState extends ConsumerState<HomePage> {
             items: bannerList.map((i) {
               return Builder(
                 builder: (BuildContext context) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        i,
-                        fit: BoxFit.fill,
+                  return GestureDetector(
+                    onTap: () async {
+                      StoreRedirect.redirect(
+                        androidAppId: 'com.systematic.clickjob',
+                        iOSAppId: '1541128188',
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          i,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   );

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
@@ -17,9 +18,14 @@ Future<Uint8List> generateTemplate7(
   ResumeData resumeData,
 ) async {
   // get network image
-  final profileImage = resumeData.profileImage != null
-      ? await networkImage(resumeData.profileImage!)
-      : null;
+  // ignore: prefer_typing_uninitialized_variables
+  var profileImage;
+  if (resumeData.profileImage.isEmptyOrNull) {
+    profileImage = null;
+  } else {
+    final bytes = base64.decode(resumeData.profileImage!);
+    profileImage = pw.MemoryImage(bytes);
+  }
 
   final doc = pw.Document(
     title: params.title,
@@ -51,17 +57,15 @@ Future<Uint8List> generateTemplate7(
                         children: [
                           // image
                           if (profileImage != null)
-                            pw.ClipOval(
-                              child: pw.Container(
-                                height: 70,
-                                width: 70,
-                                decoration: const pw.BoxDecoration(
-                                  color: PdfColors.blue300,
-                                ),
-                                child: pw.Image(
-                                  profileImage,
-                                  fit: pw.BoxFit.cover,
-                                ),
+                            pw.Container(
+                              height: 100,
+                              width: 100,
+                              decoration: const pw.BoxDecoration(
+                                color: PdfColors.blue300,
+                              ),
+                              child: pw.Image(
+                                profileImage,
+                                fit: pw.BoxFit.cover,
                               ),
                             ),
                           pw.SizedBox(height: 10),
@@ -180,7 +184,7 @@ Future<Uint8List> generateTemplate7(
                 ],
               ),
               pw.Padding(
-                padding: const pw.EdgeInsets.symmetric(vertical: 10),
+                padding: const pw.EdgeInsets.symmetric(vertical: 5),
                 child: pw.Divider(color: PdfColors.grey200),
               ),
               pw.Partitions(
@@ -217,7 +221,7 @@ Future<Uint8List> generateTemplate7(
                                       children: [
                                         ItemTitle(
                                           title:
-                                              "${exp.jobTitle} at ${exp.employer?.name} ${exp.city != null ? ", ${exp.city}" : ''}${exp.country != null ? ", ${exp.country}" : null}",
+                                              "${exp.jobTitle} at ${exp.employer?.name} ${exp.city != null ? ", ${exp.city}" : ''}${exp.country != null ? ", ${exp.country}" : ''}",
                                         ),
                                         pw.SizedBox(height: 5),
                                         if (exp.startDate != null &&
@@ -280,7 +284,7 @@ Future<Uint8List> generateTemplate7(
                                       children: [
                                         ItemTitle(
                                           title:
-                                              "${edu.degree}, ${edu.school} ${edu.city != null ? ", ${edu.city}" : ''}${edu.country != null ? ", ${edu.country}" : null}",
+                                              "${edu.degree}, ${edu.school} ${edu.city != null ? ", ${edu.city}" : ''}${edu.country != null ? ", ${edu.country}" : ''}",
                                         ),
                                         pw.SizedBox(height: 5),
                                         if (edu.startDate != null &&
@@ -359,9 +363,14 @@ Future<Uint8List> generateTemplate7(
                                       final link = resumeData
                                           .personalDetail!.links[index];
 
+                                      if (link.url.isEmpty) {
+                                        return pw.SizedBox();
+                                      }
+
                                       return pw.Padding(
                                         padding: const pw.EdgeInsets.symmetric(
-                                            vertical: 5),
+                                          vertical: 5,
+                                        ),
                                         child: pw.UrlLink(
                                           destination: link.url,
                                           child: pw.Text(
@@ -429,7 +438,7 @@ Future<Uint8List> generateTemplate7(
                                             ),
                                             pw.SizedBox(width: 10),
                                             pw.Text(
-                                              "${(((skill.percentage ?? 0) / 10) / 2).ceil()} / 5",
+                                              "${getSkillLevelIndex(skill.level ?? SkillLevelEnum.novice)} / 5",
                                               style: pw.TextStyle(
                                                 fontWeight: pw.FontWeight.bold,
                                               ),
@@ -443,6 +452,7 @@ Future<Uint8List> generateTemplate7(
                               ],
                             ),
                           ),
+                        pw.SizedBox(height: 10),
                         if (resumeData.languages != null)
                           pw.Container(
                             padding: const pw.EdgeInsets.symmetric(
@@ -489,7 +499,10 @@ Future<Uint8List> generateTemplate7(
                                                 lang.title ?? '',
                                               ),
                                             ),
-                                            pw.SizedBox(width: 10),
+                                            pw.SizedBox(
+                                              width: 10,
+                                              height: 1,
+                                            ),
                                             pw.Text(
                                               lang.level != null
                                                   ? getLanguageLevel(
@@ -593,22 +606,6 @@ Future<pw.PageTheme> _pageTheme(PdfPageFormat format) async {
         child: pw.Container(
           color: PdfColors.white,
         ),
-        // child: pw.Row(
-        //   children: [
-        //     pw.Expanded(
-        //       flex: 4,
-        //       child: pw.Container(
-        //         color: PdfColor.fromHex('DBDBF9'),
-        //       ),
-        //     ),
-        //     pw.Expanded(
-        //       flex: 5,
-        //       child: pw.Container(
-        //         color: PdfColor.fromHex('54448D'),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       );
     },
   );
