@@ -94,11 +94,13 @@ Future<Uint8List> generateTemplate6(
                               size: 20,
                             ),
                             pw.SizedBox(width: 5),
-                            pw.Text(
-                              resumeData.personalDetail?.email ?? '',
-                              style: pw.TextStyle(
-                                color: PdfColor.fromHex('54448D'),
-                                fontSize: 12,
+                            pw.Expanded(
+                              child: pw.Text(
+                                resumeData.personalDetail?.email ?? '',
+                                style: pw.TextStyle(
+                                  color: PdfColor.fromHex('54448D'),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                           ],
@@ -113,11 +115,13 @@ Future<Uint8List> generateTemplate6(
                               size: 20,
                             ),
                             pw.SizedBox(width: 5),
-                            pw.Text(
-                              resumeData.personalDetail?.phone ?? '',
-                              style: pw.TextStyle(
-                                color: PdfColor.fromHex('54448D'),
-                                fontSize: 12,
+                            pw.Expanded(
+                              child: pw.Text(
+                                resumeData.personalDetail?.phone ?? '',
+                                style: pw.TextStyle(
+                                  color: PdfColor.fromHex('54448D'),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                           ],
@@ -132,11 +136,13 @@ Future<Uint8List> generateTemplate6(
                               size: 20,
                             ),
                             pw.SizedBox(width: 5),
-                            pw.Text(
-                              resumeData.personalDetail?.address ?? '',
-                              style: pw.TextStyle(
-                                color: PdfColor.fromHex('54448D'),
-                                fontSize: 12,
+                            pw.Expanded(
+                              child: pw.Text(
+                                resumeData.personalDetail?.address ?? '',
+                                style: pw.TextStyle(
+                                  color: PdfColor.fromHex('54448D'),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                           ],
@@ -162,11 +168,13 @@ Future<Uint8List> generateTemplate6(
                                         size: 20,
                                       ),
                                       pw.SizedBox(width: 5),
-                                      pw.Text(
-                                        link.url,
-                                        style: pw.TextStyle(
-                                          color: PdfColor.fromHex('54448D'),
-                                          fontSize: 12,
+                                      pw.Expanded(
+                                        child: pw.Text(
+                                          link.url,
+                                          style: pw.TextStyle(
+                                            color: PdfColor.fromHex('54448D'),
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
                                     ],
