@@ -108,7 +108,7 @@ Future<Uint8List> generateTemplate10(
                               resumeData.personalDetail?.address ?? ""),
                           if (resumeData.skill != null) ...[
                             pw.Text(
-                              "Skill Heilights",
+                              "Skill Hilights",
                               textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle

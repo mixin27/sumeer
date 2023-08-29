@@ -105,70 +105,78 @@ class MoreContentBottomSheet extends StatelessWidget {
                             .then((value) => showAddLanguageForm(context));
                       },
                     ),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.workspace_premium,
-                          size: 30,
-                        ),
-                        title: "Certificate",
-                        decription:
-                            "Drivers licenses and other industry-specific certificates you have belong here."),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.interests,
-                          size: 30,
-                        ),
-                        title: "Interest",
-                        decription:
-                            "Dou you have interests that align with your career aspiration?"),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.folder,
-                          size: 30,
-                        ),
-                        title: "Project",
-                        decription:
-                            "Worked on a particular challenging project in the past?Mention it here."),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.bookmark,
-                          size: 30,
-                        ),
-                        title: "Coruse",
-                        decription:
-                            "Did you complete MOOCs or an evening course? Show them off in this section."),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.emoji_events,
-                          size: 30,
-                        ),
-                        title: "Award",
-                        decription:
-                            "Awards like student competitions or industry accolades belong here."),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.corporate_fare,
-                          size: 30,
-                        ),
-                        title: "Organisation",
-                        decription:
-                            "If you volunteer or participate in a good cause, why not state it?"),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.publish,
-                          size: 30,
-                        ),
-                        title: "Publication",
-                        decription:
-                            "Academic publications or book releases have a dedicated place here."),
-                    const ContentItemCard(
-                        icon: Icon(
-                          Icons.article_sharp,
-                          size: 30,
-                        ),
-                        title: "Reference",
-                        decription:
-                            "If you have former colleagues or bosses that vouch for you, list them."),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.workspace_premium,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Certificate",
+                    //   decription:
+                    //       "Drivers licenses and other industry-specific certificates you have belong here.",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.interests,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Interest",
+                    //   decription:
+                    //       "Dou you have interests that align with your career aspiration?",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.folder,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Project",
+                    //   decription:
+                    //       "Worked on a particular challenging project in the past?Mention it here.",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.bookmark,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Coruse",
+                    //   decription:
+                    //       "Did you complete MOOCs or an evening course? Show them off in this section.",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.emoji_events,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Award",
+                    //   decription:
+                    //       "Awards like student competitions or industry accolades belong here.",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.corporate_fare,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Organisation",
+                    //   decription:
+                    //       "If you volunteer or participate in a good cause, why not state it?",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.publish,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Publication",
+                    //   decription:
+                    //       "Academic publications or book releases have a dedicated place here.",
+                    // ),
+                    // const ContentItemCard(
+                    //   icon: Icon(
+                    //     Icons.article_sharp,
+                    //     size: 30,
+                    //   ),
+                    //   title: "Reference",
+                    //   decription:
+                    //       "If you have former colleagues or bosses that vouch for you, list them.",
+                    // ),
                   ],
                 ),
               )
