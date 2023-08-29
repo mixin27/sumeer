@@ -156,7 +156,8 @@ class ResumePreviewPage extends HookConsumerWidget {
                           ref.read(resumeRepositoryProvider).saveToLocal(
                             [
                               resumeData.copyWith(
-                                  templateId: resumeTemplate.id),
+                                templateId: resumeTemplate.id,
+                              ),
                               ...items
                             ],
                           );
