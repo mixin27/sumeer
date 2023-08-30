@@ -55,7 +55,7 @@ class PersonalDetailCard extends ConsumerWidget {
                         backgroundColor: Colors.grey.withOpacity(0.3),
                         radius: 50,
                         child: imageData.isEmptyOrNull
-                            ?  Center(
+                            ? Center(
                                 child: Icon(
                                   Icons.camera_alt,
                                   color: Colors.grey.withOpacity(0.3),

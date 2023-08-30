@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sumeer/features/data_input/presentation/widget/expanable/certificate_widget.dart';
 
-import 'package:sumeer/features/data_input/presentation/widget/expanable/language.dart';
-import '../../../../features.dart';
+import 'package:sumeer/features/data_input/presentation/widget/expanable/certificate_widget.dart';
+import 'package:sumeer/features/features.dart';
 
 class CertificateCard extends ConsumerStatefulWidget {
   const CertificateCard({
