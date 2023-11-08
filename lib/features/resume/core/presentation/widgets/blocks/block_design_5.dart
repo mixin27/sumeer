@@ -42,7 +42,7 @@ class BlockDesign5 extends pw.StatelessWidget {
               .copyWith(fontWeight: pw.FontWeight.bold),
         ),
         pw.Text(
-          "$school,$city",
+          '$school,$city',
           style: pw.Theme.of(context)
               .defaultTextStyle
               .copyWith(fontWeight: pw.FontWeight.bold),

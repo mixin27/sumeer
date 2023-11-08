@@ -5,5 +5,5 @@ class DotenvHelper {
     await dotenv.load(fileName: envPath);
   }
 
-  static String getEnvValue(String key) => dotenv.env[key] ?? "";
+  static String getEnvValue(String key) => dotenv.env[key] ?? '';
 }

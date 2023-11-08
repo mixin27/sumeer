@@ -17,7 +17,7 @@ class AuthenticatedFileList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(authRepositoryProvider).currentUser;
     final resumeDataList =
-        ref.watch(resumeDataListProvider(userId: currentUser?.uid ?? ""));
+        ref.watch(resumeDataListProvider(userId: currentUser?.uid ?? ''));
 
     if (currentUser == null) return const SizedBox();
 

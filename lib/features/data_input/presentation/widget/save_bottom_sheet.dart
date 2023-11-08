@@ -28,7 +28,7 @@ class SaveBottomSheetWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                "Cancel",
+                'Cancel',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -49,7 +49,7 @@ class SaveBottomSheetWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                "Save",
+                'Save',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

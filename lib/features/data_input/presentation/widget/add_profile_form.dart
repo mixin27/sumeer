@@ -46,7 +46,7 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Create Profile",
+                'Create Profile',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -65,9 +65,9 @@ class _AddProfileFormState extends ConsumerState<AddProfileForm> {
                   children: [
                     TextInputFieldWidget(
                       controller: contentController,
-                      title: "Text",
+                      title: 'Text',
                       hintText:
-                          "Introduce yourself by pitching your skill & explaining how they can be of value to a company",
+                          'Introduce yourself by pitching your skill & explaining how they can be of value to a company',
                       maxLines: 4,
                     ),
                     SaveBottomSheetWidget(

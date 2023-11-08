@@ -107,7 +107,7 @@ class PersonalDetailCard extends ConsumerWidget {
                             visible: resumeData != null,
                             child: Text(
                               resumeData?.personalDetail?.jobTitle ??
-                                  "Mobile Developer",
+                                  'Mobile Developer',
                               // "Mobile Developer Mobile Developer",
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
@@ -129,7 +129,7 @@ class PersonalDetailCard extends ConsumerWidget {
                                 ),
                                 Text(
                                   resumeData?.personalDetail?.email ??
-                                      "testing2123@gmail.com",
+                                      'testing2123@gmail.com',
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],
@@ -147,7 +147,7 @@ class PersonalDetailCard extends ConsumerWidget {
                               ),
                               Text(
                                 resumeData?.personalDetail?.phone ??
-                                    "09-xxx-xxx-xxx",
+                                    '09-xxx-xxx-xxx',
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ],
@@ -166,7 +166,7 @@ class PersonalDetailCard extends ConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    resumeData?.personalDetail?.address ?? "",
+                                    resumeData?.personalDetail?.address ?? '',
                                     style:
                                         Theme.of(context).textTheme.bodyMedium,
                                   ),
@@ -193,7 +193,7 @@ class PersonalDetailCard extends ConsumerWidget {
                       resumeData != null &&
                           resumeData.personalDetail?.personalInfo?.dateOfBirth
                                   .toString() !=
-                              "",
+                              '',
                     ),
                     profileItem(
                       context,
@@ -202,7 +202,7 @@ class PersonalDetailCard extends ConsumerWidget {
                       resumeData != null &&
                           resumeData.personalDetail?.personalInfo?.gender
                                   .toString() !=
-                              "",
+                              '',
                     ),
                     profileItem(
                       context,
@@ -212,7 +212,7 @@ class PersonalDetailCard extends ConsumerWidget {
                       resumeData != null &&
                           resumeData.personalDetail?.personalInfo?.nationality
                                   .toString() !=
-                              "",
+                              '',
                     ),
                     profileItem(
                       context,
@@ -222,7 +222,7 @@ class PersonalDetailCard extends ConsumerWidget {
                       resumeData != null &&
                           resumeData.personalDetail?.personalInfo?.martialStatus
                                   .toString() !=
-                              "",
+                              '',
                     ),
                     profileItem(
                       context,
@@ -234,7 +234,7 @@ class PersonalDetailCard extends ConsumerWidget {
                           resumeData
                                   .personalDetail?.personalInfo?.drivingLicense
                                   .toString() !=
-                              "",
+                              '',
                     ),
                     // profileItem(
                     //   context,

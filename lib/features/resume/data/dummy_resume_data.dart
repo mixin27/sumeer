@@ -7,23 +7,23 @@ Future<ResumeData> getDummyResumeData() async {
 
   final dummyResumeData = ResumeData(
     // profile image
-    profileImage: "https://www.nfet.net/nfet.jpg",
+    profileImage: 'https://www.nfet.net/nfet.jpg',
     personalDetail: const PersonalDetailSection(
-      firstName: "Kyaw",
-      lastName: "Zayar Tun",
+      firstName: 'Kyaw',
+      lastName: 'Zayar Tun',
       // fullName: "KYAW ZAYAR TUN",
-      jobTitle: "Mobile Developer",
-      email: "kyawzayartun.sbs@gmail.com",
-      phone: "+959 985 753 791",
-      address: "Yangon, Myanmar",
+      jobTitle: 'Mobile Developer',
+      email: 'kyawzayartun.sbs@gmail.com',
+      phone: '+959 985 753 791',
+      address: 'Yangon, Myanmar',
       personalInfo: PersonalInformation(
-        dateOfBirth: "14-02-2000",
-        drivingLicense: "Plane-AC0012",
-        gender: "Male",
-        identityNo: "YGN099122",
-        martialStatus: "Single",
-        nationality: "Myanmar",
-        militaryService: "Head",
+        dateOfBirth: '14-02-2000',
+        drivingLicense: 'Plane-AC0012',
+        gender: 'Male',
+        identityNo: 'YGN099122',
+        martialStatus: 'Single',
+        nationality: 'Myanmar',
+        militaryService: 'Head',
       ),
       links: [
         PersonalLink(
@@ -78,7 +78,7 @@ Future<ResumeData> getDummyResumeData() async {
   return dummyResumeData;
 }
 
-const profileData = ProfileSection(title: "Profile", contents: [
+const profileData = ProfileSection(title: 'Profile', contents: [
   'Senior Wev Developer specilizing in fornt end development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages including HTMLS,PHP OOP, Javaspript, CSS, MySQL. Strong background in project management and customer relations.',
 ]);
 
@@ -86,8 +86,8 @@ final experienceData = ExperienceSection(
   title: 'Work Experience',
   experiences: [
     Experience(
-      employer: const Employer(name: "SYSTEMATIC Business Solution"),
-      jobTitle: "Mobile Developer",
+      employer: const Employer(name: 'SYSTEMATIC Business Solution'),
+      jobTitle: 'Mobile Developer',
       city: 'Hlaing',
       country: 'Myanmar',
       startDate: DateTime.now(),
@@ -97,8 +97,8 @@ final experienceData = ExperienceSection(
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     ),
     Experience(
-      employer: const Employer(name: "eTrade Myanmar"),
-      jobTitle: "Developer",
+      employer: const Employer(name: 'eTrade Myanmar'),
+      jobTitle: 'Developer',
       city: 'Hlaing',
       country: 'Myanmar',
       startDate: DateTime.now(),
@@ -141,14 +141,14 @@ const languageSection = LanguageSection(
   title: 'Languages',
   languages: [
     Language(
-      title: "English",
-      description: "Level1",
+      title: 'English',
+      description: 'Level1',
       level: LanguageLevelEnum.elementary,
       percentage: 80,
     ),
     Language(
-      title: "Chinese",
-      description: "A1",
+      title: 'Chinese',
+      description: 'A1',
       level: LanguageLevelEnum.limitedWorking,
       percentage: 50.5,
     ),
@@ -197,12 +197,12 @@ final awardSection = AwardSection(
   awards: [
     Award(
       award: 'Outattanding Business Student Award',
-      issuer: "University of Southern Calfomia",
-      awardDate: DateTime.parse("2014-03-04"),
+      issuer: 'University of Southern Calfomia',
+      awardDate: DateTime.parse('2014-03-04'),
     ),
     Award(
       award: 'Dan\'s List',
-      issuer: "University of Calfomia",
+      issuer: 'University of Calfomia',
       awardDate: DateTime.now(),
     ),
   ],

@@ -24,7 +24,7 @@ class MoreContentBottomSheet extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Add Contents",
+                  'Add Contents',
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
@@ -40,9 +40,9 @@ class MoreContentBottomSheet extends StatelessWidget {
                         Icons.badge,
                         size: 30,
                       ),
-                      title: "Profile",
+                      title: 'Profile',
                       decription:
-                          "Make a great first impression by presenting yourself in a few sentences.",
+                          'Make a great first impression by presenting yourself in a few sentences.',
                       onTap: () {
                         context.router
                             .pop()
@@ -54,9 +54,9 @@ class MoreContentBottomSheet extends StatelessWidget {
                         Icons.school,
                         size: 30,
                       ),
-                      title: "Education",
+                      title: 'Education',
                       decription:
-                          "Show off your primary education, college degrees & exchange semesters.",
+                          'Show off your primary education, college degrees & exchange semesters.',
                       onTap: () {
                         context.router
                             .pop()
@@ -68,9 +68,9 @@ class MoreContentBottomSheet extends StatelessWidget {
                         Icons.business_center,
                         size: 30,
                       ),
-                      title: "Professional Experience",
+                      title: 'Professional Experience',
                       decription:
-                          "A place to highlight your professional experience - including internships.",
+                          'A place to highlight your professional experience - including internships.',
                       onTap: () {
                         context.router
                             .pop()
@@ -82,9 +82,9 @@ class MoreContentBottomSheet extends StatelessWidget {
                         Icons.psychology_alt,
                         size: 30,
                       ),
-                      title: "Skill",
+                      title: 'Skill',
                       decription:
-                          "List your technical, managerial or soft skills in this section.",
+                          'List your technical, managerial or soft skills in this section.',
                       onTap: () {
                         context.router
                             .pop()
@@ -96,9 +96,9 @@ class MoreContentBottomSheet extends StatelessWidget {
                         Icons.language,
                         size: 30,
                       ),
-                      title: "Language",
+                      title: 'Language',
                       decription:
-                          "You speak more than one language? Make sure to list them here.",
+                          'You speak more than one language? Make sure to list them here.',
                       onTap: () {
                         context.router
                             .pop()

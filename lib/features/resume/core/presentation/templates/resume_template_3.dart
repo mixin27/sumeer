@@ -37,7 +37,7 @@ Future<Uint8List> generateTemplate3(
   var nameFont = await PdfGoogleFonts.caveatSemiBold();
   var regular = await PdfGoogleFonts.nunitoSansRegular();
   var fall1 = await PdfGoogleFonts.notoSansThaiRegular();
-  final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
+  final font = await rootBundle.load('assets/fonts/Zawgyi-One_V3.1.ttf');
   final fall2 = pw.Font.ttf(font);
   doc.addPage(
     pw.MultiPage(
@@ -54,12 +54,12 @@ Future<Uint8List> generateTemplate3(
                       child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text(resumeData.personalDetail?.fullName ?? "",
+                            pw.Text(resumeData.personalDetail?.fullName ?? '',
                                 textScaleFactor: 2.3,
                                 style: pw.TextStyle(font: nameFont)),
                             pw.SizedBox(height: 5),
                             pw.Text(
-                              resumeData.personalDetail?.jobTitle ?? "",
+                              resumeData.personalDetail?.jobTitle ?? '',
                               textScaleFactor: 1.8,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
@@ -69,24 +69,24 @@ Future<Uint8List> generateTemplate3(
                             pw.SizedBox(height: 5),
                             buildContactTemp1(
                               context,
-                              "Email",
-                              resumeData.personalDetail?.email ?? "",
+                              'Email',
+                              resumeData.personalDetail?.email ?? '',
                               0xe158,
                               pw.TextStyle(
                                   font: regular, fontFallback: [fall1, fall2]),
                             ),
                             buildContactTemp1(
                               context,
-                              "Phone",
-                              resumeData.personalDetail?.phone ?? "",
+                              'Phone',
+                              resumeData.personalDetail?.phone ?? '',
                               0xe0b0,
                               pw.TextStyle(
                                   font: regular, fontFallback: [fall1, fall2]),
                             ),
                             buildContactTemp1(
                               context,
-                              "Address",
-                              resumeData.personalDetail?.address ?? "",
+                              'Address',
+                              resumeData.personalDetail?.address ?? '',
                               0xe0c8,
                               pw.TextStyle(
                                   font: regular, fontFallback: [fall1, fall2]),
@@ -98,10 +98,10 @@ Future<Uint8List> generateTemplate3(
                                     .dateOfBirth!.isNotEmpty) ...[
                               buildContactTemp1(
                                 context,
-                                "Date of Birth",
+                                'Date of Birth',
                                 resumeData.personalDetail?.personalInfo
                                         ?.dateOfBirth ??
-                                    "",
+                                    '',
                                 0xe916,
                                 pw.TextStyle(
                                     font: regular,
@@ -115,10 +115,10 @@ Future<Uint8List> generateTemplate3(
                                     .isNotEmpty) ...[
                               buildContactTemp1(
                                 context,
-                                "Gender",
+                                'Gender',
                                 resumeData
                                         .personalDetail?.personalInfo?.gender ??
-                                    "",
+                                    '',
                                 0xe4eb,
                                 pw.TextStyle(
                                     font: regular,
@@ -132,10 +132,10 @@ Future<Uint8List> generateTemplate3(
                                     .nationality!.isNotEmpty) ...[
                               buildContactTemp1(
                                 context,
-                                "Nationality",
+                                'Nationality',
                                 resumeData.personalDetail?.personalInfo
                                         ?.nationality ??
-                                    "",
+                                    '',
                                 0xe569,
                                 pw.TextStyle(
                                     font: regular,
@@ -149,10 +149,10 @@ Future<Uint8List> generateTemplate3(
                                     .identityNo!.isNotEmpty) ...[
                               buildContactTemp1(
                                 context,
-                                "Identity",
+                                'Identity',
                                 resumeData.personalDetail?.personalInfo
                                         ?.identityNo ??
-                                    "",
+                                    '',
                                 0xe069,
                                 pw.TextStyle(
                                     font: regular,
@@ -166,10 +166,10 @@ Future<Uint8List> generateTemplate3(
                                     .martialStatus!.isNotEmpty) ...[
                               buildContactTemp1(
                                 context,
-                                "Martial Status",
+                                'Martial Status',
                                 resumeData.personalDetail?.personalInfo
                                         ?.martialStatus ??
-                                    "",
+                                    '',
                                 0xf1a2,
                                 pw.TextStyle(
                                     font: regular,
@@ -216,7 +216,7 @@ Future<Uint8List> generateTemplate3(
                   if (resumeData.profile != null &&
                       resumeData.profile?.contents != null &&
                       resumeData.profile!.contents.isNotEmpty) ...[
-                    _buildTitleWidget("PROFILE", context),
+                    _buildTitleWidget('PROFILE', context),
                     pw.SizedBox(height: 10),
                     pw.Container(
                       height: 85,
@@ -227,7 +227,7 @@ Future<Uint8List> generateTemplate3(
                     pw.SizedBox(height: 10),
                   ],
                   if (resumeData.experience != null) ...[
-                    _buildTitleWidget("PROFESSIONAL EXPERIENCE", context),
+                    _buildTitleWidget('PROFESSIONAL EXPERIENCE', context),
                     pw.SizedBox(height: 10),
                     pw.Column(
                       children: List.generate(
@@ -258,7 +258,7 @@ Future<Uint8List> generateTemplate3(
                                                 "${DateFormat("MMMM yyyy").format(experience.startDate!)} - Present"),
                                           ],
                                           pw.Text(
-                                            "${experience.city}, ${experience.country}",
+                                            '${experience.city}, ${experience.country}',
                                           ),
                                         ]),
                                   ),
@@ -273,7 +273,7 @@ Future<Uint8List> generateTemplate3(
                                               children: [
                                                 pw.TextSpan(
                                                   text:
-                                                      "${experience.employer?.name}, ",
+                                                      '${experience.employer?.name}, ',
                                                   style: pw.Theme.of(context)
                                                       .defaultTextStyle
                                                       .copyWith(
@@ -287,7 +287,7 @@ Future<Uint8List> generateTemplate3(
                                             ),
                                           ),
                                           pw.Text(
-                                            experience.description ?? "",
+                                            experience.description ?? '',
                                           ),
                                         ],
                                       )),
@@ -300,7 +300,7 @@ Future<Uint8List> generateTemplate3(
                     pw.SizedBox(height: 20),
                   ],
                   if (resumeData.education != null) ...[
-                    _buildTitleWidget("EDUCATION", context),
+                    _buildTitleWidget('EDUCATION', context),
                     pw.SizedBox(height: 10),
                     pw.Column(
                       children: List.generate(
@@ -338,7 +338,7 @@ Future<Uint8List> generateTemplate3(
                                       text: pw.TextSpan(
                                         children: [
                                           pw.TextSpan(
-                                            text: "${education.school}, ",
+                                            text: '${education.school}, ',
                                             style: pw.Theme.of(context)
                                                 .defaultTextStyle
                                                 .copyWith(
@@ -361,7 +361,7 @@ Future<Uint8List> generateTemplate3(
                     pw.SizedBox(height: 20),
                   ],
                   if (resumeData.languages != null) ...[
-                    _buildTitleWidget("LANGUAGES", context),
+                    _buildTitleWidget('LANGUAGES', context),
                     pw.SizedBox(height: 10),
                     pw.Row(
                       children: List.generate(
@@ -376,14 +376,14 @@ Future<Uint8List> generateTemplate3(
                                       pw.Radius.circular(2))),
                               padding: const pw.EdgeInsets.all(4),
                               margin: const pw.EdgeInsets.only(right: 8),
-                              child: pw.Text("${language.title}"));
+                              child: pw.Text('${language.title}'));
                         },
                       ),
                     ),
                     pw.SizedBox(height: 20),
                   ],
                   if (resumeData.skill != null) ...[
-                    _buildTitleWidget("SKILLS", context),
+                    _buildTitleWidget('SKILLS', context),
                     pw.SizedBox(height: 10),
                     pw.Wrap(
                       children: List.generate(
@@ -411,7 +411,7 @@ Future<Uint8List> generateTemplate3(
                     pw.SizedBox(height: 10),
                   ],
                   if (resumeData.interest != null) ...[
-                    _buildTitleWidget("INTERESTS", context),
+                    _buildTitleWidget('INTERESTS', context),
                     pw.SizedBox(height: 10),
                     pw.Wrap(
                       children: List.generate(
@@ -420,7 +420,7 @@ Future<Uint8List> generateTemplate3(
                           final interest =
                               resumeData.interest!.interests[index];
                           return pw.Wrap(children: [
-                            pw.Text(interest.title ?? ""),
+                            pw.Text(interest.title ?? ''),
                             if (resumeData.interest!.interests.last !=
                                 interest) ...[
                               pw.Container(
@@ -441,7 +441,7 @@ Future<Uint8List> generateTemplate3(
                     pw.SizedBox(height: 20),
                   ],
                   if (resumeData.award != null) ...[
-                    _buildTitleWidget("AWARDS", context),
+                    _buildTitleWidget('AWARDS', context),
                     pw.SizedBox(height: 10),
                     pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -453,12 +453,12 @@ Future<Uint8List> generateTemplate3(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text(
-                                  award.award ?? "",
+                                  award.award ?? '',
                                   style: pw.Theme.of(context)
                                       .defaultTextStyle
                                       .copyWith(fontWeight: pw.FontWeight.bold),
                                 ),
-                                pw.Text(award.issuer ?? ""),
+                                pw.Text(award.issuer ?? ''),
                                 pw.SizedBox(height: 10)
                               ]);
                         },
@@ -467,7 +467,7 @@ Future<Uint8List> generateTemplate3(
                     pw.SizedBox(height: 20),
                   ],
                   if (resumeData.certificate != null) ...[
-                    _buildTitleWidget("CERTIFICATE", context),
+                    _buildTitleWidget('CERTIFICATE', context),
                     pw.SizedBox(height: 10),
                     pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -481,12 +481,12 @@ Future<Uint8List> generateTemplate3(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text(
-                                  certificate.title ?? "",
+                                  certificate.title ?? '',
                                   style: pw.Theme.of(context)
                                       .defaultTextStyle
                                       .copyWith(fontWeight: pw.FontWeight.bold),
                                 ),
-                                pw.Text(certificate.school ?? ""),
+                                pw.Text(certificate.school ?? ''),
                                 pw.SizedBox(height: 10)
                               ]);
                         },

@@ -120,7 +120,7 @@ Future<Uint8List> generateTemplate1(
                     if (resumeData.profile != null &&
                         resumeData.profile?.contents != null &&
                         resumeData.profile!.contents.isNotEmpty) ...[
-                      SectionDesign1(title: "PROFILE"),
+                      SectionDesign1(title: 'PROFILE'),
                       pw.SizedBox(height: 10),
                       pw.Container(
                         height: 85,
@@ -131,7 +131,7 @@ Future<Uint8List> generateTemplate1(
                       pw.SizedBox(height: 20),
                     ],
                     if (resumeData.experience != null) ...[
-                      SectionDesign1(title: "PROFESSIONAL EXPERIENCE"),
+                      SectionDesign1(title: 'PROFESSIONAL EXPERIENCE'),
                       pw.Column(
                         children: List.generate(
                           resumeData.experience!.experiences.length,
@@ -154,7 +154,7 @@ Future<Uint8List> generateTemplate1(
                     ],
                     if (resumeData.education != null) ...[
                       pw.SizedBox(height: 20),
-                      SectionDesign1(title: "EDUCATION"),
+                      SectionDesign1(title: 'EDUCATION'),
                       pw.Column(
                         children: List.generate(
                           resumeData.education!.educations.length,
@@ -178,7 +178,7 @@ Future<Uint8List> generateTemplate1(
                     ],
                     if (resumeData.languages != null) ...[
                       pw.SizedBox(height: 20),
-                      SectionDesign1(title: "LANGUAGES"),
+                      SectionDesign1(title: 'LANGUAGES'),
                       pw.Column(
                         children: List.generate(
                           resumeData.education!.educations.length,
@@ -201,7 +201,7 @@ Future<Uint8List> generateTemplate1(
                                 ),
                                 pw.Expanded(
                                   child: pw.Text(
-                                    language.title ?? "",
+                                    language.title ?? '',
                                     style: pw.Theme.of(context)
                                         .defaultTextStyle
                                         .copyWith(

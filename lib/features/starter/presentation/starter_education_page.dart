@@ -51,8 +51,8 @@ class StarterEducationPage extends HookConsumerWidget {
                         : () {
                             final personalDetail =
                                 ref.watch(personalDetailProvider);
-                            tLog("PersonalDetail => $personalDetail");
-                            tLog("Educations => $educations");
+                            tLog('PersonalDetail => $personalDetail');
+                            tLog('Educations => $educations');
 
                             context.router.push(const StarterExperienceRoute());
                           },
@@ -62,7 +62,7 @@ class StarterEducationPage extends HookConsumerWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                "Highlight your educational background to demonstrate your qualifications.",
+                'Highlight your educational background to demonstrate your qualifications.',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 40),
@@ -156,8 +156,8 @@ class StarterEducationPage extends HookConsumerWidget {
                   (index) {
                     final education = educations[index];
                     return ListTile(
-                      title: Text(education.degree ?? ""),
-                      subtitle: Text(education.school ?? ""),
+                      title: Text(education.degree ?? ''),
+                      subtitle: Text(education.school ?? ''),
                       trailing: IconButton(
                         onPressed: () {
                           ref.read(educationsProvider.notifier).update((state) {
@@ -199,8 +199,8 @@ class StarterEducationPage extends HookConsumerWidget {
                         : () {
                             final personalDetail =
                                 ref.watch(personalDetailProvider);
-                            tLog("PersonalDetail => $personalDetail");
-                            tLog("Educations => $educations");
+                            tLog('PersonalDetail => $personalDetail');
+                            tLog('Educations => $educations');
 
                             context.router.push(const StarterExperienceRoute());
                           },
@@ -209,7 +209,7 @@ class StarterEducationPage extends HookConsumerWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                     ),
-                    child: const Text("Next"),
+                    child: const Text('Next'),
                   ),
                 ],
               ),

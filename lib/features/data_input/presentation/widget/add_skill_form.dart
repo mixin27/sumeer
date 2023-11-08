@@ -29,7 +29,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
     SkillLevelEnum.experienced,
     SkillLevelEnum.expert,
   ];
-  String percentage = "";
+  String percentage = '';
 
   @override
   void initState() {
@@ -69,18 +69,18 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
 
   void getPercentage(String level) {
     switch (level) {
-      case "Novice":
-        percentage = "0.1";
-      case "Beginner":
-        percentage = "0.2";
-      case "Skill Full":
-        percentage = "0.5";
-      case "Experienced":
-        percentage = "0.8";
-      case "Expert":
-        percentage = "1.0";
+      case 'Novice':
+        percentage = '0.1';
+      case 'Beginner':
+        percentage = '0.2';
+      case 'Skill Full':
+        percentage = '0.5';
+      case 'Experienced':
+        percentage = '0.8';
+      case 'Expert':
+        percentage = '1.0';
       default:
-        percentage = "0";
+        percentage = '0';
     }
   }
 
@@ -99,7 +99,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Add Skill",
+                'Add Skill',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -118,11 +118,11 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                   children: [
                     TextInputFieldWidget(
                       controller: skillController,
-                      title: "Skill",
+                      title: 'Skill',
                     ),
                     TextInputFieldWidget(
                       controller: infoController,
-                      title: "Information/ Sub-skills",
+                      title: 'Information/ Sub-skills',
                     ),
                     // TextInputFieldWidget(
                     //   readOnly: true,
@@ -157,7 +157,7 @@ class _AddSkillFormState extends ConsumerState<AddSkillForm> {
                     //   ),
                     // ),
                     Text(
-                      "Select skill level",
+                      'Select skill level',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 18,
                           ),

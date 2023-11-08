@@ -21,7 +21,7 @@ String utcToLocal(
 }
 
 DateTime parseDateTime(String value) {
-  return DateFormat("yyyy-MM-ddTHH:mm:ssZ").parseUTC(value).toLocal();
+  return DateFormat('yyyy-MM-ddTHH:mm:ssZ').parseUTC(value).toLocal();
 }
 
 Image imageFromBase64String(String base64String) {

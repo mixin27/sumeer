@@ -27,7 +27,7 @@ class MyFilePage extends HookConsumerWidget {
 
     final currentUser = ref.watch(authRepositoryProvider).currentUser;
     final resumeDataList =
-        ref.watch(resumeDataListProvider(userId: currentUser?.uid ?? ""));
+        ref.watch(resumeDataListProvider(userId: currentUser?.uid ?? ''));
 
     if (currentUser == null) {
       return Scaffold(
@@ -42,10 +42,10 @@ class MyFilePage extends HookConsumerWidget {
 
             return ListTile(
               title: Text(
-                resumeData.personalDetail?.fullName ?? "Unknown user",
+                resumeData.personalDetail?.fullName ?? 'Unknown user',
               ),
               subtitle: Text(
-                resumeData.personalDetail?.jobTitle ?? "Unknown job title",
+                resumeData.personalDetail?.jobTitle ?? 'Unknown job title',
               ),
               // trailing: IconButton(
               //   onPressed: () {},
@@ -75,10 +75,10 @@ class MyFilePage extends HookConsumerWidget {
 
               return ListTile(
                 title: Text(
-                  resumeData.personalDetail?.fullName ?? "Unknown user",
+                  resumeData.personalDetail?.fullName ?? 'Unknown user',
                 ),
                 subtitle: Text(
-                  resumeData.personalDetail?.jobTitle ?? "Unknown job title",
+                  resumeData.personalDetail?.jobTitle ?? 'Unknown job title',
                 ),
                 trailing: IconButton(
                   onPressed: () {

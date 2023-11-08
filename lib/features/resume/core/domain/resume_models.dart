@@ -277,30 +277,30 @@ class Award with _$Award {
 
 String getLanguageLevel(LanguageLevelEnum level) {
   return switch (level) {
-    LanguageLevelEnum.beginner => "Beginner",
-    LanguageLevelEnum.elementary => "Elementary",
-    LanguageLevelEnum.limitedWorking => "Limited working",
-    LanguageLevelEnum.highlyProficient => "Highly proficient",
-    LanguageLevelEnum.native => "Native"
+    LanguageLevelEnum.beginner => 'Beginner',
+    LanguageLevelEnum.elementary => 'Elementary',
+    LanguageLevelEnum.limitedWorking => 'Limited working',
+    LanguageLevelEnum.highlyProficient => 'Highly proficient',
+    LanguageLevelEnum.native => 'Native'
   };
 }
 
 String getSkillLevel(SkillLevelEnum level) {
   return switch (level) {
-    SkillLevelEnum.novice => "Novice",
-    SkillLevelEnum.beginner => "Beginner",
-    SkillLevelEnum.skillfull => "Skill Full",
-    SkillLevelEnum.experienced => "Experienced",
-    SkillLevelEnum.expert => "Expert"
+    SkillLevelEnum.novice => 'Novice',
+    SkillLevelEnum.beginner => 'Beginner',
+    SkillLevelEnum.skillfull => 'Skill Full',
+    SkillLevelEnum.experienced => 'Experienced',
+    SkillLevelEnum.expert => 'Expert'
   };
 }
 
 String getSkillLevelIndex(SkillLevelEnum level) {
   return switch (level) {
-    SkillLevelEnum.novice => "1",
-    SkillLevelEnum.beginner => "2",
-    SkillLevelEnum.skillfull => "3",
-    SkillLevelEnum.experienced => "4",
-    SkillLevelEnum.expert => "5"
+    SkillLevelEnum.novice => '1',
+    SkillLevelEnum.beginner => '2',
+    SkillLevelEnum.skillfull => '3',
+    SkillLevelEnum.experienced => '4',
+    SkillLevelEnum.expert => '5'
   };
 }

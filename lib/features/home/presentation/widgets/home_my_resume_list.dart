@@ -26,7 +26,7 @@ class HomeMyResumeListSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: Center(
               child: Text(
-                "No Resumes",
+                'No Resumes',
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontSize: 16,
                       color: Theme.of(context)

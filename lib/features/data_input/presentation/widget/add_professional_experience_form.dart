@@ -28,9 +28,9 @@ class _AddProfessionalExperienceFormState
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   final descriptionController = TextEditingController();
-  String selectedStartDateStr = "";
+  String selectedStartDateStr = '';
   DateTime? selectedStartDate;
-  String selectedEndDateStr = "";
+  String selectedEndDateStr = '';
   DateTime? selectedEndDate;
   bool isPresent = false;
   @override
@@ -52,14 +52,14 @@ class _AddProfessionalExperienceFormState
 
         if (widget.experience?.startDate != null) {
           selectedStartDate = widget.experience?.startDate;
-          selectedStartDateStr = DateFormat("MMMM-yyyy")
+          selectedStartDateStr = DateFormat('MMMM-yyyy')
               .format(selectedStartDate ?? DateTime.now());
           startDateController.text = selectedStartDateStr;
         }
         if (widget.experience?.endDate != null) {
           selectedEndDate = widget.experience?.endDate;
           selectedEndDateStr =
-              DateFormat("MMMM-yyyy").format(selectedEndDate ?? DateTime.now());
+              DateFormat('MMMM-yyyy').format(selectedEndDate ?? DateTime.now());
           endDateController.text = selectedEndDateStr;
         }
       }
@@ -82,7 +82,7 @@ class _AddProfessionalExperienceFormState
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Add Professional Experience",
+                  'Add Professional Experience',
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
@@ -102,19 +102,19 @@ class _AddProfessionalExperienceFormState
                       children: [
                         TextInputFieldWidget(
                           controller: employerController,
-                          title: "Employer",
+                          title: 'Employer',
                         ),
                         TextInputFieldWidget(
                           controller: jobTitleController,
-                          title: "Job Title",
+                          title: 'Job Title',
                         ),
                         TextInputFieldWidget(
                           controller: cityController,
-                          title: "City",
+                          title: 'City',
                         ),
                         TextInputFieldWidget(
                           controller: startDateController,
-                          title: "Start Date",
+                          title: 'Start Date',
                           readOnly: true,
                           suffixIcon: Icon(
                             Icons.calendar_month,
@@ -131,7 +131,7 @@ class _AddProfessionalExperienceFormState
                                 flex: 7,
                                 child: TextInputFieldWidget(
                                   controller: endDateController,
-                                  title: "End Date",
+                                  title: 'End Date',
                                   readOnly: true,
                                   suffixIcon: Icon(
                                     Icons.calendar_month,
@@ -150,15 +150,15 @@ class _AddProfessionalExperienceFormState
                                   });
                                 }),
                             Text(
-                              "Is Present",
+                              'Is Present',
                               style: Theme.of(context).textTheme.bodyMedium,
                             )
                           ],
                         ),
                         TextInputFieldWidget(
                           controller: descriptionController,
-                          title: "Description",
-                          hintText: "Describe ypur role & achievements",
+                          title: 'Description',
+                          hintText: 'Describe ypur role & achievements',
                           maxLines: 3,
                         ),
                         const SizedBox(
@@ -253,7 +253,7 @@ class _AddProfessionalExperienceFormState
       barrierLabel: '',
       dialog: AppDialogBox(
         header: Text(
-          "Select Date of Birth",
+          'Select Date of Birth',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -263,7 +263,7 @@ class _AddProfessionalExperienceFormState
           firstDate: DateTime(1990, 01),
           // lastDate: DateTime(2030, 1, 1),
           initialDate: DateTime.now(),
-          dateFormat: "MMMM-yyyy",
+          dateFormat: 'MMMM-yyyy',
           onChange: (DateTime newDate, _) {
             setState(() {
               selectedEndDate = newDate;
@@ -293,7 +293,7 @@ class _AddProfessionalExperienceFormState
             TextButton(
               onPressed: () {
                 context.router.pop();
-                selectedEndDateStr = DateFormat("MMMM-yyyy")
+                selectedEndDateStr = DateFormat('MMMM-yyyy')
                     .format(selectedEndDate ?? DateTime.now());
                 endDateController.text = selectedEndDateStr;
                 selectedEndDate = selectedEndDate ?? DateTime.now();
@@ -301,7 +301,7 @@ class _AddProfessionalExperienceFormState
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.error,
               ),
-              child: const Text("Confirm"),
+              child: const Text('Confirm'),
             ),
           ],
         ),
@@ -316,7 +316,7 @@ class _AddProfessionalExperienceFormState
       barrierLabel: '',
       dialog: AppDialogBox(
         header: Text(
-          "Select Date of Birth",
+          'Select Date of Birth',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -326,7 +326,7 @@ class _AddProfessionalExperienceFormState
           firstDate: DateTime(1990, 01),
           // lastDate: DateTime(2030, 1, 1),
           initialDate: DateTime.now(),
-          dateFormat: "MMMM-yyyy",
+          dateFormat: 'MMMM-yyyy',
           onChange: (DateTime newDate, _) {
             setState(() {
               selectedStartDate = newDate;
@@ -356,7 +356,7 @@ class _AddProfessionalExperienceFormState
             TextButton(
               onPressed: () {
                 context.router.pop();
-                selectedStartDateStr = DateFormat("MMMM-yyyy")
+                selectedStartDateStr = DateFormat('MMMM-yyyy')
                     .format(selectedStartDate ?? DateTime.now());
                 startDateController.text = selectedStartDateStr;
                 selectedStartDate = selectedStartDate ?? (DateTime.now());
@@ -364,7 +364,7 @@ class _AddProfessionalExperienceFormState
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.error,
               ),
-              child: const Text("Confirm"),
+              child: const Text('Confirm'),
             ),
           ],
         ),

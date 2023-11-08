@@ -129,7 +129,7 @@ class StarterCompletePage extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  "Choose template",
+                  'Choose template',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),

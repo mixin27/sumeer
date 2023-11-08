@@ -30,7 +30,7 @@ class _AddLanguageFormState extends ConsumerState<AddCertificateForm> {
     LanguageLevelEnum.highlyProficient,
     LanguageLevelEnum.native,
   ];
-  String percentage = "";
+  String percentage = '';
   // List<String> skillList = [
   //   'Novice',
   //   'Beginner',
@@ -46,18 +46,18 @@ class _AddLanguageFormState extends ConsumerState<AddCertificateForm> {
 
   void getPercentage(String level) {
     switch (level) {
-      case "Beginner":
-        percentage = "0.1";
-      case "Elementary":
-        percentage = "0.2";
-      case "Limited working":
-        percentage = "0.5";
-      case "Highly proficient":
-        percentage = "0.8";
-      case "Native":
-        percentage = "1.0";
+      case 'Beginner':
+        percentage = '0.1';
+      case 'Elementary':
+        percentage = '0.2';
+      case 'Limited working':
+        percentage = '0.5';
+      case 'Highly proficient':
+        percentage = '0.8';
+      case 'Native':
+        percentage = '1.0';
       default:
-        percentage = "0";
+        percentage = '0';
     }
   }
 
@@ -93,7 +93,7 @@ class _AddLanguageFormState extends ConsumerState<AddCertificateForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Add certificate",
+                'Add certificate',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -112,11 +112,11 @@ class _AddLanguageFormState extends ConsumerState<AddCertificateForm> {
                   children: [
                     TextInputFieldWidget(
                       controller: certificateController,
-                      title: "Certificate",
+                      title: 'Certificate',
                     ),
                     TextInputFieldWidget(
                       controller: additionalController,
-                      title: "Additional information",
+                      title: 'Additional information',
                     ),
                     // TextInputFieldWidget(
                     //   readOnly: true,

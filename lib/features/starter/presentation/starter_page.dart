@@ -79,7 +79,7 @@ class StarterPage extends StatelessWidget {
                                 context.router.replaceAll([const MainRoute()]);
                               }
                             },
-                            child: const Text("Skip"),
+                            child: const Text('Skip'),
                           ),
                           const SizedBox(width: 20),
                           ElevatedButton(
@@ -100,7 +100,7 @@ class StarterPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            child: const Text("Get Started"),
+                            child: const Text('Get Started'),
                           ),
                         ],
                       ),

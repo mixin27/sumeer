@@ -19,7 +19,7 @@ class ResumeRepository {
         userId: userId,
         resumeData: ResumeDataDto.fromDomain(resumeData),
       );
-      tLog("Resume document id: $result");
+      tLog('Resume document id: $result');
       return right(result);
     } on FirebaseException catch (e) {
       return left(e.message ?? e.toString());
@@ -37,7 +37,7 @@ class ResumeRepository {
         resumeData: ResumeDataDto.fromDomain(resumeData),
         resumeDocId: resumeDocId,
       );
-      tLog("Resume document id: $result");
+      tLog('Resume document id: $result');
       return right(result);
     } on FirebaseException catch (e) {
       return left(e.message ?? e.toString());

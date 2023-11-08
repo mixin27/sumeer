@@ -34,8 +34,8 @@ class TextInputFieldWidget extends StatelessWidget {
     this.textInputAction,
     this.focusNode,
     this.showCursor,
-    this.title = "",
-    this.hintText = "",
+    this.title = '',
+    this.hintText = '',
     this.inputFormatters,
     this.autovalidateMode,
   });
@@ -154,7 +154,7 @@ class TextInputFieldWidget extends StatelessWidget {
               ),
               // suffixIconConstraints:
               //     const BoxConstraints(minWidth: 23, maxHeight: 20),
-              counterText: "",
+              counterText: '',
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             ),

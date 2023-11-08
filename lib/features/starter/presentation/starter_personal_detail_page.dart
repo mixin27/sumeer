@@ -91,7 +91,7 @@ class StarterPersonalDetailPage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        child: const Text("Next"),
+                        child: const Text('Next'),
                       );
                     },
                   ),

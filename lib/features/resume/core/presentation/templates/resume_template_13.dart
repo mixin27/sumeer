@@ -38,7 +38,7 @@ Future<Uint8List> generateTemplate13(
   var regular = await PdfGoogleFonts.robotoSlabRegular();
   // final mmFont2 = await PdfGoogleFonts.notoSansMyanmarMedium();
   // final mmFontBold = await PdfGoogleFonts.notoSansMyanmarBold();
-  final font = await rootBundle.load("assets/fonts/Zawgyi-One_V3.1.ttf");
+  final font = await rootBundle.load('assets/fonts/Zawgyi-One_V3.1.ttf');
   final fall2 = pw.Font.ttf(font);
 
   doc.addPage(
@@ -60,7 +60,7 @@ Future<Uint8List> generateTemplate13(
                       // if (resumeData.personalDetail?.fullName != null)
                       pw.Text(
                         // resumeData.personalDetail?.fullName ?? '',
-                        Rabbit.uni2zg("ကိုယ် ရေး ရာဇ၀င်အကျဉ်း"),
+                        Rabbit.uni2zg('ကိုယ် ရေး ရာဇ၀င်အကျဉ်း'),
                         // " ကိုယ် ရေး ရာဇ၀င်အကျဉ်း",
                         textScaleFactor: 2,
 
@@ -98,7 +98,7 @@ Future<Uint8List> generateTemplate13(
                 prefixTitle(regular, '၃။ အဘအမည်', data: '', font: fall2),
                 prefixTitle(regular, '၄။ နိုင်ငံသားစိစစ်ရေးကတ်ြပားအမှတ်',
                     data: resumeData.personalDetail?.personalInfo?.identityNo ??
-                        "",
+                        '',
                     font: fall2),
                 prefixTitle(regular, '၅။ အသက် / မွေးသက္ကရာဇ်',
                     data:
@@ -108,7 +108,7 @@ Future<Uint8List> generateTemplate13(
                 prefixTitle(regular, '၆။ လူမျိုး / ဘာသာ',
                     data:
                         resumeData.personalDetail?.personalInfo?.nationality ??
-                            "",
+                            '',
                     font: fall2),
                 prefixTitle(regular, '၇။ ပညာ အရည်အချင်း',
                     data: resumeData.education?.educations.first.degree ?? '',
@@ -153,7 +153,7 @@ Future<Uint8List> generateTemplate13(
                                         skill) ...[
                                       pw.Text(
                                         Rabbit.uni2zg(
-                                          "/",
+                                          '/',
                                         ),
                                         style: pw.TextStyle(
                                             font: regular,
@@ -216,7 +216,7 @@ Future<Uint8List> generateTemplate13(
                                         skill) ...[
                                       pw.Text(
                                         Rabbit.uni2zg(
-                                          "/",
+                                          '/',
                                         ),
                                         style: pw.TextStyle(
                                             font: regular,

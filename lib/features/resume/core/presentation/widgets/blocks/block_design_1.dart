@@ -69,7 +69,7 @@ class BlockDesign1 extends pw.StatelessWidget {
                 pw.Row(
                   children: [
                     pw.Text(
-                      DateFormat("E yyyy").format(startDate!).toUpperCase(),
+                      DateFormat('E yyyy').format(startDate!).toUpperCase(),
                       style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.normal,
                             fontStyle: pw.FontStyle.italic,
@@ -80,7 +80,7 @@ class BlockDesign1 extends pw.StatelessWidget {
                     pw.Text('-'),
                     pw.SizedBox(width: 5),
                     pw.Text(
-                      DateFormat("E yyyy").format(endDate!).toUpperCase(),
+                      DateFormat('E yyyy').format(endDate!).toUpperCase(),
                       style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.normal,
                             fontStyle: pw.FontStyle.italic,
@@ -94,7 +94,7 @@ class BlockDesign1 extends pw.StatelessWidget {
                 pw.Row(
                   children: [
                     pw.Text(
-                      DateFormat("E yyyy").format(startDate!).toUpperCase(),
+                      DateFormat('E yyyy').format(startDate!).toUpperCase(),
                       style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.normal,
                             fontStyle: pw.FontStyle.italic,
