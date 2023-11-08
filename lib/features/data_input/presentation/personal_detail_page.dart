@@ -59,7 +59,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
   final ImagePicker _picker = ImagePicker();
 
-  String _selectedDateStr = "";
+  String _selectedDateStr = '';
   DateTime? _selectedDate;
   bool _isAddGender = false;
   bool _isAddNationality = false;
@@ -117,10 +117,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
         //
         if (_selectedDateStr.isNotEmpty) {
-          _selectedDate = DateFormat("dd-MMMM-yyyy").parse(_selectedDateStr);
-          dayofDOBController.text = _selectedDateStr.split("-")[0];
-          monthofDOBController.text = _selectedDateStr.split("-")[1];
-          yearofDOBController.text = _selectedDateStr.split("-")[2];
+          _selectedDate = DateFormat('dd-MMMM-yyyy').parse(_selectedDateStr);
+          dayofDOBController.text = _selectedDateStr.split('-')[0];
+          monthofDOBController.text = _selectedDateStr.split('-')[1];
+          yearofDOBController.text = _selectedDateStr.split('-')[2];
         }
 
         // imageUrl = resumeData.profileImage ?? '';
@@ -162,7 +162,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit Personal Detail"),
+        title: const Text('Edit Personal Detail'),
       ),
       body: Container(
         margin: const EdgeInsets.all(8.0),
@@ -222,7 +222,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                                 // });
                                 File? file =
                                     await pickImageFromGallery(context);
-                                dLog("Selected Image : $file");
+                                dLog('Selected Image : $file');
                                 if (file != null) {
                                   final bytes = await file.readAsBytes();
                                   final base64Image = base64.encode(bytes);
@@ -255,42 +255,42 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "First Name",
+                    title: 'First Name',
                     controller: firstNameController,
                     validator: (v) =>
-                        requiredValidator(v, "Type your first name"),
+                        requiredValidator(v, 'Type your first name'),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Last Name",
+                    title: 'Last Name',
                     controller: lastNameController,
                     validator: (v) =>
-                        requiredValidator(v, "Type your last name"),
+                        requiredValidator(v, 'Type your last name'),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Job Title",
+                    title: 'Job Title',
                     controller: jobTitleController,
                     validator: (v) =>
-                        requiredValidator(v, "Type your job title"),
+                        requiredValidator(v, 'Type your job title'),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Email",
+                    title: 'Email',
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     // validator: (v) => requiredValidator(v, "Type your email"),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Phone no",
+                    title: 'Phone no',
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
                     // validator: (v) => requiredValidator(v, "Type your phone"),
                   ),
                   TextInputFieldWidget(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    title: "Address",
+                    title: 'Address',
                     controller: addressController,
                     // validator: (v) => requiredValidator(v, "Type your address"),
                   ),
@@ -300,7 +300,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Personal Information",
+                      'Personal Information',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -316,7 +316,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Date of Birth",
+                          'Date of Birth',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Row(
@@ -325,7 +325,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                             Expanded(
                               flex: 3,
                               child: TextInputFieldWidget(
-                                title: "",
+                                title: '',
                                 controller: dayofDOBController,
                                 onTap: () => _showDatePicker(context),
                               ),
@@ -335,7 +335,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: TextInputFieldWidget(
-                                  title: "",
+                                  title: '',
                                   controller: monthofDOBController,
                                   onTap: () => _showDatePicker(context),
                                 ),
@@ -346,7 +346,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: TextInputFieldWidget(
-                                  title: "",
+                                  title: '',
                                   controller: yearofDOBController,
                                   onTap: () => _showDatePicker(context),
                                 ),
@@ -356,10 +356,10 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                                 onPressed: () {
                                   setState(() {
                                     _selectedDate = null;
-                                    _selectedDateStr = "";
-                                    dayofDOBController.text = "";
-                                    monthofDOBController.text = "";
-                                    yearofDOBController.text = "";
+                                    _selectedDateStr = '';
+                                    dayofDOBController.text = '';
+                                    monthofDOBController.text = '';
+                                    yearofDOBController.text = '';
                                   });
                                 },
                                 icon: Icon(
@@ -377,7 +377,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Gender",
+                            title: 'Gender',
                             controller: genderController,
                             focusNode: genderFocusNode,
                           ),
@@ -404,7 +404,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Nationality",
+                            title: 'Nationality',
                             controller: nationalityController,
                             focusNode: nationalityFocusNode,
                           ),
@@ -431,7 +431,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Passport or ID",
+                            title: 'Passport or ID',
                             controller: passportController,
                             focusNode: passportFocusNode,
                           ),
@@ -458,7 +458,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Marital Status",
+                            title: 'Marital Status',
                             controller: maritalController,
                             focusNode: maritalFocusNode,
                           ),
@@ -485,7 +485,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Driving License",
+                            title: 'Driving License',
                             controller: drivingController,
                             focusNode: drivingFocusNode,
                           ),
@@ -512,7 +512,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: _selectedDate != null ? false : true,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Date of Birth",
+                            text: 'Date of Birth',
                             onTap: () => _showDatePicker(context),
                           ),
                         ),
@@ -521,7 +521,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddGender,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Gender",
+                            text: 'Gender',
                             onTap: () {
                               setState(() {
                                 _isAddGender = true;
@@ -542,7 +542,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddNationality,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Nationality",
+                            text: 'Nationality',
                             onTap: () {
                               setState(() {
                                 _isAddNationality = true;
@@ -556,7 +556,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddPassport,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Passport or ID",
+                            text: 'Passport or ID',
                             onTap: () {
                               setState(() {
                                 _isAddPassport = true;
@@ -577,7 +577,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddMarital,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Marital Status",
+                            text: 'Marital Status',
                             onTap: () {
                               setState(() {
                                 _isAddMarital = true;
@@ -591,7 +591,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddDriving,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Driving License",
+                            text: 'Driving License',
                             onTap: () {
                               setState(() {
                                 _isAddDriving = true;
@@ -609,7 +609,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Links",
+                      'Links',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -625,7 +625,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Website",
+                            title: 'Website',
                             controller: websiteController,
                             focusNode: websiteFocusNode,
                           ),
@@ -652,7 +652,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "LinkedIn",
+                            title: 'LinkedIn',
                             controller: linkInController,
                             focusNode: linkInFocusNode,
                           ),
@@ -679,7 +679,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Github",
+                            title: 'Github',
                             controller: githubController,
                             focusNode: githubFocusNode,
                           ),
@@ -706,7 +706,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                       children: [
                         Expanded(
                           child: TextInputFieldWidget(
-                            title: "Skype",
+                            title: 'Skype',
                             controller: skypeController,
                             focusNode: skypeFocusNode,
                           ),
@@ -736,7 +736,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddWebsite,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Websites",
+                            text: 'Websites',
                             onTap: () {
                               setState(() {
                                 _isAddWebsite = true;
@@ -750,7 +750,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddLinkIn,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "LinkIn",
+                            text: 'LinkIn',
                             onTap: () {
                               setState(() {
                                 _isAddLinkIn = true;
@@ -771,7 +771,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddGithub,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "GitHub",
+                            text: 'GitHub',
                             onTap: () {
                               setState(() {
                                 _isAddGithub = true;
@@ -785,7 +785,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
                         visible: !_isAddSkype,
                         child: Expanded(
                           child: AddPersonalDetailButton(
-                            text: "Skype",
+                            text: 'Skype',
                             onTap: () {
                               setState(() {
                                 _isAddSkype = true;
@@ -955,7 +955,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
       barrierLabel: '',
       dialog: AppDialogBox(
         header: Text(
-          "Select Date of Birth",
+          'Select Date of Birth',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -964,7 +964,7 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
           looping: false, // default is not looping
           firstDate: DateTime(1990, 01, 01),
           initialDate: DateTime.now(),
-          dateFormat: "dd-MMMM-yyyy",
+          dateFormat: 'dd-MMMM-yyyy',
           onChange: (DateTime newDate, _) {
             _selectedDate = newDate;
           },
@@ -992,20 +992,20 @@ class _PersonalDetailPageState extends ConsumerState<PersonalDetailPage> {
             TextButton(
               onPressed: () {
                 context.router.pop();
-                _selectedDateStr = DateFormat("dd-MMMM-yyyy")
+                _selectedDateStr = DateFormat('dd-MMMM-yyyy')
                     .format(_selectedDate ?? DateTime.now());
 
                 setState(() {
                   _selectedDate = _selectedDate ?? DateTime.now();
-                  dayofDOBController.text = _selectedDateStr.split("-")[0];
-                  monthofDOBController.text = _selectedDateStr.split("-")[1];
-                  yearofDOBController.text = _selectedDateStr.split("-")[2];
+                  dayofDOBController.text = _selectedDateStr.split('-')[0];
+                  monthofDOBController.text = _selectedDateStr.split('-')[1];
+                  yearofDOBController.text = _selectedDateStr.split('-')[2];
                 });
               },
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.error,
               ),
-              child: const Text("Confirm"),
+              child: const Text('Confirm'),
             ),
           ],
         ),

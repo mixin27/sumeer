@@ -3,28 +3,46 @@ format:
   - dart format lib .
   - dart run import_sorter:main
 
+# need firebase_tools cli
+# firestore init
+firestore:init:
+  - firebase init firestore
+# deploy firebase firestore rules
+deploy:firestore:
+  - firebase deploy --only firestore
+
 # code generation
+gen:locale:
+  - dart run easy_localization:generate -S assets/translations -O lib/l10n -o locale_keys.g.dart -f keys
+
 gen:
+  - dart run build_runner clean
   - dart run build_runner build -d
 
 watch:
+  - dart run build_runner clean
   - dart run build_runner watch -d
 
 gen:once:
   - derry gen
+  - derry gen:locale
 
 gen:watch:
   - derry watch
 
-# gen:locale:
-#   - dart run easy_localization:generate -S assets/translations -f keys -O lib/l10n -o locale_keys.g.dart
+# Delete all build_runner generated files
+delete:gen:
+  - find . -maxdepth 20 -type f \( -name "*.g.dart" -o -name "*.gr.dart" -o  -name "*.freezed.dart" -o  -name "*.gen.dart" -o  -name "*.chopper.dart" \) -delete
+
+
+run:dev:
+  - flutter run --flavor development --target lib/main_development.dart
+run:stg:
+  - flutter run --flavor staging --target lib/main_staging.dart
+run:prod:
+  - flutter run --flavor production --target lib/main_production.dart
 
 # Deployment Android
-build:apk:
-  - flutter clean
-  - flutter pub get
-  - flutter build apk --split-per-abi --target lib/main.dart
-
 build:apk:dev:
   - flutter clean
   - flutter pub get

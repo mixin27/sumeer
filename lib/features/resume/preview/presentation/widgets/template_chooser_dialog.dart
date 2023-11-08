@@ -20,7 +20,7 @@ class TemplateChooserDialog extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Text(
-            "Choose template",
+            'Choose template',
             style: Theme.of(context).textTheme.labelLarge,
           ),
         ),

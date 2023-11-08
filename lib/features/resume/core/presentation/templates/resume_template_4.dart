@@ -23,15 +23,15 @@ Future<Uint8List> generateTemplate4(
   final pageTheme = await _pageTheme(format);
   bool showPersonalDetail = resumeData.personalDetail?.personalInfo?.dateOfBirth
               .toString() !=
-          "" ||
+          '' ||
       resumeData.personalDetail?.personalInfo?.drivingLicense.toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.gender.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.identityNo.toString() != "" ||
-      resumeData.personalDetail?.personalInfo?.martialStatus.toString() != "" ||
+          '' ||
+      resumeData.personalDetail?.personalInfo?.gender.toString() != '' ||
+      resumeData.personalDetail?.personalInfo?.identityNo.toString() != '' ||
+      resumeData.personalDetail?.personalInfo?.martialStatus.toString() != '' ||
       resumeData.personalDetail?.personalInfo?.militaryService.toString() !=
-          "" ||
-      resumeData.personalDetail?.personalInfo?.nationality.toString() != "";
+          '' ||
+      resumeData.personalDetail?.personalInfo?.nationality.toString() != '';
 
   doc.addPage(
     pw.MultiPage(
@@ -141,9 +141,9 @@ Future<Uint8List> generateTemplate4(
                     if (resumeData.experience?.experiences != null) ...[
                       // if (resumeData.experience?.title != null)
                       SectionDesign4(
-                        title: resumeData.experience?.title.toString() == ""
-                            ? "Experience"
-                            : resumeData.experience?.title.toString() ?? "",
+                        title: resumeData.experience?.title.toString() == ''
+                            ? 'Experience'
+                            : resumeData.experience?.title.toString() ?? '',
                       ),
                       if (resumeData.experience!.experiences.isNotEmpty)
                         _experienceList(resumeData, context),
@@ -155,9 +155,9 @@ Future<Uint8List> generateTemplate4(
                     if (resumeData.education?.educations != null) ...[
                       // if (resumeData.education?.title != null)
                       SectionDesign4(
-                        title: resumeData.education?.title.toString() == ""
-                            ? "Education"
-                            : resumeData.education?.title.toString() ?? "",
+                        title: resumeData.education?.title.toString() == ''
+                            ? 'Education'
+                            : resumeData.education?.title.toString() ?? '',
                       ),
                       if (resumeData.education!.educations.isNotEmpty)
                         _eduationList(resumeData, context),
@@ -170,9 +170,9 @@ Future<Uint8List> generateTemplate4(
                     if (resumeData.skill?.skills != null) ...[
                       // if (resumeData.skill?.title != null)
                       SectionDesign4(
-                        title: resumeData.skill?.title.toString() == ""
-                            ? "Skill"
-                            : resumeData.skill?.title.toString() ?? "",
+                        title: resumeData.skill?.title.toString() == ''
+                            ? 'Skill'
+                            : resumeData.skill?.title.toString() ?? '',
                       ),
                       if (resumeData.skill!.skills.isNotEmpty)
                         _skillList(resumeData, context),
@@ -183,7 +183,7 @@ Future<Uint8List> generateTemplate4(
                     // Language
                     if (resumeData.languages != null) ...[
                       if (resumeData.languages?.title != null)
-                        SectionDesign4(title: "Languages"),
+                        SectionDesign4(title: 'Languages'),
                       if (resumeData.languages!.languages.isNotEmpty)
                         _languageList(resumeData, context),
                     ],
@@ -275,47 +275,47 @@ Future<Uint8List> generateTemplate4(
 pw.Wrap _personalDetail(ResumeData resumeData, pw.Context context) {
   PersonalInformation? info = resumeData.personalDetail!.personalInfo;
   bool showPersonalLink =
-      resumeData.personalDetail?.links[0].url.toString() != "" ||
-          resumeData.personalDetail?.links[1].url.toString() != "" ||
-          resumeData.personalDetail?.links[2].url.toString() != "" ||
-          resumeData.personalDetail?.links[3].url.toString() != "";
+      resumeData.personalDetail?.links[0].url.toString() != '' ||
+          resumeData.personalDetail?.links[1].url.toString() != '' ||
+          resumeData.personalDetail?.links[2].url.toString() != '' ||
+          resumeData.personalDetail?.links[3].url.toString() != '';
   return pw.Wrap(
     // crossAxisAlignment: pw.CrossAxisAlignment.start,
     children: [
-      if (info?.dateOfBirth.toString() != "")
+      if (info?.dateOfBirth.toString() != '')
         _personalDetailItem(context, 'Date Of Birth', info?.dateOfBirth),
-      if (info?.drivingLicense.toString() != "")
+      if (info?.drivingLicense.toString() != '')
         _personalDetailItem(context, 'Driving License', info?.drivingLicense),
-      if (info?.gender.toString() != "")
+      if (info?.gender.toString() != '')
         _personalDetailItem(context, 'Gender', info?.gender),
-      if (info?.identityNo.toString() != "")
+      if (info?.identityNo.toString() != '')
         _personalDetailItem(context, 'Identity No.', info?.identityNo),
-      if (info?.martialStatus.toString() != "")
+      if (info?.martialStatus.toString() != '')
         _personalDetailItem(context, 'Martial Status', info?.martialStatus),
-      if (info?.nationality.toString() != "")
+      if (info?.nationality.toString() != '')
         _personalDetailItem(context, 'Nationality', info?.nationality),
-      if (info?.militaryService.toString() != "")
+      if (info?.militaryService.toString() != '')
         _personalDetailItem(context, 'Military Service', info?.militaryService),
       if (showPersonalLink) ...[
-        if (resumeData.personalDetail!.links[0].url.toString() != "")
+        if (resumeData.personalDetail!.links[0].url.toString() != '')
           _personalDetailLinkItem(
             context,
             resumeData.personalDetail!.links[0].name,
             resumeData.personalDetail!.links[0].url,
           ),
-        if (resumeData.personalDetail!.links[1].url.toString() != "")
+        if (resumeData.personalDetail!.links[1].url.toString() != '')
           _personalDetailLinkItem(
             context,
             resumeData.personalDetail!.links[1].name,
             resumeData.personalDetail!.links[1].url,
           ),
-        if (resumeData.personalDetail!.links[2].url.toString() != "")
+        if (resumeData.personalDetail!.links[2].url.toString() != '')
           _personalDetailLinkItem(
             context,
             resumeData.personalDetail!.links[2].name,
             resumeData.personalDetail!.links[2].url,
           ),
-        if (resumeData.personalDetail!.links[3].url.toString() != "")
+        if (resumeData.personalDetail!.links[3].url.toString() != '')
           _personalDetailLinkItem(
             context,
             resumeData.personalDetail!.links[3].name,
@@ -421,7 +421,7 @@ pw.Column _experienceList(ResumeData resumeData, pw.Context context) {
                 if (resumeData.experience!.experiences[index].endDate != null ||
                     resumeData.experience!.experiences[index].isPresent) ...[
                   pw.Text(
-                    " -- ",
+                    ' -- ',
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -430,7 +430,7 @@ pw.Column _experienceList(ResumeData resumeData, pw.Context context) {
                   ),
                   pw.Text(
                     resumeData.experience!.experiences[index].isPresent
-                        ? "Present"
+                        ? 'Present'
                         : resumeData.experience!.experiences[index].endDate
                             .toString()
                             .substring(0, 10),
@@ -470,7 +470,7 @@ pw.Column _experienceList(ResumeData resumeData, pw.Context context) {
                   ),
                 if (resumeData.experience!.experiences[index].city != null) ...[
                   pw.Text(
-                    ", ",
+                    ', ',
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -551,7 +551,7 @@ pw.Column _eduationList(ResumeData resumeData, pw.Context context) {
                 if (resumeData.education!.educations[index].endDate != null ||
                     resumeData.education!.educations[index].isPresent) ...[
                   pw.Text(
-                    " -- ",
+                    ' -- ',
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -560,7 +560,7 @@ pw.Column _eduationList(ResumeData resumeData, pw.Context context) {
                   ),
                   pw.Text(
                     resumeData.education!.educations[index].isPresent
-                        ? "Present"
+                        ? 'Present'
                         : resumeData.education!.educations[index].endDate
                             .toString()
                             .substring(0, 10),
@@ -599,7 +599,7 @@ pw.Column _eduationList(ResumeData resumeData, pw.Context context) {
                   ),
                 if (resumeData.education!.educations[index].city != null) ...[
                   pw.Text(
-                    ", ",
+                    ', ',
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -669,10 +669,10 @@ pw.Column _skillList(ResumeData resumeData, pw.Context context) {
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
                 pw.Text(
-                  "Level : ${getSkillLevel(
+                  'Level : ${getSkillLevel(
                     resumeData.skill!.skills[index].level ??
                         SkillLevelEnum.novice,
-                  )}",
+                  )}',
                   textScaleFactor: 2,
                   textAlign: pw.TextAlign.justify,
                   style: pw.Theme.of(context)
@@ -681,7 +681,7 @@ pw.Column _skillList(ResumeData resumeData, pw.Context context) {
                 ),
                 if (resumeData.skill!.skills[index].percentage != null)
                   pw.Text(
-                    "${(resumeData.skill!.skills[index].percentage! * 100).toStringAsFixed(0)} %",
+                    '${(resumeData.skill!.skills[index].percentage! * 100).toStringAsFixed(0)} %',
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.left,
                     style: pw.Theme.of(context)
@@ -691,9 +691,9 @@ pw.Column _skillList(ResumeData resumeData, pw.Context context) {
               ],
             ),
             if (resumeData.skill!.skills[index].information != null &&
-                resumeData.skill!.skills[index].information != "")
+                resumeData.skill!.skills[index].information != '')
               pw.Text(
-                "Information : ${resumeData.skill!.skills[index].information!}",
+                'Information : ${resumeData.skill!.skills[index].information!}',
                 textScaleFactor: 2,
                 textAlign: pw.TextAlign.justify,
                 style:
@@ -753,7 +753,7 @@ pw.Column _languageList(ResumeData resumeData, pw.Context context) {
                   ),
                   if (resumeData.languages!.languages[index].percentage != null)
                     pw.Text(
-                      "${resumeData.languages!.languages[index].percentage!.toStringAsFixed(0)} %",
+                      '${resumeData.languages!.languages[index].percentage!.toStringAsFixed(0)} %',
                       textScaleFactor: 2,
                       textAlign: pw.TextAlign.left,
                       style: pw.Theme.of(context)
@@ -762,9 +762,9 @@ pw.Column _languageList(ResumeData resumeData, pw.Context context) {
                     ),
                 ]),
             if (resumeData.languages!.languages[index].description != null &&
-                resumeData.languages!.languages[index].description != "")
+                resumeData.languages!.languages[index].description != '')
               pw.Text(
-                "Description : ${resumeData.languages!.languages[index].description!}",
+                'Description : ${resumeData.languages!.languages[index].description!}',
                 textScaleFactor: 2,
                 textAlign: pw.TextAlign.justify,
                 style:
@@ -842,7 +842,7 @@ pw.Column _certificateList(ResumeData resumeData, pw.Context context) {
                         null ||
                     resumeData.certificate!.certificates[index].isPresent) ...[
                   pw.Text(
-                    " -- ",
+                    ' -- ',
                     textScaleFactor: 2,
                     textAlign: pw.TextAlign.justify,
                     style: pw.Theme.of(context)
@@ -851,7 +851,7 @@ pw.Column _certificateList(ResumeData resumeData, pw.Context context) {
                   ),
                   pw.Text(
                     resumeData.certificate!.certificates[index].isPresent
-                        ? "Present"
+                        ? 'Present'
                         : resumeData.certificate!.certificates[index].endDate
                             .toString()
                             .substring(0, 10),
@@ -874,7 +874,7 @@ pw.Column _certificateList(ResumeData resumeData, pw.Context context) {
             // ),
             if (resumeData.certificate!.certificates[index].description != null)
               pw.Text(
-                "Description : ${resumeData.certificate!.certificates[index].description!}",
+                'Description : ${resumeData.certificate!.certificates[index].description!}',
                 textScaleFactor: 2,
                 textAlign: pw.TextAlign.justify,
                 style:

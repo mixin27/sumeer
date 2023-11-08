@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sumeer/features/data_input/presentation/widget/add_certificate_form.dart';
 import 'package:sumeer/features/data_input/presentation/widget/add_language_form.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/education_card.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/experience_card.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/language_card.dart';
 import 'package:sumeer/features/data_input/presentation/widget/expanable/profile_card.dart';
+import 'package:sumeer/features/features.dart';
 import '../../feat_data_input.dart';
+import 'expanable/certificate_card.dart';
 
 class EditFormWidget extends ConsumerStatefulWidget {
   const EditFormWidget({super.key});
@@ -48,6 +51,12 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
                 showLanguageForm(context);
               },
             ),
+            CertificateCard(
+              onTap: () {
+                ref.read(skillLevelProvider.notifier).state = null;
+                showCertificateForm(context);
+              },
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -78,7 +87,7 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Add More Content",
+                              'Add More Content',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -240,6 +249,16 @@ class _EditFormWidgetState extends ConsumerState<EditFormWidget> {
         context: context,
         builder: (cxt) {
           return const AddLanguageForm(null, null);
+        });
+  }
+
+  showCertificateForm(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        builder: (cxt) {
+          return const AddCertificateForm(null, null);
         });
   }
 

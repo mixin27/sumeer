@@ -141,7 +141,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                         size: 40,
                                         color: Colors.white,
                                       ),
-                                      Text("Resume",
+                                      Text('Resume',
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium
@@ -178,7 +178,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                         color: Colors.white,
                                       ),
                                       Text(
-                                        "Cv Form",
+                                        'Cv Form',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium

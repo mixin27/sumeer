@@ -37,7 +37,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Resume"),
+        title: const Text('Resume'),
         // leading: const AutoLeadingButton(),
         leading: Consumer(
           builder: (context, ref, child) {
@@ -57,7 +57,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
         actions: [
           Button1(
-            text: "View",
+            text: 'View',
             onPressed: () async {
               dLog(ref.watch(resumeModelIdProvider));
               // var uid =

@@ -51,10 +51,10 @@ class BlockDesign6 extends pw.StatelessWidget {
                   .defaultTextStyle
                   .copyWith(fontWeight: pw.FontWeight.bold),
             ),
-            pw.Text("-", style: pw.Theme.of(context).defaultTextStyle),
+            pw.Text('-', style: pw.Theme.of(context).defaultTextStyle),
             pw.Flexible(
               child: pw.Text(
-                school ?? "",
+                school ?? '',
                 style: pw.Theme.of(context).defaultTextStyle,
               ),
             ),

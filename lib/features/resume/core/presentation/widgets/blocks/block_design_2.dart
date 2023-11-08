@@ -48,7 +48,7 @@ class BlockDesign2 extends pw.StatelessWidget {
             ),
             pw.Flexible(
               child: pw.Text(
-                "$title - $employeer, $city",
+                '$title - $employeer, $city',
                 style: pw.Theme.of(context)
                     .defaultTextStyle
                     .copyWith(fontWeight: pw.FontWeight.bold),
@@ -73,7 +73,7 @@ class BlockDesign2 extends pw.StatelessWidget {
                 pw.Row(
                   children: [
                     pw.Text(
-                      DateFormat("MMM yyyy").format(startDate!).toUpperCase(),
+                      DateFormat('MMM yyyy').format(startDate!).toUpperCase(),
                       style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.normal,
                             fontStyle: pw.FontStyle.italic,
@@ -84,7 +84,7 @@ class BlockDesign2 extends pw.StatelessWidget {
                     pw.Text('-'),
                     pw.SizedBox(width: 5),
                     pw.Text(
-                      DateFormat("MMM yyyy").format(endDate!).toUpperCase(),
+                      DateFormat('MMM yyyy').format(endDate!).toUpperCase(),
                       style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.normal,
                             fontStyle: pw.FontStyle.italic,
@@ -97,7 +97,7 @@ class BlockDesign2 extends pw.StatelessWidget {
                 pw.Row(
                   children: [
                     pw.Text(
-                      DateFormat("MMM yyyy").format(startDate!).toUpperCase(),
+                      DateFormat('MMM yyyy').format(startDate!).toUpperCase(),
                       style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.normal,
                             fontStyle: pw.FontStyle.italic,

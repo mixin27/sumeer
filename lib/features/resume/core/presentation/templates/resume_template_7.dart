@@ -84,7 +84,7 @@ Future<Uint8List> generateTemplate7(
                             // ),
                           ),
                           pw.Text(
-                            "${resumeData.personalDetail?.address}",
+                            '${resumeData.personalDetail?.address}',
                             // style: pw.TextStyle(
                             //   fontWeight: pw.FontWeight.bold,
                             //   fontSize: 16,
@@ -97,7 +97,7 @@ Future<Uint8List> generateTemplate7(
                               resumeData.personalDetail!.personalInfo!
                                   .dateOfBirth!.isNotEmpty) ...[
                             pw.Text(
-                              "Date of Birth",
+                              'Date of Birth',
                               style: pw.TextStyle(
                                 fontWeight: pw.FontWeight.bold,
                                 fontSize: 16,
@@ -152,7 +152,7 @@ Future<Uint8List> generateTemplate7(
                               crossAxisAlignment: pw.CrossAxisAlignment.stretch,
                               children: [
                                 pw.Text(
-                                  resumeData.profile?.title ?? "Profile",
+                                  resumeData.profile?.title ?? 'Profile',
                                   style: pw.TextStyle(
                                     fontWeight: pw.FontWeight.bold,
                                     fontSize: 20,
@@ -247,7 +247,7 @@ Future<Uint8List> generateTemplate7(
                                         ],
                                         pw.SizedBox(height: 5),
                                         pw.Text(
-                                          exp.description ?? "",
+                                          exp.description ?? '',
                                           style: const pw.TextStyle(
                                             fontSize: 12,
                                           ),
@@ -310,7 +310,7 @@ Future<Uint8List> generateTemplate7(
                                         ],
                                         pw.SizedBox(height: 5),
                                         pw.Text(
-                                          edu.description ?? "",
+                                          edu.description ?? '',
                                           style: const pw.TextStyle(
                                             fontSize: 12,
                                           ),
@@ -347,7 +347,7 @@ Future<Uint8List> generateTemplate7(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
                                 pw.Text(
-                                  "Links",
+                                  'Links',
                                   style: pw.TextStyle(
                                     fontSize: 20,
                                     fontWeight: pw.FontWeight.bold,
@@ -407,7 +407,7 @@ Future<Uint8List> generateTemplate7(
                               children: [
                                 pw.Text(
                                   resumeData.skill!.title.isEmptyOrNull
-                                      ? "Skills"
+                                      ? 'Skills'
                                       : resumeData.skill!.title,
                                   style: pw.TextStyle(
                                     fontSize: 20,
@@ -438,7 +438,7 @@ Future<Uint8List> generateTemplate7(
                                             ),
                                             pw.SizedBox(width: 10),
                                             pw.Text(
-                                              "${getSkillLevelIndex(skill.level ?? SkillLevelEnum.novice)} / 5",
+                                              '${getSkillLevelIndex(skill.level ?? SkillLevelEnum.novice)} / 5',
                                               style: pw.TextStyle(
                                                 fontWeight: pw.FontWeight.bold,
                                               ),
@@ -470,7 +470,7 @@ Future<Uint8List> generateTemplate7(
                               children: [
                                 pw.Text(
                                   resumeData.languages!.title.isEmptyOrNull
-                                      ? "Languages"
+                                      ? 'Languages'
                                       : resumeData.languages!.title,
                                   style: pw.TextStyle(
                                     fontSize: 20,
@@ -507,7 +507,7 @@ Future<Uint8List> generateTemplate7(
                                               lang.level != null
                                                   ? getLanguageLevel(
                                                       lang.level!)
-                                                  : "",
+                                                  : '',
                                               style: pw.TextStyle(
                                                 fontWeight: pw.FontWeight.bold,
                                               ),
@@ -539,7 +539,7 @@ Future<Uint8List> generateTemplate7(
                               children: [
                                 pw.Text(
                                   resumeData.interest!.title.isEmptyOrNull
-                                      ? "Hobbies"
+                                      ? 'Hobbies'
                                       : resumeData.interest!.title,
                                   style: pw.TextStyle(
                                     fontSize: 20,

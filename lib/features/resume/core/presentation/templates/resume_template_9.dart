@@ -101,7 +101,7 @@ Future<Uint8List> generateTemplate9(
                         color: PdfColors.grey100,
                         padding: const pw.EdgeInsets.all(20),
                         child: pw.Text(
-                          resumeData.profile?.contents[0] ?? "",
+                          resumeData.profile?.contents[0] ?? '',
                           style: pw.Theme.of(context).defaultTextStyle,
                         ),
                       )
@@ -118,7 +118,7 @@ Future<Uint8List> generateTemplate9(
                       padding: const pw.EdgeInsets.only(left: 8),
                       color: PdfColors.black,
                       child: pw.Text(
-                        resumeData.personalDetail?.fullName ?? "",
+                        resumeData.personalDetail?.fullName ?? '',
                         textScaleFactor: 2,
                         style: pw.Theme.of(context).defaultTextStyle.copyWith(
                             fontWeight: pw.FontWeight.bold,
@@ -130,7 +130,7 @@ Future<Uint8List> generateTemplate9(
               child: pw.Padding(
                 padding: const pw.EdgeInsets.only(left: 8),
                 child: pw.Text(
-                  resumeData.personalDetail?.fullName ?? "",
+                  resumeData.personalDetail?.fullName ?? '',
                   textScaleFactor: 2,
                   style: pw.Theme.of(context).defaultTextStyle.copyWith(
                       fontWeight: pw.FontWeight.bold, color: PdfColors.white),
@@ -150,15 +150,15 @@ Future<Uint8List> generateTemplate9(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.SizedBox(height: 20),
-                          buildContact1(context, "Phone :",
-                              resumeData.personalDetail?.phone ?? ""),
-                          buildContact1(context, "Email :",
-                              resumeData.personalDetail?.email ?? ""),
-                          buildContact1(context, "Address :",
-                              resumeData.personalDetail?.address ?? ""),
+                          buildContact1(context, 'Phone :',
+                              resumeData.personalDetail?.phone ?? ''),
+                          buildContact1(context, 'Email :',
+                              resumeData.personalDetail?.email ?? ''),
+                          buildContact1(context, 'Address :',
+                              resumeData.personalDetail?.address ?? ''),
                           if (resumeData.skill != null) ...[
                             pw.Text(
-                              "Skill Heilights",
+                              'Skill Heilights',
                               textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
@@ -204,7 +204,7 @@ Future<Uint8List> generateTemplate9(
                           if (resumeData.languages != null) ...[
                             pw.SizedBox(height: 20),
                             pw.Text(
-                              "Languages",
+                              'Languages',
                               textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle
@@ -231,7 +231,7 @@ Future<Uint8List> generateTemplate9(
                                   pw.Padding(
                                     padding: const pw.EdgeInsets.only(left: 5),
                                     child: pw.Text(
-                                      language.title ?? "",
+                                      language.title ?? '',
                                       style: pw.Theme.of(context)
                                           .defaultTextStyle
                                           .copyWith(
@@ -261,7 +261,7 @@ Future<Uint8List> generateTemplate9(
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,
                         child: pw.Text(
-                          "Experience",
+                          'Experience',
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,
@@ -280,7 +280,7 @@ Future<Uint8List> generateTemplate9(
                             return BlockDesign4(
                               employeer: experience.employer != null
                                   ? experience.employer?.name
-                                  : "",
+                                  : '',
                               title: experience.jobTitle,
                               city: experience.city,
                               country: experience.country,
@@ -298,7 +298,7 @@ Future<Uint8List> generateTemplate9(
                       pw.Align(
                         alignment: pw.Alignment.centerLeft,
                         child: pw.Text(
-                          resumeData.education?.title ?? "",
+                          resumeData.education?.title ?? '',
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,

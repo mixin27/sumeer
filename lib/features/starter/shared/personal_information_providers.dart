@@ -18,20 +18,20 @@ final personalInformationProvider = StateProvider<PersonalInformation?>((ref) {
 });
 
 final firstNameProvider = StateProvider<String>((ref) {
-  return "";
+  return '';
 });
 final lastNameProvider = StateProvider<String>((ref) {
-  return "";
+  return '';
 });
 final jobTitleProvider = StateProvider<String>((ref) {
-  return "";
+  return '';
 });
 final emailProvider = StateProvider<String>((ref) {
-  return "";
+  return '';
 });
 final phoneNumberProvider = StateProvider<String>((ref) {
-  return "";
+  return '';
 });
 final addressProvider = StateProvider<String>((ref) {
-  return "";
+  return '';
 });

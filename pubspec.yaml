@@ -70,6 +70,7 @@ dependencies:
   image: ^4.0.17
   carousel_slider: ^4.2.1
   store_redirect: ^2.0.1
+  flutter_logs: ^2.1.11
 
 dev_dependencies:
   flutter_test:

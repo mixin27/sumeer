@@ -30,7 +30,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
     LanguageLevelEnum.highlyProficient,
     LanguageLevelEnum.native,
   ];
-  String percentage = "";
+  String percentage = '';
   // List<String> skillList = [
   //   'Novice',
   //   'Beginner',
@@ -46,18 +46,18 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
 
   void getPercentage(String level) {
     switch (level) {
-      case "Beginner":
-        percentage = "0.1";
-      case "Elementary":
-        percentage = "0.2";
-      case "Limited working":
-        percentage = "0.5";
-      case "Highly proficient":
-        percentage = "0.8";
-      case "Native":
-        percentage = "1.0";
+      case 'Beginner':
+        percentage = '0.1';
+      case 'Elementary':
+        percentage = '0.2';
+      case 'Limited working':
+        percentage = '0.5';
+      case 'Highly proficient':
+        percentage = '0.8';
+      case 'Native':
+        percentage = '1.0';
       default:
-        percentage = "0";
+        percentage = '0';
     }
   }
 
@@ -101,7 +101,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Add language",
+                'Add language',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -120,11 +120,11 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                   children: [
                     TextInputFieldWidget(
                       controller: languageController,
-                      title: "Language",
+                      title: 'Language',
                     ),
                     TextInputFieldWidget(
                       controller: descriptionController,
-                      title: "Description",
+                      title: 'Description',
                     ),
                     // TextInputFieldWidget(
                     //   readOnly: true,
@@ -159,7 +159,7 @@ class _AddLanguageFormState extends ConsumerState<AddLanguageForm> {
                     //   ),
                     // ),
                     Text(
-                      "Select language level",
+                      'Select language level',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 18,
                           ),

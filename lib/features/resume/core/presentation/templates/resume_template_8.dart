@@ -101,7 +101,7 @@ Future<Uint8List> generateTemplate8(
                     ),
                     pw.Row(children: [
                       pw.Text(
-                        resumeData.personalDetail?.phone ?? "",
+                        resumeData.personalDetail?.phone ?? '',
                         textAlign: pw.TextAlign.center,
                         style: pw.Theme.of(context).defaultTextStyle.copyWith(
                               fontWeight: pw.FontWeight.bold,
@@ -109,7 +109,7 @@ Future<Uint8List> generateTemplate8(
                       ),
                       pw.SizedBox(width: 40),
                       pw.Text(
-                        resumeData.personalDetail?.email ?? "",
+                        resumeData.personalDetail?.email ?? '',
                         style: pw.Theme.of(context).defaultTextStyle.copyWith(
                               fontWeight: pw.FontWeight.bold,
                             ),
@@ -123,7 +123,7 @@ Future<Uint8List> generateTemplate8(
           pw.Container(
             margin: const pw.EdgeInsets.all(20),
             child: pw.Text(
-              resumeData.profile?.contents[0] ?? "",
+              resumeData.profile?.contents[0] ?? '',
               style: pw.Theme.of(context).defaultTextStyle.copyWith(
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -150,7 +150,7 @@ Future<Uint8List> generateTemplate8(
                         pw.Align(
                           alignment: pw.Alignment.centerLeft,
                           child: pw.Text(
-                            "Experience",
+                            'Experience',
                             textScaleFactor: 1.5,
                             style:
                                 pw.Theme.of(context).defaultTextStyle.copyWith(
@@ -170,7 +170,7 @@ Future<Uint8List> generateTemplate8(
                               return BlockDesign4(
                                 employeer: experience.employer != null
                                     ? experience.employer?.name
-                                    : "",
+                                    : '',
                                 title: experience.jobTitle,
                                 city: experience.city,
                                 country: experience.country,
@@ -196,7 +196,7 @@ Future<Uint8List> generateTemplate8(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
-                          "Skill Heilights",
+                          'Skill Heilights',
                           textScaleFactor: 1.5,
                           style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                 fontWeight: pw.FontWeight.bold,
@@ -235,7 +235,7 @@ Future<Uint8List> generateTemplate8(
                         if (resumeData.languages != null) ...[
                           pw.SizedBox(height: 20),
                           pw.Text(
-                            "Languages",
+                            'Languages',
                             textScaleFactor: 1.5,
                             style:
                                 pw.Theme.of(context).defaultTextStyle.copyWith(
@@ -261,7 +261,7 @@ Future<Uint8List> generateTemplate8(
                                 pw.Padding(
                                   padding: const pw.EdgeInsets.only(left: 5),
                                   child: pw.Text(
-                                    language.title ?? "",
+                                    language.title ?? '',
                                     style: pw.Theme.of(context)
                                         .defaultTextStyle
                                         .copyWith(
@@ -278,7 +278,7 @@ Future<Uint8List> generateTemplate8(
                           pw.Align(
                             alignment: pw.Alignment.centerLeft,
                             child: pw.Text(
-                              "Education",
+                              'Education',
                               textScaleFactor: 1.5,
                               style: pw.Theme.of(context)
                                   .defaultTextStyle

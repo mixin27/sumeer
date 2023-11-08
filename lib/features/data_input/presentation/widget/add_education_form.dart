@@ -25,9 +25,9 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
   final cityController = TextEditingController();
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
-  String selectedStartDateStr = "";
+  String selectedStartDateStr = '';
   DateTime? selectedStartDate;
-  String selectedEndDateStr = "";
+  String selectedEndDateStr = '';
   DateTime? selectedEndDate;
   bool isChecked = false;
   bool isChecked1 = false;
@@ -48,14 +48,14 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
 
         if (widget.education?.startDate != null) {
           selectedStartDate = widget.education?.startDate;
-          selectedStartDateStr = DateFormat("MMMM-yyyy")
+          selectedStartDateStr = DateFormat('MMMM-yyyy')
               .format(selectedStartDate ?? DateTime.now());
           startDateController.text = selectedStartDateStr;
         }
         if (widget.education?.endDate != null) {
           selectedEndDate = widget.education?.endDate;
           selectedEndDateStr =
-              DateFormat("MMMM-yyyy").format(selectedEndDate ?? DateTime.now());
+              DateFormat('MMMM-yyyy').format(selectedEndDate ?? DateTime.now());
           endDateController.text = selectedEndDateStr;
         }
       }
@@ -79,7 +79,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Add Education",
+                  'Add Education',
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
@@ -99,19 +99,19 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                       children: [
                         TextInputFieldWidget(
                           controller: schoolController,
-                          title: "School",
+                          title: 'School',
                         ),
                         TextInputFieldWidget(
                           controller: degreeController,
-                          title: "Degree",
+                          title: 'Degree',
                         ),
                         TextInputFieldWidget(
                           controller: cityController,
-                          title: "City",
+                          title: 'City',
                         ),
                         TextInputFieldWidget(
                           controller: startDateController,
-                          title: "Start Date",
+                          title: 'Start Date',
                           readOnly: true,
                           suffixIcon: Icon(
                             Icons.calendar_month,
@@ -122,7 +122,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
                         ),
                         TextInputFieldWidget(
                           controller: endDateController,
-                          title: "End Date",
+                          title: 'End Date',
                           readOnly: true,
                           suffixIcon: Icon(
                             Icons.calendar_month,
@@ -223,7 +223,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
       barrierLabel: '',
       dialog: AppDialogBox(
         header: Text(
-          "Select Date of Birth",
+          'Select Date of Birth',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -233,7 +233,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
           firstDate: DateTime(1990, 01),
           // lastDate: DateTime(2030, 1, 1),
           initialDate: DateTime.now(),
-          dateFormat: "MMMM-yyyy",
+          dateFormat: 'MMMM-yyyy',
           onChange: (DateTime newDate, _) {
             setState(() {
               selectedEndDate = newDate;
@@ -263,7 +263,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
             TextButton(
               onPressed: () {
                 context.router.pop();
-                selectedEndDateStr = DateFormat("MMMM-yyyy")
+                selectedEndDateStr = DateFormat('MMMM-yyyy')
                     .format(selectedEndDate ?? DateTime.now());
                 endDateController.text = selectedEndDateStr;
                 selectedEndDate = selectedEndDate ?? DateTime.now();
@@ -271,7 +271,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.error,
               ),
-              child: const Text("Confirm"),
+              child: const Text('Confirm'),
             ),
           ],
         ),
@@ -286,7 +286,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
       barrierLabel: '',
       dialog: AppDialogBox(
         header: Text(
-          "Select Date of Birth",
+          'Select Date of Birth',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -296,7 +296,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
           firstDate: DateTime(1990, 01),
           // lastDate: DateTime(2030, 1, 1),
           initialDate: DateTime.now(),
-          dateFormat: "MMMM-yyyy",
+          dateFormat: 'MMMM-yyyy',
           onChange: (DateTime newDate, _) {
             setState(() {
               selectedStartDate = newDate;
@@ -326,7 +326,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
             TextButton(
               onPressed: () {
                 context.router.pop();
-                selectedStartDateStr = DateFormat("MMMM-yyyy")
+                selectedStartDateStr = DateFormat('MMMM-yyyy')
                     .format(selectedStartDate ?? DateTime.now());
                 startDateController.text = selectedStartDateStr;
                 selectedStartDate = selectedStartDate ?? (DateTime.now());
@@ -334,7 +334,7 @@ class _AddEducationFormState extends ConsumerState<AddEducationForm> {
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.error,
               ),
-              child: const Text("Confirm"),
+              child: const Text('Confirm'),
             ),
           ],
         ),

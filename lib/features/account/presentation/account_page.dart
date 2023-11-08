@@ -22,7 +22,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Settings",
+          'Settings',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
               // color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
               fontWeight: FontWeight.bold),
@@ -78,7 +78,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                 size: 50,
                               ),
                               const Text(
-                                "My Account",
+                                'My Account',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16,
@@ -97,53 +97,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               },
             ),
             const SizedBox(height: 10),
-            // Divider(height: 1, color: Colors.grey[300]),
-            // const SizedBox(height: 20),
-            // const Text(
-            //   "Settings",
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // const SizedBox(height: 20),
-            // const Row(
-            //   children: [
-            //     Icon(
-            //       Icons.language,
-            //       color: Colors.blueAccent,
-            //     ),
-            //     SizedBox(width: 6),
-            //     Expanded(
-            //         child: Text(
-            //       "Language",
-            //       style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            //     )),
-            //     Text("English"),
-            //     SizedBox(width: 4),
-            //     Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-            //   ],
-            // ),
-            // const SizedBox(height: 10),
-            // Row(
-            //   children: [
-            //     const Icon(
-            //       Icons.dark_mode,
-            //       color: Colors.blueAccent,
-            //     ),
-            //     const SizedBox(width: 6),
-            //     const Expanded(
-            //         child: Text(
-            //       "Dark Theme",
-            //       style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            //     )),
-            //     Switch(value: false, onChanged: (val) {}),
-            //   ],
-            // ),
             const SizedBox(height: 8),
             Divider(height: 1, color: Colors.grey[300]),
             const SizedBox(height: 22),
             const Text(
-              "Term and Privacy",
+              'Term and Privacy',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -162,7 +120,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   SizedBox(width: 6),
                   Expanded(
                       child: Text(
-                    "Privacy Policy",
+                    'Privacy Policy',
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                   )),
                   Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
@@ -173,7 +131,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             Divider(height: 1, color: Colors.grey[300]),
             const SizedBox(height: 22),
             const Text(
-              "Contact",
+              'Contact',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -187,19 +145,19 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 ),
                 SizedBox(width: 6),
                 Expanded(
-                    child: Text(
-                  "Rate Our App",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                )),
+                  child: Text(
+                    'Rate Our App',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                  ),
+                ),
                 Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
               ],
             ),
             const SizedBox(height: 22),
             InkWell(
               onTap: () async {
-                // https://www.jobclick.com.mm/home
                 try {
-                  final uri = Uri.tryParse('https://www.jobclick.com.mm/home');
+                  final uri = Uri.tryParse('https://github.com/mixin27/sumeer');
                   if (uri == null) return;
 
                   await launchUrl(
@@ -213,13 +171,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               child: const Row(
                 children: [
                   Icon(
-                    Icons.language_outlined,
+                    Icons.launch_outlined,
                     color: Colors.blueAccent,
                   ),
                   SizedBox(width: 6),
                   Expanded(
                       child: Text(
-                    "Our Website",
+                    'Github',
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                   )),
                   Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
@@ -230,7 +188,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             Divider(height: 1, color: Colors.grey[300]),
             const SizedBox(height: 20),
             const Text(
-              "App Version",
+              'App Version',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -245,56 +203,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 SizedBox(width: 6),
                 Expanded(
                     child: Text(
-                  "Version",
+                  'Version',
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                 )),
                 Text(
-                  "1.0",
+                  '1.0',
                   style: TextStyle(fontSize: 16),
                 ),
               ],
             ),
-            // const SizedBox(height: 14),
-            // InkWell(
-            //   onTap: () async {
-            //     String imageString =
-            //         "/data/user/0/com.systematic.sumeer/cache/18e2ca39-7a74-4f6d-8603-8b84678c318d/images.jpg";
-            //     if (imageString.isEmpty) {
-            //       return;
-            //     }
-            //     var base64EnImage =
-            //         base64Encode(File(imageString).readAsBytesSync());
 
-            //     // setState(() {
-
-            //     // });
-            //     await ref
-            //         .read(cloudFirestoreProvider)
-            //         .collection("sumeer")
-            //         .doc('uid5611036161')
-            //         .collection("user")
-            //         .doc('fasdfjklad;as')
-            //         .set({"base64": base64EnImage});
-            //   },
-            //   child: const Row(
-            //     children: [
-            //       Icon(
-            //         Icons.pages_outlined,
-            //         color: Colors.blueAccent,
-            //       ),
-            //       SizedBox(width: 6),
-            //       Expanded(
-            //           child: Text(
-            //         "Base64",
-            //         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            //       )),
-            //       Text(
-            //         "Upload",
-            //         style: TextStyle(fontSize: 16),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             const SizedBox(height: 14),
             Consumer(
               builder: (context, ref, child) {
@@ -322,7 +240,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                   SizedBox(width: 6),
                                   Expanded(
                                       child: Text(
-                                    "Sign Out",
+                                    'Sign Out',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,

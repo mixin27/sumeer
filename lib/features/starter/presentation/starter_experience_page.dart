@@ -66,7 +66,7 @@ class StarterExperiencePage extends HookConsumerWidget {
                                     )
                                   : null,
                             );
-                            tLog("StarterResumeData => $starterResumeData");
+                            tLog('StarterResumeData => $starterResumeData');
                             ref
                                 .read(starterResumeDataProvider.notifier)
                                 .update((state) => starterResumeData);
@@ -79,7 +79,7 @@ class StarterExperiencePage extends HookConsumerWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                "Your work history showcases your accomplishments. Add your previous job roles, starting with the most recent.",
+                'Your work history showcases your accomplishments. Add your previous job roles, starting with the most recent.',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 40),
@@ -129,11 +129,11 @@ class StarterExperiencePage extends HookConsumerWidget {
                           final description = ref.watch(expDescriptionProvider);
                           final isPresent = ref.watch(expIsPresentProvider);
 
-                          final employer = Employer(name: employerName ?? "");
+                          final employer = Employer(name: employerName ?? '');
 
                           final experience = Experience(
                             employer: employer,
-                            jobTitle: jobTitle ?? "",
+                            jobTitle: jobTitle ?? '',
                             city: city,
                             country: country,
                             description: description,
@@ -175,7 +175,7 @@ class StarterExperiencePage extends HookConsumerWidget {
                   (index) {
                     final experience = experiences[index];
                     return ListTile(
-                      title: Text(experience.employer?.name ?? ""),
+                      title: Text(experience.employer?.name ?? ''),
                       subtitle: Text(experience.jobTitle),
                       trailing: IconButton(
                         onPressed: () {
@@ -235,7 +235,7 @@ class StarterExperiencePage extends HookConsumerWidget {
                                     )
                                   : null,
                             );
-                            tLog("StarterResumeData => $starterResumeData");
+                            tLog('StarterResumeData => $starterResumeData');
                             ref
                                 .read(starterResumeDataProvider.notifier)
                                 .update((state) => starterResumeData);
@@ -247,7 +247,7 @@ class StarterExperiencePage extends HookConsumerWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                     ),
-                    child: const Text("Complete"),
+                    child: const Text('Complete'),
                   ),
                 ],
               ),

@@ -39,7 +39,7 @@ class BlockDesign4 extends pw.StatelessWidget {
             mainAxisAlignment: pw.MainAxisAlignment.end,
             children: [
               pw.Text(
-                DateFormat("MM/yyyy").format(startDate!).toUpperCase(),
+                DateFormat('MM/yyyy').format(startDate!).toUpperCase(),
                 style: pw.Theme.of(context).defaultTextStyle.copyWith(
                       fontWeight: pw.FontWeight.bold,
                     ),
@@ -48,7 +48,7 @@ class BlockDesign4 extends pw.StatelessWidget {
               pw.Text('to'),
               pw.SizedBox(width: 5),
               pw.Text(
-                DateFormat("MM/yyyy").format(endDate!).toUpperCase(),
+                DateFormat('MM/yyyy').format(endDate!).toUpperCase(),
                 style: pw.Theme.of(context)
                     .defaultTextStyle
                     .copyWith(fontWeight: pw.FontWeight.bold),
@@ -61,7 +61,7 @@ class BlockDesign4 extends pw.StatelessWidget {
             mainAxisAlignment: pw.MainAxisAlignment.end,
             children: [
               pw.Text(
-                DateFormat("MM/yyyy").format(startDate!).toUpperCase(),
+                DateFormat('MM/yyyy').format(startDate!).toUpperCase(),
                 style: pw.Theme.of(context)
                     .defaultTextStyle
                     .copyWith(fontWeight: pw.FontWeight.bold),
@@ -89,20 +89,20 @@ class BlockDesign4 extends pw.StatelessWidget {
                           .copyWith(fontWeight: pw.FontWeight.bold),
                     ),
                     pw.Text(
-                      "$employeer, $city",
+                      '$employeer, $city',
                       style: pw.Theme.of(context)
                           .defaultTextStyle
                           .copyWith(fontWeight: pw.FontWeight.bold),
                     ),
                   ])
             : pw.Text(
-                "$title - $employeer, $city",
+                '$title - $employeer, $city',
                 style: pw.Theme.of(context)
                     .defaultTextStyle
                     .copyWith(fontWeight: pw.FontWeight.bold),
               ),
         pw.Text(
-          description ?? "",
+          description ?? '',
         ),
       ],
     );

@@ -32,7 +32,7 @@ class _EducationFormState extends ConsumerState<EducationForm> {
         lastDate: DateTime.now(),
       );
       if (dt != null) {
-        _startDateController.text = DateFormat("MMM, yyyy").format(dt);
+        _startDateController.text = DateFormat('MMM, yyyy').format(dt);
         ref.read(eduStartDateProvider.notifier).update((state) => dt);
       }
     }
@@ -45,7 +45,7 @@ class _EducationFormState extends ConsumerState<EducationForm> {
         lastDate: DateTime.now(),
       );
       if (dt != null) {
-        _endDateController.text = DateFormat("MMM, yyyy").format(dt);
+        _endDateController.text = DateFormat('MMM, yyyy').format(dt);
         ref.read(eduEndDateProvider.notifier).update((state) => dt);
       }
     }
@@ -189,7 +189,7 @@ class _EducationFormState extends ConsumerState<EducationForm> {
           CheckboxListTile.adaptive(
             value: isPresent,
             contentPadding: EdgeInsets.zero,
-            title: const Text("Present"),
+            title: const Text('Present'),
             controlAffinity: ListTileControlAffinity.leading,
             onChanged: (value) => ref
                 .read(eduIsPresentProvider.notifier)
