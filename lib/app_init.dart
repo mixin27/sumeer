@@ -11,6 +11,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sumeer/shared/shared.dart';
 import 'package:sumeer/widgets/widgets.dart';
 
+import 'firebase_options.dart';
+
 class AppInit {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();

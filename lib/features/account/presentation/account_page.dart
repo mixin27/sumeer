@@ -254,47 +254,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 ),
               ],
             ),
-            // const SizedBox(height: 14),
-            // InkWell(
-            //   onTap: () async {
-            //     String imageString =
-            //         "/data/user/0/com.systematic.sumeer/cache/18e2ca39-7a74-4f6d-8603-8b84678c318d/images.jpg";
-            //     if (imageString.isEmpty) {
-            //       return;
-            //     }
-            //     var base64EnImage =
-            //         base64Encode(File(imageString).readAsBytesSync());
 
-            //     // setState(() {
-
-            //     // });
-            //     await ref
-            //         .read(cloudFirestoreProvider)
-            //         .collection("sumeer")
-            //         .doc('uid5611036161')
-            //         .collection("user")
-            //         .doc('fasdfjklad;as')
-            //         .set({"base64": base64EnImage});
-            //   },
-            //   child: const Row(
-            //     children: [
-            //       Icon(
-            //         Icons.pages_outlined,
-            //         color: Colors.blueAccent,
-            //       ),
-            //       SizedBox(width: 6),
-            //       Expanded(
-            //           child: Text(
-            //         "Base64",
-            //         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            //       )),
-            //       Text(
-            //         "Upload",
-            //         style: TextStyle(fontSize: 16),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             const SizedBox(height: 14),
             Consumer(
               builder: (context, ref, child) {

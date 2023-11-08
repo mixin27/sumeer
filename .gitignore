@@ -51,3 +51,20 @@ app.*.map.json
 .env.production
 .env.staging
 .env.development
+
+# Firebase local emulator exports
+firebase-exports
+
+# Ignore test coverage data
+coverage/lcov.info
+
+# Firebase CLI config
+.firebaserc
+
+# Firebase
+lib/firebase_options.dart
+ios/Runner/GoogleService-Info.plist
+ios/firebase_app_id_file.json
+macos/Runner/GoogleService-Info.plist
+macos/firebase_app_id_file.json
+android/app/google-services.json

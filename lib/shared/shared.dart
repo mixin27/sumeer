@@ -1,4 +1,3 @@
-export 'config/firebase/firebase_options.dart';
 export 'config/routes/app_router.dart';
 export 'config/routes/app_router.gr.dart';
 export 'config/routes/app_router_observer.dart';
